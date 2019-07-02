@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_centerVertical="true" >
+
+            <TextView
+                android:id="@+id/child"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="25dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/delete"
+            android:layout_margin="10dp"
+            android:layout_height="35dp">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/child_del"
+                app:srcCompat="@drawable/delete_gray"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="25dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/delete"
+            android:layout_height="35dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/add_child"
+                app:srcCompat="@drawable/add_gray"/>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

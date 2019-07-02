@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+
+android:id="@+id/cart_layout_frame"
+tools:context=".Request_Activity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:orientation="vertical"
+    android:id="@+id/cart_frame">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/cart_toolbar"
+        android:layout_height="match_parent"
+        app:titleTextColor="@color/Titel"
+        android:theme="@style/Toolbar_Arrow"
+        android:textAlignment="center"
+        app:titleTextAppearance="@color/Titel"
+        android:background="@color/Toolbar">
+    </android.support.v7.widget.Toolbar>
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/cart_frame"
+    android:id="@+id/cartl"
+    android:layout_above="@+id/btn_lay"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:id="@+id/request_recycler">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cart_emppty"
+        android:gravity="fill"
+        android:layout_marginTop="80dp">
+    </ImageView>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:text="Shop Now"
+        android:visibility="gone"
+        android:id="@+id/shop_nowbtn"
+        android:textColor="@color/white"
+        android:background="@drawable/butn_design2"
+
+        />
+
+
+</LinearLayout>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+
+
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress"
+        android:visibility="gone"/>
+</RelativeLayout>
+
+
+
+<!-- <LinearLayout
+     android:layout_alignParentBottom="true"
+     android:id="@+id/page_buttons"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center_horizontal"
+     android:orientation="horizontal">
+
+     <Button
+         android:id="@+id/clear_bag"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:background="@color/Toolbar"
+         android:text="Clear Bag"
+         android:textColor="@color/white"/>
+     <Button
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/check_out_btn"
+         android:layout_weight="1"
+         android:text="check out"
+         android:textColor="#fff"
+         android:background="@color/Toolbar"/>
+ </LinearLayout>
+-->
+<FrameLayout
+    android:id="@+id/contaner"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true">
+
+</FrameLayout>
+</RelativeLayout>
+

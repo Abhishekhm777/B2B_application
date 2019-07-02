@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:id="@+id/parent_layout"
+android:focusableInTouchMode="true"
+android:orientation="vertical"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+tools:context=".Fragments.Add_new_Category">
+
+
+<ScrollView
+    android:id="@+id/scrollber"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    android:layout_below="@+id/tool_bar"
+    android:layout_above="@+id/done_btn">
+
+
+    <LinearLayout
+        android:id="@+id/id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/catamaran"
+            android:textColor="@color/skyBlue"
+            android:gravity="center"
+            android:text="Category Path"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cat_path"
+            android:textColor="@color/black"
+            android:fontFamily="@font/catamaran"
+            android:text="Category Path"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/whish"
+            android:layout_marginBottom="15dp"
+            android:layout_height="1dp"/>
+        <!--   <LinearLayout
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+              android:layout_margin="10dp"
+               android:focusable="true"
+               android:background="@drawable/pricebreak_background"
+               android:focusableInTouchMode="true"
+               android:orientation="horizontal"
+               android:layout_weight="1">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Product Name"
+                    android:layout_weight="1"/>
+
+
+                   <EditText
+                       android:id="@+id/pincode"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_margin="3dp"
+                       android:fontFamily="@font/catamaran"
+                       android:gravity="center"
+                       android:background="@null"
+                       android:inputType="text"
+                       android:maxLines="1"
+                       android:scrollHorizontally="true"
+                       android:singleLine="true"
+                       android:textColor="#000"
+                       android:textSize="16sp" />
+
+           </LinearLayout>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="Category Name *"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/name"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="text"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical"
+            android:fillViewport="true"
+            android:id="@+id/expand_layout"
+            android:layout_below="@id/relative1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/catamaran"
+                android:text=" Specifications"/>
+
+            <ExpandableListView
+                android:layout_width="match_parent"
+                android:id="@+id/expandable_list"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true"
+                android:childDivider="@color/whish"
+                android:animateLayoutChanges="true"
+                android:fillViewport="true"
+                android:groupIndicator="@null"
+                android:indicatorStart="?android:attr/listPreferredItemPaddingStart"
+                android:dividerHeight="1dp">
+            </ExpandableListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/buttons"
+            android:visibility="visible"
+            android:layout_margin="15dp"
+            android:layout_marginTop="15dp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:id="@+id/add_specification"
+                android:background="@drawable/round_corners"
+                android:textColor="@color/white"
+                android:layout_margin="4dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:fontFamily="@font/catamaran"
+                android:text="Add Specification"/>
+
+           <!-- <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:animateLayoutChanges="true"
+                android:id="@+id/stone_layout">
+
+
+
+            </LinearLayout>-->
+            <!--<Button
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/add_stone"
+                android:background="@drawable/round_corners"
+                android:layout_alignParentRight="true"
+                android:layout_margin="4dp"
+                android:fontFamily="@font/catamaran"
+                android:textColor="@color/white"
+                android:text="Add Stone Details"/>-->
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:id="@+id/submit_button"
+                android:background="@drawable/round_corners"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:fontFamily="@font/catamaran"
+                android:textColor="@color/white"
+                android:text="Submit"/>
+
+            <ProgressBar
+                android:id="@+id/prgLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                style="@android:style/Widget.ProgressBar.Small.Inverse"
+                android:layout_gravity="center"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+</LinearLayout>

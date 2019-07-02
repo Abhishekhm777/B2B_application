@@ -1,0 +1,253 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+android:layout_above="@+id/menu"
+ android:background="@color/white"
+    android:layout_marginBottom="1dp"
+    android:fontFamily="@font/catamaran"
+    android:layout_marginTop="1dp"
+    android:overScrollMode="always"
+    android:textSize="13dip"
+    android:fillViewport="true"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:fontFamily="@font/catamaran"
+    android:layout_height="wrap_content"
+    android:textSize="13dip"
+    android:orientation="vertical">
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/whish_d"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:fontFamily="@font/catamaran"
+        android:textSize="13dip"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_marginLeft="12dp"
+            android:layout_height="28dp"
+            android:padding="5dp"
+            android:src="@drawable/heart_view_icon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:fontFamily="@font/catamaran"
+            android:textAllCaps="true"
+
+            android:textSize="13dip"
+            android:textColor="@color/black"
+            android:text="My wishlist"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/whish">
+
+    </View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:id="@+id/order_his_d"
+        android:fontFamily="@font/catamaran"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_marginLeft="12dp"
+            android:layout_height="28dp"
+            android:padding="5dp"
+            android:src="@drawable/orders_view_icon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:fontFamily="@font/catamaran"
+            android:textSize="13dip"
+            android:textAllCaps="true"
+
+            android:textColor="@color/black"
+            android:text="My Orders"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/whish"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:id="@+id/myaccount_d"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_marginLeft="12dp"
+            android:layout_height="28dp"
+            android:padding="5dp"
+            android:src="@drawable/myaccount_view"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+
+            android:textSize="13dip"
+            android:fontFamily="@font/catamaran"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:text="My Account"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/whish"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:id="@+id/seller_d"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_marginLeft="12dp"
+            android:layout_height="28dp"
+            android:padding="5dp"
+            android:src="@drawable/seller_view"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:fontFamily="@font/catamaran"
+            android:textSize="13dip"
+            android:textAllCaps="true"
+
+            android:textColor="@color/black"
+            android:text="Seller View"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/whish"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:id="@+id/custom_order"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_marginLeft="12dp"
+            android:layout_height="28dp"
+            android:padding="5dp"
+            android:src="@drawable/custom_order"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:fontFamily="@font/catamaran"
+
+            android:textSize="13dip"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:text="Custom Order"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/whish"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:id="@+id/home"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_marginLeft="12dp"
+            android:layout_height="28dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_home_black_24dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:fontFamily="@font/catamaran"
+
+            android:textSize="13dip"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:text="Home"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/whish"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:id="@+id/logout_d"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_marginLeft="12dp"
+            android:layout_height="28dp"
+            android:padding="5dp"
+            android:src="@drawable/sign_out_view"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:fontFamily="@font/catamaran"
+            android:textSize="13dip"
+
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:text="Log out"/>
+    </LinearLayout>
+
+
+</LinearLayout>
+</ScrollView>
+
+

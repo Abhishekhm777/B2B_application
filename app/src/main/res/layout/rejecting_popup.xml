@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:layout_marginHorizontal="10dp"
+    android:gravity="center"
+    android:elevation="10dp"
+    >
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/pricebreak_background"
+        android:hint="Reason for rejecting the order"
+        android:textAlignment="center"
+        android:padding="8dp"
+        android:fontFamily="@font/catamaran"
+        android:layout_margin="8dp"/>
+
+
+    <TextView
+        android:id="@+id/popup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/black"
+        android:padding="12dp"
+        android:text="Do you want to Reject this order ?"
+        android:layout_marginTop="11dp"
+        android:gravity="center_horizontal|top"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/black"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:id="@+id/reject"
+            android:fontFamily="@font/catamaran"
+            android:textColor="@color/black"
+            android:text="Reject"
+            android:layout_marginLeft="@dimen/slide_title"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="11dp"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/black"
+            android:text="Cancel"
+            android:fontFamily="@font/catamaran"
+            android:layout_marginRight="@dimen/slide_title"
+            android:id="@+id/cancell"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="11dp"
+
+            />
+
+    </RelativeLayout>
+</LinearLayout>
+
+
+

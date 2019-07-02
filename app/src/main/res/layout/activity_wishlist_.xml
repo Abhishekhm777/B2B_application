@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+
+android:id="@+id/cart_layout_frame"
+tools:context=".Wishlist_Activity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:orientation="vertical"
+    android:id="@+id/cart_frame">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/whishlist_toolbar"
+        android:layout_height="match_parent"
+        app:titleTextColor="@color/Titel"
+        android:theme="@style/Toolbar_Arrow"
+        android:textAlignment="center"
+        app:titleTextAppearance="@color/Titel"
+        android:background="@color/Toolbar">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@color/Titel"
+            android:id="@+id/zoom"
+            android:fontFamily="@font/catamaran"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textAllCaps="true"
+            android:text="WishList"
+
+            />
+    </android.support.v7.widget.Toolbar>
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/cart_frame"
+    android:id="@+id/whish"
+
+    android:layout_above="@+id/btn_lay"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:id="@+id/whishlist_recycler">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+
+
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/wish_empty"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp">
+    </ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No items yet!"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="12dp"
+        android:id="@+id/empty_wish_text"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Simply browse and tap on the heart icon."
+        android:textColor="@color/colorBottomNavigationInactive"
+        android:layout_marginTop="8dp"
+        android:id="@+id/empty_wish_text1"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+    <Button
+        android:layout_width="180dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:text="Continue Shopping"
+        android:visibility="gone"
+        android:layout_marginTop="25dp"
+        android:id="@+id/wish_empty_btn"
+        android:textColor="@color/white"
+        android:background="@drawable/butn_design2"
+
+        />
+
+</LinearLayout>
+
+</RelativeLayout>
+

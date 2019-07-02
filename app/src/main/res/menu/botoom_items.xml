@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:icon="@drawable/newfilter"
+        android:title="Filter"
+        android:id="@+id/filter"
+        app:showAsAction="always" />
+    <item
+        android:icon="@drawable/sort_black"
+        android:title="Sort"
+        android:id="@+id/sort"
+        app:showAsAction="always" />
+
+    <item
+        android:icon="@drawable/premiumbadge"
+        android:title="Premium Products"
+        android:id="@+id/premium"
+        app:showAsAction="always" />
+
+</menu>

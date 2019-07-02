@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "786240436353",
+    "firebase_url": "https://ordofy-a4ebf.firebaseio.com",
+    "project_id": "ordofy-a4ebf",
+    "storage_bucket": "ordofy-a4ebf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786240436353:android:e079709cde96a03d",
+        "android_client_info": {
+          "package_name": "com.example.compaq.b2b_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786240436353-es48jbsh3jl08b71is53eb38l3mm2mu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvHg4SXbFI_B5k3Fub8SMkKuiDq0gStus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786240436353-es48jbsh3jl08b71is53eb38l3mm2mu7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

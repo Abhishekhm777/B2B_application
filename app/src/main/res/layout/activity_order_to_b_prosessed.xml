@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Seller_Order_History">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:focusableInTouchMode="true"
+        android:elevation="10dp"
+        android:focusedByDefault="false"
+        style="@style/Theme.AppCompat.NoActionBar"
+        android:layout_height="wrap_content"
+      >
+
+        <android.support.v7.widget.Toolbar
+        android:id="@+id/cart_toolbar"
+
+        android:layout_width="match_parent"
+            android:elevation="10dp"
+            app:titleTextColor="@color/white"
+            android:background="@color/Toolbar"
+            android:theme="@style/Toolbar_Arrow"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+        />
+
+        <android.support.v7.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:elevation="5dp"
+            android:background="@drawable/background_design"
+            android:id="@+id/sellers_search"
+            android:focusable="false"
+            app:iconifiedByDefault="false"
+            android:layout_margin="10dp"
+            android:animateLayoutChanges="true"
+            android:focusableInTouchMode="true"
+            app:defaultQueryHint="Search for Order">
+
+        </android.support.v7.widget.SearchView>
+        <View  android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/whish"
+           />
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/cart_frame"
+                android:id="@+id/frame_layout">
+
+            </FrameLayout>
+        </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

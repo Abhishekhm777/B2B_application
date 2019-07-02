@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_header"
+    android:layout_width="match_parent"
+    android:layout_height="88dp"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:layout_gravity="top"
+    android:layout_marginBottom="1dp"
+    android:padding="5dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/header_image"
+        android:layout_width="50dp"
+        android:layout_gravity="center"
+        android:src="@drawable/user"
+        android:layout_centerInParent="true"
+        android:layout_height="50dp"
+
+        />
+
+    <TextView
+        android:id="@+id/header_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/catamaran"
+        android:textColor="@color/Toolbar"
+        android:layout_marginLeft="10dp"
+        android:text="User Name"
+        android:textSize="14sp" />
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/card">
+  &lt;!&ndash;  android:background="@drawable/main_header_selection">&ndash;&gt;
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_marginTop="5dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/header_image"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_account_box_black_24dp" />
+    </RelativeLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/header_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"
+        android:paddingLeft="1dp"
+        android:textAlignment="center"
+        android:textColor="@color/Toolbar"
+        android:textSize="20dp" />
+
+</LinearLayout>
+    &lt;!&ndash;<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        >
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="88dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Logout" />
+    </RelativeLayout>&ndash;&gt;
+
+</LinearLayout>-->

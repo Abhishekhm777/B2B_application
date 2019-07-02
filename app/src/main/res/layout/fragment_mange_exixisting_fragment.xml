@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+
+    tools:context=".Fragments.Mange_exixisting_fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+<ProgressBar
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/progress"
+    android:layout_centerVertical="true"
+    android:visibility="gone"
+    android:layout_centerHorizontal="true"/>
+
+    <ExpandableListView
+        android:id="@+id/navList"
+        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:background="@color/white"
+        android:isScrollContainer="false"
+        android:animateLayoutChanges="true"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:groupIndicator="@null"
+        android:divider="@color/whish"
+        android:dividerHeight="1dp"
+        android:headerDividersEnabled="true"
+
+        ></ExpandableListView>
+
+
+</RelativeLayout>

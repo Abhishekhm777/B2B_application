@@ -1,0 +1,288 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.Personal_info_fragment">
+
+
+   <!-- <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/profile_toolbar"
+        android:layout_height="45dp"
+        app:titleTextColor="@color/Titel"
+        android:textAlignment="center"
+        app:titleTextAppearance="@color/Titel"
+        android:background="@color/Toolbar">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@color/Titel"
+            android:id="@+id/zoom"
+            android:textColor="@color/mrk"
+            android:textSize="20dp"
+            android:text="More"
+            android:gravity="center"
+
+            />
+    </android.support.v7.widget.Toolbar>
+-->
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+
+
+        <LinearLayout
+            android:id="@+id/relativeLayout"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 android:layout_weight="2"
+                android:padding="10dp">
+
+                <android.support.v7.widget.CardView
+
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+
+                    app:cardCornerRadius="5dp"
+                    android:background="@drawable/pricebreak_background"
+                    app:cardElevation="3dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:weightSum="2"
+                    android:background="@drawable/pricebreak_background"
+                    android:orientation="horizontal">
+
+
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_height="28dp"
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/myaccount_view"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginRight="5dp"
+                        android:id="@+id/myaccount_d"
+                        android:gravity="center"
+                        android:fontFamily="@font/catamaran"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        android:text="My Address"/>
+                </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+
+
+                <android.support.v7.widget.CardView
+
+                    android:layout_width="140dp"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="#e6e6e5"
+                    android:layout_alignParentRight="true"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="3dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:background="@drawable/pricebreak_background"
+                        android:orientation="horizontal">
+
+
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_height="28dp"
+                            android:padding="5dp"
+
+                            android:layout_gravity="center"
+                            app:srcCompat="@drawable/orders_view_icon"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:fontFamily="@font/catamaran"
+                            android:textSize="15dp"
+
+                            android:layout_marginRight="5dp"
+                            android:id="@+id/order_his_d"
+                            android:textColor="@color/black"
+                            android:text="My Orders"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/RelativeLayout01"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="10dp">
+
+                <android.support.v7.widget.CardView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    app:cardBackgroundColor="#e6e6e5"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="3dp">
+
+
+                    <LinearLayout
+                        android:layout_width="140dp"
+                        android:id="@+id/menu"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:background="@drawable/pricebreak_background"
+                        android:orientation="horizontal">
+
+
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_height="28dp"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            app:srcCompat="@drawable/heart_view_icon"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginRight="5dp"
+                            android:textSize="15dp"
+                            android:gravity="center"
+                            android:fontFamily="@font/catamaran"
+                            android:id="@+id/whish_d"
+                            android:textColor="@color/black"
+                            android:text="My wishlist"/>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardview_name"
+                    android:layout_width="140dp"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="#e6e6e5"
+                    android:layout_alignParentRight="true"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:background="@drawable/pricebreak_background"
+                        android:orientation="horizontal">
+
+
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_height="28dp"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/seller"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:textSize="15dp"
+                            android:layout_marginRight="5dp"
+                            android:gravity="center"
+                            android:fontFamily="@font/catamaran"
+                            android:id="@+id/seller"
+                            android:textColor="@color/black"
+                            android:text="Seller View"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </RelativeLayout>
+            <RelativeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="10dp">
+
+                <android.support.v7.widget.CardView
+
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    app:cardBackgroundColor="#e6e6e5"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="5dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:background="@drawable/pricebreak_background"
+                        android:orientation="horizontal">
+
+
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_marginLeft="12dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center"
+                            android:padding="5dp"
+                            app:srcCompat="@drawable/sign_out_view"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:textSize="15dp"
+                            android:gravity="center"
+                            android:id="@+id/logout_d"
+                            android:fontFamily="@font/catamaran"
+                            android:textColor="@color/black"
+                            android:text="Log out"/>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

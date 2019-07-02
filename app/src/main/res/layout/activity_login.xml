@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_activitylayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+<!--
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:background="@color/Toolbar"
+        android:textAlignment="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="ORDOFY"
+            android:textColor="@color/mrk"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tool_bar"
+            app:layout_constraintTop_toTopOf="@+id/tool_bar"
+            app:titleTextColor="@color/Titel" />
+    </android.support.v7.widget.Toolbar>
+-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+
+        android:id="@+id/Constraint1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/Constraint2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="135dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="8.0dip"
+            android:layout_marginEnd="8.0dip"
+            android:src="@drawable/ordoo_new_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+    </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/Constraint2"
+        android:layout_width="fill_parent"
+        android:layout_height="165dp"
+        android:gravity="center"
+       android:focusedByDefault="false"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/Constraint1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Constraint1">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/txtInLayoutUsername"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/txtInLayoutPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtUsername"
+                android:layout_width="match_parent"
+                android:descendantFocusability="afterDescendants"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/catamaran"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_account_box_black_24dp"
+                android:drawableLeft="@drawable/avatar"
+                android:hint="Email/Mob No."
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/txtInLayoutPassword"
+            android:layout_width="0dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/catamaran"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8.0dip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtInLayoutUsername"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/text">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/catamaran"
+                android:drawableStart="@drawable/ic_lock_outline_black_24dp"
+                android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
+                android:hint="Password"
+
+                android:inputType="textPassword" />
+
+
+        </android.support.design.widget.TextInputLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <LinearLayout
+        android:id="@+id/Constraint3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+
+       >
+
+        <CheckBox
+            android:id="@+id/rememberMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:fontFamily="@font/catamaran"
+            android:text="RememberMe"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        >
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="241dp"
+            android:layout_height="36dp"
+           android:layout_gravity="center"
+            android:layout_marginTop="8.0dp"
+            android:fontFamily="@font/catamaran"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8.0dip"
+            android:background="@drawable/loginpage_button"
+            android:text="Login"
+            android:textStyle="bold"
+           android:textAllCaps="true"
+            android:textColor="@color/text" />
+        <TextView
+            android:id="@+id/forgot_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/catamaran"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:text="Forgot password?"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/signuptext"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/catamaran"
+            android:clickable="true"
+            android:onClick="Sign_up_Activity"
+            android:text="Don't have an account? SIGNUP"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+    </LinearLayout>
+    </LinearLayout>
+</ScrollView>

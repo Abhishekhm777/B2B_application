@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="Toolbar">#232c60</color>
+    <color name="Text">#303F9F</color>
+    <color name="text">#1575E5</color>
+    <color name="TextBar">#c17c2d</color>
+    <color name="Titel">#ffffff</color>
+    <color name="Icon">#ffffff</color>
+    <color name="view">#df9b67</color>
+    <color name="card">#FCF8F8</color>
+    <color name="new_colour">#FEAA14</color>
+    <color name="mrk">#cb9945</color>
+    <color name="whish">#FDE4E2E2</color>
+    <color name="skyBlue">#FF2E6FAA</color>
+
+
+    <color name="colorPrimary">#373F6E</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#77042B</color>
+    <color name="white">#ffffffff</color>
+    <color name="black">#000000</color>
+    <color name="yellow">#fff5f504</color>
+    <color name="red">#B71C1C</color>
+    <color name="graph">#F18177</color>
+
+    <color name="black_overlay">#66000000</color>
+</resources>

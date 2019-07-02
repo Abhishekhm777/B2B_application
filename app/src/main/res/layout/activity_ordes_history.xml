@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".Ordes_history">
+<android.support.v7.widget.Toolbar
+    android:id="@+id/orderhistory_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/colorPrimary" />
+<RelativeLayout
+    android:id="@+id/orderRelative"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/btn_layout"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <ExpandableListView
+        android:id="@+id/order_expand"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:indicatorStart="?android:attr/listPreferredItemPaddingStart"
+        ></ExpandableListView>
+</RelativeLayout>
+
+</LinearLayout>

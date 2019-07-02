@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="10dp"
+    android:gravity="center"
+
+    android:elevation="10dp"
+    >
+    <TextView
+        android:id="@+id/popup"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        android:textColor="@color/whish"
+        android:text="PREMIUM PRODUCTS"
+        android:layout_marginTop="11dp"
+        android:gravity="center_horizontal|top"
+        />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#DFAF35"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:text="TO VIEW PREMIUM PRODUCTS YOU NEED TO GET OTP FROM THE WHOLESALER"
+        android:layout_marginTop="11dp"
+        android:gravity="center_horizontal|top"
+        />
+    <!--#999999-->
+    <!-- <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:orientation="vertical"
+         android:weightSum="4">
+
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="horizontal"
+             android:layout_weight="2">
+
+             <TextView
+                 android:layout_height="40dp"
+                 android:layout_width="match_parent"
+
+                 android:textSize="12sp"
+                 android:textColor="#BDBDBD"
+                 android:layout_marginRight="4dp"
+                 android:layout_weight="1"
+                 android:gravity="center_vertical|right"
+                 />
+             <TextView
+                 android:id="@+id/rate1"
+                 android:layout_height="40dp"
+                 android:layout_width="match_parent"
+                 android:textSize="12sp"
+                 android:layout_weight="1"
+                 android:layout_marginLeft="4dp"
+                 android:textColor="#DFAF35"
+                 android:gravity="center_vertical|left"
+                 />
+         </LinearLayout>
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="horizontal"
+             android:layout_weight="2">
+             <TextView
+                 android:layout_height="40dp"
+                 android:layout_width="match_parent"
+                 android:textSize="12sp"
+
+                 android:textColor="#BDBDBD"
+                 android:layout_marginRight="4dp"
+                 android:fontFamily=""
+                 android:layout_weight="1"
+                 android:gravity="center_vertical|right"
+                 />
+             <TextView
+                 android:id="@+id/rate2"
+                 android:layout_height="40dp"
+                 android:layout_width="match_parent"
+                 android:textSize="12dp"
+                 android:layout_marginLeft="4dp"
+                 android:layout_weight="1"
+                 android:textColor="#DFAF35"
+                 android:gravity="center_vertical|left"
+                 />
+         </LinearLayout>-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:orientation="horizontal"
+        >
+
+        <EditText
+            android:id="@+id/otpET1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/otpET2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/otpET3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/otpET4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/otpET5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/otpET6"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:inputType="number"
+            android:gravity="center"
+            android:maxLength="1"
+            android:textSize="20sp"/>
+    </LinearLayout>
+</LinearLayout>
+
+
+

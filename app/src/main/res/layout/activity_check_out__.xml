@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+tools:context=".Check_out__Activity">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:orientation="vertical"
+    android:id="@+id/cart_frame">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/check_out_toolbar"
+        android:layout_height="match_parent"
+        app:titleTextColor="@color/Titel"
+        android:theme="@style/Toolbar_Arrow"
+        android:textAlignment="center"
+        app:titleTextAppearance="@color/Titel"
+        android:background="@color/Toolbar">
+    </android.support.v7.widget.Toolbar>
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/cartl"
+    android:layout_above="@+id/btn_lay"
+    android:background="#E8E8E8"
+    android:layout_below="@+id/cart_frame"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        android:id="@+id/checkout_recycler">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_above="@id/btn_lay"
+        >
+
+
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress"
+            android:visibility="gone"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_lay"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:id="@+id/place_orderbttn"
+            android:text="Place Order"
+            android:textColor="#fff"
+
+            android:background="@color/Toolbar"/>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

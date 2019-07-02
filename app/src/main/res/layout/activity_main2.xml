@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/main2"
+    android:focusableInTouchMode="true"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Main2Activity">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/cart_frame">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/new_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/Toolbar"
+            android:textAlignment="center"
+            android:elevation="5dp"
+            android:theme="@style/Toolbar_Arrow"
+            app:titleTextAppearance="@color/Titel"
+            app:titleTextColor="@color/Titel">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/layout"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="125dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/mrk_gold_logo"
+
+                    />
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.Toolbar>
+    </LinearLayout>
+
+        <!--<ImageView
+            android:id="@+id/toolbar_title"
+            android:layout_width="396dp"
+            android:layout_height="43dp"
+            android:layout_gravity="center"
+            android:src="@drawable/main_logo"
+            android:text="Toolbar Title" />-->
+
+
+
+           <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:id="@+id/page_buttons"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+               android:elevation="4dp"
+               android:defaultFocusHighlightEnabled="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+
+              >
+
+                <Button
+                    android:id="@+id/buynow"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:elevation="4dp"
+                    android:fontFamily="@font/catamaran"
+                    android:background="@color/mrk"
+                    android:text="Order Now" />
+
+               <Button
+                   android:id="@+id/addtocart"
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:elevation="4dp"
+                   android:background="@color/Toolbar"
+                   android:fontFamily="@font/catamaran"
+                   android:text="Add To BAG"
+                   android:textColor="@color/white"/>
+
+                    </LinearLayout>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frame"
+    android:layout_below="@+id/cart_frame"
+    android:layout_above="@id/page_buttons">
+                <ScrollView
+                android:id="@+id/scroll"
+                    android:fitsSystemWindows="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                >
+
+                <LinearLayout
+                    android:id="@+id/navfrag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <android.support.v4.widget.NestedScrollView
+                        android:id="@+id/scrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/linearLayout1"
+                        android:layout_marginVertical="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="300dp"
+                                android:layout_marginBottom="10dp">
+
+
+                                <android.support.v4.view.ViewPager
+                                    android:id="@+id/viewpager2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentStart="true"
+                                    android:paddingLeft="5dp"
+                                    android:paddingRight="5dp"></android.support.v4.view.ViewPager>
+
+                                <ToggleButton
+                                    android:id="@+id/button_favorite"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_alignParentRight="true"
+                                    android:padding="5dp"
+                                    android:layout_marginRight="12dp"
+                                    android:background="@drawable/button_favorite"
+                                    android:checked="false"
+                                    android:text=""
+                                    android:textOff=""
+                                    android:textOn="" />
+                                <android.support.design.widget.TabLayout
+                                    android:id="@+id/dot_tablayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="8dp"
+                                    android:layout_alignBottom="@+id/viewpager2"
+                                    android:layout_marginBottom="2dp"
+                                    app:tabBackground="@drawable/tab_selector"
+                                    app:tabGravity="center"
+                                    app:tabIndicatorHeight="0dp" />
+
+
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:id="@+id/img"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/price_layout"
+                                android:layout_marginHorizontal="3dp"
+                                android:orientation="horizontal"
+                                android:padding="3dp"
+                                android:layout_margin="8dp"
+                                android:layout_weight="2"
+                                android:weightSum="6">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:src="@drawable/biss" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:src="@drawable/handcrafted" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="2"
+                                    android:src="@drawable/make" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tabl">
+
+
+
+
+                                    <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/main2recycler"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    android:orientation="vertical">
+
+                                </android.support.v7.widget.RecyclerView>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </android.support.v4.widget.NestedScrollView>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+
+</RelativeLayout>
+
+</RelativeLayout>
+

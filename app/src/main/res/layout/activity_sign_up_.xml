@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/signUptool"
+        android:layout_height="45dp"
+        app:titleTextColor="@color/Titel"
+        android:theme="@style/Toolbar_Arrow"
+        android:textAlignment="center"
+        app:titleTextAppearance="@color/Titel"
+        android:background="@color/Toolbar">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@color/Titel"
+            android:id="@+id/signUptitle"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+    </android.support.v7.widget.Toolbar>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabSelectedTextColor="@color/view"
+        android:background="@color/card"
+
+        >
+
+    </android.support.design.widget.TabLayout>
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:id="@+id/viewpager"
+        tools:layout_editor_absoluteX="8dp"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

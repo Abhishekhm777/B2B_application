@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:clickable="false"
+    android:orientation="vertical"
+    android:focusable="false"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+       android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp">
+
+
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:fontFamily="@font/catamaran"
+            android:gravity="center"
+            android:background="@drawable/pricebreak_background"
+            android:inputType="text"
+            android:maxLines="1"
+            android:id="@+id/key"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:fontFamily="@font/catamaran"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/value"
+            android:background="@drawable/pricebreak_background"                android:inputType="text"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/delete_child"
+            app:srcCompat="@drawable/delete_gray"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+      android:layout_marginLeft="20dp">
+
+
+
+        <CheckBox
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:fontFamily="@font/catamaran"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text=" Varient"
+            android:id="@+id/varient"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:fontFamily="@font/catamaran"
+            android:layout_weight="1"
+            android:id="@+id/filter"
+            android:text=" Filter"
+            android:inputType="text"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+    <!-- <RelativeLayout
+         android:layout_width="match_parent"
+         android:background="@color/whish"
+         android:layout_height="wrap_content">
+         <RelativeLayout
+             android:layout_width="250dp"
+             android:layout_height="wrap_content"
+             android:layout_margin="10dp"
+             android:focusable="true"
+             android:focusableInTouchMode="true"
+             android:orientation="horizontal">
+
+          <LinearLayout
+              android:layout_width="100dp"
+              android:background="@drawable/pricebreak_background"
+              android:layout_height="wrap_content">
+
+             <EditText
+                 android:id="@+id/key"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="3dp"
+                 android:fontFamily="@font/catamaran"
+                 android:gravity="center"
+                 android:background="@null"
+                 android:inputType="text"
+                 android:maxLines="1"
+                 android:scrollHorizontally="true"
+                 android:singleLine="true"
+                 android:textColor="#000"
+                 android:textSize="16sp" />
+          </LinearLayout>
+
+             <LinearLayout
+                 android:layout_width="100dp"
+                 android:background="@drawable/pricebreak_background"
+                android:layout_alignParentRight="true"
+                 android:layout_height="wrap_content">
+
+                 <EditText
+                     android:id="@+id/value"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="end"
+                     android:layout_margin="3dp"
+                     android:layout_marginStart="3dp"
+                     android:layout_marginTop="3dp"
+                     android:layout_marginEnd="3dp"
+                     android:layout_marginBottom="3dp"
+                     android:background="@null"
+                     android:fontFamily="@font/catamaran"
+                     android:gravity="center"
+                     android:inputType="text"
+                     android:maxLines="1"
+                     android:scrollHorizontally="true"
+                     android:singleLine="true"
+                     android:textColor="#000"
+                     android:textSize="16sp" />
+             </LinearLayout>
+         </RelativeLayout>
+
+         <LinearLayout
+             android:layout_width="25dp"
+             android:layout_alignParentRight="true"
+             android:layout_margin="10dp"
+             android:id="@+id/image"
+             android:layout_height="35dp">
+
+             <ImageView
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:id="@+id/delete_child"
+                 app:srcCompat="@drawable/delete_gray"/>
+         </LinearLayout>
+     </RelativeLayout>-->
+</LinearLayout>

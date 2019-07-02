@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+
+android:id="@+id/cart_layout_frame"
+tools:context=".Address_Activivty">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:orientation="vertical"
+    android:id="@+id/cart_frame">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/address_toolbar"
+        android:layout_height="match_parent"
+        android:translationZ="8dp"
+        app:titleTextColor="@color/Titel"
+        android:theme="@style/Toolbar_Arrow"
+        android:elevation="10dp"
+        android:textAlignment="center"
+        app:titleTextAppearance="@color/Titel"
+        android:background="@color/Toolbar">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@color/Titel"
+            android:id="@+id/zoom"
+            android:fontFamily="@font/catamaran"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textAllCaps="true"
+            android:text="MY ADDRESS"
+
+            />
+    </android.support.v7.widget.Toolbar>
+</LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cart_frame"
+        android:id="@+id/frame_layout">
+
+    </FrameLayout>
+
+
+</RelativeLayout>
+

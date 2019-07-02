@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.compaq.b2b_application">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ordoo_new_logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/new_ordofy_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
+        tools:replace="android:allowBackup">
+
+        <activity android:name=".First_activity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.package.name.First_activity"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+
+        </activity>
+
+        <activity android:name=".Customize_Order"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Manage_Categories"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Varient_Activity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Update_product_Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Scrolling_Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity
+            android:name=".Add_new_product_activity"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true" />
+        <activity android:name=".Manage_Exixsting_category_Activity"
+            android:screenOrientation="portrait"/>
+
+        <service android:name=".Push_notification">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".FirebaseIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".FullscreenActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen"
+            android:theme="@style/FullscreenTheme" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true" />
+
+        <activity
+            android:name=".Request_Activity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Slider_activity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_slider_activity" />
+        <activity
+            android:name=".Order_to_bProsessed"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true" />
+        <activity
+            android:name=".Seller_Order_History"
+            android:hardwareAccelerated="true" />
+        <activity
+            android:name=".Wishlist_Activity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Address_Activivty"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Policy_activity"
+            android:label="@string/title_activity_address_"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Orders_History_Activity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Ordes_history"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Seller_Portal_Screen_Activity"
+            android:label="@string/title_activity_seller__portal__screen_"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SellerPortal_Activity"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Forgot_password"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Check_out__Activity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Logintheme"
+            android:screenOrientation="portrait"/>
+        <!--
+ <activity android:name=".Main2Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        -->
+        <activity
+            android:name=".ImageOpening_activity"
+            android:hardwareAccelerated="true"
+            android:largeHeap="true"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Search_Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Cart_Activity"
+            android:hardwareAccelerated="true"
+            android:largeHeap="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:hardwareAccelerated="true"
+            android:largeHeap="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Main2Activity"
+            android:hardwareAccelerated="false"
+            android:largeHeap="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Sign_up_Activity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
+    </application>
+
+</manifest>

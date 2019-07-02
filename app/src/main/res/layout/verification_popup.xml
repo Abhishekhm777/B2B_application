@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="10dp"
+    android:gravity="center"
+
+    android:elevation="10dp"
+    >
+    <TextView
+        android:id="@+id/popup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        android:fontFamily="@font/catamaran"
+        android:textColor="@color/mrk"
+        android:text="Please enter the OTP sent to your Mobile number and email for verification"       android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal|top"
+        />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="#DFAF35"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+
+        android:orientation="vertical">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textColor="@color/black"
+        android:id="@+id/mobile_otp"
+        android:fontFamily="@font/catamaran"
+        android:inputType="number"
+        android:hint="Enter Mobile OTP"
+        android:layout_marginStart="@dimen/slide_title"
+        android:layout_marginEnd="@dimen/slide_title"
+        android:background="@drawable/pricebreak_background"
+        android:layout_marginTop="11dp"
+        android:gravity="center_horizontal|top"
+        />
+
+
+
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:fontFamily="@font/catamaran"
+        android:id="@+id/mobile_button"
+        android:background="@drawable/round_corners"
+        android:text="VERIFY"
+        android:textColor="#FFF" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:orientation="vertical">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/black"
+            android:id="@+id/email_otp"
+            android:hint="Enter Email OTP"
+            android:fontFamily="@font/catamaran"
+            android:inputType="number"
+            android:layout_marginStart="@dimen/slide_title"
+            android:layout_marginEnd="@dimen/slide_title"
+            android:background="@drawable/pricebreak_background"
+            android:layout_marginTop="11dp"
+            android:gravity="center_horizontal|top"
+            />
+
+
+
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:id="@+id/email_btn"
+        android:fontFamily="@font/catamaran"
+         android:layout_marginBottom="10dp"
+        android:background="@drawable/round_corners"
+        android:text="VERIFY"
+        android:textColor="#FFF" />
+</LinearLayout>
+
+
+

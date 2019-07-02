@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+
+        android:title="wishlist"
+        android:id="@+id/heart"
+        app:actionLayout="@layout/wishlistitem_layout"
+        app:showAsAction="always" />
+
+    <item
+
+        android:title="Cart"
+        android:id="@+id/cart"
+        app:actionLayout="@layout/cart_items_no"
+        app:showAsAction="always" />
+</menu>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/cart_layout_frame"
+    tools:context=".Fragments.Customize_order_frag1">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusedByDefault="false">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cart_frame"
+        android:focusedByDefault="false"
+        android:padding="15dp"
+        android:focusableInTouchMode="true"
+        android:id="@+id/activivy_layout"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:id="@+id/byname"
+                android:text="Seach By Product Name"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bycat"
+                android:layout_alignParentRight="true"
+                android:text="Seach By Category"/>
+
+        </RelativeLayout>
+        <android.support.v7.widget.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/background_design"
+            android:id="@+id/sellers_search"
+            android:layout_margin="10dp"
+            android:focusable="false"
+            android:focusedByDefault="false"
+            android:focusableInTouchMode="true"
+            android:outlineProvider="paddedBounds"
+            app:iconifiedByDefault="false"
+            app:defaultQueryHint="Search by Name or SKU"
+            android:layout_alignParentEnd="true">
+        </android.support.v7.widget.SearchView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/category_view"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reselect"
+                android:textColor="@color/skyBlue"
+                android:fontFamily="@font/catamaran"
+                android:layout_centerInParent="true"
+                android:text="Search by Category "/>
+
+
+        </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical">
+
+
+          <!--  <Spinner
+
+                android:id="@+id/country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />-->
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="55dp"
+            android:visibility="gone"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:id="@+id/new_layout">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:id="@+id/clear"
+                android:elevation="10dp"
+                android:background="@drawable/shadow_effect"
+                android:stateListAnimator="@anim/no_animation"
+                android:shadowColor="@color/black"
+                android:text="clear"
+                />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:id="@+id/submit"
+                android:background="@drawable/shadow_effect"
+                android:elevation="10dp"
+                android:layout_alignParentRight="true"
+                android:text="submit" />
+
+
+        </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frame_la">
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:visibility="gone"
+        android:id="@+id/recy_lay"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:id="@+id/search_second"
+            android:orientation="horizontal"
+            >
+
+            <android.support.v7.widget.SearchView
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:id="@+id/filter_name"
+                android:background="@drawable/background_design"
+                android:layout_margin="10dp"
+                android:layout_weight="3"
+                android:focusable="false"
+                android:layout_alignParentLeft="true"
+                android:focusedByDefault="false"
+                android:focusableInTouchMode="true"
+                android:outlineProvider="paddedBounds"
+                app:iconifiedByDefault="false"
+                app:defaultQueryHint="Search by Name"
+                android:layout_alignParentEnd="true">
+            </android.support.v7.widget.SearchView>
+
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:id="@+id/add_product"
+                android:background="@drawable/pricebreak_background"
+                android:elevation="10dp"
+                android:layout_gravity="center"
+                android:text="Add Product" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/skyBlue"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/catamaran"
+            android:text="Products"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/image_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="false"
+            android:scrollbars="horizontal">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+
+</RelativeLayout>
+

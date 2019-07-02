@@ -1,0 +1,712 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+tools:context=".Fragments.Manufacturer_fragment">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true">
+
+
+    <LinearLayout
+        android:id="@+id/relativeLayout"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_name"
+            android:layout_width="match_parent"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_name"
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:inputType="text"
+                    android:gravity="center|start"
+                    android:hint="Manufacturer First Name*"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+            </android.support.design.widget.TextInputLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:cardBackgroundColor="#e6e6e5"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:inputType="text"
+                    android:hint="Last Name"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_pincode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="Email*"
+                    android:inputType="textEmailAddress"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/mrk"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:inputType="textPassword"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="Password*"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/telephone"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="Mobile*"
+                    android:text="+91"
+                    android:inputType="number"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/company_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="Company Name :"
+                    android:inputType="text"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:id="@+id/upload_logBtn"
+                android:text="Upload Logo"/>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/adhar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/adhar_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="Aadhar No."
+                    android:inputType="text"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:id="@+id/adhar_btn"
+                android:text="Upload-file"/>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_pan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/pan"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="PAN*"
+                    android:inputType="text"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:id="@+id/pan_btn"
+                android:text="Upload-file"/>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_gstin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/gstin"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="GSTIN*"
+                    android:inputType="text"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:id="@+id/gstin_button"
+                android:text="Upload-file"/>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_cin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/cin"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="Incorporation Number"
+                    android:inputType="text"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:id="@+id/cin_btn"
+                android:text="Upload-file"/>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+
+            android:layout_width="255dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/pincode_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="Pincode *"
+                    android:textColor="#000"
+                    android:inputType="number"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:id="@+id/check_pin"
+                android:text="Check"/>
+
+        </android.support.v7.widget.CardView>
+       <!-- <android.support.v7.widget.CardView
+
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+
+            <Spinner
+                android:id="@+id/contry_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                android:layoutDirection="locale"
+                android:tag="SEAL" />
+
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+
+            <Spinner
+                android:id="@+id/state_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                android:layoutDirection="locale"
+                android:tag="SEAL" />
+
+
+        </android.support.v7.widget.CardView>
+-->
+
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/country_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="Country *"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/state_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="State *"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/area_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="Area *"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/city_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="City *"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+        </android.support.v7.widget.CardView>
+
+      <!--  <android.support.v7.widget.CardView
+            android:id="@+id/bran"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/brands"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_margin="3dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:hint="Add Brands(comma seperated)"
+                    android:inputType="number"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+        </android.support.v7.widget.CardView>-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/spinner"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+
+            <Spinner
+                android:id="@+id/spinner_field"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
+                android:layoutDirection="locale"
+                android:tag="SEAL" />
+
+
+        </android.support.v7.widget.CardView>
+        <!-- <LinearLayout
+             android:layout_width="wrap_content"
+             android:orientation="horizontal"
+             android:padding="10dp"
+             android:layout_gravity="center"
+             android:layout_height="wrap_content">
+
+            &lt;!&ndash; <CheckBox
+                 android:id="@+id/checkbox"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:enabled="true"/>&ndash;&gt;
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="I Accept"
+                 android:textColor="#000"/>
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text=" MRK terms and policy"
+                 android:textStyle="bold"
+                 android:textColor="#3498DB"/>
+
+         </LinearLayout>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/check_box"
+                android:enabled="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I Accept"
+                android:textColor="#000"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Terms and conditions of ORDOFY"
+                android:textStyle="bold"
+                android:textColor="#3498DB"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/signup"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_design"
+            android:padding="10dp"
+            android:hint="ROLE_MANUFACTURER"
+            android:text="SIGN UP"
+            android:textColor="#FFF" />
+
+    </LinearLayout>
+</ScrollView>
+
+</FrameLayout>

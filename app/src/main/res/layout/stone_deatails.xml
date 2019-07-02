@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+android:background="@drawable/pricebreak_background"
+    android:layout_marginBottom="5dp"
+    android:clipToPadding="true"
+    android:animateLayoutChanges="true"
+    android:elevation="2dp"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:weightSum="8">
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_pin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/catamaran"
+            android:background="@drawable/pricebreak_background"
+            android:hint=" Stone Name*"
+            app:hintAnimationEnabled="true"
+            android:textSize="15sp">
+
+            <EditText
+                android:id="@+id/heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:background="@null"
+                android:inputType="text"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/catamaran"
+            android:hint="Colour"
+            android:layout_weight="1"
+            android:background="@drawable/pricebreak_background"
+            app:hintAnimationEnabled="true"
+            android:textSize="15sp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:id="@+id/colour"
+                android:background="@null"
+                android:inputType="text"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/catamaran"
+            android:hint="Shape"
+            android:layout_weight="1"
+            android:background="@drawable/pricebreak_background"
+            app:hintAnimationEnabled="true"
+            android:textSize="15sp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/shape"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:background="@null"
+                android:inputType="text"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/catamaran"
+            android:hint="Number of Stones"
+            android:layout_weight="1"
+            android:background="@drawable/pricebreak_background"
+            app:hintAnimationEnabled="true"
+            android:textSize="15sp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:id="@+id/no_stone"
+                android:background="@null"
+                android:inputType="text"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/catamaran"
+            android:hint="Clarity (Kt)"
+            android:layout_weight="1"
+            android:background="@drawable/pricebreak_background"
+            app:hintAnimationEnabled="true"
+            android:textSize="15sp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:background="@null"
+                android:id="@+id/clarity"
+                android:inputType="text"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/catamaran"
+            android:hint="Weight (gms)"
+            android:layout_weight="1"
+            android:background="@drawable/pricebreak_background"
+            app:hintAnimationEnabled="true"
+            android:textSize="15sp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:background="@null"
+                android:id="@+id/weight"
+                android:inputType="text"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/catamaran"
+            android:hint="Setting Type"
+            android:layout_weight="1"
+            android:background="@drawable/pricebreak_background"
+            app:hintAnimationEnabled="true"
+            android:textSize="15sp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:background="@null"
+                android:id="@+id/typpe"
+                android:inputType="text"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </android.support.design.widget.TextInputLayout>
+
+
+    </LinearLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/remove"
+        android:layout_height="20dp"
+        android:background="@drawable/pricebreak_background"
+         android:layout_marginBottom="25dp"
+        android:layout_centerInParent="true"
+        android:text="Remove"
+       />
+</RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="5"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="3">
+    <TextView
+        android:id="@+id/dateTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3dp"
+        android:paddingTop="5dp"
+        android:fontFamily="@font/catamaran"
+        android:text="Date:"
+        android:gravity="center_horizontal"
+        android:background="@color/colorPrimary"
+        android:textColor="#b6893d"
+        android:paddingLeft="?android:attr/listPreferredItemPaddingStart"
+        />
+    <TextView
+        android:id="@+id/dateVal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:fontFamily="@font/catamaran"
+        android:gravity="center_horizontal"
+        android:paddingTop="2dp"
+        android:background="@color/colorPrimary"
+        android:textColor="#b6893d"
+        android:paddingLeft="?android:attr/listPreferredItemPaddingStart"
+        />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="2">
+        <TextView
+            android:id="@+id/orderTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:paddingTop="5dp"
+            android:text="Order No:"
+            android:fontFamily="@font/catamaran"
+            android:gravity="center_horizontal"
+            android:background="@color/colorPrimary"
+            android:textColor="#b6893d"
+            android:paddingLeft="?android:attr/listPreferredItemPaddingStart"
+            />
+        <TextView
+            android:id="@+id/orderVal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="2dp"
+            android:fontFamily="@font/catamaran"
+            android:gravity="center_horizontal"
+            android:background="@color/colorPrimary"
+            android:textColor="#b6893d"
+            android:paddingLeft="?android:attr/listPreferredItemPaddingStart"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="10dp"
+    android:gravity="center"
+    android:elevation="10dp"
+    >
+    <TextView
+        android:id="@+id/popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        android:fontFamily="@font/catamaran"
+        android:textColor="@color/colorBottomNavigationInactive"
+        android:text="Select User Classes"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal|top"
+        />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/whish"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/camera"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/user_layout_list">
+
+        </ListView>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/whish"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:id="@+id/ok"
+            android:fontFamily="@font/catamaran"
+            android:textColor="@color/black"
+            android:text="OK"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="15dp"
+
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:fontFamily="@font/catamaran"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:id="@+id/cancel"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="15dp"
+
+            />
+    </LinearLayout>
+</LinearLayout>
+
+
+

@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="4dp"
+    android:background="@drawable/pricebreak_background"
+    android:padding="4dp"
+    android:layout_marginHorizontal="3dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="8dp"
+    android:fontFamily="@font/catamaran"
+    app:cardPreventCornerOverlap="false"
+    app:cardElevation="3dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingRight="10dp"
+        android:paddingLeft="5dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                android:text="Order No./Order Item No : "/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:id="@+id/check_orderno"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/whish"
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="10">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:layout_gravity="center"
+                android:id="@+id/imageview"
+                android:layout_margin="2dp"
+                />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="22dp"
+                android:layout_weight="3">
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="12dp"
+                        android:layout_weight="0"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/catamaran"
+                        android:text="Product:"
+                        android:layout_marginBottom="8dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/catamaran"
+                        android:singleLine="true"
+                        android:id="@+id/check_produc_name"
+                        android:layout_marginBottom="8dp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="12dp"
+                        android:layout_weight="0"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/catamaran"
+                        android:text="Quantity: "
+
+                        android:layout_marginBottom="8dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        android:id="@+id/check_quantity"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/catamaran"
+                        android:layout_marginBottom="8dp"/>
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="12dp"
+                        android:layout_weight="0"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/catamaran"
+                        android:text="Ordered Weight(gms):"
+                        android:layout_marginBottom="8dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_weight="2"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/catamaran"
+                        android:gravity="center"
+                        android:id="@+id/check_weight"
+                        android:layout_marginBottom="8dp"/>
+                </TableRow>
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/catamaran"
+                        android:text="Order Type"
+
+                        android:textSize="12dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/catamaran"
+                        android:id="@+id/check_type"
+                        android:layout_marginBottom="8dp"/>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="0"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/catamaran"
+                        android:text="Expected Delivery Date : "
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:layout_weight="2"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/catamaran"
+                        android:gravity="center"
+                        android:id="@+id/expected"
+                        android:layout_marginBottom="8dp"/>
+                </TableRow>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="15dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/catamaran"
+                        android:background="@drawable/pricebreak_background"
+                        android:hint="Description"
+                        android:id="@+id/check_desc"/>
+
+
+                </LinearLayout>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+
+
+
+     <!--   <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/catamaran"
+                android:text="Purity "/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:fontFamily="@font/catamaran"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="4dp"
+                android:text="Size "/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/catamaran"
+                android:text="Length "/>
+
+        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/catamaran"
+                    android:textColor="@color/colorBottomNavigationInactive"
+                    android:id="@+id/check_purity"
+                    />
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/catamaran"
+                    android:textColor="@color/colorBottomNavigationInactive"
+                    android:id="@+id/check_length"
+                    android:layout_alignParentRight="true"
+                    />
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:fontFamily="@font/catamaran"
+                    android:id="@+id/check_size"
+                    android:textColor="@color/colorBottomNavigationInactive"
+                    android:layout_centerInParent="true"
+
+                    />
+
+
+
+        </RelativeLayout>
+-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginTop="5dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/catamaran"
+                android:textColor="@color/black"
+                android:layout_marginRight="5dp"
+                android:text="Item Status : "/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:id="@+id/status"
+                android:fontFamily="@font/catamaran"
+
+
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/catamaran"
+                android:layout_marginRight="5dp"
+                android:text="Delivered Weight(gms) : "/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:fontFamily="@font/catamaran"
+                android:background="@drawable/pricebreak_background"
+                android:id="@+id/delivered_weight"
+
+
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttons"
+            android:padding="5dp"
+            >
+
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="3"
+                android:background="@drawable/butn_design2"
+                android:id="@+id/accept_btn"
+                android:fontFamily="@font/catamaran"
+                android:layout_margin="8dp"
+                android:textColor="@color/white"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="3"
+                android:background="@drawable/butn_design2"
+                android:text="REJECT"
+                android:fontFamily="@font/catamaran"
+                android:id="@+id/reject_btn"
+                android:layout_margin="8dp"
+                android:textColor="@color/white"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:background="@drawable/butn_design2"
+                android:text="UPDATE"
+                android:layout_weight="3"
+                android:fontFamily="@font/catamaran"
+                android:id="@+id/update"
+                android:layout_margin="8dp"
+                android:textColor="@color/white"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notify_layout"
+            android:visibility="gone"
+            android:padding="2dp">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="NOTIFY"
+                android:id="@+id/notify_button"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/pricebreak_background"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+
+

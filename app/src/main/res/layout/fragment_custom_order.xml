@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+    android:id="@+id/container" android:orientation="vertical"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+tools:context=".Fragments.Custom_order">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/custom_toolbar"
+        android:layout_height="45dp"
+        app:titleTextColor="@color/Titel"
+        android:textAlignment="center"
+        app:titleTextAppearance="@color/Titel"
+        android:background="@color/Toolbar">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@color/Titel"
+            android:id="@+id/zoom"
+            android:fontFamily="@font/catamaran"
+            android:textColor="@color/mrk"
+            android:textSize="20dp"
+            android:text="Custom Order"
+            android:gravity="center"
+            />
+    </android.support.v7.widget.Toolbar>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true">
+
+    <LinearLayout
+        android:id="@+id/custom_lay"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_lay"
+            android:visibility="visible"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/upload_logBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:textColor="@color/red"
+                android:text="ADD IMAGE *" />
+        </RelativeLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:id="@+id/image_layout"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:id="@+id/imageview"
+                app:srcCompat="@drawable/ic_image_black_24dp"
+                android:layout_marginBottom="8dp"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Customer Mob. Number*	"
+                />
+            <AutoCompleteTextView
+                android:layout_width="0dp"
+                android:id="@+id/cust_no"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="number"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/detail"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Customer Name*"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/cust_name"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="text"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Customer Email		"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/cust_email"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="text"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Firm Name*		"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/firm"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="text"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Product Name *"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/name"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:editable="false"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Quantity(Pcs)*"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/qty"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="number"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Gross Weight(gms)*"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/weight"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="numberDecimal"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+       <!-- <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Purity(Kt)"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/purity"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="numberDecimal"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Melting "
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/melting"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="numberDecimal"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+      <!--  <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Rate Cut "
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/rate"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="numberDecimal"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Advance "
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/advance"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="numberDecimal"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Expected delivery Date "
+                />
+           <!-- <EditText
+                android:layout_width="0dp"
+                android:id="@+id/expected"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="numberDecimal"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />-->
+            <TextView
+
+                android:id="@+id/expected_date"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:hint="yyyy-mm-dd"
+                android:textColor="@color/black"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="@drawable/pricebreak_background"
+                android:layout_weight="2"
+                android:textAlignment="center"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Select seal"
+                />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@drawable/pricebreak_background"
+                android:orientation="vertical">
+
+                <Spinner
+
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="@font/catamaran"
+                    android:gravity="bottom"
+                    android:textAlignment="center"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Description"
+                />
+
+
+            <EditText
+                android:id="@+id/desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:inputType="text"
+                android:layout_weight="2"
+                android:maxLines="3"
+                android:background="@drawable/pricebreak_background"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/place_button"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+            android:textColor="#FFF"
+            android:fontFamily="@font/catamaran"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_signup"
+            android:text="Place Order" />
+
+    </LinearLayout>
+</ScrollView>
+
+</LinearLayout>

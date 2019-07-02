@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:hardwareAccelerated="true"
+    android:layout_height="match_parent"
+    android:id="@+id/nav_card">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/navfrag"
+            android:layout_above="@+id/layout_buttom"
+            android:orientation="vertical"
+            >
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/slider_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hardwareAccelerated="true"
+                android:background="@color/card"
+                ></android.support.v7.widget.RecyclerView>
+
+
+        </LinearLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            >
+
+
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progress"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

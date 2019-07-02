@@ -1,0 +1,114 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:id="@+id/cart_layout_frame"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="vertical"
+        android:id="@+id/cart_frame">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:id="@+id/order_hist_tooolbar"
+            android:layout_height="match_parent"
+            app:titleTextColor="@color/Titel"
+            android:theme="@style/Toolbar_Arrow"
+            android:textAlignment="center"
+            app:titleTextAppearance="@color/Titel"
+            android:background="@color/Toolbar">
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:titleTextColor="@color/Titel"
+                android:id="@+id/zoom"
+                android:textColor="@color/mrk"
+                android:textSize="20dp"
+                android:text="ORDER HISTORY"
+                android:gravity="center"
+
+                />
+        </android.support.v7.widget.Toolbar>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cart_frame"
+        android:id="@+id/cartl"
+
+        android:layout_above="@+id/btn_lay"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:scrollbarAlwaysDrawVerticalTrack="false"
+            android:id="@+id/order_hist_recycler">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/wish_empty"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp">
+        </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NO ACTIVE ORDERS"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:id="@+id/empty_wish_text"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="There are no recent orders to show"
+            android:textColor="@color/colorBottomNavigationInactive"
+            android:layout_marginTop="8dp"
+            android:id="@+id/empty_wish_text1"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+        <Button
+            android:layout_width="180dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:text="START SHOPPING"
+            android:visibility="gone"
+            android:layout_marginTop="25dp"
+            android:id="@+id/wish_empty_btn"
+            android:textColor="@color/white"
+            android:background="@drawable/butn_design2"
+
+            />
+
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/contaner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+</RelativeLayout>
+

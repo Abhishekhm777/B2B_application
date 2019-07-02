@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.Update_product_fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_below="@+id/image">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/image"
+        android:layout_marginBottom="15dp"
+        android:layout_height="150dp">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:id="@+id/image1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Product Name :"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/name"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:fontFamily="@font/catamaran"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image"
+        android:id="@+id/name_sku"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text=" SKU :"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/sku"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:fontFamily="@font/catamaran"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:inputType="text"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.2"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Manufacturer Name :"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/manufact_name"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:fontFamily="@font/catamaran"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:inputType="text"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.2"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Manufacturer Mob. No. :"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/manuf_mob"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:fontFamily="@font/catamaran"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:inputType="text"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1.2"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Required days to deliver"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/delevery_days"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:fontFamily="@font/catamaran"
+            android:gravity="center"
+            android:layout_weight="2"
+            android:inputType="text"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="16sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        android:fillViewport="true"
+        android:id="@+id/expand_layout"
+        android:layout_below="@id/relative1"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_margin="15dp"
+            android:fontFamily="@font/catamaran"
+            android:text="Product Specifications"/>
+        <ExpandableListView
+            android:layout_width="match_parent"
+            android:id="@+id/expandable_list"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:isScrollContainer="true"
+            android:fillViewport="true"
+            android:indicatorStart="?android:attr/listPreferredItemPaddingStart"
+            >
+        </ExpandableListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:animateLayoutChanges="true"
+        android:id="@+id/stone_layout">
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_margin="15dp"
+            android:fontFamily="@font/catamaran"
+            android:text="Product Media"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/image_recycler"
+            android:scrollbars="horizontal"
+             android:fadeScrollbars="false"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/update"
+            android:layout_height="30dp"
+            android:background="@drawable/round_corners"
+            android:text="Update Product "
+            android:layout_margin="10dp"
+            android:fontFamily="@font/catamaran"
+            android:textColor="@color/white"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:id="@+id/varient"
+            android:fontFamily="@font/catamaran"
+            android:background="@drawable/round_corners"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:text="Add Variant"
+            android:textColor="@color/white"
+            />
+    </LinearLayout>
+
+</LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

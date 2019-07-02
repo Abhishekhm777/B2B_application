@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="10dp"
+    android:gravity="center"
+    android:focusable="false"
+    android:focusableInTouchMode="true"
+    android:elevation="10dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+       >
+    <TextView
+        android:id="@+id/popup"
+        android:layout_width="0dp"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        android:layout_weight="2"
+        android:fontFamily="@font/catamaran"
+        android:textColor="@color/black"
+        android:text="Relation Settings"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="start|top"
+        />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/cancel"
+            android:layout_marginRight="10dp"
+            app:srcCompat="@drawable/ic_close_black_24dp"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/black"
+        android:layout_marginBottom="15dp"
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="User Class"
+                />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/pricebreak_background"
+                android:layout_weight="1">
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinn"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gallery"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Discount(%)"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/disc"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:focusableInTouchMode="true"
+                android:layout_weight="1"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="numberDecimal"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+           <!-- <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Advance"
+               android:layout_gravity="center"
+                android:layout_weight="1"/>-->
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Min Weight"
+                />
+            <EditText
+                android:layout_width="0dp"
+                android:id="@+id/weight"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:fontFamily="@font/catamaran"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/pricebreak_background"
+                android:inputType="numberDecimal"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+          <!--  <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Rate Cut"
+                android:layout_weight="1"/>-->
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      android:layout_marginLeft="15dp"
+        android:orientation="horizontal">
+
+
+        <CheckBox
+            android:layout_width="0dp"
+            android:id="@+id/advance"
+            android:layout_height="wrap_content"
+            android:text="Advance"
+            android:layout_weight="1"/>
+
+          <CheckBox
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:id="@+id/rate"
+              android:text="Rate Cut"
+              android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+      android:layout_margin="15dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="Save"
+            android:id="@+id/save"
+            android:layout_gravity="center"
+            android:background="@drawable/pricebreak_background"/>
+    </LinearLayout>
+
+</LinearLayout>
+
+
+

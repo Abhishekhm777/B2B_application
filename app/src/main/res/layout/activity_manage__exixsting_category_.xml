@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    tools:context=".Manage_Exixsting_category_Activity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/tool_bar"
+        android:layout_height="45dp"
+        android:elevation="10dp"
+        app:titleTextColor="@color/white"
+        android:background="@color/Toolbar"
+        android:theme="@style/Toolbar_Arrow"
+        android:layout_gravity="center"
+        android:textAlignment="center">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.SearchView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             app:searchIcon="@drawable/ic_search_black_24dp"
+            android:id="@+id/sellers_search"
+            android:layout_alignParentRight="true"
+            app:defaultQueryHint="Search Product"
+            android:layout_alignParentEnd="true"
+           >
+
+        </android.support.v7.widget.SearchView>
+    </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mainframe"
+        android:layout_below="@+id/tool_bar"
+        android:orientation="vertical"
+        android:layout_above="@+id/layout_buttom">
+
+
+    </LinearLayout>
+</RelativeLayout>

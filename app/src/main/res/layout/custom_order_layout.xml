@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:elevation="10dp"
+    android:layout_marginHorizontal="10dp"
+    >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp">
+
+
+
+
+            <LinearLayout
+                android:layout_width="160dp"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="5dp"
+                android:padding="5dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:id="@+id/checkout_image"
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="4"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="4">
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/catamaran"
+                            android:text="Product Name*"
+                            android:layout_marginBottom="8dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:layout_weight="2"
+                            android:singleLine="true"
+                            android:fontFamily="@font/catamaran"
+                            android:id="@+id/p_name"
+                            android:layout_marginBottom="8dp"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12dp"
+                            android:layout_weight="1"
+                            android:text="Quantity(Pcs)* "
+                            android:fontFamily="@font/catamaran"
+                            android:layout_marginBottom="8dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:id="@+id/p_qty"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_marginBottom="8dp"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12dp"
+                            android:layout_weight="1"
+                            android:text="Gross Weight(gms)*"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_marginBottom="8dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:layout_weight="2"
+                            android:id="@+id/p_weight"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_marginBottom="8dp"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12dp"
+                            android:layout_weight="1"
+                            android:text="Total Weight(Gm):"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_marginBottom="8dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:layout_weight="2"
+                            android:id="@+id/p_total"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_marginBottom="8dp"/>
+                    </TableRow>
+
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12dp"
+                            android:layout_weight="1"
+                            android:text="Seal :"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_marginBottom="8dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_weight="2"
+                            android:id="@+id/p_seal"
+                            android:layout_marginBottom="8dp"/>
+                    </TableRow>
+
+
+                    <TableRow>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12dp"
+                            android:layout_weight="1"
+                            android:text="Expected  Date"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_marginBottom="8dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:fontFamily="@font/catamaran"
+                            android:layout_weight="2"
+                            android:id="@+id/date_expect"
+                            android:layout_marginBottom="8dp"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/catamaran"
+                            android:text="Melting :"
+
+                            android:layout_marginBottom="8dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/catamaran"
+                            android:id="@+id/p_melting"
+                            android:layout_marginBottom="8dp"/>
+                    </TableRow>
+
+                </TableLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="12dp"
+                    android:layout_weight="2"
+                    android:text="Description :"
+                    android:fontFamily="@font/catamaran"
+                    android:layout_marginBottom="8dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/catamaran"
+                    android:layout_weight="2"
+                    android:id="@+id/p_desc"
+                    android:layout_marginBottom="8dp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="30dp"
+                android:weightSum="4">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:id="@+id/p_confirn"
+                    android:text="Confirm"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/black"
+                    android:background="@drawable/pricebreak_background"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="2"/>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="26dp"
+                    android:text="Cancel"
+                    android:textStyle="bold"
+                    android:id="@+id/p_cancel"
+                    android:fontFamily="sans-serif-light"
+                    android:background="@drawable/pricebreak_background"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="2dp"
+
+                    android:layout_weight="2"/>
+
+
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+</RelativeLayout>
+
+
+

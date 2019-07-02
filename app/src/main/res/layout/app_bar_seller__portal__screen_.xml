@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:hardwareAccelerated="true"
+    android:layout_height="match_parent"
+    tools:context=".Seller_Portal_Screen_Activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tool_bar">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:titleTextColor="@color/white"
+            android:fontFamily="@font/catamaran"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/Toolbar"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+    </RelativeLayout>
+   <!-- <include layout="@layout/content_seller__portal__screen_" />-->
+
+   <!-- <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/myaccount_view"
+        android:layout_margin="@dimen/fab_margin">
+
+
+
+    </android.support.design.widget.FloatingActionButton>-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:hardwareAccelerated="true"
+        android:layout_below="@+id/tool_bar"
+        android:id="@+id/graphlayout">
+
+
+        <com.jjoe64.graphview.GraphView
+            android:layout_width="match_parent"
+            android:layout_height="200dip"
+            android:layout_margin="12dp"
+            android:id="@+id/graph" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NOTIFY"
+            android:id="@+id/notify"
+           android:layout_gravity="center"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>
