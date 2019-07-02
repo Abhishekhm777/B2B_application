@@ -195,8 +195,8 @@ public class Add_new_product_activity extends AppCompatActivity {
         ///////////////////////////////////////////dynamic view/////////////////////////////////////////////////////
 
 
-        rootView = (ViewGroup) findViewById(R.id.stone_layout);
-        recyclerView = (RecyclerView) findViewById(R.id.image_recycler);
+        rootView =  findViewById(R.id.stone_layout);
+        recyclerView =  findViewById(R.id.image_recycler);
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getApplicationContext().getApplicationContext(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(mGridLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
