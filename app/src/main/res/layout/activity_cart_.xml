@@ -79,10 +79,6 @@
                 android:layout_below="@+id/cardvie"
                 android:scrollbarAlwaysDrawVerticalTrack="false" />
 
-
-
-
-
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,8 +100,6 @@
                 android:background="@drawable/butn_design2"
 
                 />
-
-
 
         </RelativeLayout>
 

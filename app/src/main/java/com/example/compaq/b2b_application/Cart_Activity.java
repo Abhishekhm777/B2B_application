@@ -362,12 +362,6 @@ public class Cart_Activity extends AppCompatActivity {
 
                     display_cart_details(id,weght,qty,del_id,description,purity,size,length,name);
 
-
-
-
-
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

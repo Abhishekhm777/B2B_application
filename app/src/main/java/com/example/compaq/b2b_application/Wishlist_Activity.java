@@ -74,15 +74,16 @@ public class Wishlist_Activity extends AppCompatActivity {
         idlist=new ArrayList<>();
         progressBar=(ProgressBar)findViewById(R.id.progress);
         empty_imageview=(ImageView)findViewById(R.id.wish_empty) ;
-        emptybtn=(Button)findViewById(R.id.wish_empty_btn);
+        emptybtn=findViewById(R.id.wish_empty_btn);
         emptybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                onBackPressed();
             }
         });
-        textView=(TextView)findViewById(R.id.empty_wish_text) ;
-        empty_text_view1=(TextView)findViewById(R.id.empty_wish_text1) ;
+        textView=findViewById(R.id.empty_wish_text) ;
+
+        empty_text_view1=findViewById(R.id.empty_wish_text1) ;
         toolbar=(Toolbar)findViewById(R.id.whishlist_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -92,6 +93,8 @@ public class Wishlist_Activity extends AppCompatActivity {
         output=sharedPref.getString(ACCESS_TOKEN, null);
         wishlistRecycler=findViewById(R.id.whishlist_recycler);
         getinfo();
+
+
 
     }
 
@@ -281,6 +284,7 @@ public class Wishlist_Activity extends AppCompatActivity {
     public  void productInfo(){
         final String ids=idlist.get(pos2);
         String url3 = ip+"gate/b2b/catalog/api/v1/product/"+ids+"";
+        Log.e("Product",url3);
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url3, null, new Response.Listener<JSONObject>() {
 
             @Override

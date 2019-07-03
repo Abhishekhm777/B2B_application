@@ -36,192 +36,185 @@
             android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               android:id="@+id/byname"
-                android:text="Seach By Product Name"/>
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/bycat"
-                android:layout_alignParentRight="true"
-                android:text="Seach By Category"/>
-
-        </RelativeLayout>
-        <android.support.v7.widget.SearchView
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="@drawable/background_design"
-            android:id="@+id/sellers_search"
-            android:layout_margin="10dp"
-            android:focusable="false"
-            android:focusedByDefault="false"
-            android:focusableInTouchMode="true"
-            android:outlineProvider="paddedBounds"
-            app:iconifiedByDefault="false"
-            app:defaultQueryHint="Search by Name or SKU"
-            android:layout_alignParentEnd="true">
-        </android.support.v7.widget.SearchView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/category_view"
-            android:visibility="gone"
-            android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/reselect"
-                android:textColor="@color/skyBlue"
-                android:fontFamily="@font/catamaran"
-                android:layout_centerInParent="true"
-                android:text="Search by Category "/>
-
-
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+             android:layout_centerInParent="true"
+              android:id="@+id/text"
+              android:layout_marginRight="12dp"
+             android:textStyle="bold"
+              android:textColor="@color/black"
+              android:text="Customer Information"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/add_contact_btn"
+                app:srcCompat="@drawable/add_gray"
+               android:layout_toRightOf="@+id/text"/>
         </RelativeLayout>
 
 
-
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="vertical">
-
-
-          <!--  <Spinner
-
-                android:id="@+id/country"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />-->
-
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="55dp"
-            android:layout_marginRight="55dp"
-            android:visibility="gone"
-            android:layout_marginTop="25dp"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:id="@+id/new_layout">
+            android:layout_marginBottom="8dp">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:id="@+id/clear"
-                android:elevation="10dp"
-                android:background="@drawable/shadow_effect"
-                android:stateListAnimator="@anim/no_animation"
-                android:shadowColor="@color/black"
-                android:text="clear"
-                />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="1.2"
+                android:layout_centerHorizontal="true"
+                android:layout_height="match_parent">
 
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:id="@+id/submit"
-                android:background="@drawable/shadow_effect"
-                android:elevation="10dp"
-                android:layout_alignParentRight="true"
-                android:text="submit" />
-
-
-        </RelativeLayout>
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/cust_no"
+                    android:layout_height="30dp"
+                    android:hint="Customer Mob No."
+                    android:paddingLeft="4dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/pricebreak_background"
+                    android:inputType="number"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+            </android.support.design.widget.TextInputLayout>
 
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="1.2"
+                android:layout_marginLeft="3dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/cust_name"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1.2"
+                    android:background="@drawable/pricebreak_background"
+                    android:layout_height="30dp"
+                    android:gravity="center|start"
+                    android:paddingLeft="5dp"
+                    android:hint="Customer Name"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
-
-
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frame_la">
-
-    </FrameLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:visibility="gone"
-        android:id="@+id/recy_lay"
-        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:id="@+id/search_second"
             android:orientation="horizontal"
-            >
+            android:layout_margin="1dp">
 
-            <android.support.v7.widget.SearchView
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:id="@+id/filter_name"
-                android:background="@drawable/background_design"
-                android:layout_margin="10dp"
-                android:layout_weight="3"
-                android:focusable="false"
-                android:layout_alignParentLeft="true"
-                android:focusedByDefault="false"
-                android:focusableInTouchMode="true"
-                android:outlineProvider="paddedBounds"
-                app:iconifiedByDefault="false"
-                app:defaultQueryHint="Search by Name"
-                android:layout_alignParentEnd="true">
-            </android.support.v7.widget.SearchView>
+                android:layout_weight="1.2"
+                android:layout_marginRight="3dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="match_parent">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/cust_email"
+                    android:layout_height="30dp"
+                    android:hint="Customer Email"
+                    android:paddingLeft="4dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/pricebreak_background"
+                    android:inputType="number"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+            </android.support.design.widget.TextInputLayout>
 
 
-            <Button
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:id="@+id/add_product"
-                android:background="@drawable/pricebreak_background"
-                android:elevation="10dp"
-                android:layout_gravity="center"
-                android:text="Add Product" />
+                android:layout_weight="1.2"
+                android:layout_marginLeft="3dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/company_name"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1.2"
+                    android:background="@drawable/pricebreak_background"
+                    android:layout_height="30dp"
+                    android:gravity="center|start"
+                    android:paddingLeft="5dp"
+                    android:hint="Company Name"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/skyBlue"
-            android:layout_margin="10dp"
-            android:fontFamily="@font/catamaran"
-            android:text="Products"/>
+            android:orientation="horizontal"
+           android:layout_marginTop="15dp"
+           >
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/image_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fadeScrollbars="false"
-            android:scrollbars="horizontal">
+          <Button
+              android:layout_width="0dp"
+              android:layout_weight="0.7"
+              android:id="@+id/search_btn"
+              android:text="Search Products"
+              android:textSize="12dp"
+              android:layout_marginRight="3dp"
+              android:background="@drawable/shadow_effect"
+              android:layout_height="35dp" />
 
-        </android.support.v7.widget.RecyclerView>
-    </LinearLayout>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="0.12"
+                android:text="Select Category"
+                app:srcCompat="@drawable/add_gray"
+                android:layout_marginLeft="3dp"
+                android:layout_height="35dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="0.7"
+                android:layout_marginLeft="15dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+                <Button
+                    android:layout_width="match_parent"
+                    android:textSize="12dp"
+                    android:text="Select Category"
+                    android:layout_marginLeft="3dp"
+                    android:background="@drawable/shadow_effect"
+                    android:layout_height="35dp" />
+
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
     </LinearLayout>
 </ScrollView>
 

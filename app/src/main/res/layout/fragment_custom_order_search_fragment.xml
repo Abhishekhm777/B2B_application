@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.Custom_order_search_fragment">
+
+
+
+    <android.support.v7.widget.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:elevation="5dp"
+        android:background="@drawable/background_design"
+        android:id="@+id/custom_search"
+        android:layout_margin="10dp"
+        app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+        android:animateLayoutChanges="true"
+        app:defaultQueryHint="Search for Order">
+
+    </android.support.v7.widget.SearchView>
+
+
+
+        <View  android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/whish"
+            />
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/custom_search_listview"></ListView>
+
+
+
+
+</RelativeLayout>

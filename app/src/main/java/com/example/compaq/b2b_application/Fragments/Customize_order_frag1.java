@@ -114,7 +114,7 @@ public class Customize_order_frag1 extends Fragment {
     private EditText cust_name, email, company_name;
     HashMap<String, String> all_id = new HashMap<String, String>();
     public List<String> product;
-    private Button clear, submit, add_product;
+    private Button search_button, submit, add_product;
     private RadioButton byname, byCat;
     private LinearLayout cat_view, recy_view, second_search;
 
@@ -142,6 +142,7 @@ public class Customize_order_frag1 extends Fragment {
             autoCompleteTextView=view.findViewById(R.id.cust_no);
             cust_name=view.findViewById(R.id.cust_name);
             add_contact=view.findViewById(R.id.add_contact_btn);
+            search_button=view.findViewById(R.id.search_btn);
             add_contact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -162,6 +163,16 @@ public class Customize_order_frag1 extends Fragment {
                                         long id) {
                     getUserDetail(autoCompleteTextView.getText().toString());
 
+                }
+            });
+
+            search_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    Custom_order_search_fragment add_contact_to_book=new Custom_order_search_fragment();
+                    fragmentTransaction.replace(R.id.customize, add_contact_to_book).addToBackStack(null).commit();
                 }
             });
 

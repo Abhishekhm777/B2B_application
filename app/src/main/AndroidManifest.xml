@@ -42,7 +42,9 @@
         </activity>
 
         <activity android:name=".Customize_Order"
-            android:screenOrientation="portrait"/>
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            />
 
         <activity android:name=".Manage_Categories"
             android:screenOrientation="portrait" />
