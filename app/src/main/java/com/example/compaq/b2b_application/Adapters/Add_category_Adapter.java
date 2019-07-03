@@ -408,7 +408,7 @@ public class Add_category_Adapter extends BaseExpandableListAdapter {
                    }
                    if(_context instanceof Customize_Order){
                        Customize_order_frag1 f = (Customize_order_frag1) ((AppCompatActivity) _context).getSupportFragmentManager().findFragmentByTag("customize");
-                       f.refreshMethod();
+                    /*   f.refreshMethod();*/
                        ((AppCompatActivity) _context).getSupportFragmentManager().popBackStackImmediate();
                    }
 
