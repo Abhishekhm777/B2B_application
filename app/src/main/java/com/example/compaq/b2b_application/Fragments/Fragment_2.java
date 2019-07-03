@@ -85,6 +85,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.michaelbel.bottomsheet.BottomSheet;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -104,23 +105,23 @@ import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
  */
 public
 class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,View.OnClickListener, Bottom_sheet_dialog.BottomSheetListner, AdapterView.OnItemClickListener {
-   private Map<Object,Object>params;
+    private Map<Object, Object> params;
     public ArrayList<Recy_model2> productlist;
-    public static   String URL_DATA="",create_urls="";
+    public static String URL_DATA = "", create_urls = "";
     private DrawerLayout drawer;
     public RecyclerView recyclerView;
     public Recy_model2 recy_model2;
     public RecyclerAdapter2 recyclerAdapter2;
     public Bottom_sheet_dialog.BottomSheetListner mlistner;
     public Recycler_Adapter2 recycler_adapter2;
-    public  Fragment_2 nav_fragments;
-    public static String item_clicked,parnt,class2;
+    public Fragment_2 nav_fragments;
+    public static String item_clicked, parnt, class2;
     public Bundle bundle;
-    Toolbar toolbar,toolbar1,main_toolbar;
+    Toolbar toolbar, toolbar1, main_toolbar;
     Fragment fragment;
     private Context context;
-    public String ProductPrice="";
-    public  String ProductFinalPrice="";
+    public String ProductPrice = "";
+    public String ProductFinalPrice = "";
     private ActionBarDrawerToggle mToggle;
     private DrawerLayout drawerLayout;
     BottomNavigationView bottomNavigationView;
@@ -135,42 +136,42 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
     private EditText otp;
     private String wholseller_id;
     ViewpageAdapter1 viewpageAdapter1;
-    Dialog dialog,sortDialog;
+    Dialog dialog, sortDialog;
     private ViewPager viewPager;
-    Button submit,close;
-    public EditText ed1,ed2,ed3,ed4,ed5,ed6;
+    Button submit, close;
+    public EditText ed1, ed2, ed3, ed4, ed5, ed6;
     private SwipeRefreshLayout swipeContainer;
     RelativeLayout relativeLayout;
     LinearLayout sort_layout;
     ListView sortlist;
     ArrayAdapter sortadapter;
+    Map<Object, Object> sortparams;
 
 
     @Override
-    public
-    View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view= inflater.inflate(R.layout.fragment_fragment_2, container, false);
+        final View view = inflater.inflate(R.layout.fragment_fragment_2, container, false);
 
         session = new SessionManagement(getActivity().getApplicationContext());
-        progressBar=(ProgressBar)view.findViewById(R.id.progress);
-        bundle=this.getArguments();
-        mlistner=this;
-        class2="";
-        Log.d("class...",class2);
-        relativeLayout=(RelativeLayout)view.findViewById(R.id.layout_buttom);
+        progressBar = (ProgressBar) view.findViewById(R.id.progress);
+        bundle = this.getArguments();
+        mlistner = this;
+        class2 = "";
+        Log.d("class...", class2);
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.layout_buttom);
 
         dialog = new Dialog(getContext());
         dialog.setCanceledOnTouchOutside(false);
-       dialog.setContentView(R.layout.pop_layout);
-       submit=(Button)dialog.findViewById(R.id.submit) ;
-        close=(Button)dialog.findViewById(R.id.close) ;
+        dialog.setContentView(R.layout.pop_layout);
+        submit = (Button) dialog.findViewById(R.id.submit);
+        close = (Button) dialog.findViewById(R.id.close);
 
-       ed1=(EditText)dialog.findViewById(R.id.otpET1) ;
-        ed2=(EditText)dialog.findViewById(R.id.otpET2) ;
-        ed3=(EditText)dialog.findViewById(R.id.otpET3) ;
-        ed4=(EditText)dialog.findViewById(R.id.otpET4) ;
-        ed5=(EditText)dialog.findViewById(R.id.otpET5) ;
+        ed1 = (EditText) dialog.findViewById(R.id.otpET1);
+        ed2 = (EditText) dialog.findViewById(R.id.otpET2);
+        ed3 = (EditText) dialog.findViewById(R.id.otpET3);
+        ed4 = (EditText) dialog.findViewById(R.id.otpET4);
+        ed5 = (EditText) dialog.findViewById(R.id.otpET5);
 
 
         ed1.addTextChangedListener(new TextWatcher() {
@@ -186,12 +187,9 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()==1)
-                {
+                if (s.length() == 1) {
                     ed2.requestFocus();
-                }
-                else if(s.length()==0)
-                {
+                } else if (s.length() == 0) {
                     ed1.clearFocus();
                 }
             }
@@ -209,12 +207,9 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()==1)
-                {
+                if (s.length() == 1) {
                     ed3.requestFocus();
-                }
-                else if(s.length()==0)
-                {
+                } else if (s.length() == 0) {
                     ed1.requestFocus();
                 }
             }
@@ -233,12 +228,9 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()==1)
-                {
+                if (s.length() == 1) {
                     ed4.requestFocus();
-                }
-                else if(s.length()==0)
-                {
+                } else if (s.length() == 0) {
                     ed2.requestFocus();
                 }
             }
@@ -258,12 +250,9 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()==1)
-                {
+                if (s.length() == 1) {
                     ed5.requestFocus();
-                }
-                else if(s.length()==0)
-                {
+                } else if (s.length() == 0) {
                     ed3.requestFocus();
                 }
             }
@@ -282,18 +271,15 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length()==1)
-                {
+                if (s.length() == 1) {
                     ed5.requestFocus();
-                }
-                else if(s.length()==0)
-                {
+                } else if (s.length() == 0) {
                     ed4.requestFocus();
                 }
             }
         });
 
-        TextView textView=(TextView)dialog.findViewById(R.id.number);
+        TextView textView = (TextView) dialog.findViewById(R.id.number);
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -311,7 +297,7 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                Toast.makeText(getContext(),"REFRESGING ",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "REFRESGING ", Toast.LENGTH_LONG).show();
                 productlist.clear();
                 loadRecycleData();
             }
@@ -322,49 +308,26 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-
+        sortparams = new LinkedHashMap<Object, Object>();
         //sort_layout=view.findViewById(R.id.sort_layout);
         sortadapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.sortOptions, android.R.layout.simple_list_item_1);
-        sortDialog=new Dialog(getContext());
+        sortDialog = new Dialog(getContext());
         sortDialog.setContentView(R.layout.sort_layout);
-        sortlist=(ListView)sortDialog.findViewById(R.id.sort_list);
+        sortlist = (ListView) sortDialog.findViewById(R.id.sort_list);
         sortlist.setAdapter(sortadapter);
         sortlist.setOnItemClickListener(this);
 
-    /* setHasOptionsMenu(true);*/
-
-       /* toolbar=(Toolbar)view.findViewById(R.id.tool_bar);
-
-        toolbar1=(Toolbar)view.findViewById(R.id.nav_tool);
-       *//* textView=(TextView)view.findViewById(R.id.toolbar_title);*//*
-        toolbar1.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-       *//* toolbar1.inflateMenu(R.menu.actionbar_icons);*//*
-
-toolbar1.setOnMenuItemClickListener(this);
-
-        toolbar1.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public
-            void onClick(View v) {
-                if(getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0){
-                    getActivity().getSupportFragmentManager().popBackStack();
-                }
-                else {
-                    drawer.openDrawer(GravityCompat.START);
-                }
-            }
-        });*/
 
 
 
-        pref=getActivity().getSharedPreferences("USER_DETAILS",0);
-         output=pref.getString(ACCESS_TOKEN, null);
+        pref = getActivity().getSharedPreferences("USER_DETAILS", 0);
+        output = pref.getString(ACCESS_TOKEN, null);
 
-        wholseller_id= pref.getString("Wholeseller_id", null);
-        user_no=pref.getString("Wholeseller_mob", null);
-        textView.setText("Contact :"+user_no);
-        bottomNavigationView=(BottomNavigationView)view.findViewById(R.id.bottom) ;
+        wholseller_id = pref.getString("Wholeseller_id", null);
+        user_no = pref.getString("Wholeseller_mob", null);
+        textView.setText("Contact :" + user_no);
+        bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottom);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -374,16 +337,16 @@ toolbar1.setOnMenuItemClickListener(this);
                     Bundle args = new Bundle();
                     args.putString("TeamName", item_clicked);
 
-                    Bottom_sheet_dialog bottom_sheet_dialog=new Bottom_sheet_dialog(mlistner);
+                    Bottom_sheet_dialog bottom_sheet_dialog = new Bottom_sheet_dialog(mlistner);
                     bottom_sheet_dialog.setArguments(args);
-                    bottom_sheet_dialog.show(getFragmentManager(),bottom_sheet_dialog.getTag());
+                    bottom_sheet_dialog.show(getFragmentManager(), bottom_sheet_dialog.getTag());
 
                     return true;
                 }
-                if(item.getItemId()==R.id.sort){
+                if (item.getItemId() == R.id.sort) {
                     sortDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     sortDialog.show();
-                  return  true;
+                    return true;
                 }
                 if (item.getItemId() == R.id.premium) {
                     sendOtp();
@@ -429,19 +392,8 @@ toolbar1.setOnMenuItemClickListener(this);
         });
 
 
-
-
-
-
-
-
-
-
-
-
-Log.e("CALLED",getActivity().getClass().getSimpleName());
-if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
-        {
+        Log.e("CALLED", getActivity().getClass().getSimpleName());
+        if (getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity")) {
             toolbar = (getActivity()).findViewById(R.id.tool_bar);
             drawerLayout = (getActivity()).findViewById(R.id.drawer);
             toolbar.setOnMenuItemClickListener(this);
@@ -457,16 +409,16 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
                 }
             });
 
-        }   recyclerView = (RecyclerView) view.findViewById(R.id.navrecycler);
-        productlist=new ArrayList<>();
+        }
+        recyclerView = (RecyclerView) view.findViewById(R.id.navrecycler);
+        productlist = new ArrayList<>();
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setHasFixedSize(true);
 
 
-
-
-        item_clicked=bundle.getString("Item_Clicked");
-        class2 =bundle.getString("CLASS");
+        item_clicked = bundle.getString("Item_Clicked");
+        class2 = bundle.getString("CLASS");
+        Log.d(".........item click",item_clicked+class2);
        /* for (String key : bundle.keySet()) {
             if(key.equals("CLASS")) {
                 class2 =bundle.getString(key);
@@ -476,88 +428,47 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
         /* textView.append(item_clicked);*/
 
 
-            if (class2.equals("SEARCH")){
-                URL_DATA = create_url(ip_cat + "/searching/facets");
-                Log.d("url_data..",URL_DATA+class2);
-            }
-        else if(class2.equals("FRAGMENT2")){
-                URL_DATA = ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery," + item_clicked + "?wholesaler=" + wholseller_id + "&productType=REGULAR";
-                Log.e("NEW URL ", URL_DATA+class2);
-            }
+        if (class2.equals("SEARCH")) {
+            URL_DATA = create_url(ip_cat + "/searching/facets");
+            Log.d("url_data..", URL_DATA + class2);
+        } else if (class2.equals("FRAGMENT2")) {
+            URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
+            Log.e("NEW URL ", URL_DATA + class2);
+        }
 
         loadRecycleData();
 
 
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Redirecting to catagory Datails after clicking&&&&&&&&&&&&&&&&&&&&&
-
-       /* recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        // TODO Handle item click
-                        Recy_model2 p=  productlist.get(position);
-
-                        String name= p.getName();
-                        String id= p.getId();
-                        Toast.makeText(getContext(), name,Toast.LENGTH_SHORT).show();
-                        bundle=new Bundle();
-                        bundle.putString("item_name",name);
-                        bundle.putString("Item_Clicked",id);
-                        bundle.putString("lurl",item_clicked);
-                        Intent intent=new Intent(getActivity(),Main2Activity.class).putExtras(bundle);
-                        startActivity(intent);
-                    }
-
-                })
-        );*/
-
-
-        /*recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                if (dy > 0 ||dy<0)
-                {
-                    relativeLayout.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState)
-            {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
-                    relativeLayout.setVisibility(View.VISIBLE);
-                }
-
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-        });*/
-
-
-
-    return view;
+        return view;
     }
+
     /////////////////////////////create url////////////////////////////////////////
     public String create_url(String val) {
-        params=new LinkedHashMap<>();
+        params = new LinkedHashMap<>();
         try {
-            if(bundle.getString("CLASS")!=null){
-                params.put("queryText",bundle.getString("Item_Clicked"));
-                params.put("wholesaler",wholseller_id);
-                params.put("productType","REGULAR");
-                create_urls=addQueryStringToUrlString(val,params);
-                Log.d("params",params.toString());
+            if (bundle.getString("CLASS") != null) {
+                if(class2.equals("SEARCH")) {
+                    params.put("queryText", item_clicked);
+                }
+                else if(class2.equals("FRAGMENT2")){
+
+                }
+                params.put("wholesaler", wholseller_id);
+                params.put("productType", "REGULAR");
+                params.put("page", 0);
+                params.put("pagesize", 20);
+                create_urls = addQueryStringToUrlString(val, params);
+                Log.d("params", params.toString());
             }
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        Log.d("res.",create_urls);
+        Log.d("res.", create_urls);
         return create_urls;
     }
-    String addQueryStringToUrlString(String url, final Map<Object,Object> parameters) throws UnsupportedEncodingException
-    {
+
+    String addQueryStringToUrlString(String url, final Map<Object, Object> parameters) throws UnsupportedEncodingException {
         if (parameters == null) {
             return url;
         }
@@ -577,16 +488,16 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
         return url;
     }
 
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
         inflater.inflate(R.menu.actionbar_icons, menu);
         super.onCreateOptionsMenu(menu, inflater);
        /* MenuItem mCartIconMenuItem = menu.findItem(R.id.cart);
         View actionView = MenuItemCompat.getActionView(mCartIconMenuItem);
        *//* View actionView = mCartIconMenuItem.getActionView();
-*//*
+         *//*
 
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -600,6 +511,7 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
         // mCountTv.setText(String.valueOf(mCnt1));
 */
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -607,10 +519,11 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity")) {
+        if (getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity")) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -624,11 +537,12 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
             });
         }
     }
+
     @Override
     public void onStop() {
         super.onStop();
 
-        if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity")) {
+        if (getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity")) {
             toolbar.setNavigationIcon(R.drawable.drawer_toggle);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -658,7 +572,7 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
             return super.onOptionsItemSelected(item);
     }*/
 
-    public void loadRecycleData(){
+    public void loadRecycleData() {
 
        /*pref=getActivity().getSharedPreferences("USER_DETAILS",0);
 
@@ -671,10 +585,9 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
         progressDialog.setTitle("Loading....");
         progressDialog.show();*/
         progressBar.setVisibility(View.VISIBLE);
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
             @Override
-            public
-            void onResponse(String response) {
+            public void onResponse(String response) {
 
 
                 swipeContainer.setRefreshing(false);
@@ -682,34 +595,33 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
                 try {
                     progressBar.setVisibility(View.GONE);
                     JSONObject jsonObj = new JSONObject(response);
-                    JSONObject jp=jsonObj.getJSONObject("products");
+                    JSONObject jp = jsonObj.getJSONObject("products");
 
-                   /* JSONArray jsPriceArray = jsonObj.getJSONArray("productPrice");*/
+                    /* JSONArray jsPriceArray = jsonObj.getJSONArray("productPrice");*/
 
                     JSONArray ja_data = jp.getJSONArray("content");
 
 
                     int length = ja_data.length();
-                    for(int i=0; i<length; i++) {
+                    for (int i = 0; i < length; i++) {
                         JSONObject jObj = ja_data.getJSONObject(i);
 
 
                             /*JSONObject priceObject = jsPriceArray.getJSONObject(i);
 
                             String price = String.valueOf(priceObject.getDouble("productFinalPrice"));*/
-                            String sku = jObj.getString("sku");
+                        String sku = jObj.getString("sku");
 
 
                         String id = (jObj.getString("id"));
                         String name = (jObj.getString("name"));
 
-                        JSONArray image_arr = jObj.getJSONArray ("links");
+                        JSONArray image_arr = jObj.getJSONArray("links");
                         JSONObject img_jObj = image_arr.getJSONObject(1);
-                        String imageurl=img_jObj.getString("href");
+                        String imageurl = img_jObj.getString("href");
 
-                        Recy_model2 item=new Recy_model2(id,imageurl,sku,name);
+                        Recy_model2 item = new Recy_model2(id, imageurl, sku, name);
                         productlist.add(item);
-
 
 
                     }
@@ -718,9 +630,7 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
                     recycler_adapter2 = new Recycler_Adapter2(getActivity(), productlist);
 
 
-
                     recyclerView.setAdapter(recycler_adapter2);
-
 
 
                 } catch (JSONException e) {
@@ -728,12 +638,10 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
                 }
 
 
-
             }
-        },new Response.ErrorListener() {
+        }, new Response.ErrorListener() {
             @Override
-            public
-            void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError error) {
 
 
                 progressBar.setVisibility(View.GONE);
@@ -741,8 +649,8 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
                 NetworkResponse response = error.networkResponse;
 
 
-                if(response != null && response.data != null){
-                    switch(response.statusCode){
+                if (response != null && response.data != null) {
+                    switch (response.statusCode) {
                         case 404:
                             BottomSheet.Builder builder = new BottomSheet.Builder(getContext());
                             builder.setTitle("Sorry! could't reach server");
@@ -762,44 +670,43 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
                             builder2.show();*/
                             break;
                         case 401:
-                            Toast.makeText(getActivity().getApplicationContext(),"Session Expired!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity().getApplicationContext(), "Session Expired!", Toast.LENGTH_SHORT).show();
                             session.logoutUser(getContext());
 
                     }
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() {
 
 
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization","bearer "+output);
+                params.put("Authorization", "bearer " + output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
     }
 
 
     @Override
-    public
-    boolean onMenuItemClick(MenuItem item) {
+    public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
                 //do sth here
-                class2="";
+                class2 = "";
                 bundle.remove("");
-                Intent i = new Intent(getActivity(),Search_Activity.class);
-                          startActivity(i);
+                Intent i = new Intent(getActivity(), Search_Activity.class);
+                startActivity(i);
                 return true;
         }
         switch (item.getItemId()) {
             case R.id.cart:
                 //do sth here
-                Intent i = new Intent(getActivity(),Cart_Activity.class);
+                Intent i = new Intent(getActivity(), Cart_Activity.class);
                 startActivity(i);
                 return true;
         }
@@ -810,24 +717,24 @@ if(getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity"))
     @Override
     public void onButtonClicked(String text) {
 
-productlist.clear();
+        productlist.clear();
 
-if(text.equalsIgnoreCase("clear")){
-    productlist.clear();
-    URL_DATA=ip+"gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked+"?wholesaler="+wholseller_id+"&productType=REGULAR";
-    loadRecycleData();
-    return;
-}
-        URL_DATA+=text;
+        if (text.equalsIgnoreCase("clear")) {
+            productlist.clear();
+            URL_DATA = ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery," + item_clicked + "?wholesaler=" + wholseller_id + "&productType=REGULAR";
+            loadRecycleData();
+            return;
+        }
+        URL_DATA += text;
 
         loadRecycleData();
 
-Log.e("Applied",URL_DATA);
+        Log.e("Applied", URL_DATA);
     }
 
-    public void chec_otp (final String otp){
+    public void chec_otp(final String otp) {
 
-        String url=ip1+"/b2b/api/v1/user/checkOTP/"+otp+"?email="+pref.getString(LKEY_NAME, null);
+        String url = ip1 + "/b2b/api/v1/user/checkOTP/" + otp + "?email=" + pref.getString(LKEY_NAME, null);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 
 
@@ -835,12 +742,12 @@ Log.e("Applied",URL_DATA);
             public void onResponse(String response) {
                 try {
 
-                    if(response.equalsIgnoreCase("false")){
+                    if (response.equalsIgnoreCase("false")) {
                         BottomSheet.Builder builder1 = new BottomSheet.Builder(getContext());
                         builder1.setTitle("Wrong OTP");
                         builder1.show();
                     }
-                Log.e("RESULTTT",response.toString());
+                    Log.e("RESULTTT", response.toString());
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -856,21 +763,17 @@ Log.e("Applied",URL_DATA);
                 builder1.setTitle("Sorry!,something went wrong");
                 builder1.show();
             }
-        })
-
-        {
+        }) {
             @Override
             public Map<String, String> getHeaders() {
 
 
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization","bearer "+output);
-                params.put("Content-Type","application/json");
+                params.put("Authorization", "bearer " + output);
+                params.put("Content-Type", "application/json");
                 return params;
             }
         };
-
-
 
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -878,14 +781,14 @@ Log.e("Applied",URL_DATA);
     }
 
 
-    public void sendOtp (  ){
-        String url=ip1+"/b2b/api/v1/user/otp/wholesaler/"+pref.getString("userid", null)+"?wholesaler="+wholseller_id;
-        Log.e("urrrrr",url);
+    public void sendOtp() {
+        String url = ip1 + "/b2b/api/v1/user/otp/wholesaler/" + pref.getString("userid", null) + "?wholesaler=" + wholseller_id;
+        Log.e("urrrrr", url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    Log.e("response",response);
+                    Log.e("response", response);
 
                    /* LayoutInflater li = LayoutInflater.from(getContext());
                     View promptsView = li.inflate(R.layout.premium_dialogue_layout, null);
@@ -933,16 +836,14 @@ Log.e("Applied",URL_DATA);
 //                builder1.setTitle("Sorry!,something went wrong");
 //                builder1.show();
             }
-        })
-
-        {
+        }) {
             @Override
             public Map<String, String> getHeaders() {
 
 
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization","bearer "+output);
-                params.put("Content-Type","application/json");
+                params.put("Authorization", "bearer " + output);
+                params.put("Content-Type", "application/json");
                 return params;
             }
         };
@@ -959,14 +860,41 @@ Log.e("Applied",URL_DATA);
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Fragment fragment_2=new Fragment_2();
-        fragment_2.setArguments(bundle);
-        FragmentManager fManager1 = getActivity().getSupportFragmentManager();
-        FragmentTransaction fTransaction1 = fManager1.beginTransaction();
-        fTransaction1.detach(Fragment_2.this);
-        fTransaction1.attach(Fragment_2.this);
-        fTransaction1.commit();
-     sortDialog.dismiss();
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Fragment fragment_2 = new Fragment_2();
+        String val = (String)parent.getAdapter().getItem(position);
+        Log.d("called", val);
+       /* switch (val) {
+            case "POPULARITY":
+
+
+
+                if (bundle.getString("CLASS_NAME").equals("Search_Filter") || bundle.getString("CLASS_NAME").equals("Search_Activity")) {
+                    sortparams.clear();
+                    sortparams.put("popular", "true");
+                    bundle.putString("Item_Clicked", item_clicked + "," + listDataHeader.get(groupPosition));
+                    bundle.putString("CLASS", "Search_Filter");
+                    bundle.putSerializable("SORT_VALUE", (Serializable) sortparams);
+
+
+                } else {
+                    bundle.putString("STRING_VALUE", VALUEiS);
+                    bundle.putString("CLASS", "popular");
+                   // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
+                }
+
+
+                fragment_2.setArguments(bundle);
+                FragmentManager fManager1 = getActivity().getSupportFragmentManager();
+                FragmentTransaction fTransaction1 = fManager1.beginTransaction();
+                fTransaction1.detach(Fragment_2.this);
+                fTransaction1.attach(Fragment_2.this);
+                fTransaction1.commit();
+                String val = (String) parent.getAdapter().getItem(position);
+                sortDialog.dismiss();
+                break;
+
+        }*/
+
     }
 }
