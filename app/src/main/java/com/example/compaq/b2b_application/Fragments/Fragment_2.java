@@ -427,13 +427,69 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
 
         /* textView.append(item_clicked);*/
 
-
-        if (class2.equals("SEARCH")) {
-            URL_DATA = create_url(ip_cat + "/searching/facets");
-            Log.d("url_data..", URL_DATA + class2);
-        } else if (class2.equals("FRAGMENT2")) {
+        if (class2.equals("FRAGMENT2")) {
             URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
             Log.e("NEW URL ", URL_DATA + class2);
+        }
+        else if (class2.equals("SEARCH")) {
+            URL_DATA = create_url(ip_cat + "/searching/facets");
+            Log.d("url_data..", URL_DATA + class2);
+        }
+        else if(class2.equals("popular")){
+            String classname=bundle.getString("CLASS");
+
+            if(sortparams.isEmpty()==true) {
+                sortparams.put(classname, "true");
+            }
+            else {
+                sortparams.clear();
+                sortparams.put(classname, "true");
+            }
+            URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
+            Log.d("url321....",URL_DATA);
+
+        }
+        else if(class2.equals("WeightLowToHigh")){
+            String classname=bundle.getString("CLASS");
+
+            if(sortparams.isEmpty()==true) {
+                sortparams.put(classname, "true");
+            }
+            else {
+                sortparams.clear();
+                sortparams.put(classname, "true");
+            }
+            URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
+            Log.d("url321....",URL_DATA);
+
+        }
+        else if(class2.equals("WeightHighToLow")){
+            String classname=bundle.getString("CLASS");
+
+            if(sortparams.isEmpty()==true) {
+                sortparams.put(classname, "true");
+            }
+            else {
+                sortparams.clear();
+                sortparams.put(classname, "true");
+            }
+            URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
+            Log.d("url321....",URL_DATA);
+
+        }
+        else if(class2.equals("newProducts")){
+            String classname=bundle.getString("CLASS");
+
+            if(sortparams.isEmpty()==true) {
+                sortparams.put(classname, "true");
+            }
+            else {
+                sortparams.clear();
+                sortparams.put(classname, "true");
+            }
+            URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
+            Log.d("url321....",URL_DATA);
+
         }
 
         loadRecycleData();
@@ -450,9 +506,29 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
                 if(class2.equals("SEARCH")) {
                     params.put("queryText", item_clicked);
                 }
-                else if(class2.equals("FRAGMENT2")){
+                else if(class2.equals("popular")&&sortparams.isEmpty()==false){
+
+                        params.putAll(sortparams);
+
+                    }
+                    else if(class2.equals("WeightLowToHigh") &&sortparams.isEmpty() == false) {
+
+                            params.putAll(sortparams);
+
+                    }
+                else if(class2.equals("WeightHighToLow") &&sortparams.isEmpty() == false) {
+
+                    params.putAll(sortparams);
 
                 }
+                else if(class2.equals("newProducts") &&sortparams.isEmpty() == false) {
+
+                    params.putAll(sortparams);
+
+                }
+
+
+
                 params.put("wholesaler", wholseller_id);
                 params.put("productType", "REGULAR");
                 params.put("page", 0);
@@ -864,21 +940,21 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
         Fragment fragment_2 = new Fragment_2();
         String val = (String)parent.getAdapter().getItem(position);
         Log.d("called", val);
-       /* switch (val) {
+        switch (val) {
             case "POPULARITY":
 
 
 
-                if (bundle.getString("CLASS_NAME").equals("Search_Filter") || bundle.getString("CLASS_NAME").equals("Search_Activity")) {
+                if (bundle.getString("CLASS").equals("Search_Filter") || bundle.getString("CLASS").equals("Search_Activity")) {
                     sortparams.clear();
                     sortparams.put("popular", "true");
-                    bundle.putString("Item_Clicked", item_clicked + "," + listDataHeader.get(groupPosition));
+                    bundle.putString("Item_Clicked", item_clicked );
                     bundle.putString("CLASS", "Search_Filter");
                     bundle.putSerializable("SORT_VALUE", (Serializable) sortparams);
 
 
                 } else {
-                    bundle.putString("STRING_VALUE", VALUEiS);
+                    bundle.putString("Item_Clicked", item_clicked );
                     bundle.putString("CLASS", "popular");
                    // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
                 }
@@ -890,11 +966,93 @@ class Fragment_2 extends Fragment implements Toolbar.OnMenuItemClickListener,Vie
                 fTransaction1.detach(Fragment_2.this);
                 fTransaction1.attach(Fragment_2.this);
                 fTransaction1.commit();
-                String val = (String) parent.getAdapter().getItem(position);
                 sortDialog.dismiss();
                 break;
 
-        }*/
+            case "WEIGHT-LOW TO HIGH":
+
+
+
+                if (bundle.getString("CLASS").equals("Search_Filter") || bundle.getString("CLASS").equals("Search_Activity")) {
+                    sortparams.clear();
+                    sortparams.put("popular", "true");
+                    bundle.putString("Item_Clicked", item_clicked );
+                    bundle.putString("CLASS", "Search_Filter");
+                    bundle.putSerializable("SORT_VALUE", (Serializable) sortparams);
+
+
+                } else {
+                    bundle.putString("Item_Clicked", item_clicked );
+                    bundle.putString("CLASS", "WeightLowToHigh");
+                    // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
+                }
+
+
+                fragment_2.setArguments(bundle);
+                FragmentManager fManager2 = getActivity().getSupportFragmentManager();
+                FragmentTransaction fTransaction2 = fManager2.beginTransaction();
+                fTransaction2.detach(Fragment_2.this);
+                fTransaction2.attach(Fragment_2.this);
+                fTransaction2.commit();
+                sortDialog.dismiss();
+                break;
+            case "WEIGHT-HIGH TO LOW":
+
+                if (bundle.getString("CLASS").equals("Search_Filter") || bundle.getString("CLASS").equals("Search_Activity")) {
+                    sortparams.clear();
+                    sortparams.put("popular", "true");
+                    bundle.putString("Item_Clicked", item_clicked );
+                    bundle.putString("CLASS", "Search_Filter");
+                    bundle.putSerializable("SORT_VALUE", (Serializable) sortparams);
+
+
+                } else {
+                    bundle.putString("Item_Clicked", item_clicked );
+                    bundle.putString("CLASS", "WeightHighToLow");
+                    // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
+                }
+
+
+                fragment_2.setArguments(bundle);
+                FragmentManager fManager3 = getActivity().getSupportFragmentManager();
+                FragmentTransaction fTransaction3 = fManager3.beginTransaction();
+                fTransaction3.detach(Fragment_2.this);
+                fTransaction3.attach(Fragment_2.this);
+                fTransaction3.commit();
+                sortDialog.dismiss();
+                break;
+            case "NEW PRODUCTS":
+
+                if (bundle.getString("CLASS").equals("Search_Filter") || bundle.getString("CLASS").equals("Search_Activity")) {
+                    sortparams.clear();
+                    sortparams.put("NEW PRODUCT", "true");
+                    bundle.putString("Item_Clicked", item_clicked );
+                    bundle.putString("CLASS", "Search_Filter");
+                    bundle.putSerializable("SORT_VALUE", (Serializable) sortparams);
+
+
+                } else {
+                    bundle.putString("Item_Clicked", item_clicked );
+                    bundle.putString("CLASS", "newProducts");
+                    // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
+                }
+
+
+                fragment_2.setArguments(bundle);
+                FragmentManager fManager4 = getActivity().getSupportFragmentManager();
+                FragmentTransaction fTransaction4 = fManager4.beginTransaction();
+                fTransaction4.detach(Fragment_2.this);
+                fTransaction4.attach(Fragment_2.this);
+                fTransaction4.commit();
+                sortDialog.dismiss();
+                break;
+
+
+
+        }
+
+        }
+
 
     }
-}
+
