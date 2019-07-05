@@ -1,4 +1,4 @@
-package com.example.compaq.b2b_application.Adapters;
+package com.example.compaq.b2b_application.Helper_classess;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

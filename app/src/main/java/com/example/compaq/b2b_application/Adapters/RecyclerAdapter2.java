@@ -42,9 +42,6 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.List
     }
 
 
-
-
-
     @NonNull
     @Override
     public

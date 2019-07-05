@@ -75,10 +75,12 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 
 public
 class MainActivity extends AppCompatActivity {
-   /* public static String ip="http://192.168.100.4:8040/";
+   /*local URLs
+    public static String ip="http://192.168.100.4:8040/";
     public static String ip_cat="http://192.168.100.4:8009/";
     public static String ip1="http://192.168.100.4:8766/uaa";*/
 
+   ///////////////Server Base URLS
     public static String ip="https://server.mrkzevar.com/";
     public static String ip_cat="https://server.mrkzevar.com/gate/b2b/catalog/api/v1";
     public static String ip1 ="https://server.mrkzevar.com/uaa";
@@ -100,29 +102,21 @@ class MainActivity extends AppCompatActivity {
 
     public products_display_fragment productsdisplayfragment;
     FrameLayout actContent;
-  /*  SharedPreferences pref;*/
     com.example.compaq.b2b_application.Adapters.ExpandableListAdapter listAdapter;
     public ScaleAnimation scaleAnimation;
     ExpandableListView expListView;
-    public List<String> listDataHeader = new ArrayList<String>();
-    HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
-   /* private static final String PREF = "User_information";*/
+    public List<String> listDataHeader = new ArrayList<>();
+    HashMap<String, List<String>> listDataChild = new HashMap<>();
      public  SharedPreferences sharedPref;
     public   SharedPreferences.Editor myEditor;
-    public static LinearLayout order_his_t,seller_t,wish_t,account_t,logout_t,custom_order,home;
-    public static TextView textCartItemCount;
+    public  LinearLayout home;
+    public  TextView textCartItemCount;
    NavigationView navigationView;
     private int lastExpandedPosition = -1;
-
    public int json_length=0;
    public String cart_item_no="";
     int mCartItemCount = 10;
- /*  public SharedPreferences cart_shared_preference;
-    SharedPreferences.Editor cartEditor;*/
-    ////login-variables
-    // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
-
     // Session Manager Class
     SessionManagement session;
 
@@ -143,22 +137,18 @@ class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
 
-
-       /* sharedPref = .getSharedPreferences(PREF, Context.MODE_PRIVATE);
-        myEditor = sharedPref.edit();*/
         getApplicationContext().registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         sharedPref=getSharedPreferences("USER_DETAILS",0);
         myEditor = sharedPref.edit();
        /* cart_shared_preference = getApplicationContext().getSharedPreferences("CART_ITEMS", 0);
         cartEditor=cart_shared_preference.edit();*/
-
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        drawerLayout =  findViewById(R.id.drawer);
         getinfo(MainActivity.this);
         mToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        toolbar = findViewById(R.id.tool_bar);
 
 /*
         mToggle = new ActionBarDrawerToggle(this,
@@ -168,11 +158,11 @@ class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-       arrayList=new ArrayList<String>();
-       sub_arraylist=new ArrayList<String>();
+       arrayList=new ArrayList<>();
+       sub_arraylist=new ArrayList<>();
 
 
-
+///////////////////////////////////////
         FirebaseIDService firebaseIDService=new FirebaseIDService();
         firebaseIDService.onTokenRefresh(MainActivity.this);
 
@@ -308,9 +298,10 @@ custom_order.setOnClickListener(new View.OnClickListener() {
 
 
 
-
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().show();
+                if(getSupportActionBar()!=null) {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    getSupportActionBar().show();
+                }
 
 
             fragmentManager = getSupportFragmentManager();
@@ -357,14 +348,14 @@ custom_order.setOnClickListener(new View.OnClickListener() {
 
 
 
-        expListView = (ExpandableListView) findViewById(R.id.navList);
+        expListView =  findViewById(R.id.navList);
 
             final View listHeaderView = getLayoutInflater().inflate(R.layout.header, null, false);
 
            /* expListView.addHeaderView(listHeaderView);*/
 
-            TextView header=(TextView)findViewById(R.id.header_name);
-             header_image=(ImageView)findViewById(R.id.header_image) ;
+            TextView header=findViewById(R.id.header_name);
+             header_image=findViewById(R.id.header_image) ;
             header_image.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.M)
                 @Override
@@ -393,7 +384,9 @@ custom_order.setOnClickListener(new View.OnClickListener() {
         String userfi=sharedPref.getString("firstname", null);
        Log.e("USERNAMEEE",userfi);
         header.setText(userfi);
-        prepareListData();
+
+///////////////////////Api call//////////////////////////////
+        fetchingCatalog();
 
 
 
@@ -457,7 +450,7 @@ custom_order.setOnClickListener(new View.OnClickListener() {
 
 
                     String mi;
-                    String prnt="";
+                    String prnt;
 
                     if(childPosition==0){
 
@@ -632,7 +625,7 @@ custom_order.setOnClickListener(new View.OnClickListener() {
             public Map<String, String> getHeaders() {
 
 
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization","bearer "+output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
@@ -666,9 +659,9 @@ custom_order.setOnClickListener(new View.OnClickListener() {
          */
 
 
-
+////////////////////Fetching Catalog  and its categories/////////////////////////////
        private RequestQueue requestQueue;
-       private void prepareListData () {
+       private void fetchingCatalog () {
 
             if(requestQueue==null)
             {
@@ -701,7 +694,7 @@ custom_order.setOnClickListener(new View.OnClickListener() {
 
                             SUB_URL =   ip_cat+"/category/byFirstLevelCategory/b2b/"+parent+","+sname+"?wholesaler="+sharedPref.getString("Wholeseller_id", null);
                             Log.e("UUURRRLLL",SUB_URL);
-                            prepareSubListData(i, sname);
+                            fetchSubCategories(i, sname);
 
                         }
 
@@ -734,7 +727,7 @@ custom_order.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public Map<String, String> getHeaders() {
 
-                    Map<String, String> params = new HashMap<String, String>();
+                    Map<String, String> params = new HashMap<>();
                     params.put("Authorization","bearer "+output);
                     params.put("Content-Type", "application/x-www-form-urlencoded");
                     return params;
@@ -744,7 +737,7 @@ custom_order.setOnClickListener(new View.OnClickListener() {
             requestQueue.add(stringRequest);
         }
 
-        private void prepareSubListData ( final int i, final String sname1){
+        private void fetchSubCategories ( final int i, final String sname1){
             StringRequest stringRequest = new StringRequest(Request.Method.GET, SUB_URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -752,11 +745,11 @@ custom_order.setOnClickListener(new View.OnClickListener() {
                         JSONArray ja_data = new JSONArray(response);
 
                         if (ja_data.length() == 0) {
-                            final List<String> submenu = new ArrayList<String>();
+                            final List<String> submenu = new ArrayList<>();
                             submenu.add("All  "+sname1);
                             listDataChild.put(listDataHeader.get(i), submenu);
                         } else {
-                            final List<String> submenu = new ArrayList<String>();
+                            final List<String> submenu = new ArrayList<>();
                             submenu.add("All  "+sname1);
                             for (int j = 0; j < ja_data.length(); j++) {
                                 JSONObject jObj = ja_data.getJSONObject(j);
@@ -787,7 +780,7 @@ custom_order.setOnClickListener(new View.OnClickListener() {
 
                     String output=sharedPref.getString(ACCESS_TOKEN, null);
                     Log.d("ACESSSSSS>>>>>>>>TOKEN",output);
-                    Map<String, String> params = new HashMap<String, String>();
+                    Map<String, String> params = new HashMap<>();
                     params.put("Authorization","bearer "+output);
                     params.put("Content-Type", "application/x-www-form-urlencoded");
                     return params;
@@ -796,7 +789,7 @@ custom_order.setOnClickListener(new View.OnClickListener() {
             RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
             requestQueue.add(stringRequest);
         }
-
+//////////////////Opening Gallery On Clicking imageview On Drawer///////////////
     private void startGallery() {
         Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         cameraIntent.putExtra("crop", "true");
@@ -815,7 +808,7 @@ custom_order.setOnClickListener(new View.OnClickListener() {
         if (resultCode == RESULT_OK) {
             if (requestCode == 1000) {
                 Uri returnUri = data.getData();
-                Bitmap bitmapImage = null;
+                Bitmap bitmapImage ;
                 Bitmap bitimage = null;
                 try {
                     bitmapImage = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), returnUri);
@@ -828,6 +821,8 @@ custom_order.setOnClickListener(new View.OnClickListener() {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    //////////////Resizing Images.///////////////////////////////////////
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
         int height = image.getHeight();
@@ -991,7 +986,7 @@ public void userInformation ( ){
 
             View actionView = MenuItemCompat.getActionView(menuItem);
             actionView .setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-            textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+            textCartItemCount =  actionView.findViewById(R.id.cart_badge);
 
             setupBadge(getApplicationContext());
             textCartItemCount.setAnimation(scaleAnimation);
@@ -1111,9 +1106,6 @@ public void userInformation ( ){
         public void onReceive(Context context, Intent intent) {
             if(!ConnectivityStatus.isConnected(getApplicationContext())){
                 alert.showAlertDialog(MainActivity.this, "No Internet!", "Please Check your internet Connection", "internet");
-            }else {
-                // connected
-
             }
         }
     };
@@ -1244,7 +1236,7 @@ wishlist2.clear();
         }) {
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization", "bearer " + output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;

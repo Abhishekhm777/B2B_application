@@ -54,6 +54,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
@@ -62,57 +63,50 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 public
-class Main2Activity extends AppCompatActivity {
-    private Toolbar toolbar2;
+class Displaying_complete_product_details_Activity extends AppCompatActivity {
     private DrawerLayout drawer;
     private ViewPager viewPager;
     private ViewpageAdapter2 viewPageAdapter2;
     private Context mContext;
-    ArrayList<Viewpager2_model> productlist;
-
-    ArrayList<Recycler_model3> detProductlist;
-    public RecyclerView main_recyclerView;
-    public  Recycler_model3 main2_listner;
-    public RecyclerAdapter3 main2_recycler_adapter;
+    private ArrayList<Viewpager2_model> productlist;
+    private ArrayList<Recycler_model3> detProductlist;
+    private RecyclerView main_recyclerView;
+    private Recycler_model3 main2_listner;
+    private RecyclerAdapter3 main2_recycler_adapter;
 
     public RecyclerView innerRecyclerview;
-    public Inner_Recy_model inner_recy_listner;
+    private Inner_Recy_model inner_recy_listner;
     public Inner_RecyclerAdapter4 inner_recycler_adapter;
-    public   ArrayList<Inner_Recy_model> details_list;
-    public    String URL_DATA="";
+    private ArrayList<Inner_Recy_model> details_list;
+    private String URL_DATA="";
     public String Detail_URL_DATA="";
     public Bundle bundle;
     public TextView textView,textView2,skutext;
     public RadioGroup radioGroup ;
     private int page=0;
     private SharedPreferences sharedPref;
-    public   SharedPreferences.Editor myEditor;
-    public String name="";
-    public String id="";
-    public String item_name="";
-    public String sku="";
+    private SharedPreferences.Editor myEditor;
+    private String name="";
+    private String id="";
+    private String item_name="";
+    private String sku="";
     public String productPrice="";
     public String FinalProductPrice="";
-    public static String d_url="";
+    private   String d_url="";
     private FragmentTransaction fragmentTransaction;
-    public  FragmentManager fragmentManager;
-    ToggleButton toggleButton;
-public  int json_length=0;
+    private FragmentManager fragmentManager;
+    private ToggleButton toggleButton;
+     private int json_length=0;
    /* public SharedPreferences cart_shared_preference;*/
-    public static TextView textCartItemCount;
-    public  TextView wish_items;
-Dialog dialog;
-    public String cart_item_no="";
+   private TextView textCartItemCount;
+    private TextView wish_items;
+    private Dialog dialog;
+    private String cart_item_no="";
     private View actionView;
-    private ScaleAnimation scaleAnimation;
     private ScaleAnimation scaleAnimation2;
-    public String sku_wishlilst;
+    private String sku_wishlilst;
     private String output;
-
-
-
     /* public SharedPreferences.Editor cartEditor;*/
-
     @Override
     protected
     void onCreate(Bundle savedInstanceState) {
@@ -121,14 +115,11 @@ Dialog dialog;
 
 
         sharedPref =getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-
-     /*   sharedPref=getApplicationContext().getSharedPreferences("USER_DETAILS",0);*/
-
          output=sharedPref.getString(ACCESS_TOKEN, null);
 
         myEditor = sharedPref.edit();
 
-        toolbar2=(Toolbar)findViewById(R.id.new_toolbar);
+        Toolbar toolbar2 = (Toolbar) findViewById(R.id.new_toolbar);
 
       /*  toolbar2.inflateMenu(R.menu.actionbar_icons);*/
 
@@ -138,11 +129,11 @@ Dialog dialog;
 
 
         setSupportActionBar(toolbar2);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        dialog = new Dialog(Main2Activity.this);
+        dialog = new Dialog(Displaying_complete_product_details_Activity.this);
         dialog.setContentView(R.layout. progress_layout);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         productlist=new ArrayList<>();
         detProductlist=new ArrayList<>();
@@ -196,7 +187,7 @@ Dialog dialog;
                /* userCart_details(user_i);*/
 
                 Bundle bundle=getIntent().getExtras();
-                name=bundle.getString("Item_Clicked");
+                name= Objects.requireNonNull(bundle).getString("Item_Clicked");
                 id=bundle.getString("id");
 
                 Bundle bundle1=new Bundle();
@@ -267,7 +258,7 @@ actionView1.setOnClickListener(new View.OnClickListener() {
     }
     public  void setupBadge(Context context) {
 
-        scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.REVERSE, 0.7f, Animation.REVERSE, 0.7f);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.REVERSE, 0.7f, Animation.REVERSE, 0.7f);
         scaleAnimation.setDuration(1000);
         BounceInterpolator bounceInterpolator = new BounceInterpolator();
         scaleAnimation.setInterpolator(bounceInterpolator);
@@ -285,7 +276,7 @@ actionView1.setOnClickListener(new View.OnClickListener() {
         textCartItemCount.setAnimation(scaleAnimation);
 
     }
-public void setupwishBadge(Context context){
+public void setupwishBadge(){
 
     wish_items.setText(cart_item_no);
 
@@ -324,32 +315,18 @@ public void setupwishBadge(Context context){
         }
     }
 
-    public void loadRecycleData(){
+    private void loadRecycleData(){
         Bundle bundle=getIntent().getExtras();
-        name=bundle.getString("Item_Clicked");
+        name= Objects.requireNonNull(bundle).getString("Item_Clicked");
        id=bundle.getString("item_name");
-
        sku_wishlilst=bundle.getString("sku");
-
-        String lurl=bundle.getString("lurl");
-
         item_name=bundle.getString("item_name");
-
-      /*  URL_DATA="https://server.mrkzevar.com/gate/catalog/api/v1/product/all/category/"+lurl;*/
-
         URL_DATA=ip+"gate/b2b/catalog/api/v1/product/"+name;
         Log.e("YAVDUUU",URL_DATA);
         dialog.show();
-
-
         StringRequest stringRequest=new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
             @Override
-            public
-            void onResponse(String response) {
-
-
-
-
+            public void onResponse(String response) {
                 try {
                     JSONObject jsonObj = new JSONObject(response);
                     JSONObject jp=jsonObj.getJSONObject("resourceSupport");
@@ -416,7 +393,7 @@ public void setupwishBadge(Context context){
 
                     }
                     detailsRecycleData();
-                    viewPageAdapter2=new ViewpageAdapter2(Main2Activity.this,productlist);
+                    viewPageAdapter2=new ViewpageAdapter2(Displaying_complete_product_details_Activity.this,productlist);
 
 
 
@@ -443,22 +420,22 @@ public void setupwishBadge(Context context){
 
                 String output=sharedPref.getString(ACCESS_TOKEN, null);
                 Log.d("ACESSSSSS>>>>>>>>TOKEN",output);
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization","bearer "+output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
             }
-        };;;
-        RequestQueue requestQueue= Volley.newRequestQueue(Main2Activity.this);
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(Displaying_complete_product_details_Activity.this);
         requestQueue.add(stringRequest);
     }
 
 
 
-    public void detailsRecycleData(){
+    private void detailsRecycleData(){
 
         main_recyclerView=(RecyclerView)this.findViewById(R.id.main2recycler) ;
-        main_recyclerView.setLayoutManager(new LinearLayoutManager(Main2Activity.this,LinearLayoutManager.VERTICAL,false));
+        main_recyclerView.setLayoutManager(new LinearLayoutManager(Displaying_complete_product_details_Activity.this,LinearLayoutManager.VERTICAL,false));
 
         main_recyclerView.setHasFixedSize(true);
 
@@ -545,7 +522,7 @@ public void setupwishBadge(Context context){
 
                   /*  main2_listner.setArrayList(details_list);*/
                           dialog.dismiss();
-                    main2_recycler_adapter = new RecyclerAdapter3(Main2Activity.this, detProductlist);
+                    main2_recycler_adapter = new RecyclerAdapter3(Displaying_complete_product_details_Activity.this, detProductlist);
                     main_recyclerView.setAdapter(main2_recycler_adapter);
                     main_recyclerView.setNestedScrollingEnabled(false);
 
@@ -575,13 +552,13 @@ public void setupwishBadge(Context context){
 
                 String output=sharedPref.getString(ACCESS_TOKEN, null);
                 Log.d("ACESSSSSS>>>>>>>>TOKEN",output);
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization","bearer "+output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
             }
-        };;
-        RequestQueue requestQueue= Volley.newRequestQueue(Main2Activity.this);
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(Displaying_complete_product_details_Activity.this);
         requestQueue.add(stringRequest);
     }
 
@@ -613,13 +590,13 @@ public void setupwishBadge(Context context){
                             cartEditor.commit();*/
                             /*MainActivity mActivity= new MainActivity();
                             mActivity.setupBadge(getContext());
-                            Main2Activity main2Activity= new Main2Activity();
-                            main2Activity.setupBadge(getContext());*/
+                            Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                            displayingcompleteproductdetailsActivity.setupBadge(getContext());*/
 
 
                             if (jsonArray.length() == 0 ) {
                                 Bundle bundle=getIntent().getExtras();
-                                name=bundle.getString("Item_Clicked");
+                                name= Objects.requireNonNull(bundle).getString("Item_Clicked");
                                 id=bundle.getString("id");
 
                                 Bundle bundle1=new Bundle();
@@ -630,11 +607,8 @@ public void setupwishBadge(Context context){
                                 fragmentManager = getSupportFragmentManager();
                                 fragmentTransaction = fragmentManager.beginTransaction();
                                 fragmentTransaction.replace(R.id.main2, dropdown_fragment);
-
                                 fragmentTransaction.addToBackStack(null).commit();
-
                             }
-
                             for(int i=0;i<jsonArray.length();i++) {
                                 JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                                 String userCart_product_id = jsonObject1.getString("product");
@@ -649,7 +623,7 @@ public void setupwishBadge(Context context){
 
                                 if (i == jsonArray.length() - 1 ) {
                                     Bundle bundle=getIntent().getExtras();
-                                    name=bundle.getString("Item_Clicked");
+                                    name= Objects.requireNonNull(bundle).getString("Item_Clicked");
                                     id=bundle.getString("id");
 
                                     Bundle bundle1=new Bundle();
@@ -675,7 +649,7 @@ public void setupwishBadge(Context context){
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Bundle bundle=getIntent().getExtras();
-                name=bundle.getString("Item_Clicked");
+                name= Objects.requireNonNull(bundle).getString("Item_Clicked");
                 id=bundle.getString("id");
 
                 Bundle bundle1=new Bundle();
@@ -695,7 +669,7 @@ public void setupwishBadge(Context context){
             @Override
             public Map<String, String> getHeaders() {
 
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap< >();
                 params.put("Authorization","bearer "+output);
                 return params;
             }
@@ -705,7 +679,7 @@ public void setupwishBadge(Context context){
 
 
     }
-    public  void addToWhishlist(final String sku){
+    private void addToWhishlist(final String sku){
 
         String url = ip1+"/b2b/api/v1/user/wish-list/"+sharedPref.getString("userid","")+"/AD?wishList="+sku;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -736,7 +710,7 @@ public void setupwishBadge(Context context){
         }) {
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization", "bearer "+output);
                 params.put("Content-Type", "application/json");
                 return params;
@@ -747,7 +721,7 @@ public void setupwishBadge(Context context){
         requestQueue.add(objectRequest);
 
     }
-    public  void removeFromWhish(final String sku){
+    private void removeFromWhish(final String sku){
 
         String url = ip1+"/b2b/api/v1/user/wish-list/"+sharedPref.getString("userid","")+"/DL?wishList="+sku;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -778,7 +752,7 @@ public void setupwishBadge(Context context){
         }) {
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization", "bearer "+output);
                 params.put("Content-Type", "application/json");
                 return params;
@@ -798,13 +772,6 @@ public void setupwishBadge(Context context){
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-
-
-    }
 }
 
 

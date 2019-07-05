@@ -228,6 +228,4 @@ public class Top_adapter extends BaseAdapter {
         RequestQueue queue = Volley.newRequestQueue(_context);
         queue.add(request);
     }
-
-
 }

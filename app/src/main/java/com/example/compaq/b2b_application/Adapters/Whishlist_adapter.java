@@ -22,7 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.Activity.Main2Activity;
+import com.example.compaq.b2b_application.Activity.Displaying_complete_product_details_Activity;
 import com.example.compaq.b2b_application.Activity.MainActivity;
 import com.example.compaq.b2b_application.Model.Whishlist_model;
 import com.example.compaq.b2b_application.R;
@@ -100,7 +100,8 @@ public class Whishlist_adapter extends RecyclerView.Adapter<Whishlist_adapter.Vi
                 bundle.putString("item_name",name);
                 bundle.putString("Item_Clicked",itemclicked);
                 bundle.putString("lurl",item_clicked);
-                Intent intent=new Intent(mContext, Main2Activity.class).putExtras(bundle);
+                Intent intent=new Intent(mContext, Displaying_complete_product_details_Activity.class).putExtras(bundle);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 mContext.startActivity(intent);
             }
         });
@@ -259,12 +260,12 @@ public class Whishlist_adapter extends RecyclerView.Adapter<Whishlist_adapter.Vi
                     myEditor.commit();
                    /* MainActivity mActivity= new MainActivity();
                     mActivity.setupBadge(mContext);
-                    if(mContext.getClass().getSimpleName().equalsIgnoreCase("Main2Activity")){
-                        Main2Activity main2Activity= new Main2Activity();
-                        main2Activity.setupBadge(mContext);
+                    if(mContext.getClass().getSimpleName().equalsIgnoreCase("Displaying_complete_product_details_Activity")){
+                        Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                        displayingcompleteproductdetailsActivity.setupBadge(mContext);
                     }
-                   Main2Activity main2Activity= new Main2Activity();
-                    main2Activity.setupBadge(mContext);*/
+                   Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                    displayingcompleteproductdetailsActivity.setupBadge(mContext);*/
 
                 }
 

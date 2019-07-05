@@ -7,19 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.compaq.b2b_application.Activity.Main2Activity;
+import com.example.compaq.b2b_application.Activity.Displaying_complete_product_details_Activity;
 import com.example.compaq.b2b_application.Model.Inner_Recy_model;
 import com.example.compaq.b2b_application.R;
 
 import java.util.ArrayList;
 
 public class Inner_RecyclerAdapter4 extends RecyclerView.Adapter<Inner_RecyclerAdapter4.ListnerViewHolder>{
-    public Main2Activity main2Activity;
+    public Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity;
     public ArrayList<Inner_Recy_model> details_list;
     private View view;
     public
-    Inner_RecyclerAdapter4(Main2Activity main2Activity, ArrayList<Inner_Recy_model> details_list) {
-        this.main2Activity=main2Activity;
+    Inner_RecyclerAdapter4(Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity, ArrayList<Inner_Recy_model> details_list) {
+        this.displayingcompleteproductdetailsActivity = displayingcompleteproductdetailsActivity;
         this.details_list=details_list;
     }
     @NonNull

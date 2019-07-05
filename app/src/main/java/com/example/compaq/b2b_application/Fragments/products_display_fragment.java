@@ -155,18 +155,15 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         ed4 = (EditText) dialog.findViewById(R.id.otpET4);
         ed5 = (EditText) dialog.findViewById(R.id.otpET5);
 
-
         ed1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 1) {

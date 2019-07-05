@@ -35,7 +35,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.compaq.b2b_application.Fragments.Dropdown_fragment;
-import com.example.compaq.b2b_application.Activity.Main2Activity;
+import com.example.compaq.b2b_application.Activity.Displaying_complete_product_details_Activity;
 import com.example.compaq.b2b_application.Activity.MainActivity;
 import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.R;
@@ -140,7 +140,7 @@ public class Recycler_Adapter2 extends RecyclerView.Adapter<Recycler_Adapter2.My
         bundle.putString("Item_Clicked",itemclicked);
         bundle.putString("lurl",item_clicked);
         bundle.putString("sku",sku);
-        Intent intent=new Intent(mCtx, Main2Activity.class).putExtras(bundle);
+        Intent intent=new Intent(mCtx, Displaying_complete_product_details_Activity.class).putExtras(bundle);
         mCtx.startActivity(intent);
     }
 });
@@ -281,8 +281,8 @@ if(!isChecked){
                             cartEditor.commit();*/
                             /*MainActivity mActivity= new MainActivity();
                             mActivity.setupBadge(getContext());
-                            Main2Activity main2Activity= new Main2Activity();
-                            main2Activity.setupBadge(getContext());*/
+                            Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                            displayingcompleteproductdetailsActivity.setupBadge(getContext());*/
 
 
                             if (jsonArray.length() == 0 ) {
@@ -540,8 +540,8 @@ if(!isChecked){
                     myEditor.commit();
                     MainActivity mActivity= new MainActivity();
                     mActivity.setupBadge(mCtx);
-                   /* Main2Activity main2Activity= new Main2Activity();
-                    main2Activity.setupBadge(getContext());*/
+                   /* Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                    displayingcompleteproductdetailsActivity.setupBadge(getContext());*/
                     Toast.makeText(mCtx, "Added to Bag", Toast.LENGTH_SHORT).show();
 
                 }

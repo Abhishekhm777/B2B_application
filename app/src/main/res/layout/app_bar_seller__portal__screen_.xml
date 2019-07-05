@@ -52,7 +52,6 @@
         android:layout_below="@+id/tool_bar"
         android:id="@+id/graphlayout">
 
-
         <com.jjoe64.graphview.GraphView
             android:layout_width="match_parent"
             android:layout_height="200dip"
@@ -64,8 +63,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NOTIFY"
+
             android:id="@+id/notify"
            android:layout_gravity="center"/>
+
     </LinearLayout>
 
 

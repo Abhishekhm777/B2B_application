@@ -60,7 +60,6 @@ public class Bottom_sheet_dialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottom_sheet, container, false);
-
         children = new ArrayList<String>();
         selection = new ArrayList<String>();
         urls = new ArrayList<String>();
@@ -69,7 +68,6 @@ public class Bottom_sheet_dialog extends BottomSheetDialogFragment {
         Bundle bundle = this.getArguments();
         result = bundle.getString("TeamName");
         loadRecycleData();
-
         clear_all=(Button)view.findViewById(R.id.clear);
         apply=(Button)view.findViewById(R.id.applay);
 

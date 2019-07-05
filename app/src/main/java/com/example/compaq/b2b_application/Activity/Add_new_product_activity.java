@@ -13,12 +13,12 @@ import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,7 +49,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import com.example.compaq.b2b_application.Adapters.Adapter_spesification;
 import com.example.compaq.b2b_application.Adapters.Image_Add_Adapter;
 import com.example.compaq.b2b_application.Adapters.User_class_Adapter;
@@ -90,9 +89,9 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
+import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 public class Add_new_product_activity extends AppCompatActivity {
@@ -184,12 +183,9 @@ public class Add_new_product_activity extends AppCompatActivity {
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getApplicationContext().getApplicationContext(), 1, GridLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(mGridLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         expandableListView =  findViewById(R.id.expandable_list);
-
         button_layout =  findViewById(R.id.buttons);
         expand_layout = findViewById(R.id.expand_layout);
-
         parentLinearLayout = findViewById(R.id.linearLayout);
         newLayout =  findViewById(R.id.new_layout);
         userclass_textView =  findViewById(R.id.user_classes);
@@ -199,7 +195,6 @@ public class Add_new_product_activity extends AppCompatActivity {
                 myDialogue.show();
             }
         });
-
         reselect =  findViewById(R.id.reselect);
         reselect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,15 +268,12 @@ public class Add_new_product_activity extends AppCompatActivity {
 
               /*  Upload_image();*/
                if(!name.getText().toString().equalsIgnoreCase("")&&!sku.getText().toString().equalsIgnoreCase("")) {
-                   if (filePaths.size() >= 1) {
+
                        cat_path.put(category_path.deleteCharAt(category_path.length() - 1).toString());
                        val_map = expandable_spcification_adapter.getValuemap();
                        uploadImagesToServer();
-                   }
-                   else {
-                       Snackbar.make(view, "Please Select Atleast One Image", Snackbar.LENGTH_SHORT)
-                               .setAction("Action", null).show();
-                   }
+
+
                }
                else {
                    if(name.getText().toString().equalsIgnoreCase("")){

@@ -67,13 +67,13 @@ public class Request_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_);
 
-        toolbar=(Toolbar)findViewById(R.id.cart_toolbar);
+        toolbar= findViewById(R.id.cart_toolbar);
         toolbar.setTitle("Manage Requests");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sharedPref =getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
-        recyclerView = (RecyclerView)findViewById(R.id.request_recycler);
+        recyclerView = findViewById(R.id.request_recycler);
         productlist=new ArrayList<>();
 
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));

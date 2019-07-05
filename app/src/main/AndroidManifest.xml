@@ -30,7 +30,7 @@
         android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
         tools:replace="android:allowBackup">
 
-        <activity android:name=".Activity.First_activity"
+        <activity android:name=".Activity.Splash_Activity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -140,7 +140,7 @@
             android:theme="@style/Logintheme"
             android:screenOrientation="portrait"/>
         <!--
- <activity android:name=".Main2Activity">
+ <activity android:name=".Displaying_complete_product_details_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -166,7 +166,7 @@
             android:largeHeap="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Activity.Main2Activity"
+            android:name=".Activity.Displaying_complete_product_details_Activity"
             android:hardwareAccelerated="false"
             android:largeHeap="true"
             android:screenOrientation="portrait"/>

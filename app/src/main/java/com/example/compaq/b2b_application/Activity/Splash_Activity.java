@@ -11,7 +11,7 @@ import com.example.compaq.b2b_application.R;
 
 import static java.lang.Thread.sleep;
 
-public class First_activity extends AppCompatActivity {
+public class Splash_Activity extends AppCompatActivity {
 Button button;
 Animation bottom_animat;
     @Override
@@ -33,7 +33,7 @@ Animation bottom_animat;
                     e.printStackTrace();
                 }
                 finally {
-                    Intent intent=new Intent(First_activity.this, LoginActivity.class);
+                    Intent intent=new Intent(Splash_Activity.this, LoginActivity.class);
                     startActivity(intent);
                 }
             }

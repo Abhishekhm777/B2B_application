@@ -3,7 +3,9 @@ package com.example.compaq.b2b_application.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,37 +44,38 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
  * A simple {@link Fragment} subclass.
  */
 public class Mange_exixisting_fragment extends Fragment {
-    ExpandableListView expListView;
-    public List<String> listDataHeader = new ArrayList<String>();
-    HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
-    com.example.compaq.b2b_application.Adapters.ExpandableListAdapter listAdapter;
+    private ExpandableListView expListView;
+    private final List<String> listDataHeader = new ArrayList<>();
+    private final  HashMap<String, List<String>> listDataChild = new HashMap<>();
+    private com.example.compaq.b2b_application.Adapters.ExpandableListAdapter listAdapter;
     public Manage_Adapter manage_adapter;
     private int lastExpandedPosition = -1;
-    public SharedPreferences sharedPref;
+    private SharedPreferences sharedPref;
     private  Bundle bundle;
-    SessionManagement session;
-    public String SUB_URL = "";
-    public String sname = "";
-private View view;
-    public int position = 0;
-    String output;
-    String    wholseller_id;
+    private  SessionManagement session;
+    private String SUB_URL = "";
+    private String sname = "";
+    private View view;
+    private int position = 0;
+    private  String output;
+    private String  wholseller_id;
     private  Mange_card_fragment mange_card_fragment;
-    SearchView searchView;
-    ProgressBar progressBar;
+    private  SearchView searchView;
+    private  ProgressBar progressBar;
+    private FragmentActivity activity;
     public Mange_exixisting_fragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if(view==null) {
             view = inflater.inflate(R.layout.fragment_mange_exixisting_fragment, container, false);
 
-            expListView = (ExpandableListView) view.findViewById(R.id.navList);
+            expListView =  view.findViewById(R.id.navList);
             listAdapter = new com.example.compaq.b2b_application.Adapters.ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
 
             sharedPref = getActivity().getSharedPreferences("USER_DETAILS", 0);
@@ -80,12 +83,14 @@ private View view;
             session = new SessionManagement(getActivity().getApplicationContext());
             output = sharedPref.getString(ACCESS_TOKEN, null);
 
+            activity = this.getActivity();
+
             mange_card_fragment = new Mange_card_fragment();
-            progressBar=(ProgressBar)view.findViewById(R.id.progress);
+            progressBar=view.findViewById(R.id.progress);
             progressBar.setVisibility(View.VISIBLE);
 
             wholseller_id = sharedPref.getString("userid", null);
-            searchView = (SearchView) getActivity().findViewById(R.id.sellers_search);
+            searchView =  getActivity().findViewById(R.id.sellers_search);
             searchView.setVisibility(View.VISIBLE);
             searchView.setOnSearchClickListener(new View.OnClickListener() {
                 @Override
@@ -167,7 +172,7 @@ private View view;
                         bundle.putString("clicked", listDataHeader.get(groupPosition));
                         mange_card_fragment.setArguments(bundle);
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, mange_card_fragment).addToBackStack(null).commit();
-                        return;
+
                     }
                 }
             });
@@ -193,7 +198,7 @@ private View view;
 
 
                     String mi;
-                    String prnt = "";
+                    String prnt ;
 
                     if (childPosition == 0) {
 
@@ -308,23 +313,23 @@ private View view;
                 if(response != null && response.data != null){
                     switch(response.statusCode){
                         case 404:
-                            BottomSheet.Builder builder = new BottomSheet.Builder(getActivity());
+                            BottomSheet.Builder builder = new BottomSheet.Builder(activity);
                             builder.setTitle("Sorry! could't reach server");
                             builder.show();
                             break;
                         case 400:
-                            BottomSheet.Builder builder1 = new BottomSheet.Builder(getActivity());
+                            BottomSheet.Builder builder1 = new BottomSheet.Builder(activity);
                             builder1.setTitle("Sorry! No Products Available");
                             builder1.show();
                             break;
                         case 417:
-                            BottomSheet.Builder builder2 = new BottomSheet.Builder(getActivity());
+                            BottomSheet.Builder builder2 = new BottomSheet.Builder(activity);
                             builder2.setTitle("Sorry! No Products Available");
                             builder2.show();
                             break;
                         case 401:
                             Toast.makeText(getActivity(),"Session Expired!",Toast.LENGTH_SHORT).show();
-                            session.logoutUser(getActivity());
+                            session.logoutUser(activity);
 
                     }
                 }
@@ -334,13 +339,13 @@ private View view;
             public Map<String, String> getHeaders() {
 
 
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization","bearer "+output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue= Volley.newRequestQueue(activity);
         requestQueue.add(stringRequest);
     }
 
@@ -353,7 +358,7 @@ private View view;
 
         if(requestQueue==null)
         {
-            requestQueue = Volley.newRequestQueue(getActivity());
+            requestQueue = Volley.newRequestQueue(activity);
 
         }
 
@@ -389,7 +394,6 @@ private View view;
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("Sidebar11", "EXCEPETION");
-
                 }
 
              
@@ -404,15 +408,15 @@ private View view;
                 if(response != null && response.data != null){
                     switch(response.statusCode){
                         case 404:
-                            BottomSheet.Builder builder = new BottomSheet.Builder(getActivity());
+                            BottomSheet.Builder builder = new BottomSheet.Builder(activity);
                             builder.setTitle("Sorry! could't reach server");
                             builder.show();
                             break;
 
                         case 401:
-                            Toast.makeText(getActivity().getApplicationContext(),"Session Expired!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity.getApplicationContext(),"Session Expired!",Toast.LENGTH_SHORT).show();
                             /* new Reffressh_token().getToken(MainActivity.this);*/
-                            session.logoutUser(getActivity());
+                            session.logoutUser(activity);
                     }
                 }
             }
@@ -420,7 +424,7 @@ private View view;
             @Override
             public Map<String, String> getHeaders() {
 
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization","bearer "+output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
@@ -443,7 +447,7 @@ private View view;
 
 
 
-                        final List<String> submenu = new ArrayList<String>();
+                        final List<String> submenu = new ArrayList<>();
 
                         for (int j = 0; j < ja_data.length(); j++) {
                             if(j==0){
@@ -479,7 +483,7 @@ private View view;
             @Override
             public Map<String, String> getHeaders() {
 
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("Authorization","bearer "+output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
@@ -489,7 +493,7 @@ private View view;
 
 
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(activity);
         requestQueue.add(stringRequest);
     }
 

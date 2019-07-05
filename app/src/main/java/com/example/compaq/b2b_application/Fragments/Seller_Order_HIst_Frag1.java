@@ -34,7 +34,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.compaq.b2b_application.Adapters.PaginationScrollListener;
+import com.example.compaq.b2b_application.Helper_classess.PaginationScrollListener;
 import com.example.compaq.b2b_application.Adapters.Seller_orderhistory_Adaper;
 import com.example.compaq.b2b_application.Model.OrderTobe_customer_model;
 import com.example.compaq.b2b_application.Model.Seller_order_model;

@@ -28,7 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.compaq.b2b_application.Activity.Cart_Activity;
 import com.example.compaq.b2b_application.Fragments.CartUpdate_fragment;
-import com.example.compaq.b2b_application.Activity.Main2Activity;
+import com.example.compaq.b2b_application.Activity.Displaying_complete_product_details_Activity;
 import com.example.compaq.b2b_application.Model.Cart_recy_model;
 import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.R;
@@ -195,8 +195,8 @@ if(productlist.size()==0) {
                 mActivity.setupBadge(mContext);
 */
 
-               /* Main2Activity main2Activity= new Main2Activity();
-                main2Activity.setupBadge(mContext);*/
+               /* Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                displayingcompleteproductdetailsActivity.setupBadge(mContext);*/
 
 
             }
@@ -212,7 +212,8 @@ if(productlist.size()==0) {
                 bundle.putString("item_name",name);
                 bundle.putString("Item_Clicked",id);
                 bundle.putString("lurl",item_clicked);
-                Intent intent=new Intent(mContext, Main2Activity.class).putExtras(bundle);
+                Intent intent=new Intent(mContext, Displaying_complete_product_details_Activity.class).putExtras(bundle);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 mContext.startActivity(intent);
             }
         });
@@ -236,7 +237,6 @@ if(productlist.size()==0) {
              description=itemView.findViewById(R.id.description);
 
            length=(TextView)itemView.findViewById(R.id.length);*/
-
             seller_name=(TextView)itemView.findViewById(R.id.seller_name);
             d_gweight=(TextView)itemView.findViewById(R.id.d_grpss_weight);
             excpected_date =(TextView)itemView.findViewById(R.id.delivery_date);
@@ -246,7 +246,6 @@ if(productlist.size()==0) {
             add_to_whishlist=(Button)itemView.findViewById(R.id.wishlist) ;
             remove=(Button)itemView.findViewById(R.id.remove);
             C_imageview=itemView.findViewById(R.id.cart_emppty);
-
 
         }
     }
@@ -291,7 +290,6 @@ if(productlist.size()==0) {
 
         };
         requestQueue.add(jsonObjectss);
-
 
     }
 

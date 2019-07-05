@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.example.compaq.b2b_application.Activity.Displaying_complete_product_details_Activity;
 import com.example.compaq.b2b_application.Activity.ImageOpening_activity;
-import com.example.compaq.b2b_application.Activity.Main2Activity;
 import com.example.compaq.b2b_application.Model.Viewpager2_model;
 import com.example.compaq.b2b_application.R;
 
@@ -23,15 +23,15 @@ import java.util.List;
 public
 class ViewpageAdapter2  extends PagerAdapter {
 
-    public Main2Activity main2Activity;
+    public Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity;
     public LayoutInflater layoutInflater;
     private List<Viewpager2_model> productlist;
 
 
 
     public
-    ViewpageAdapter2(Main2Activity main2Activity, ArrayList<Viewpager2_model> productlist) {
-        this.main2Activity=main2Activity;
+    ViewpageAdapter2(Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity, ArrayList<Viewpager2_model> productlist) {
+        this.displayingcompleteproductdetailsActivity = displayingcompleteproductdetailsActivity;
         this.productlist=productlist;
     }
     @Override
@@ -43,7 +43,7 @@ class ViewpageAdapter2  extends PagerAdapter {
     @Override
     public
     Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        layoutInflater=(LayoutInflater)main2Activity.getLayoutInflater();
+        layoutInflater=(LayoutInflater) displayingcompleteproductdetailsActivity.getLayoutInflater();
         layoutInflater.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View item_view=layoutInflater.inflate(R.layout.viewpager2_custom_layout,container,false);
         ImageView imageView=(ImageView)item_view.findViewById(R.id.customeimage2);
@@ -52,7 +52,7 @@ class ViewpageAdapter2  extends PagerAdapter {
         Viewpager2_model utils=(Viewpager2_model) productlist.get(position);
         final String url=  utils.getSliderImageUrl();
 
-        Glide.with(main2Activity).load(url).into(imageView);
+        Glide.with(displayingcompleteproductdetailsActivity).load(url).into(imageView);
 
 
         container.addView(item_view);
@@ -63,9 +63,10 @@ class ViewpageAdapter2  extends PagerAdapter {
             void onClick(View v) {
 
                 //Toast.makeText(context, "you clicked image " + (position + 1), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(main2Activity, ImageOpening_activity.class);
+                Intent intent = new Intent(displayingcompleteproductdetailsActivity, ImageOpening_activity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("URL",url);
-                main2Activity.startActivity(intent);
+                displayingcompleteproductdetailsActivity.startActivity(intent);
 
             }
         });

@@ -27,7 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.compaq.b2b_application.Activity.Main2Activity;
+import com.example.compaq.b2b_application.Activity.Displaying_complete_product_details_Activity;
 import com.example.compaq.b2b_application.Activity.MainActivity;
 import com.example.compaq.b2b_application.R;
 
@@ -528,12 +528,12 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
                     myEditor.commit();
                     MainActivity mActivity= new MainActivity();
                     mActivity.setupBadge(getContext());
-                    if(getActivity().getClass().getSimpleName().equalsIgnoreCase("Main2Activity")){
-                        Main2Activity main2Activity= new Main2Activity();
-                        main2Activity.setupBadge(getContext());
+                    if(getActivity().getClass().getSimpleName().equalsIgnoreCase("Displaying_complete_product_details_Activity")){
+                        Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity = new Displaying_complete_product_details_Activity();
+                        displayingcompleteproductdetailsActivity.setupBadge(getContext());
                     }
-                  /* Main2Activity main2Activity= new Main2Activity();
-                    main2Activity.setupBadge(getContext());*/
+                  /* Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                    displayingcompleteproductdetailsActivity.setupBadge(getContext());*/
                     Toast.makeText(getContext(), "Added to cart", Toast.LENGTH_SHORT).show();
                     getActivity().onBackPressed();
                 }
@@ -589,8 +589,8 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
                             cartEditor.commit();*//*
                             *//*MainActivity mActivity= new MainActivity();
                             mActivity.setupBadge(getContext());
-                            Main2Activity main2Activity= new Main2Activity();
-                            main2Activity.setupBadge(getContext());*//*
+                            Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                            displayingcompleteproductdetailsActivity.setupBadge(getContext());*//*
 
 
                             if (jsonArray.length() == 0 ) {

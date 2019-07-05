@@ -98,11 +98,13 @@ public class User_class_Adapter extends BaseAdapter {
 
         final CheckBox checkBox=(CheckBox)view.findViewById(R.id.top_check);
 
-            if (user_assigned_list.contains(currentMovie.getName())) {
-                checkBox.setChecked(true);
-                if(!check_list.contains(currentMovie.getName())) {
-                    check_list.add(currentMovie.getName());
-                }
+               if(user_assigned_list!=null){
+                        if (user_assigned_list.contains(currentMovie.getName())) {
+                            checkBox.setChecked(true);
+                            if (!check_list.contains(currentMovie.getName())) {
+                                check_list.add(currentMovie.getName());
+                            }
+                        }
             }
 
 
@@ -112,13 +114,17 @@ public class User_class_Adapter extends BaseAdapter {
                  if(checkBox.isChecked()){
                      if(!check_list.contains(currentMovie.getName())) {
                          check_list.add(currentMovie.getName());
-                         user_assigned_list.remove(currentMovie.getName());
+                         if(user_assigned_list!=null) {
+                             user_assigned_list.remove(currentMovie.getName());
+                         }
                          notifyDataSetChanged();
                      }
                  }
                  if(!checkBox.isChecked()){
                      check_list.remove(currentMovie.getName());
-                     user_assigned_list.remove(currentMovie.getName());
+                     if(user_assigned_list!=null) {
+                         user_assigned_list.remove(currentMovie.getName());
+                     }
                      notifyDataSetChanged();
                  }
             }

@@ -1,6 +1,7 @@
 package com.example.compaq.b2b_application.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -104,6 +105,7 @@ public class Adress_adapter extends RecyclerView.Adapter<Adress_adapter.MyViewHo
                 AddNewAddess myFragment = new AddNewAddess();
                 myFragment.setArguments(bundle);
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
+
                 fragmentManager =activity.getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frame_layout,  myFragment).addToBackStack(null);

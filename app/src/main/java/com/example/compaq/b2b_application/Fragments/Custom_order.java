@@ -760,12 +760,12 @@ catch (NullPointerException e){
 
 
 
-                   /* if(getActivity().getClass().getSimpleName().equalsIgnoreCase("Main2Activity")){
-                        Main2Activity main2Activity= new Main2Activity();
-                        main2Activity.setupBadge(getContext());
+                   /* if(getActivity().getClass().getSimpleName().equalsIgnoreCase("Displaying_complete_product_details_Activity")){
+                        Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                        displayingcompleteproductdetailsActivity.setupBadge(getContext());
                     }
-                  *//* Main2Activity main2Activity= new Main2Activity();
-                    main2Activity.setupBadge(getContext());*//*
+                  *//* Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                    displayingcompleteproductdetailsActivity.setupBadge(getContext());*//*
                     Toast.makeText(getContext(), "Added to cart", Toast.LENGTH_SHORT).show();
                     getActivity().onBackPressed();
                 }*/
@@ -843,12 +843,12 @@ catch (NullPointerException e){
 
 
 
-                   /* if(getActivity().getClass().getSimpleName().equalsIgnoreCase("Main2Activity")){
-                        Main2Activity main2Activity= new Main2Activity();
-                        main2Activity.setupBadge(getContext());
+                   /* if(getActivity().getClass().getSimpleName().equalsIgnoreCase("Displaying_complete_product_details_Activity")){
+                        Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                        displayingcompleteproductdetailsActivity.setupBadge(getContext());
                     }
-                  *//* Main2Activity main2Activity= new Main2Activity();
-                    main2Activity.setupBadge(getContext());*//*
+                  *//* Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                    displayingcompleteproductdetailsActivity.setupBadge(getContext());*//*
                     Toast.makeText(getContext(), "Added to cart", Toast.LENGTH_SHORT).show();
                     getActivity().onBackPressed();
                 }*/

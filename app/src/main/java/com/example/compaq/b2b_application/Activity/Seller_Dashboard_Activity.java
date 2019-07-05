@@ -1,6 +1,7 @@
 package com.example.compaq.b2b_application.Activity;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.app.Notification;
@@ -172,6 +173,12 @@ linearLayout=(LinearLayout)findViewById(R.id.graphlayout);
         graph.setTitle("Most Ordered Product");
         graph.addSeries(series);
 
+     /*   ObjectAnimator animation = ObjectAnimator.ofFloat(linearLayout, "translationX", 1000f);
+        animation.setDuration(2000);
+        animation.start();*/
+
+
+
 
         //////////////////////////////////////////////////////////////////////////////
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -218,6 +225,7 @@ linearLayout=(LinearLayout)findViewById(R.id.graphlayout);
         if (id == R.id.action_settings) {
             Seller_Dashboard_Activity.this.finish();
             Intent i = new Intent(this, All_Sellers_Display_Activity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(i);
 
             return true;
@@ -235,37 +243,45 @@ linearLayout=(LinearLayout)findViewById(R.id.graphlayout);
 
         if (id == R.id.request) {
             Intent intent=new Intent(getApplicationContext(), Request_Activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
          else if (id == R.id.add_new) {
             Intent intent=new Intent(getApplicationContext(), Add_new_product_activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent,  ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
 
         } else if (id == R.id.manage) {
             Intent intent=new Intent(getApplicationContext(), Manage_Exixsting_category_Activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         }
         else if (id == R.id.manage_categories) {
             Intent intent=new Intent(getApplicationContext(), Manage_Categories.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
         else if (id == R.id.proccess) {
             Intent intent=new Intent(getApplicationContext(), Order_to_bProsessed.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         }
         else if (id == R.id.history) {
 
             Intent intent=new Intent(getApplicationContext(), Seller_Order_History.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
         }
         else  if(id==R.id.address){
             Intent intent=new Intent(getApplicationContext(), Address_Activivty.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
         else  if(id==R.id.customize){
             Intent intent=new Intent(getApplicationContext(), Customize_Order.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
 
