@@ -5,51 +5,38 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Fragments.Add_new_Category;
 import com.example.compaq.b2b_application.Fragments.Edit_Category_frag;
-import com.example.compaq.b2b_application.Fragments.Top_categories;
-import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.michaelbel.bottomsheet.BottomSheet;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.MainActivity.ip_cat;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
-import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 
 public class Manage_category_Adapter extends BaseExpandableListAdapter   {

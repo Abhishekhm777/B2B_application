@@ -1,7 +1,6 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
-import android.app.MediaRouteButton;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,7 +24,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.Adress_adapter;
-import com.example.compaq.b2b_application.Address_Activivty;
 import com.example.compaq.b2b_application.Model.Address_model;
 import com.example.compaq.b2b_application.R;
 
@@ -38,9 +35,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.MainActivity.ip1;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
-import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 /**
  * A simple {@link Fragment} subclass.

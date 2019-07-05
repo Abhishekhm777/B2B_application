@@ -19,6 +19,7 @@ public class Top_model {
 
 
 
+
     public String getName() {
         return name;
     }

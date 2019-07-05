@@ -88,6 +88,7 @@ tools:context=".Fragments.Add_new_Category">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
             android:layout_margin="10dp">
 
             <TextView
@@ -105,13 +106,14 @@ tools:context=".Fragments.Add_new_Category">
                 android:layout_margin="3dp"
                 android:fontFamily="@font/catamaran"
                 android:gravity="center"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
                 android:layout_weight="2"
                 android:background="@drawable/pricebreak_background"
-                android:inputType="text"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:textColor="#000"
                 android:textSize="16sp" />
+
         </LinearLayout>
 
         <LinearLayout

@@ -23,7 +23,7 @@ import com.example.compaq.b2b_application.R;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 public class Customize_Oder_Adapter1 extends BaseExpandableListAdapter {
     private Context _context;

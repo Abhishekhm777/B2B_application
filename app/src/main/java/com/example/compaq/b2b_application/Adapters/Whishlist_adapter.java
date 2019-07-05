@@ -1,19 +1,15 @@
 package com.example.compaq.b2b_application.Adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,26 +22,24 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.Cart_Activity;
-import com.example.compaq.b2b_application.Main2Activity;
-import com.example.compaq.b2b_application.MainActivity;
+import com.example.compaq.b2b_application.Activity.Main2Activity;
+import com.example.compaq.b2b_application.Activity.MainActivity;
 import com.example.compaq.b2b_application.Model.Whishlist_model;
 import com.example.compaq.b2b_application.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.michaelbel.bottomsheet.BottomSheet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.Fragment_2.item_clicked;
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.MainActivity.ip1;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
-import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Fragments.products_display_fragment.item_clicked;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 public class Whishlist_adapter extends RecyclerView.Adapter<Whishlist_adapter.ViewHolder> {
     Context mContext;

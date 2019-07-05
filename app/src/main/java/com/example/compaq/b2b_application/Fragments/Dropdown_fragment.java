@@ -3,16 +3,12 @@ package com.example.compaq.b2b_application.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +20,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,8 +27,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.compaq.b2b_application.Main2Activity;
-import com.example.compaq.b2b_application.MainActivity;
+import com.example.compaq.b2b_application.Activity.Main2Activity;
+import com.example.compaq.b2b_application.Activity.MainActivity;
 import com.example.compaq.b2b_application.R;
 
 import org.json.JSONArray;
@@ -45,9 +40,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
-import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -98,9 +93,6 @@ public int json_length=0;
        /* cart_shared_preference = getActivity().getSharedPreferences(cartitems, Context.MODE_PRIVATE);
         cartEditor = cart_shared_preference.edit();
 */
-
-
-
 
        /* descriptio= (TextView) view.findViewById(R.id.desc_text);*/
         product_textview = (TextView) view.findViewById(R.id.product_id);

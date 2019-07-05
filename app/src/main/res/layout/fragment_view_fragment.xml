@@ -6,7 +6,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:clickable="true"
 xmlns:tools="http://schemas.android.com/tools"
-tools:context=".Fragments.View_fragment">
+tools:context=".Fragments.Seller_info_display_fragment">
 
 <!-- <LinearLayout
      android:id="@+id/LinearRP"

@@ -1,7 +1,5 @@
 package com.example.compaq.b2b_application.Adapters;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
 
 import android.content.Context;
@@ -10,9 +8,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,27 +29,20 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.Cart_Activity;
-import com.example.compaq.b2b_application.Fragments.Company_info_fragment;
-import com.example.compaq.b2b_application.Fragments.Seller_order_package;
-import com.example.compaq.b2b_application.MainActivity;
+import com.example.compaq.b2b_application.Fragments.Order_toB_processed_fragmenrt1;
 import com.example.compaq.b2b_application.Model.Seller_order_package_model;
-import com.example.compaq.b2b_application.Policy_activity;
 import com.example.compaq.b2b_application.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.michaelbel.bottomsheet.BottomSheet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.MainActivity.ip1;
-import static com.example.compaq.b2b_application.MainActivity.seller_t;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 public class Seller_order_package_adapter extends RecyclerView.Adapter<Seller_order_package_adapter.MyViewHolder> {
     private ArrayList<Seller_order_package_model> productlist;
@@ -605,7 +593,7 @@ public class Seller_order_package_adapter extends RecyclerView.Adapter<Seller_or
             public void onResponse(String response) {
                 try {
 
-                    Company_info_fragment f = (Company_info_fragment)  ((AppCompatActivity)mContext).getSupportFragmentManager().findFragmentByTag("Company");
+                    Order_toB_processed_fragmenrt1 f = (Order_toB_processed_fragmenrt1)  ((AppCompatActivity)mContext).getSupportFragmentManager().findFragmentByTag("Company");
 
                     f.Seller_history();
                     Toast.makeText(mContext, "Order Completed", Toast.LENGTH_SHORT).show();

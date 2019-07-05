@@ -8,7 +8,7 @@
 
     android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".Manage_Exixsting_category_Activity">
+    tools:context=".Activity.Manage_Exixsting_category_Activity">
 
 
     <android.support.v7.widget.Toolbar

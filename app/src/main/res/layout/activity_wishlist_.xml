@@ -7,7 +7,7 @@ android:layout_height="match_parent"
 android:orientation="vertical"
 
 android:id="@+id/cart_layout_frame"
-tools:context=".Wishlist_Activity">
+tools:context=".Activity.Wishlist_Activity">
 
 <LinearLayout
     android:layout_width="match_parent"

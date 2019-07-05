@@ -2,7 +2,6 @@ package com.example.compaq.b2b_application.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +16,10 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
-import com.example.compaq.b2b_application.Fragments.AddNewAddess;
-import com.example.compaq.b2b_application.Fragments.Company_info_fragment;
 import com.example.compaq.b2b_application.Fragments.Seller_order_package;
 import com.example.compaq.b2b_application.Model.OrderTobe_customer_model;
-import com.example.compaq.b2b_application.Model.SellerPortal_model;
 import com.example.compaq.b2b_application.Model.Seller_order_history;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.Seller_Order_History;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -29,8 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 public class Update_product_activity_ad  extends RecyclerView.Adapter<Update_product_activity_ad.MyViewHolder>{
     private ArrayList<Update_product_model> productlist;

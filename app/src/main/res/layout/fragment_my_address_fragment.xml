@@ -135,7 +135,7 @@ tools:context=".Fragments.MyAddress_fragment">
          xmlns:tools="http://schemas.android.com/tools"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
-         tools:context=".Seller_Portal_Screen_Activity">
+         tools:context=".Seller_Dashboard_Activity">
 
 
          <android.support.design.widget.FloatingActionButton

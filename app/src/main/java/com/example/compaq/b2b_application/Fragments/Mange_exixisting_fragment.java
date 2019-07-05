@@ -1,14 +1,9 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,28 +21,22 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.Manage_Adapter;
-import com.example.compaq.b2b_application.Adapters.Recycler_Adapter2;
-import com.example.compaq.b2b_application.MainActivity;
-import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.SellerPortal_Activity;
-import com.example.compaq.b2b_application.SessionManagement;
+import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.michaelbel.bottomsheet.BottomSheet;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.Fragment_2.URL_DATA;
-import static com.example.compaq.b2b_application.MainActivity.ip_cat;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -231,9 +220,9 @@ private View view;
                        /* bundle = new Bundle();
 
                         bundle.putString("Item_Clicked", mi);
-                        fragment_2 = new Fragment_2();
-                        fragment_2.setArguments(bundle);
-                      getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, fragment_2).addToBackStack(null).commit();*/
+                        productsdisplayfragment = new products_display_fragment();
+                        productsdisplayfragment.setArguments(bundle);
+                      getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, productsdisplayfragment).addToBackStack(null).commit();*/
 
                         bundle = new Bundle();
 
@@ -260,9 +249,9 @@ private View view;
                                         childPosition), Toast.LENGTH_LONG)
                                 .show();*/
 
-                       /* fragment_2 = new Fragment_2();
-                        fragment_2.setArguments(bundle);
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, fragment_2).addToBackStack(null).commit();
+                       /* productsdisplayfragment = new products_display_fragment();
+                        productsdisplayfragment.setArguments(bundle);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, productsdisplayfragment).addToBackStack(null).commit();
 */
                     return false;
 

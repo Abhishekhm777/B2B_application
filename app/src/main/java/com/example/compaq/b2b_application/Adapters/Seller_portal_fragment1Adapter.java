@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -14,7 +12,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -24,8 +21,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -35,18 +30,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.AlertDialogManager;
-import com.example.compaq.b2b_application.Fragments.Update_fragment;
-import com.example.compaq.b2b_application.Fragments.View_fragment;
-import com.example.compaq.b2b_application.LoginActivity;
-import com.example.compaq.b2b_application.Main2Activity;
-import com.example.compaq.b2b_application.MainActivity;
+import com.example.compaq.b2b_application.Activity.All_Sellers_Display_Activity;
+import com.example.compaq.b2b_application.Helper_classess.AlertDialogManager;
+import com.example.compaq.b2b_application.Fragments.Seller_info_display_fragment;
+import com.example.compaq.b2b_application.Activity.MainActivity;
 import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.Model.SellerPortal_model;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.SellerPortal_Activity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.michaelbel.bottomsheet.BottomSheet;
@@ -55,10 +46,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.MainActivity.ip1;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
-import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 public class Seller_portal_fragment1Adapter extends RecyclerView.Adapter<Seller_portal_fragment1Adapter.MyViewHolder> implements Filterable {
     public FragmentActivity mCtx;
@@ -129,10 +119,10 @@ public class Seller_portal_fragment1Adapter extends RecyclerView.Adapter<Seller_
                 Log.e("idididid",text);
                 bundle.putString("seller_id", sellerPortal_model.getSeller_id());
                 bundle.putString("company",company);
-                View_fragment view_fragment=new View_fragment();
-                view_fragment.setArguments(bundle);
+                Seller_info_display_fragment sellerinfodisplay_fragment =new Seller_info_display_fragment();
+                sellerinfodisplay_fragment.setArguments(bundle);
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, view_fragment);
+                fragmentTransaction.replace(R.id.fragment_container, sellerinfodisplay_fragment);
                 fragmentTransaction.addToBackStack(null).commit();
             }
         });
@@ -155,7 +145,7 @@ public class Seller_portal_fragment1Adapter extends RecyclerView.Adapter<Seller_
                     myEditior.apply();
                     myEditior.commit();
                     Intent intent=new Intent(mCtx, MainActivity.class);
-                    ((SellerPortal_Activity)mCtx).finish();
+                    ((All_Sellers_Display_Activity)mCtx).finish();
                     mCtx.startActivity(intent);
                                  return;
                 }
@@ -270,7 +260,7 @@ public class Seller_portal_fragment1Adapter extends RecyclerView.Adapter<Seller_
                                 myEditior.apply();
                                 myEditior.commit();
                                 Intent intent=new Intent(mCtx, MainActivity.class);
-                                ((SellerPortal_Activity)mCtx).finish();
+                                ((All_Sellers_Display_Activity)mCtx).finish();
                                 mCtx.startActivity(intent);
                             }
                         });

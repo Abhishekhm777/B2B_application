@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:hardwareAccelerated="true"
     android:layout_height="match_parent"
-    tools:context=".Seller_Portal_Screen_Activity">
+    tools:context=".Activity.Seller_Dashboard_Activity">
 
     <RelativeLayout
         android:layout_width="match_parent"

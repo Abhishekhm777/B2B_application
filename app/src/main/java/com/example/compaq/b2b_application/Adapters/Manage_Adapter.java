@@ -17,12 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.Customize_Order;
+import com.example.compaq.b2b_application.Activity.Customize_Order;
 import com.example.compaq.b2b_application.Fragments.Custom_order;
 import com.example.compaq.b2b_application.Fragments.Update_product_fragment;
-import com.example.compaq.b2b_application.Manage_Exixsting_category_Activity;
+import com.example.compaq.b2b_application.Activity.Manage_Exixsting_category_Activity;
 import com.example.compaq.b2b_application.Model.Recy_model2;
-import com.example.compaq.b2b_application.Model.SellerPortal_model;
 import com.example.compaq.b2b_application.R;
 
 import java.util.ArrayList;

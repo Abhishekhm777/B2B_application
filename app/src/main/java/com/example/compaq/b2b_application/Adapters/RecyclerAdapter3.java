@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.compaq.b2b_application.Main2Activity;
+import com.example.compaq.b2b_application.Activity.Main2Activity;
 import com.example.compaq.b2b_application.Model.Inner_Recy_model;
 import com.example.compaq.b2b_application.Model.Recycler_model3;
 import com.example.compaq.b2b_application.R;

@@ -5,7 +5,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
-tools:context=".Ordes_history">
+tools:context=".Activity.Ordes_history">
 <android.support.v7.widget.Toolbar
     android:id="@+id/orderhistory_toolbar"
     android:layout_width="match_parent"

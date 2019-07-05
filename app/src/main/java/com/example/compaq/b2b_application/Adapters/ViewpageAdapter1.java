@@ -12,15 +12,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.Fragments.HomeFragment_1;
-import com.example.compaq.b2b_application.Main2Activity;
-import com.example.compaq.b2b_application.MainActivity;
-import com.example.compaq.b2b_application.Model.Viewpager2_model;
 import com.example.compaq.b2b_application.Model.Viewpager_model1;
 import com.example.compaq.b2b_application.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public
 class ViewpageAdapter1 extends PagerAdapter{

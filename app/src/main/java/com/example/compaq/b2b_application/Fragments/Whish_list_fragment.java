@@ -27,10 +27,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.Whishlist_adapter;
-import com.example.compaq.b2b_application.MainActivity;
 import com.example.compaq.b2b_application.Model.Whishlist_model;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.SessionManagement;
+import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,11 +41,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.MainActivity.ip1;
-import static com.example.compaq.b2b_application.MainActivity.wishlist2;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
-import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
+import static com.example.compaq.b2b_application.Activity.MainActivity.wishlist2;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 /**
  * A simple {@link Fragment} subclass.

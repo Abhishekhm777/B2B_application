@@ -8,32 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.Slider_adapter;
-import com.example.compaq.b2b_application.Adapters.ViewpageAdapter1;
 import com.example.compaq.b2b_application.Model.Slider_model;
-import com.example.compaq.b2b_application.Model.Viewpager_model1;
 import com.example.compaq.b2b_application.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.michaelbel.bottomsheet.BottomSheet;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 /**
  * A simple {@link Fragment} subclass.

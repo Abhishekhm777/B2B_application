@@ -8,7 +8,7 @@ android:orientation="vertical"
     android:focusedByDefault="false"
     android:focusableInTouchMode="true"
     android:id="@+id/cart_layout_frame"
-tools:context=".Fragments.Company_info_fragment">
+tools:context=".Fragments.Order_toB_processed_fragmenrt1">
 
 <LinearLayout
     android:layout_width="match_parent"

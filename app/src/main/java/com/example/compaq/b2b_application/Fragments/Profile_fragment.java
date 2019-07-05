@@ -1,13 +1,11 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,16 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.compaq.b2b_application.Address_Activivty;
-import com.example.compaq.b2b_application.MainActivity;
-import com.example.compaq.b2b_application.Orders_History_Activity;
+import com.example.compaq.b2b_application.Activity.Address_Activivty;
+import com.example.compaq.b2b_application.Activity.All_Sellers_Display_Activity;
+import com.example.compaq.b2b_application.Activity.Orders_History_Activity;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.Search_Activity;
-import com.example.compaq.b2b_application.SellerPortal_Activity;
-import com.example.compaq.b2b_application.SessionManagement;
-import com.example.compaq.b2b_application.Wishlist_Activity;
+import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
+import com.example.compaq.b2b_application.Activity.Wishlist_Activity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -119,14 +114,14 @@ public class Profile_fragment extends Fragment implements Toolbar.OnMenuItemClic
                 if(items.equalsIgnoreCase("MY ADDRESS")){
                     /*fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.mainframe, new Company_info_fragment()).addToBackStack(null).commit();
+                    fragmentTransaction.replace(R.id.mainframe, new Order_toB_processed_fragmenrt1()).addToBackStack(null).commit();
 */
                     Intent i = new Intent(getContext(), Address_Activivty.class);
                     startActivity(i);
                 }
                 if(items.equalsIgnoreCase("SELLER")){
                     getActivity().finish();
-                    Intent i = new Intent(getContext(), SellerPortal_Activity.class);
+                    Intent i = new Intent(getContext(), All_Sellers_Display_Activity.class);
                     startActivity(i);
                 }
                 if(items.equalsIgnoreCase("CUSTOM ORDER")){

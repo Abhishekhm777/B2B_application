@@ -8,15 +8,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.FullscreenActivity;
-import com.example.compaq.b2b_application.ImageOpening_activity;
-import com.example.compaq.b2b_application.Main2Activity;
-import com.example.compaq.b2b_application.MainActivity;
+import com.example.compaq.b2b_application.Activity.ImageOpening_activity;
+import com.example.compaq.b2b_application.Activity.Main2Activity;
 import com.example.compaq.b2b_application.Model.Viewpager2_model;
 import com.example.compaq.b2b_application.R;
 

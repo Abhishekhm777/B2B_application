@@ -6,27 +6,21 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.compaq.b2b_application.Add_new_product_activity;
 import com.example.compaq.b2b_application.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Adapter_spesification extends BaseExpandableListAdapter  {
     private Context _context;

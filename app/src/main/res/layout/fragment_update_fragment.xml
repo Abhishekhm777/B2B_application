@@ -7,7 +7,7 @@ android:layout_height="match_parent"
 android:clickable="true"
     android:padding="35dp"
 xmlns:tools="http://schemas.android.com/tools"
-tools:context=".Fragments.Update_fragment">
+tools:context=".Fragments.CartUpdate_fragment">
 
 <LinearLayout
     android:id="@+id/LinearInfo"

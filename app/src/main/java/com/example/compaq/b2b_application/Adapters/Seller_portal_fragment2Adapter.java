@@ -18,16 +18,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.AlertDialogManager;
-import com.example.compaq.b2b_application.MainActivity;
+import com.example.compaq.b2b_application.Activity.All_Sellers_Display_Activity;
+import com.example.compaq.b2b_application.Helper_classess.AlertDialogManager;
+import com.example.compaq.b2b_application.Activity.MainActivity;
 import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.Model.SellerPortal_model;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.SellerPortal_Activity;
 
 import java.util.ArrayList;
 
-import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 public class Seller_portal_fragment2Adapter extends RecyclerView.Adapter<Seller_portal_fragment2Adapter.MyViewHolder> {
     public FragmentActivity mCtx;
@@ -75,7 +75,7 @@ public class Seller_portal_fragment2Adapter extends RecyclerView.Adapter<Seller_
                 myEditior.apply();
                 myEditior.commit();
                 Intent intent=new Intent(mCtx, MainActivity.class);
-                ((SellerPortal_Activity)mCtx).finish();
+                ((All_Sellers_Display_Activity)mCtx).finish();
                 mCtx.startActivity(intent);
 
 

@@ -10,10 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.Main2Activity;
-import com.example.compaq.b2b_application.Model.Inner_Recy_model;
 import com.example.compaq.b2b_application.Model.Order_history_inner_model;
-import com.example.compaq.b2b_application.Model.Orderhistory_model;
 import com.example.compaq.b2b_application.R;
 
 import java.util.ArrayList;

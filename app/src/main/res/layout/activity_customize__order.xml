@@ -7,7 +7,7 @@ android:layout_width="match_parent"
 android:orientation="vertical"
 android:background="@color/white"
 android:layout_height="match_parent"
-tools:context=".Customize_Order">
+tools:context=".Activity.Customize_Order">
 
 <android.support.v7.widget.Toolbar
     android:layout_width="match_parent"

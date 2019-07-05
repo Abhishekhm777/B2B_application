@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.compaq.b2b_application.Fragments.Manufacturer_fragment;
-import com.example.compaq.b2b_application.Fragments.Register_fragment;
-import com.example.compaq.b2b_application.Fragments.Seller_fragment;
+import com.example.compaq.b2b_application.Fragments.Retailer_register_fragment;
+import com.example.compaq.b2b_application.Fragments.Wholeseller_register_fragment;
 
 public class Tablayout_adapter extends FragmentPagerAdapter {
     private Context myContext;
@@ -23,11 +23,11 @@ public class Tablayout_adapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                Register_fragment register_fragment = new Register_fragment();
-                return register_fragment;
+                Retailer_register_fragment retailerregister_fragment = new Retailer_register_fragment();
+                return retailerregister_fragment;
             case 1:
-                Seller_fragment seller_fragment = new Seller_fragment();
-                return seller_fragment;
+                Wholeseller_register_fragment wholesellerregister_fragment = new Wholeseller_register_fragment();
+                return wholesellerregister_fragment;
 
             case 2:
                 Manufacturer_fragment manufacturer_fragment = new Manufacturer_fragment();

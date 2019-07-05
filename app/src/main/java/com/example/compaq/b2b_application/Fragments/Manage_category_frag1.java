@@ -1,16 +1,13 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.Manage_Adapter;
 import com.example.compaq.b2b_application.Adapters.Manage_category_Adapter;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.SessionManagement;
+import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,9 +42,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.Fragment_2.URL_DATA;
-import static com.example.compaq.b2b_application.MainActivity.ip_cat;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 /**
  * A simple {@link Fragment} subclass.

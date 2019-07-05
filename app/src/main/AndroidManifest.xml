@@ -30,7 +30,7 @@
         android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
         tools:replace="android:allowBackup">
 
-        <activity android:name=".First_activity"
+        <activity android:name=".Activity.First_activity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,34 +41,34 @@
 
         </activity>
 
-        <activity android:name=".Customize_Order"
+        <activity android:name=".Activity.Customize_Order"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             />
 
-        <activity android:name=".Manage_Categories"
+        <activity android:name=".Activity.Manage_Categories"
             android:screenOrientation="portrait" />
-        <activity android:name=".Varient_Activity"
+        <activity android:name=".Activity.Varient_Activity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Update_product_Activity"
+        <activity android:name=".Activity.Update_product_Activity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Scrolling_Activity"
+            android:name=".Activity.Scrolling_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name=".Add_new_product_activity"
+            android:name=".Activity.Add_new_product_activity"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true" />
-        <activity android:name=".Manage_Exixsting_category_Activity"
+        <activity android:name=".Activity.Manage_Exixsting_category_Activity"
             android:screenOrientation="portrait"/>
 
-        <service android:name=".Push_notification">
+        <service android:name=".Helper_classess.Push_notification">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".FirebaseIDService">
+        <service android:name=".Helper_classess.FirebaseIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -76,7 +76,7 @@
         </service>
 
         <activity
-            android:name=".FullscreenActivity"
+            android:name=".Activity.FullscreenActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
@@ -87,56 +87,56 @@
             android:value="true" />
 
         <activity
-            android:name=".Request_Activity"
+            android:name=".Activity.Request_Activity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Slider_activity"
+            android:name=".Activity.Slider_activity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_slider_activity" />
         <activity
-            android:name=".Order_to_bProsessed"
+            android:name=".Activity.Order_to_bProsessed"
             android:screenOrientation="portrait"
             android:hardwareAccelerated="true" />
         <activity
-            android:name=".Seller_Order_History"
+            android:name=".Activity.Seller_Order_History"
             android:hardwareAccelerated="true" />
         <activity
-            android:name=".Wishlist_Activity"
+            android:name=".Activity.Wishlist_Activity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Address_Activivty"
+            android:name=".Activity.Address_Activivty"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Policy_activity"
+            android:name=".Activity.Policy_activity"
             android:label="@string/title_activity_address_"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Orders_History_Activity"
+        <activity android:name=".Activity.Orders_History_Activity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Ordes_history"
+        <activity android:name=".Activity.Ordes_history"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Seller_Portal_Screen_Activity"
+            android:name=".Activity.Seller_Dashboard_Activity"
             android:label="@string/title_activity_seller__portal__screen_"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".SellerPortal_Activity"
+            android:name=".Activity.All_Sellers_Display_Activity"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Forgot_password"
+        <activity android:name=".Activity.Forgot_password"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Check_out__Activity"
+            android:name=".Activity.Check_out__Activity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activity.LoginActivity"
             android:theme="@style/Logintheme"
             android:screenOrientation="portrait"/>
         <!--
@@ -149,29 +149,29 @@
         </activity>
         -->
         <activity
-            android:name=".ImageOpening_activity"
+            android:name=".Activity.ImageOpening_activity"
             android:hardwareAccelerated="true"
             android:largeHeap="true"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Search_Activity"
+        <activity android:name=".Activity.Search_Activity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Cart_Activity"
-            android:hardwareAccelerated="true"
-            android:largeHeap="true"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".MainActivity"
+            android:name=".Activity.Cart_Activity"
             android:hardwareAccelerated="true"
             android:largeHeap="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Main2Activity"
+            android:name=".Activity.MainActivity"
+            android:hardwareAccelerated="true"
+            android:largeHeap="true"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.Main2Activity"
             android:hardwareAccelerated="false"
             android:largeHeap="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Sign_up_Activity"
+            android:name=".Activity.Sign_up_Activity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"/>
     </application>

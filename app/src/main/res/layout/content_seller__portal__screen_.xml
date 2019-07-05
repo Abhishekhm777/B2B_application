@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Seller_Portal_Screen_Activity"
+    tools:context=".Activity.Seller_Dashboard_Activity"
     tools:showIn="@layout/app_bar_seller__portal__screen_">
 
 

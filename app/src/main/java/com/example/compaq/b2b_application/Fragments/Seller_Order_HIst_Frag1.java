@@ -3,7 +3,6 @@ package com.example.compaq.b2b_application.Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -11,30 +10,23 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -44,35 +36,26 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.PaginationScrollListener;
 import com.example.compaq.b2b_application.Adapters.Seller_orderhistory_Adaper;
-import com.example.compaq.b2b_application.Add_new_product_activity;
-import com.example.compaq.b2b_application.AlertDialogManager;
-import com.example.compaq.b2b_application.DatePickerFragment;
-import com.example.compaq.b2b_application.MainActivity;
 import com.example.compaq.b2b_application.Model.OrderTobe_customer_model;
-import com.example.compaq.b2b_application.Model.Seller_order_history;
 import com.example.compaq.b2b_application.Model.Seller_order_model;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.Seller_Order_History;
-import com.example.compaq.b2b_application.SessionManagement;
+import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.michaelbel.bottomsheet.BottomSheet;
 
-import java.io.UTFDataFormatException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
-import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 /**
  * A simple {@link Fragment} subclass.

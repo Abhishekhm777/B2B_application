@@ -5,10 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.compaq.b2b_application.Fragments.Register_fragment;
-import com.example.compaq.b2b_application.Fragments.SellerPortal_fragment1;
-import com.example.compaq.b2b_application.Fragments.SellerPortal_fragment2;
-import com.example.compaq.b2b_application.Fragments.Seller_fragment;
+import com.example.compaq.b2b_application.Fragments.AllSellers_display_fragment;
+import com.example.compaq.b2b_application.Fragments.MyConnections_fragment;
 
 public class Sellerport_acvtivityAdaper extends FragmentPagerAdapter {
     private Context myContext;
@@ -23,10 +21,10 @@ public class Sellerport_acvtivityAdaper extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                SellerPortal_fragment1 register_fragment = new SellerPortal_fragment1();
+                AllSellers_display_fragment register_fragment = new AllSellers_display_fragment();
                 return register_fragment;
             case 1:
-                SellerPortal_fragment2 seller_fragment = new SellerPortal_fragment2();
+                MyConnections_fragment seller_fragment = new MyConnections_fragment();
                 return seller_fragment;
 
             default:

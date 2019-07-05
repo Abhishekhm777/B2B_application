@@ -1,13 +1,11 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
@@ -21,7 +19,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -36,19 +33,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.compaq.b2b_application.Activity.Seller_Dashboard_Activity;
 import com.example.compaq.b2b_application.Adapters.RecyclerAdapter1;
 import com.example.compaq.b2b_application.Adapters.RecyclerItemClickListener;
-import com.example.compaq.b2b_application.Adapters.Recycler_Adapter2;
 import com.example.compaq.b2b_application.Adapters.ViewpageAdapter1;
-import com.example.compaq.b2b_application.MainActivity;
 import com.example.compaq.b2b_application.Model.Home_recy_model;
-import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.Model.Viewpager_model1;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.SellerPortal_Activity;
-import com.example.compaq.b2b_application.Seller_Portal_Screen_Activity;
-import com.example.compaq.b2b_application.SessionManagement;
-import com.google.gson.JsonObject;
+import com.example.compaq.b2b_application.Activity.All_Sellers_Display_Activity;
+import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 import com.volcaniccoder.bottomify.BottomifyNavigationView;
 import com.volcaniccoder.bottomify.OnNavigationItemChangeListener;
 
@@ -61,8 +54,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -169,7 +162,7 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.home){
             getActivity().finish();
-            Intent i = new Intent(getActivity(), SellerPortal_Activity.class);
+            Intent i = new Intent(getActivity(), All_Sellers_Display_Activity.class);
             startActivity(i);
         }
         return true;
@@ -184,12 +177,12 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
                 if(navigationItem.getPosition()==0){
 
                         getActivity().finish();
-                        Intent i = new Intent(getActivity(), SellerPortal_Activity.class);
+                        Intent i = new Intent(getActivity(), All_Sellers_Display_Activity.class);
                         startActivity(i);
                 }
                 if(navigationItem.getPosition()==1){
                     getActivity().finish();
-                    Intent i = new Intent(getActivity(), Seller_Portal_Screen_Activity.class);
+                    Intent i = new Intent(getActivity(), Seller_Dashboard_Activity.class);
                     startActivity(i);
                 }
                 if(navigationItem.getPosition()==2){
@@ -224,7 +217,7 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
                         bundle.putString("CLASS","FRAGMENT2");
                         Toast.makeText(getContext(), name,Toast.LENGTH_SHORT).show();
                         toolbar = (Toolbar)getActivity().findViewById(R.id.tool_bar);
-                        fragment_2=new Fragment_2();
+                        fragment_2=new products_display_fragment();
                         fragment_2.setArguments(bundle);
                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe,fragment_2).addToBackStack(null).commit();
 

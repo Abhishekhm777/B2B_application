@@ -8,10 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -28,19 +26,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.Bottom_sheet_dialog;
-import com.example.compaq.b2b_application.Cart_Activity;
-import com.example.compaq.b2b_application.Fragments.Dropdown_fragment;
-import com.example.compaq.b2b_application.Fragments.Update_fragment;
-import com.example.compaq.b2b_application.Main2Activity;
-import com.example.compaq.b2b_application.MainActivity;
+import com.example.compaq.b2b_application.Activity.Cart_Activity;
+import com.example.compaq.b2b_application.Fragments.CartUpdate_fragment;
+import com.example.compaq.b2b_application.Activity.Main2Activity;
 import com.example.compaq.b2b_application.Model.Cart_recy_model;
 import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.SellerPortal_Activity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
@@ -49,10 +41,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static android.support.v7.widget.RecyclerView.*;
-import static com.example.compaq.b2b_application.Fragments.Fragment_2.item_clicked;
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
-import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Fragments.products_display_fragment.item_clicked;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Adapter.MyViewHolder>{
     public FragmentActivity mCtx;
@@ -118,7 +110,7 @@ if(productlist.size()==0) {
 
         String set_total=new DecimalFormat("#0.000").format(total_weight);
 
-        holder.d_totalweight.setText(set_total);
+        holder.excpected_date.setText(listner.getExpected());
         holder.seller_name.setText(listner.getSeller_name());
 
 
@@ -161,7 +153,7 @@ if(productlist.size()==0) {
 
 
 
-                Update_fragment myFragment = new Update_fragment();
+                CartUpdate_fragment myFragment = new CartUpdate_fragment();
                 myFragment.setArguments(bundle);
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.cart_layout_frame, myFragment);
@@ -235,7 +227,7 @@ if(productlist.size()==0) {
         ImageView imageV;
 
         ImageView C_imageview;
-        TextView d_qty, purity,d_product,d_gweight,d_totalweight,description,size,length,seller_name;
+        TextView d_qty, purity,d_product,d_gweight,excpected_date,description,size,length,seller_name;
         public Button add_to_whishlist,remove;
         public MyViewHolder(View view) {
             super(view);
@@ -247,7 +239,7 @@ if(productlist.size()==0) {
 
             seller_name=(TextView)itemView.findViewById(R.id.seller_name);
             d_gweight=(TextView)itemView.findViewById(R.id.d_grpss_weight);
-            d_totalweight =(TextView)itemView.findViewById(R.id.d_totalweight);
+            excpected_date =(TextView)itemView.findViewById(R.id.delivery_date);
             d_product=(TextView)itemView.findViewById(R.id.d_produc_name);
             d_qty = (TextView) itemView.findViewById(R.id.d_quantity);
             imageV=(ImageView)itemView.findViewById(R.id.cart_image);
@@ -268,12 +260,9 @@ if(productlist.size()==0) {
                 new Response.Listener<JSONObject>() {
                     public void onResponse(JSONObject response) {
 
-
                         try {
 
                             Toast.makeText(mContext,"Removed Successfully",Toast.LENGTH_SHORT).show();
-
-
 
                         } catch (Exception e) {
                             e.printStackTrace();

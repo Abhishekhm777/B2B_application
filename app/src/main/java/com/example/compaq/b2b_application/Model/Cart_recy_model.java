@@ -16,9 +16,9 @@ public class Cart_recy_model {
     private String purity;
     private  String size;
     private String length;
+    private String expected;
     private String seller_name;
-    public Cart_recy_model(String name, String img_url, String weight, String id, String qty,int del_id,String descript,String purity,String size,String length,String seller_name) {
-        this.name=name;
+    public Cart_recy_model(String name, String img_url, String weight, String id, String qty,int del_id,String descript,String purity,String size,String length,String seller_name,String expected){
         this.img_url=img_url;
         this.weight=weight;
         this.id=id;
@@ -29,8 +29,16 @@ public class Cart_recy_model {
         this.purity=purity;
         this.length=length;
         this.seller_name=seller_name;
+        this.expected=expected;
     }
 
+    public String getExpected() {
+        return expected;
+    }
+
+    public void setExpected(String expected) {
+        this.expected = expected;
+    }
 
     public String getQty() {
         return qty;

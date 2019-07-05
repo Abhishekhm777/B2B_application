@@ -6,7 +6,7 @@
     android:orientation="vertical"
 
     android:id="@+id/cart_layout_frame"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

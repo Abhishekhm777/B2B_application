@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,18 +30,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.Adapters.Adapter_spesification;
-import com.example.compaq.b2b_application.Adapters.Image_Add_Adapter;
-import com.example.compaq.b2b_application.Adapters.Manage_Adapter;
 import com.example.compaq.b2b_application.Adapters.UpdateFragment_expandablelistview;
 import com.example.compaq.b2b_application.Adapters.Update_product_recy_Adaptetr;
-import com.example.compaq.b2b_application.Add_new_product_activity;
-import com.example.compaq.b2b_application.Model.Image_Add_model;
-import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.Model.Update_product_model;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.Update_product_Activity;
-import com.example.compaq.b2b_application.Varient_Activity;
+import com.example.compaq.b2b_application.Activity.Update_product_Activity;
+import com.example.compaq.b2b_application.Activity.Varient_Activity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,8 +47,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.MainActivity.ip_cat;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 /**
  * A simple {@link Fragment} subclass.

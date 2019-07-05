@@ -4,7 +4,6 @@ package com.example.compaq.b2b_application.Fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.SessionManagement;
+import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,10 +30,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.Fragment_2.URL_DATA;
-import static com.example.compaq.b2b_application.Fragments.Fragment_2.item_clicked;
-import static com.example.compaq.b2b_application.MainActivity.ip_cat;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+import static com.example.compaq.b2b_application.Fragments.products_display_fragment.item_clicked;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +52,7 @@ public class Manage_exixsting_frag2 extends Fragment {
     public String SUB_URL = "";
     public String sname = "";
     SessionManagement session;
-    Fragment_2 fragment_2;
+    products_display_fragment productsdisplayfragment;
     public Bundle bundle2;
     private View view;
     public String original;
@@ -184,10 +183,10 @@ public class Manage_exixsting_frag2 extends Fragment {
 
                             bundle2.putString("Item_Clicked", item_clicked + "," + listDataHeader.get(groupPosition));
                             bundle2.putString("CLASS","FRAGMENT2");
-                            fragment_2 = new Fragment_2();
+                            productsdisplayfragment = new products_display_fragment();
 
-                            fragment_2.setArguments(bundle2);
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, fragment_2).addToBackStack(null).commit();
+                            productsdisplayfragment.setArguments(bundle2);
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, productsdisplayfragment).addToBackStack(null).commit();
 
 
                         } else {
@@ -205,9 +204,9 @@ public class Manage_exixsting_frag2 extends Fragment {
                             bundle2.putString("Item_Clicked", item_clicked + "," + listDataHeader.get(groupPosition) + "," + listDataChild.get(
                                     listDataHeader.get(groupPosition)).get(
                                     childPosition));
-                            fragment_2 = new Fragment_2();
-                            fragment_2.setArguments(bundle2);
-                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, fragment_2).addToBackStack(null).commit();
+                            productsdisplayfragment = new products_display_fragment();
+                            productsdisplayfragment.setArguments(bundle2);
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe, productsdisplayfragment).addToBackStack(null).commit();
 
                         }
 

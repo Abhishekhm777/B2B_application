@@ -2,7 +2,6 @@ package com.example.compaq.b2b_application.Fragments;
 
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -37,10 +36,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.compaq.b2b_application.AppHelper;
+import com.example.compaq.b2b_application.Helper_classess.AppHelper;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.VolleyMultipartRequest;
-import com.example.compaq.b2b_application.VolleySingleton;
+import com.example.compaq.b2b_application.Helper_classess.VolleyMultipartRequest;
+import com.example.compaq.b2b_application.Helper_classess.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +48,6 @@ import org.michaelbel.bottomsheet.BottomSheet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,9 +55,7 @@ import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.compaq.b2b_application.Fragments.Custom_order.PICK_IMAGE;
-import static com.example.compaq.b2b_application.MainActivity.ip;
-import static com.example.compaq.b2b_application.MainActivity.ip1;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
 
 /**
  * A simple {@link Fragment} subclass.

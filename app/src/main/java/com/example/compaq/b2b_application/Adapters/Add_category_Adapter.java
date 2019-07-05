@@ -28,11 +28,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.compaq.b2b_application.Customize_Order;
-import com.example.compaq.b2b_application.Fragments.Add_new_Category;
+import com.example.compaq.b2b_application.Activity.Customize_Order;
 import com.example.compaq.b2b_application.Fragments.Customize_order_frag1;
 import com.example.compaq.b2b_application.Fragments.Manage_category_frag1;
-import com.example.compaq.b2b_application.Manage_Categories;
+import com.example.compaq.b2b_application.Activity.Manage_Categories;
 import com.example.compaq.b2b_application.R;
 
 import org.json.JSONArray;
@@ -41,12 +40,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.Fragment_2.URL_DATA;
-import static com.example.compaq.b2b_application.MainActivity.ip_cat;
-import static com.example.compaq.b2b_application.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 public class Add_category_Adapter extends BaseExpandableListAdapter {
     private Context _context;

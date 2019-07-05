@@ -17,16 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.AlertDialogManager;
 import com.example.compaq.b2b_application.Model.Recy_model2;
-import com.example.compaq.b2b_application.Model.SellerPortal_model;
 import com.example.compaq.b2b_application.Model.Selller_history_frag2_model;
 import com.example.compaq.b2b_application.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static com.example.compaq.b2b_application.SessionManagement.PREF_NAME;
 
 public class Sellero_order_frag2_Adapter extends RecyclerView.Adapter<Sellero_order_frag2_Adapter.MyViewHolder> {
     public FragmentActivity mCtx;
