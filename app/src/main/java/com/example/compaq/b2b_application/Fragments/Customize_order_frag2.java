@@ -148,7 +148,7 @@ public class Customize_order_frag2 extends Fragment {
 
             });
 
-            prepareListData();
+           /* prepareListData();*/
         }
         return view;
     }

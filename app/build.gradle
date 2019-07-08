@@ -76,7 +76,9 @@ dependencies {
     implementation 'com.github.StevenDXC:DxLoadingButton:2.2'
     implementation 'com.karumi:dexter:4.2.0'
     implementation 'com.jakewharton:butterknife:8.6.0'
+    implementation 'com.github.badoualy:stepper-indicator:1.0.7'
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 }
 apply plugin: 'com.google.gms.google-services'

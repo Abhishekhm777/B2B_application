@@ -98,7 +98,7 @@ public class Customize_order_frag1 extends Fragment {
     private EditText cust_name, email, company_name;
     HashMap<String, String> all_id = new HashMap<String, String>();
     public List<String> product;
-    private Button search_button, submit, add_product;
+    private Button next, submit, add_product;
     private RadioButton byname, byCat;
     private LinearLayout cat_view, recy_view, second_search;
 
@@ -125,21 +125,17 @@ public class Customize_order_frag1 extends Fragment {
 
             autoCompleteTextView=view.findViewById(R.id.cust_no);
             cust_name=view.findViewById(R.id.cust_name);
-            add_contact=view.findViewById(R.id.add_contact_btn);
-            search_button=view.findViewById(R.id.search_btn);
-            add_contact.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    Add_contact_to_book add_contact_to_book=new Add_contact_to_book();
-                    fragmentTransaction.replace(R.id.customize, add_contact_to_book).addToBackStack(null).commit();
-                }
-            });
+
             email=view.findViewById(R.id.cust_email);
             company_name=view.findViewById(R.id.company_name);
-            getContacts();
+            next=view.findViewById(R.id.next);
+            next.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
+                }
+            });
+            getContacts();
             autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
@@ -150,7 +146,7 @@ public class Customize_order_frag1 extends Fragment {
                 }
             });
 
-            search_button.setOnClickListener(new View.OnClickListener() {
+           /* search_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     fragmentManager = getActivity().getSupportFragmentManager();
@@ -158,7 +154,7 @@ public class Customize_order_frag1 extends Fragment {
                     Custom_order_search_fragment add_contact_to_book=new Custom_order_search_fragment();
                     fragmentTransaction.replace(R.id.customize, add_contact_to_book).addToBackStack(null).commit();
                 }
-            });
+            });*/
 
         }
 
@@ -184,8 +180,6 @@ public class Customize_order_frag1 extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
 
             }
         },new Response.ErrorListener() {

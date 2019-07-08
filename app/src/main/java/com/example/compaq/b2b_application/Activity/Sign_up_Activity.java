@@ -39,11 +39,7 @@ public SessionManagement session;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
-
-
-tabLayout=(TabLayout)findViewById(R.id.tabs);
-
+        tabLayout=(TabLayout)findViewById(R.id.tabs);
         viewPager=(ViewPager)findViewById(R.id.viewpager);
 
         tabLayout.addTab(tabLayout.newTab().setText("RETAILER"));
@@ -51,7 +47,7 @@ tabLayout=(TabLayout)findViewById(R.id.tabs);
         tabLayout.addTab(tabLayout.newTab().setText("MANUFACTURER"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final Tablayout_adapter adapter=new Tablayout_adapter(this,getSupportFragmentManager(),tabLayout.getTabCount());
+        final Tablayout_adapter  adapter=new Tablayout_adapter(this,getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -61,25 +57,13 @@ tabLayout=(TabLayout)findViewById(R.id.tabs);
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
-
-
-
-
-
-
-
-
       /*  session = new SessionManagement(getApplicationContext());
 button=(Button)findViewById(R.id.reg_register);
 button.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +105,6 @@ button.setOnClickListener(new View.OnClickListener() {
                 return super.onOptionsItemSelected(item);
         }
     }
-
     @Override
     public void onBackPressed()
     {

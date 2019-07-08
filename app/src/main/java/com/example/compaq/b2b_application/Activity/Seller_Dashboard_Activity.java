@@ -291,11 +291,8 @@ linearLayout=(LinearLayout)findViewById(R.id.graphlayout);
 
         }
 
-       /* DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);*/
         return true;
     }
-
 
     private void requestCameraPermission() {
         // Permission has not been granted and must be requested.

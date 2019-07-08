@@ -24,4 +24,12 @@
     <color name="graph">#F18177</color>
 
     <color name="black_overlay">#66000000</color>
+
+
+    <color name="stpi_default_circle_color">#b3bdc2</color>
+    <color name="stpi_default_primary_color">#62B355</color>
+    <color name="stpi_default_line_color">#b3bdc2</color>
+    <color name="stpi_default_text_color">#000</color>
+
+    <color name="Blue_colour">#275190</color>
 </resources>

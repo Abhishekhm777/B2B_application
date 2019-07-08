@@ -30,192 +30,272 @@
         android:id="@+id/activivy_layout"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
-
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="match_parent"
-             android:layout_centerInParent="true"
-              android:id="@+id/text"
-              android:layout_marginRight="12dp"
-             android:textStyle="bold"
-              android:textColor="@color/black"
-              android:text="Customer Information"/>
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:id="@+id/add_contact_btn"
-                app:srcCompat="@drawable/add_gray"
-               android:layout_toRightOf="@+id/text"/>
-        </RelativeLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
+            android:orientation="vertical"
+            android:layout_marginBottom="15dp">
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_weight="1.2"
+
+            <TextView
+                android:id="@+id/customer_nu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:text="@string/customer_nu"
+                android:textAppearance="@style/customer_nu"
+                android:gravity="top"
+                />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#fff3f7fb"
+                app:cardCornerRadius="8dp"
+                >
 
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
                     android:id="@+id/cust_no"
-                    android:layout_height="30dp"
-                    android:hint="Customer Mob No."
+                    android:layout_height="40dp"
                     android:paddingLeft="4dp"
                     android:layout_weight="2"
-                    android:background="@drawable/pricebreak_background"
+                    android:background="@null"
                     android:inputType="number"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:textColor="#000"
                     android:textSize="16sp" />
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_weight="1.2"
-                android:layout_marginLeft="3dp"
-                android:layout_centerHorizontal="true"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/cust_name"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1.2"
-                    android:background="@drawable/pricebreak_background"
-                    android:layout_height="30dp"
-                    android:gravity="center|start"
-                    android:paddingLeft="5dp"
-                    android:hint="Customer Name"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:scrollHorizontally="true"
-                    android:textColor="#000"
-                    android:textSize="16sp" />
-            </android.support.design.widget.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="1dp">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_weight="1.2"
-                android:layout_marginRight="3dp"
-                android:layout_centerHorizontal="true"
-                android:layout_height="match_parent">
-
-                <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:id="@+id/cust_email"
-                    android:layout_height="30dp"
-                    android:hint="Customer Email"
-                    android:paddingLeft="4dp"
-                    android:layout_weight="2"
-                    android:background="@drawable/pricebreak_background"
-                    android:inputType="number"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:textColor="#000"
-                    android:textSize="16sp" />
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_weight="1.2"
-                android:layout_marginLeft="3dp"
-                android:layout_centerHorizontal="true"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/company_name"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1.2"
-                    android:background="@drawable/pricebreak_background"
-                    android:layout_height="30dp"
-                    android:gravity="center|start"
-                    android:paddingLeft="5dp"
-                    android:hint="Company Name"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:scrollHorizontally="true"
-                    android:textColor="#000"
-                    android:textSize="16sp" />
-            </android.support.design.widget.TextInputLayout>
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
 
-        <LinearLayout
+               <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-           android:layout_marginTop="15dp"
-           >
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp">
 
-          <Button
-              android:layout_width="0dp"
-              android:layout_weight="0.7"
-              android:id="@+id/search_btn"
-              android:text="Search Products"
-              android:textSize="12dp"
-              android:layout_marginRight="3dp"
-              android:background="@drawable/shadow_effect"
-              android:layout_height="35dp" />
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_weight="0.12"
-                android:text="Select Category"
-                app:srcCompat="@drawable/add_gray"
-                android:layout_marginLeft="3dp"
-                android:layout_height="35dp" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="0.7"
-                android:layout_marginLeft="15dp"
+            <TextView
+                android:id="@+id/customer_na"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:textStyle="italic"
+                android:text="@string/customer_na"
+                android:textAppearance="@style/customer_nu"
+                android:gravity="top"
+                />
+                   <android.support.v7.widget.CardView
+                       android:layout_width="match_parent"
+                       android:layout_centerHorizontal="true"
+                       android:padding="10dp"
+                       android:layout_height="wrap_content"
+                       app:cardBackgroundColor="#fff3f7fb"
+                       app:cardCornerRadius="8dp"
+                       >
 
+            <EditText
+                android:id="@+id/cust_name"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="40dp"
+                android:gravity="center|start"
+                android:paddingLeft="5dp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+                   </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:text="@string/customer_em"
+                android:textAppearance="@style/customer_nu"
+                android:gravity="top"
+                />
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#fff3f7fb"
+                app:cardCornerRadius="8dp"
                 >
-                <Button
-                    android:layout_width="match_parent"
-                    android:textSize="12dp"
-                    android:text="Select Category"
-                    android:layout_marginLeft="3dp"
-                    android:background="@drawable/shadow_effect"
-                    android:layout_height="35dp" />
+
+            <EditText
+                android:id="@+id/cust_email"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="40dp"
+                android:gravity="center|start"
+                android:paddingLeft="5dp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp">
 
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/company_nam"
+                android:textStyle="italic"
+                android:textAppearance="@style/customer_nu"
+                android:gravity="top"
+                />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#fff3f7fb"
+                app:cardCornerRadius="8dp"
+                >
+            <EditText
+                android:id="@+id/company_name"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="40dp"
+                android:gravity="center|start"
+                android:paddingLeft="5dp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp">
 
 
-            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gstin"
+                android:textStyle="italic"
+                android:textAppearance="@style/customer_nu"
+                android:gravity="top"
+                />
 
+            <android.support.v7.widget.CardView
+
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#fff3f7fb"
+                app:cardCornerRadius="8dp"
+                >
+            <EditText
+                android:id="@+id/gstn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@null"
+                android:gravity="center|start"
+                android:paddingLeft="5dp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+            </android.support.v7.widget.CardView>
 
 
         </LinearLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp">
 
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/address"
+                android:textStyle="italic"
+                android:textAppearance="@style/customer_nu"
+                android:gravity="top"
+                />
+
+
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_name"
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#fff3f7fb"
+                app:cardCornerRadius="8dp"
+               >
+            <EditText
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="60dp"
+                android:gravity="center|start"
+                android:paddingLeft="5dp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="15dp"
+            android:layout_marginTop="25dp"
+            android:background="@color/Blue_colour"
+            android:hint="NEXT"
+            android:textColorHint="@color/white" />
+        </LinearLayout>
+
 </ScrollView>
 
 </RelativeLayout>
