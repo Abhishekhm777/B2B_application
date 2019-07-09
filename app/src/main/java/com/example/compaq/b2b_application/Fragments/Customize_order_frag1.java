@@ -4,6 +4,7 @@ package com.example.compaq.b2b_application.Fragments;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -53,6 +55,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
@@ -129,9 +132,13 @@ public class Customize_order_frag1 extends Fragment {
             email=view.findViewById(R.id.cust_email);
             company_name=view.findViewById(R.id.company_name);
             next=view.findViewById(R.id.next);
+            next.setEnabled(false);
             next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(contact_array.contains(autoCompleteTextView.getText().toString())){
+                          pager.setCurrentItem(1);
+                    }
 
                 }
             });
@@ -141,6 +148,8 @@ public class Customize_order_frag1 extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View arg1, int pos,
                                         long id) {
+                    next.setEnabled(true);
+                    next.setBackgroundColor(getResources().getColor(R.color.skyBlue));
                     getUserDetail(autoCompleteTextView.getText().toString());
 
                 }
@@ -153,6 +162,7 @@ public class Customize_order_frag1 extends Fragment {
                     fragmentTransaction = fragmentManager.beginTransaction();
                     Custom_order_search_fragment add_contact_to_book=new Custom_order_search_fragment();
                     fragmentTransaction.replace(R.id.customize, add_contact_to_book).addToBackStack(null).commit();
+
                 }
             });*/
 

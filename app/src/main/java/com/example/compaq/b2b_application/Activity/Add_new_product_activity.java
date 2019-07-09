@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -52,6 +54,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.Adapter_spesification;
 import com.example.compaq.b2b_application.Adapters.Image_Add_Adapter;
 import com.example.compaq.b2b_application.Adapters.User_class_Adapter;
+import com.example.compaq.b2b_application.Fragments.Custom_order;
+import com.example.compaq.b2b_application.Fragments.Customize_order_frag1;
 import com.example.compaq.b2b_application.Helper_classess.AppHelper;
 import com.example.compaq.b2b_application.Model.Image_Add_model;
 import com.example.compaq.b2b_application.Model.Top_model;
@@ -143,7 +147,9 @@ public class Add_new_product_activity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CAMERA = 0;
     private  static View window;
     private  static Context mcontext;
+
     private static  Activity activity ;
+    private static String parent_name ;
     public    HashMap<String ,String> val_map;
     public    HashMap<String ,ArrayList<String>> stone_map=new HashMap<>();
     private  static  ProgressBar progressBar;
@@ -175,8 +181,13 @@ public class Add_new_product_activity extends AppCompatActivity {
         newlounch =  findViewById(R.id.newlaunch);
         mcontext=this;
         activity=this;
-        ///////////////////////////////////////////dynamic view/////////////////////////////////////////////////////
 
+        if (getCallingActivity() != null) {
+            parent_name=getCallingActivity().getClassName();
+
+        }
+
+        ///////////////////////////////////////////dynamic view/////////////////////////////////////////////////////
 
         rootView =  findViewById(R.id.stone_layout);
         recyclerView =  findViewById(R.id.image_recycler);
@@ -1710,13 +1721,21 @@ else {
                                     progressBar.setVisibility(View.GONE);
                                     Toast.makeText(mcontext,"Product Added Successfully",Toast.LENGTH_LONG).show();
 
+
+                                    if(parent_name.equalsIgnoreCase("com.example.compaq.b2b_application.Activity.Customize_Order")){
+                                       /* Customize_order_frag1 f = (Customize_order_frag1) ((AppCompatActivity) mcontext).getSupportFragmentManager().findFragmentByTag("customize");*/
+                                        /*   f.refreshMethod();*/
+                                        ((AppCompatActivity) mcontext).getSupportFragmentManager().popBackStackImmediate();
+                                          Log.e("YAHOOOOOO","VDVDVDV");
+                                    }
+
                                 }
                             });
-
-                            Intent login = new Intent(mcontext, Add_new_product_activity.class);
-                            mcontext.startActivity(login);
-                            activity.finish();
-
+                            if(!parent_name.equalsIgnoreCase("com.example.compaq.b2b_application.Activity.Customize_Order")) {
+                                Intent login = new Intent(mcontext, Add_new_product_activity.class);
+                                mcontext.startActivity(login);
+                                activity.finish();
+                            }
                         }
 
                         try {
@@ -1730,7 +1749,6 @@ else {
                         return response;
                     }
                 });
-
 
         private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(API_BASE_URL).addConverterFactory(GsonConverterFactory.create());
 

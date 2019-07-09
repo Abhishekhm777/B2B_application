@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -46,6 +48,7 @@ private View view;
 private SharedPreferences sharedPref;
 private  String output,user_id;
 private ArrayList<String> suggestion_list;
+private RadioButton byName,byCategory;
 
     public Custom_order_search_fragment() {
         // Required empty public constructor
@@ -61,7 +64,6 @@ private ArrayList<String> suggestion_list;
 
             listView=view.findViewById(R.id.custom_search_listview);
             searchView=view.findViewById(R.id.custom_search);
-
 
             searchView =  view.findViewById(R.id.custom_search);
             searchView.setSubmitButtonEnabled(true);
@@ -89,10 +91,6 @@ private ArrayList<String> suggestion_list;
                     return true;
                 }
             });
-
-
-
-
 
         }
         return view;

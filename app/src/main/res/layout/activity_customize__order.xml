@@ -9,20 +9,19 @@ android:background="@color/white"
 android:layout_height="match_parent"
 tools:context=".Activity.Customize_Order">
 
-<android.support.v7.widget.Toolbar
+ <android.support.v7.widget.Toolbar
     android:layout_width="match_parent"
     android:id="@+id/tool_bar"
     android:layout_height="45dp"
     android:elevation="10dp"
+    app:titleTextAppearance="@style/customer_nu"
     app:titleTextColor="@color/white"
     android:background="@color/Toolbar"
     android:theme="@style/Toolbar_Arrow"
     android:layout_gravity="center"
     android:textAlignment="center">
-
-
-</android.support.v7.widget.Toolbar>
-<LinearLayout
+ </android.support.v7.widget.Toolbar>
+   <LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,7 +29,6 @@ tools:context=".Activity.Customize_Order">
     android:layout_below="@+id/tool_bar"
     android:orientation="vertical"
     android:layout_above="@+id/layout_buttom">
-
 
     <com.badoualy.stepperindicator.StepperIndicator
         android:id="@+id/stepper_indicator"
@@ -45,6 +43,7 @@ tools:context=".Activity.Customize_Order">
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:elevation="2dp"
         android:background="@color/stpi_default_circle_color"
         android:layout_marginBottom="8dp"/>
 
@@ -56,5 +55,6 @@ tools:context=".Activity.Customize_Order">
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         />
-</LinearLayout>
+ </LinearLayout>
+
 </RelativeLayout>
