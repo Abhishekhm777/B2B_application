@@ -3,10 +3,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/Icon</item>
+        <item name="colorPrimary">@color/stpi_default_primary_color</item>
         <item name="colorPrimaryDark">@color/Text</item>
         <item name="colorAccent">@color/TextBar</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
     </style>
     ////////'''''''''''''''''''To change the Colour of the drawer
     Icon,,,,,,,,,,,.....................///////
@@ -15,12 +16,9 @@
         <item name="color">@android:color/white</item>
     </style>
 
-
     //////////////////To change the Tool Bar Arrow Color....////////////////////////////////////
-
     <style name="Toolbar_Arrow" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorControlNormal">@color/Titel</item>
-
 
     </style>
     ///////////////////////////////Only for Login Page///////////////////////
@@ -68,6 +66,17 @@
 
 
 
+    <style name="customer_nu">
 
+        <item name="android:textSize">
+            15sp
+        </item>
+
+        <item name="android:textColor">
+            #919AB0
+        </item>
+
+
+    </style>
 
 </resources>
