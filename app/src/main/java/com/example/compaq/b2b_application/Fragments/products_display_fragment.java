@@ -1,6 +1,5 @@
 package com.example.compaq.b2b_application.Fragments;
 
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -53,15 +52,16 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.compaq.b2b_application.Activity.Cart_Activity;
+import com.example.compaq.b2b_application.Activity.FilterFragment;
+import com.example.compaq.b2b_application.Activity.Search_Activity;
 import com.example.compaq.b2b_application.Adapters.RecyclerAdapter2;
 import com.example.compaq.b2b_application.Adapters.Recycler_Adapter2;
 import com.example.compaq.b2b_application.Adapters.ViewpageAdapter1;
 import com.example.compaq.b2b_application.Helper_classess.Bottom_sheet_dialog;
-import com.example.compaq.b2b_application.Activity.Cart_Activity;
+import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.Activity.Search_Activity;
-import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -127,21 +127,30 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
     LinearLayout sort_layout;
     ListView sortlist;
     ArrayAdapter sortadapter;
-    Map<Object, Object> sortparams;
+    public  Map<Object, Object> sortparams ,filterparams;
+    View view;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_fragment_2, container, false);
 
+        view = inflater.inflate(R.layout.fragment_fragment_2, container, false);
+        context=getActivity();
         session = new SessionManagement(getActivity().getApplicationContext());
         progressBar = (ProgressBar) view.findViewById(R.id.progress);
         bundle = this.getArguments();
         mlistner = this;
         class2 = "";
         Log.d("class...", class2);
+
+        item_clicked = bundle.getString("Item_Clicked");
+        class2 = bundle.getString("CLASS");
+        Log.d(".........item click",item_clicked+class2);
+
         relativeLayout = (RelativeLayout) view.findViewById(R.id.layout_buttom);
+
+        filterparams=new LinkedHashMap<Object, Object>();
 
         dialog = new Dialog(getContext());
         dialog.setCanceledOnTouchOutside(false);
@@ -155,15 +164,18 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         ed4 = (EditText) dialog.findViewById(R.id.otpET4);
         ed5 = (EditText) dialog.findViewById(R.id.otpET5);
 
+
         ed1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 1) {
@@ -193,7 +205,6 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 }
             }
         });
-
         ed3.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -214,8 +225,6 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 }
             }
         });
-
-
         ed4.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -236,7 +245,6 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 }
             }
         });
-
         ed5.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -287,8 +295,9 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        sortparams = new LinkedHashMap<Object, Object>();
-        //sort_layout=view.findViewById(R.id.sort_layout);
+
+       // sort_layout=view.findViewById(R.id.sort_layout);
+        sortparams = new LinkedHashMap<>();
         sortadapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.sortOptions, android.R.layout.simple_list_item_1);
         sortDialog = new Dialog(getContext());
@@ -314,11 +323,20 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.filter) {
                     Bundle args = new Bundle();
-                    args.putString("TeamName", item_clicked);
+                    // args.putString("TeamName", item_clicked);
+                    args.putString("Item_Clicked",item_clicked);
+                    args.putString("CLASS","FILTER");
+                   // if(!sortparams.isEmpty()){
+                        args.putSerializable("SORT", (Serializable) sortparams);
+                   // }
 
-                    Bottom_sheet_dialog bottom_sheet_dialog = new Bottom_sheet_dialog(mlistner);
-                    bottom_sheet_dialog.setArguments(args);
-                    bottom_sheet_dialog.show(getFragmentManager(), bottom_sheet_dialog.getTag());
+
+                   // Bottom_sheet_dialog bottom_sheet_dialog = new Bottom_sheet_dialog(mlistner);
+                   // bottom_sheet_dialog.setArguments(args);
+                    Fragment filterFragment=new FilterFragment();
+                    filterFragment.setArguments(args);
+                    //bottom_sheet_dialog.show(getFragmentManager(), bottom_sheet_dialog.getTag());
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe,filterFragment).addToBackStack(null).commit();
 
                     return true;
                 }
@@ -329,37 +347,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 }
                 if (item.getItemId() == R.id.premium) {
                     sendOtp();
-                   /* LayoutInflater li = LayoutInflater.from(getContext());
-                    View promptsView = li.inflate(R.layout.premium_dialogue_layout, null);
-                    AlertDialog.Builder alertDialog=new AlertDialog.Builder(getContext());
-                    alertDialog  .setTitle("PREMIUM PRODUCTS");
-                    alertDialog .setMessage("TO VIEW PREMIUM PRODUCTS YOU NEED TO GET OTP FROM THE WHOLESALER");
 
-                    alertDialog.setView(promptsView);
-                    otp=(EditText) promptsView.findViewById(R.id.edittext);
-                    TextView textView=(TextView)promptsView.findViewById(R.id.textView);
-                    textView.setText("Contact :"+user_no);
-
-                    alertDialog.setCancelable(false);
-                    alertDialog  .setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-
-
-                    alertDialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                            chec_otp(otp.getText().toString());
-                        }
-                    });
-                    AlertDialog alertDialoga = alertDialog.create();
-
-                    alertDialoga.show();
-*/
 
                     dialog.show();
 
@@ -395,9 +383,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         recyclerView.setHasFixedSize(true);
 
 
-        item_clicked = bundle.getString("Item_Clicked");
-        class2 = bundle.getString("CLASS");
-        Log.d(".........item click",item_clicked+class2);
+
        /* for (String key : bundle.keySet()) {
             if(key.equals("CLASS")) {
                 class2 =bundle.getString(key);
@@ -405,6 +391,18 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         }*/
 
         /* textView.append(item_clicked);*/
+        for (String key : bundle.keySet()) {
+
+            Log.d("keys..",key+bundle.getString("CLASS"));
+            if(key!=null&&key.equals("FILTER_VALUE")) {
+
+                filterparams=((Map<Object, Object>) bundle.getSerializable("FILTER_VALUE"));
+            }
+            else if(key!=null&&key.equals("SORT")){
+                sortparams=((Map<Object, Object>) bundle.getSerializable("SORT"));
+                Log.d("sort..","called...");
+            }
+        }
 
         if (class2.equals("FRAGMENT2")) {
             URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
@@ -414,60 +412,20 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
             URL_DATA = create_url(ip_cat + "/searching/facets");
             Log.d("url_data..", URL_DATA + class2);
         }
-        else if(class2.equals("popular")){
-            String classname=bundle.getString("CLASS");
 
-            if(sortparams.isEmpty()==true) {
-                sortparams.put(classname, "true");
-            }
-            else {
-                sortparams.clear();
-                sortparams.put(classname, "true");
-            }
+        else if(class2.equals("sort")){
+            String classname=bundle.getString("CLASS");
             URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
             Log.d("url321....",URL_DATA);
 
         }
-        else if(class2.equals("WeightLowToHigh")){
-            String classname=bundle.getString("CLASS");
 
-            if(sortparams.isEmpty()==true) {
-                sortparams.put(classname, "true");
-            }
-            else {
-                sortparams.clear();
-                sortparams.put(classname, "true");
-            }
-            URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
-            Log.d("url321....",URL_DATA);
+        else if(class2.equals("FILTER")){
+            // filterparams=((Map<Object, Object>) bundle.getSerializable("FILTER_VALUE"));
+            Log.d("size...",filterparams.size()+"");
+            URL_DATA=create_url(ip+"gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
 
-        }
-        else if(class2.equals("WeightHighToLow")){
-            String classname=bundle.getString("CLASS");
-
-            if(sortparams.isEmpty()==true) {
-                sortparams.put(classname, "true");
-            }
-            else {
-                sortparams.clear();
-                sortparams.put(classname, "true");
-            }
-            URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
-            Log.d("url321....",URL_DATA);
-
-        }
-        else if(class2.equals("newProducts")){
-            String classname=bundle.getString("CLASS");
-
-            if(sortparams.isEmpty()==true) {
-                sortparams.put(classname, "true");
-            }
-            else {
-                sortparams.clear();
-                sortparams.put(classname, "true");
-            }
-            URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
-            Log.d("url321....",URL_DATA);
+            Log.d("url4441....",URL_DATA);
 
         }
 
@@ -485,25 +443,20 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 if(class2.equals("SEARCH")) {
                     params.put("queryText", item_clicked);
                 }
-                else if(class2.equals("popular")&&sortparams.isEmpty()==false){
 
-                        params.putAll(sortparams);
-
-                    }
-                    else if(class2.equals("WeightLowToHigh") &&sortparams.isEmpty() == false) {
-
-                            params.putAll(sortparams);
-
-                    }
-                else if(class2.equals("WeightHighToLow") &&sortparams.isEmpty() == false) {
+                else if(class2.equals("sort") &&sortparams.isEmpty() == false) {
 
                     params.putAll(sortparams);
 
                 }
-                else if(class2.equals("newProducts") &&sortparams.isEmpty() == false) {
+                else if(class2.equals("FILTER")&&sortparams!=null) {
 
-                    params.putAll(sortparams);
 
+                        params.putAll(sortparams);
+
+                }
+                if (filterparams.isEmpty()==false) {
+                    params.putAll(filterparams);
                 }
 
 
@@ -916,27 +869,20 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        sortDialog.dismiss();
         Fragment fragment_2 = new products_display_fragment();
         String val = (String)parent.getAdapter().getItem(position);
         Log.d("called", val);
         switch (val) {
             case "POPULARITY":
 
-
-
-                if (bundle.getString("CLASS").equals("Search_Filter") || bundle.getString("CLASS").equals("Search_Activity")) {
+                    bundle.putString("Item_Clicked", item_clicked );
+                    bundle.putString("CLASS", "sort");
                     sortparams.clear();
-                    sortparams.put("popular", "true");
-                    bundle.putString("Item_Clicked", item_clicked );
-                    bundle.putString("CLASS", "Search_Filter");
-                    bundle.putSerializable("SORT_VALUE", (Serializable) sortparams);
+                    sortparams.put("popular","true");
+                    bundle.putSerializable("SORT",(Serializable)sortparams);
+                    // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
 
-
-                } else {
-                    bundle.putString("Item_Clicked", item_clicked );
-                    bundle.putString("CLASS", "popular");
-                   // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
-                }
 
 
                 fragment_2.setArguments(bundle);
@@ -945,26 +891,21 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 fTransaction1.detach(products_display_fragment.this);
                 fTransaction1.attach(products_display_fragment.this);
                 fTransaction1.commit();
-                sortDialog.dismiss();
+
                 break;
 
             case "WEIGHT-LOW TO HIGH":
 
 
 
-                if (bundle.getString("CLASS").equals("Search_Filter") || bundle.getString("CLASS").equals("Search_Activity")) {
+
+                    bundle.putString("Item_Clicked", item_clicked );
+                    bundle.putString("CLASS", "sort");
                     sortparams.clear();
-                    sortparams.put("popular", "true");
-                    bundle.putString("Item_Clicked", item_clicked );
-                    bundle.putString("CLASS", "Search_Filter");
-                    bundle.putSerializable("SORT_VALUE", (Serializable) sortparams);
-
-
-                } else {
-                    bundle.putString("Item_Clicked", item_clicked );
-                    bundle.putString("CLASS", "WeightLowToHigh");
+                    sortparams.put("WeightLowToHigh","true");
+                    bundle.putSerializable("SORT",(Serializable)sortparams);
                     // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
-                }
+
 
 
                 fragment_2.setArguments(bundle);
@@ -973,23 +914,18 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 fTransaction2.detach(products_display_fragment.this);
                 fTransaction2.attach(products_display_fragment.this);
                 fTransaction2.commit();
-                sortDialog.dismiss();
+
                 break;
             case "WEIGHT-HIGH TO LOW":
 
-                if (bundle.getString("CLASS").equals("Search_Filter") || bundle.getString("CLASS").equals("Search_Activity")) {
-                    sortparams.clear();
-                    sortparams.put("popular", "true");
-                    bundle.putString("Item_Clicked", item_clicked );
-                    bundle.putString("CLASS", "Search_Filter");
-                    bundle.putSerializable("SORT_VALUE", (Serializable) sortparams);
 
-
-                } else {
                     bundle.putString("Item_Clicked", item_clicked );
-                    bundle.putString("CLASS", "WeightHighToLow");
+                     sortparams.clear();
+                     sortparams.put("WeightHighToLow","true");
+                     bundle.putString("CLASS", "sort");
+                   bundle.putSerializable("SORT",(Serializable)sortparams);
                     // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
-                }
+
 
 
                 fragment_2.setArguments(bundle);
@@ -998,23 +934,17 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 fTransaction3.detach(products_display_fragment.this);
                 fTransaction3.attach(products_display_fragment.this);
                 fTransaction3.commit();
-                sortDialog.dismiss();
                 break;
             case "NEW PRODUCTS":
 
-                if (bundle.getString("CLASS").equals("Search_Filter") || bundle.getString("CLASS").equals("Search_Activity")) {
+
+                    bundle.putString("Item_Clicked", item_clicked );
+                    bundle.putString("CLASS", "sort");
                     sortparams.clear();
-                    sortparams.put("NEW PRODUCT", "true");
-                    bundle.putString("Item_Clicked", item_clicked );
-                    bundle.putString("CLASS", "Search_Filter");
-                    bundle.putSerializable("SORT_VALUE", (Serializable) sortparams);
-
-
-                } else {
-                    bundle.putString("Item_Clicked", item_clicked );
-                    bundle.putString("CLASS", "newProducts");
+                    sortparams.put("newProducts","true");
+                    bundle.putSerializable("SORT",(Serializable)sortparams);
                     // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
-                }
+
 
 
                 fragment_2.setArguments(bundle);
@@ -1023,15 +953,17 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 fTransaction4.detach(products_display_fragment.this);
                 fTransaction4.attach(products_display_fragment.this);
                 fTransaction4.commit();
-                sortDialog.dismiss();
+
                 break;
 
 
 
         }
 
-        }
-
-
     }
+
+
+}
+
+
 
