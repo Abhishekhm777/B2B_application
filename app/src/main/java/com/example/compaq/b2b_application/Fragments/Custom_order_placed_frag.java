@@ -1,6 +1,7 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.CycleInterpolator;
+import android.view.animation.TranslateAnimation;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.compaq.b2b_application.Activity.LoginActivity;
 import com.example.compaq.b2b_application.Activity.Splash_Activity;
@@ -22,7 +27,8 @@ import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
  * A simple {@link Fragment} subclass.
  */
 public class Custom_order_placed_frag extends Fragment {
-
+private Button button;
+private TextView textView;
 
     public Custom_order_placed_frag() {
         // Required empty public constructor
@@ -36,7 +42,17 @@ public class Custom_order_placed_frag extends Fragment {
         View view= inflater.inflate(R.layout.fragment_custom_order_placed_frag, container, false);
 
 
+         button=view.findViewById(R.id.finish_button);
+        textView=view.findViewById(R.id.place_text);
+         button.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 getActivity().finish();
+             }
+         });
 
+
+        textView.startAnimation(shakeError());
 
 /*
         Handler uiHandler = new Handler();
@@ -64,5 +80,12 @@ public class Custom_order_placed_frag extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    public TranslateAnimation shakeError() {
+        TranslateAnimation shake = new TranslateAnimation(0, 10, 0, 0);
+        shake.setDuration(600);
+        shake.setInterpolator(new CycleInterpolator(7));
+        return shake;
     }
 }

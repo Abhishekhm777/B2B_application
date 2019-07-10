@@ -3,12 +3,18 @@ package com.example.compaq.b2b_application.Fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.compaq.b2b_application.R;
+
+import java.util.Timer;
 
 import static android.os.SystemClock.sleep;
 import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
@@ -19,6 +25,7 @@ import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 public class Custom_order_finish_frag extends Fragment {
 
    View view;
+   private Button button;
     public Custom_order_finish_frag() {
         // Required empty public constructor
     }
@@ -29,27 +36,37 @@ public class Custom_order_finish_frag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_custom_order_finish_frag, container, false);
-
-
-        Handler uiHandler = new Handler();
-        uiHandler.post(new Runnable()
-        {
+        button=(Button)view.findViewById(R.id.finish_button);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run()
-            {
-
-                try{
-                    sleep(1000);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-                finally {
-                    pager.setCurrentItem(4);
-                }
+            public void onClick(View view) {
+               getActivity().finish();
             }
         });
+
+
+
         return  view;
+    }
+
+
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible) {
+            Log.e("RERERERER","GFBDJKVDFVD");
+
+
+          /*  try{
+                sleep(1500);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            finally {
+                pager.setCurrentItem(4);
+            }*/
+        }
     }
 
 }

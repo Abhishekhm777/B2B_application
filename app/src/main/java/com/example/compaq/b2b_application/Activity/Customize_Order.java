@@ -1,13 +1,18 @@
 package com.example.compaq.b2b_application.Activity;
 
+import android.app.PendingIntent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.badoualy.stepperindicator.StepperIndicator;
 import com.example.compaq.b2b_application.Adapters.Stepper_Adapter;
@@ -21,6 +26,8 @@ public class Customize_Order extends AppCompatActivity {
     public FragmentManager fragmentManager;
     private Toolbar toolbar;
     public static ViewPager pager;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +35,11 @@ public class Customize_Order extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setTitle("Customize Order");
+
+        sharedPref = this.getSharedPreferences("USER_DETAILS", 0);
+        editor = sharedPref.edit();
+        editor.putString("cust_id",null).apply();
+        editor.commit();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -36,6 +48,14 @@ public class Customize_Order extends AppCompatActivity {
         pager = findViewById(R.id.pager);
         assert pager != null;
         pager.setAdapter(adapter);
+        pager.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                return true;
+            }
+        });
 
         /*   pager.setAdapter(new PagerAdapter(getSupportFragmentManager(),pager.getChildCount()));
          */
@@ -46,7 +66,7 @@ public class Customize_Order extends AppCompatActivity {
         indicator.addOnStepClickListener(new StepperIndicator.OnStepClickListener() {
             @Override
             public void onStepClicked(int step) {
-                    pager.setCurrentItem(step, true);
+                   /* pager.setCurrentItem(step, true);*/
             }
         });
 
