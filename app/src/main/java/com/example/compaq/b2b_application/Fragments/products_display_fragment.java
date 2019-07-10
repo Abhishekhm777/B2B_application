@@ -324,7 +324,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 if (item.getItemId() == R.id.filter) {
                     Bundle args = new Bundle();
                     if(class2.equals("WITH_SEARCH")|| class2.equals("SEARCH")){
-                        args.putString("CLASS","WITH_SEARCH");
+                        args.putString("CLASS",class2);
                     }
                     else {
                        args.putString("CLASS", "FILTER");
@@ -333,6 +333,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
 
                    // if(!sortparams.isEmpty()){
                         args.putSerializable("SORT", (Serializable) sortparams);
+                        args.putSerializable("FILTER_VALUE",(Serializable)filterparams);
                    // }
 
 
@@ -401,7 +402,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
             Log.d("keys..",key+bundle.getString("CLASS"));
             if(key!=null&&key.equals("FILTER_VALUE")) {
 
-                filterparams=((Map<Object, Object>) bundle.getSerializable("FILTER_VALUE"));
+                filterparams.putAll(((Map<Object, Object>) bundle.getSerializable("FILTER_VALUE")));
             }
             else if(key!=null&&key.equals("SORT")){
                 sortparams=((Map<Object, Object>) bundle.getSerializable("SORT"));
@@ -888,7 +889,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
             case "POPULARITY":
 
                 if(class2.equals("WITH_SEARCH")|| class2.equals("SEARCH")){
-                    bundle.putString("CLASS", "WITH_SEARCH");
+                    bundle.putString("CLASS", class2);
                 }
                 else {
                     bundle.putString("CLASS", "sort");
@@ -916,7 +917,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
 
 
                 if(class2.equals("WITH_SEARCH")|| class2.equals("SEARCH")){
-                    bundle.putString("CLASS", "WITH_SEARCH");
+                    bundle.putString("CLASS", class2);
                 }
                 else {
                     bundle.putString("CLASS", "sort");
@@ -925,7 +926,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                     bundle.putString("Item_Clicked", item_clicked );
 
                     sortparams.clear();
-                    sortparams.put("WeightLowToHigh","true");
+                    sortparams.put("weightLowToHigh","true");
                     bundle.putSerializable("SORT",(Serializable)sortparams);
                     // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
 
@@ -942,14 +943,14 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
             case "WEIGHT-HIGH TO LOW":
 
                     if(class2.equals("WITH_SEARCH")|| class2.equals("SEARCH")){
-                        bundle.putString("CLASS", "WITH_SEARCH");
+                        bundle.putString("CLASS", class2);
                     }
                     else {
                         bundle.putString("CLASS", "sort");
                     }
                      bundle.putString("Item_Clicked", item_clicked );
                      sortparams.clear();
-                     sortparams.put("WeightHighToLow","true");
+                     sortparams.put("weightHighToLow","true");
 
                    bundle.putSerializable("SORT",(Serializable)sortparams);
                     // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
@@ -965,7 +966,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 break;
             case "NEW PRODUCTS":
                 if(class2.equals("WITH_SEARCH")|| class2.equals("SEARCH")){
-                    bundle.putString("CLASS", "WITH_SEARCH");
+                    bundle.putString("CLASS", class2);
                 }
                 else {
                     bundle.putString("CLASS", "sort");

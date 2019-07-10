@@ -2,6 +2,7 @@ package com.example.compaq.b2b_application.Adapters;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +25,16 @@ public class expand_listview2 extends BaseExpandableListAdapter {
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, List<String>> _listDataChild;
+    private String className;
 
     public ArrayList<String> selection;
     public expand_listview2(Context context, List<String> listDataHeader,
-                            HashMap<String, List<String>> listChildData, ArrayList<String> selection) {
+                            HashMap<String, List<String>> listChildData, ArrayList<String> selection,String className) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
         this.selection=selection;
+        this.className=className;
     }
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
@@ -50,25 +53,37 @@ public class expand_listview2 extends BaseExpandableListAdapter {
                       boolean isLastChild, View convertView, ViewGroup parent) {
 
         final String childText = (String) getChild(groupPosition, childPosition);
+        Log.d("class name..",className);
+         if(className.equals("SEARCH")){
+             if (convertView == null) {
+                 LayoutInflater infalInflater = (LayoutInflater) this._context
+                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                 convertView = infalInflater.inflate(R.layout.child_list_category_layout, null);
 
-        if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.child_list_item_layout, null);
+             }
+             TextView txtChild = (TextView) convertView.findViewById(R.id.text_box_child);
+             txtChild.setText(childText);
 
-        }
+         }
+         else {
+             if (convertView == null) {
+                 LayoutInflater infalInflater = (LayoutInflater) this._context
+                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                 convertView = infalInflater.inflate(R.layout.child_list_item_layout, null);
 
-        CheckedTextView txtListChild = (CheckedTextView) convertView
-                .findViewById(R.id.check_box_child);
+             }
 
-        txtListChild.setText(childText);
+             CheckedTextView txtListChild = (CheckedTextView) convertView
+                     .findViewById(R.id.check_box_child);
 
-        if(selection.contains(txtListChild.getText().toString())) {
-            txtListChild.setChecked(true);
-        }
-        else {
-            txtListChild.setChecked(false);
-        }
+             txtListChild.setText(childText);
+
+             if (selection.contains(txtListChild.getText().toString())) {
+                 txtListChild.setChecked(true);
+             } else {
+                 txtListChild.setChecked(false);
+             }
+         }
         return convertView;
     }
 
