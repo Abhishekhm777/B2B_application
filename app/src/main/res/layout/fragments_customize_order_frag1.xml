@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusedByDefault="false"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:id="@+id/cart_layout_frame"
     tools:context=".Fragments.Customize_order_frag1">
@@ -19,6 +21,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
+    android:layout_above="@+id/next"
     android:focusedByDefault="false">
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,8 +32,6 @@
         android:focusableInTouchMode="true"
         android:id="@+id/activivy_layout"
         android:orientation="vertical">
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,18 +45,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="italic"
+                android:layout_marginBottom="4dp"
                 android:text="@string/customer_nu"
                 android:textAppearance="@style/customer_nu"
                 android:gravity="top"
                 />
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#fff3f7fb"
-                app:cardCornerRadius="8dp"
-                >
+
 
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
@@ -63,13 +59,12 @@
                     android:layout_height="40dp"
                     android:paddingLeft="4dp"
                     android:layout_weight="2"
-                    android:background="@null"
+                    android:background="@drawable/light_blue_background"
                     android:inputType="number"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:textColor="#000"
                     android:textSize="16sp" />
-            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
@@ -78,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="15dp">
 
 
             <TextView
@@ -86,23 +81,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="italic"
+                android:layout_marginBottom="4dp"
+
                 android:text="@string/customer_na"
                 android:textAppearance="@style/customer_nu"
                 android:gravity="top"
                 />
-                   <android.support.v7.widget.CardView
-                       android:layout_width="match_parent"
-                       android:layout_centerHorizontal="true"
-                       android:padding="10dp"
-                       android:layout_height="wrap_content"
-                       app:cardBackgroundColor="#fff3f7fb"
-                       app:cardCornerRadius="8dp"
-                       >
+
 
             <EditText
                 android:id="@+id/cust_name"
                 android:layout_width="match_parent"
-                android:background="@null"
+                android:background="@drawable/light_blue_background"
                 android:layout_height="40dp"
                 android:gravity="center|start"
                 android:paddingLeft="5dp"
@@ -111,7 +101,7 @@
                 android:scrollHorizontally="true"
                 android:textColor="#000"
                 android:textSize="16sp" />
-                   </android.support.v7.widget.CardView>
+
 
         </LinearLayout>
 
@@ -120,30 +110,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="15dp">
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="italic"
+                android:layout_marginBottom="4dp"
+
                 android:text="@string/customer_em"
                 android:textAppearance="@style/customer_nu"
                 android:gravity="top"
                 />
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_centerHorizontal="true"
-                android:padding="10dp"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#fff3f7fb"
-                app:cardCornerRadius="8dp"
-                >
 
             <EditText
                 android:id="@+id/cust_email"
                 android:layout_width="match_parent"
-                android:background="@null"
+                android:background="@drawable/light_blue_background"
                 android:layout_height="40dp"
                 android:gravity="center|start"
                 android:paddingLeft="5dp"
@@ -152,7 +136,7 @@
                 android:scrollHorizontally="true"
                 android:textColor="#000"
                 android:textSize="16sp" />
-            </android.support.v7.widget.CardView>
+
 
         </LinearLayout>
 
@@ -160,7 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="15dp">
 
 
             <TextView
@@ -168,22 +152,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/company_nam"
                 android:textStyle="italic"
+                android:layout_marginBottom="4dp"
                 android:textAppearance="@style/customer_nu"
                 android:gravity="top"
                 />
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_centerHorizontal="true"
-                android:padding="10dp"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#fff3f7fb"
-                app:cardCornerRadius="8dp"
-                >
             <EditText
                 android:id="@+id/company_name"
                 android:layout_width="match_parent"
-                android:background="@null"
+                android:background="@drawable/light_blue_background"
                 android:layout_height="40dp"
                 android:gravity="center|start"
                 android:paddingLeft="5dp"
@@ -192,7 +169,7 @@
                 android:scrollHorizontally="true"
                 android:textColor="#000"
                 android:textSize="16sp" />
-            </android.support.v7.widget.CardView>
+
 
         </LinearLayout>
 
@@ -200,7 +177,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="15dp">
 
 
             <TextView
@@ -208,24 +185,16 @@
                 android:layout_height="wrap_content"
                 android:text="@string/gstin"
                 android:textStyle="italic"
+                android:layout_marginBottom="4dp"
                 android:textAppearance="@style/customer_nu"
                 android:gravity="top"
                 />
 
-            <android.support.v7.widget.CardView
-
-                android:layout_width="match_parent"
-                android:layout_centerHorizontal="true"
-                android:padding="10dp"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#fff3f7fb"
-                app:cardCornerRadius="8dp"
-                >
             <EditText
                 android:id="@+id/gstn"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@null"
+                android:background="@drawable/light_blue_background"
                 android:gravity="center|start"
                 android:paddingLeft="5dp"
                 android:maxLines="1"
@@ -233,7 +202,7 @@
                 android:scrollHorizontally="true"
                 android:textColor="#000"
                 android:textSize="16sp" />
-            </android.support.v7.widget.CardView>
+
 
 
         </LinearLayout>
@@ -243,60 +212,49 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="15dp">
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/address"
+                android:layout_marginBottom="4dp"
                 android:textStyle="italic"
                 android:textAppearance="@style/customer_nu"
                 android:gravity="top"
                 />
 
 
-
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardview_name"
-                android:layout_width="match_parent"
-                android:layout_centerHorizontal="true"
-                android:padding="10dp"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#fff3f7fb"
-                app:cardCornerRadius="8dp"
-               >
             <EditText
                 android:id="@+id/address"
                 android:layout_width="match_parent"
-                android:background="@null"
+                android:background="@drawable/light_blue_background"
                 android:layout_height="60dp"
-                android:gravity="center|start"
+                android:gravity="start"
                 android:paddingLeft="5dp"
-                android:maxLines="1"
-                android:singleLine="true"
                 android:scrollHorizontally="true"
                 android:textColor="#000"
                 android:textSize="16sp" />
-            </android.support.v7.widget.CardView>
+
 
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/next"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="15dp"
-            android:layout_marginTop="25dp"
-            android:background="@color/Blue_colour"
-            android:hint="NEXT"
-            android:textColorHint="@color/white" />
+
         </LinearLayout>
+
 
 </ScrollView>
+    <Button
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+        android:textSize="15dp"
+        android:background="@color/whish"
+        android:hint="NEXT"
+        android:textColorHint="@color/white" />
 
 </RelativeLayout>
 

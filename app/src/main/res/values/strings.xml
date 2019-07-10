@@ -29,12 +29,20 @@
 
 
     <string name="customer_nu">Customer Number</string>
-
+    <string name="product_n">Product Name</string>
     <string name="customer_na">Customer Name</string>
     <string name="customer_em">Customer Email</string>
     <string name="company_nam">Company Name</string>
     <string name="gstin">GSTIN</string>
     <string name="address">Address</string>
+    <string name="date">Delivery Date</string>
+    <string name="gross">Gross Weight</string>
+    <string name="qty">Quantity</string>
+    <string name="size">Size</string>
+    <string name="melting">Melting</string>
+    <string name="sea">Seal</string>
+    <string name="descr">Description</string>
+    <string name="placed">ORDER PLACED</string>
 
 
     <string name="new_message_notification_title_template">New message: %1$s</string>

@@ -20,6 +20,7 @@ public class Customize_Order extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     public FragmentManager fragmentManager;
     private Toolbar toolbar;
+    public static ViewPager pager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +33,8 @@ public class Customize_Order extends AppCompatActivity {
 
         final Stepper_Adapter adapter=new Stepper_Adapter(this,getSupportFragmentManager(),5);
 
-        final ViewPager pager = findViewById(R.id.pager);
+        pager = findViewById(R.id.pager);
         assert pager != null;
-
         pager.setAdapter(adapter);
 
         /*   pager.setAdapter(new PagerAdapter(getSupportFragmentManager(),pager.getChildCount()));
@@ -50,8 +50,8 @@ public class Customize_Order extends AppCompatActivity {
             }
         });
 
-      /*
 
+      /*
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.customize, new Customize_order_frag1(),"customize");

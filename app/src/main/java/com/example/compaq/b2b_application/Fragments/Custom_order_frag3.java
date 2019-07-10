@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -39,9 +40,8 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Customize_order_frag2 extends Fragment {
+public class Custom_order_frag3 extends Fragment {
 
-    ExpandableListView expListView;
     Bundle bundle;
     public SharedPreferences sharedPref;
     public SharedPreferences.Editor myEditor;
@@ -53,15 +53,14 @@ public class Customize_order_frag2 extends Fragment {
     public String SUB_URL = "";
     public String sname = "";
     SessionManagement session;
-    products_display_fragment productsdisplayfragment;
+    private Button place_button;
     public Bundle bundle2;
     private View view;
     public String original;
-    private Mange_card_fragment mange_card_fragment;
     int item = 0;
     HashMap<String, String> list_id = new HashMap<String, String>();
     String all;
-    public Customize_order_frag2() {
+    public Custom_order_frag3() {
         // Required empty public constructor
     }
 
@@ -73,82 +72,27 @@ public class Customize_order_frag2 extends Fragment {
         if(view==null) {
             view = inflater.inflate(R.layout.fragment_customize_order_frag2, container, false);
 
+            place_button=(Button)view.findViewById(R.id.place_button);
             sharedPref = getContext().getSharedPreferences("USER_DETAILS", 0);
             myEditor = sharedPref.edit();
             output = sharedPref.getString(ACCESS_TOKEN, null);
 
             wholseller_id = sharedPref.getString("userid", null);
-            expListView = (ExpandableListView) view.findViewById(R.id.childrens);
+
 
             session = new SessionManagement(getActivity());
-            mange_card_fragment = new Mange_card_fragment();
+
 
             listAdapter = new Customize_Oder_Adapter1(getActivity(), listDataHeader, listDataChild, list_id, getFragmentManager(), view);
 
 
-            //expandAll();
-            // Listview Group click listener
-            expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-
+            place_button.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onGroupClick(ExpandableListView parent, View v,
-                                            int groupPosition, long id) {
-                    //  mDrawerLayout.closeDrawers();
-                    // Toast.makeText(getApplicationContext(),
-                    // "Group Clicked " + listDataHeader.get(groupPosition),
-                    // Toast.LENGTH_SHORT).show();
-
-
-                    return false;
-                }
-            });
-
-            // Listview Group expanded listener
-            expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-                @Override
-                public void onGroupExpand(int groupPosition) {
-
-
-                    if (listDataChild.get(listDataHeader.get(groupPosition)).size() == 0) {
-
-                        bundle = new Bundle();
-
-                        bundle.putString("clicked", listDataHeader.get(groupPosition));
-                        mange_card_fragment.setArguments(bundle);
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.customize, mange_card_fragment).addToBackStack(null).commit();
-
-
-                        return;
-                    }
+                public void onClick(View view) {
 
                 }
             });
 
-            // Listview Group collasped listener
-            expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-                @Override
-                public void onGroupCollapse(int groupPosition) {
-
-
-                }
-            });
-
-            // Listview on child click listener
-            expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-                @Override
-                public boolean onChildClick(ExpandableListView parent, View v,
-                                            int groupPosition, int childPosition, long id) {
-
-
-                    return false;
-                }
-
-            });
-
-           /* prepareListData();*/
         }
         return view;
     }
@@ -284,7 +228,7 @@ public class Customize_order_frag2 extends Fragment {
 
 
                     // Header, Child data
-                    expListView.setAdapter(listAdapter);
+
 
 
                 } catch (JSONException e) {

@@ -5,8 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.compaq.b2b_application.Fragments.Custom_order_finish_frag;
+import com.example.compaq.b2b_application.Fragments.Custom_order_frag2;
+import com.example.compaq.b2b_application.Fragments.Custom_order_placed_frag;
 import com.example.compaq.b2b_application.Fragments.Customize_order_frag1;
-import com.example.compaq.b2b_application.Fragments.Customize_order_frag2;
+import com.example.compaq.b2b_application.Fragments.Custom_order_frag3;
 
 
 public class Stepper_Adapter extends FragmentPagerAdapter {
@@ -22,22 +25,22 @@ public class Stepper_Adapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                Customize_order_frag1 retailerregister_fragment = new Customize_order_frag1();
-                return retailerregister_fragment;
+                Customize_order_frag1 frag1 = new Customize_order_frag1();
+                return frag1;
             case 1:
-                Customize_order_frag2 wholesellerregister_fragment = new Customize_order_frag2();
-                return wholesellerregister_fragment;
+                Custom_order_frag2 frag2 = new Custom_order_frag2();
+                return frag2;
 
             case 2:
-                Customize_order_frag1 wholesellerregister_fragment1 = new Customize_order_frag1();
-                return wholesellerregister_fragment1;
+                Custom_order_frag3 frag3 = new Custom_order_frag3();
+                return frag3;
 
             case 3:
-                Customize_order_frag2 wholesellerregister_fragment2 = new Customize_order_frag2();
-                return wholesellerregister_fragment2;
+                Custom_order_placed_frag frag4 = new Custom_order_placed_frag();
+                return frag4;
 
             case 4:
-                Customize_order_frag2 wholesellerregister_fragment3 = new Customize_order_frag2();
+                Custom_order_finish_frag wholesellerregister_fragment3 = new Custom_order_finish_frag();
                 return wholesellerregister_fragment3;
 
 
