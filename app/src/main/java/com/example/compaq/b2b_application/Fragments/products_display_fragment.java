@@ -128,15 +128,15 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
     ListView sortlist;
     ArrayAdapter sortadapter;
     public  Map<Object, Object> sortparams ,filterparams;
-    View view;
+    //View view;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view = inflater.inflate(R.layout.fragment_fragment_2, container, false);
-        context=getActivity();
+       View view = inflater.inflate(R.layout.fragment_fragment_2, container, false);
+        context=container.getContext();
         session = new SessionManagement(getActivity().getApplicationContext());
         progressBar = (ProgressBar) view.findViewById(R.id.progress);
         bundle = this.getArguments();
@@ -719,8 +719,13 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 bundle.remove("");
                 //Intent i = new Intent(getActivity(), Search_Activity.class);
                // startActivity(i);
-                Fragment search=new GenericSearchFragment();
-               this.getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe,search).addToBackStack(null).commit();
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////problem
+                    Fragment search=new GenericSearchFragment();
+                    FragmentManager fragmentManager =getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.mainframe, search).addToBackStack(null).commit();
+
                 return true;
         }
         switch (item.getItemId()) {
