@@ -87,7 +87,7 @@ class MainActivity extends AppCompatActivity {
     public static String ip_cat="https://server.mrkzevar.com/gate/b2b/catalog/api/v1";
     public static String ip1 ="https://server.mrkzevar.com/uaa";
 
-    
+
     public  FragmentManager fragmentManager;
     private ActionBarDrawerToggle mToggle;
     private Toolbar toolbar;
