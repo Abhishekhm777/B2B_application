@@ -323,9 +323,14 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.filter) {
                     Bundle args = new Bundle();
-                    // args.putString("TeamName", item_clicked);
+                    if(class2.equals("WITH_SEARCH")|| class2.equals("SEARCH")){
+                        args.putString("CLASS","WITH_SEARCH");
+                    }
+                    else {
+                       args.putString("CLASS", "FILTER");
+                    }
                     args.putString("Item_Clicked",item_clicked);
-                    args.putString("CLASS","FILTER");
+
                    // if(!sortparams.isEmpty()){
                         args.putSerializable("SORT", (Serializable) sortparams);
                    // }
@@ -408,7 +413,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
             URL_DATA = create_url(ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked);
             Log.e("NEW URL ", URL_DATA + class2);
         }
-        else if (class2.equals("SEARCH")) {
+        else if (class2.equals("SEARCH") ||class2.equals("WITH_SEARCH")) {
             URL_DATA = create_url(ip_cat + "/searching/facets");
             Log.d("url_data..", URL_DATA + class2);
         }
@@ -440,13 +445,17 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         params = new LinkedHashMap<>();
         try {
             if (bundle.getString("CLASS") != null) {
-                if(class2.equals("SEARCH")) {
+                if(class2.equals("SEARCH") ||class2.equals("WITH_SEARCH")) {
                     params.put("queryText", item_clicked);
+                    if(sortparams!=null){
+                        params.putAll(sortparams);
+                    }
                 }
 
                 else if(class2.equals("sort") &&sortparams.isEmpty() == false) {
 
                     params.putAll(sortparams);
+
 
                 }
                 else if(class2.equals("FILTER")&&sortparams!=null) {
@@ -707,8 +716,10 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 //do sth here
                 class2 = "";
                 bundle.remove("");
-                Intent i = new Intent(getActivity(), Search_Activity.class);
-                startActivity(i);
+                //Intent i = new Intent(getActivity(), Search_Activity.class);
+               // startActivity(i);
+                Fragment search=new GenericSearchFragment();
+               this.getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe,search).addToBackStack(null).commit();
                 return true;
         }
         switch (item.getItemId()) {
@@ -876,8 +887,15 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         switch (val) {
             case "POPULARITY":
 
-                    bundle.putString("Item_Clicked", item_clicked );
+                if(class2.equals("WITH_SEARCH")|| class2.equals("SEARCH")){
+                    bundle.putString("CLASS", "WITH_SEARCH");
+                }
+                else {
                     bundle.putString("CLASS", "sort");
+                }
+
+                    bundle.putString("Item_Clicked", item_clicked );
+
                     sortparams.clear();
                     sortparams.put("popular","true");
                     bundle.putSerializable("SORT",(Serializable)sortparams);
@@ -897,10 +915,15 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
             case "WEIGHT-LOW TO HIGH":
 
 
-
+                if(class2.equals("WITH_SEARCH")|| class2.equals("SEARCH")){
+                    bundle.putString("CLASS", "WITH_SEARCH");
+                }
+                else {
+                    bundle.putString("CLASS", "sort");
+                }
 
                     bundle.putString("Item_Clicked", item_clicked );
-                    bundle.putString("CLASS", "sort");
+
                     sortparams.clear();
                     sortparams.put("WeightLowToHigh","true");
                     bundle.putSerializable("SORT",(Serializable)sortparams);
@@ -918,11 +941,16 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 break;
             case "WEIGHT-HIGH TO LOW":
 
-
-                    bundle.putString("Item_Clicked", item_clicked );
+                    if(class2.equals("WITH_SEARCH")|| class2.equals("SEARCH")){
+                        bundle.putString("CLASS", "WITH_SEARCH");
+                    }
+                    else {
+                        bundle.putString("CLASS", "sort");
+                    }
+                     bundle.putString("Item_Clicked", item_clicked );
                      sortparams.clear();
                      sortparams.put("WeightHighToLow","true");
-                     bundle.putString("CLASS", "sort");
+
                    bundle.putSerializable("SORT",(Serializable)sortparams);
                     // bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
 
@@ -936,10 +964,15 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 fTransaction3.commit();
                 break;
             case "NEW PRODUCTS":
-
+                if(class2.equals("WITH_SEARCH")|| class2.equals("SEARCH")){
+                    bundle.putString("CLASS", "WITH_SEARCH");
+                }
+                else {
+                    bundle.putString("CLASS", "sort");
+                }
 
                     bundle.putString("Item_Clicked", item_clicked );
-                    bundle.putString("CLASS", "sort");
+
                     sortparams.clear();
                     sortparams.put("newProducts","true");
                     bundle.putSerializable("SORT",(Serializable)sortparams);

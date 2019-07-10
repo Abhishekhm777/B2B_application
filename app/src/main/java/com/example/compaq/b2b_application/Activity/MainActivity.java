@@ -18,6 +18,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -49,6 +50,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.compaq.b2b_application.Fragments.GenericSearchFragment;
 import com.example.compaq.b2b_application.Fragments.products_display_fragment;
 import com.example.compaq.b2b_application.Helper_classess.AlertDialogManager;
 import com.example.compaq.b2b_application.Helper_classess.FirebaseIDService;
@@ -75,16 +77,17 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 
 public
 class MainActivity extends AppCompatActivity {
-   /*local URLs
-    public static String ip="http://192.168.100.4:8040/";
-    public static String ip_cat="http://192.168.100.4:8009/";
-    public static String ip1="http://192.168.100.4:8766/uaa";*/
+   /*//local URLs
+    public static String ip="http://192.168.1.21:8040/";
+    public static String ip_cat="http://192.168.21.30:8009/";
+    public static String ip1="http://192.168.1.21:8769/uaa";*/
 
    ///////////////Server Base URLS
     public static String ip="https://server.mrkzevar.com/";
     public static String ip_cat="https://server.mrkzevar.com/gate/b2b/catalog/api/v1";
     public static String ip1 ="https://server.mrkzevar.com/uaa";
 
+    
     public  FragmentManager fragmentManager;
     private ActionBarDrawerToggle mToggle;
     private Toolbar toolbar;
@@ -1037,9 +1040,10 @@ public void userInformation ( ){
         }
         if (item.getItemId() == R.id.search) {
            // bundle.remove("CLASS");
-
-            Intent i = new Intent(this, Search_Activity.class);
-            startActivity(i);
+            Fragment search=new GenericSearchFragment();
+           getSupportFragmentManager().beginTransaction().replace(R.id.mainframe,search).addToBackStack(null).commit();
+          //  Intent i = new Intent(this, Search_Activity.class);
+           // startActivity(i);
             return true;
         }
         if (item.getItemId() == R.id.cart) {

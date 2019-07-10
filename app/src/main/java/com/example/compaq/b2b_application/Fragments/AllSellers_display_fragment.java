@@ -66,7 +66,7 @@ private String companyname;
     private String imageurl2;
     TextView bset_manu;
     SearchView searchView;
-Dialog dialog;
+    Dialog dialog;
     public AllSellers_display_fragment() {
         // Required empty public constructor
     }
@@ -434,7 +434,7 @@ Dialog dialog;
 
 
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
     }
