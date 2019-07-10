@@ -153,8 +153,8 @@ public class Bottom_sheet_dialog extends Fragment {
 
 
 
-        listAdapter = new com.example.compaq.b2b_application.Adapters.expand_listview2(getActivity(), listDataHeader, listDataChild,selection);
-        expListView.setAdapter(listAdapter);
+       // listAdapter = new com.example.compaq.b2b_application.Adapters.expand_listview2(getActivity(), listDataHeader, listDataChild,selection,);
+       // expListView.setAdapter(listAdapter);
 
 
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {

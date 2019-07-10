@@ -77,15 +77,15 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 
 public
 class MainActivity extends AppCompatActivity {
-   /*//local URLs
+   //local URLs
     public static String ip="http://192.168.1.21:8040/";
-    public static String ip_cat="http://192.168.21.30:8009/";
-    public static String ip1="http://192.168.1.21:8769/uaa";*/
+    public static String ip_cat="http://192.168.1.21:8009/";
+    public static String ip1="http://192.168.1.21:8769/uaa";
 
-   ///////////////Server Base URLS
+   /*///////////////Server Base URLS
     public static String ip="https://server.mrkzevar.com/";
     public static String ip_cat="https://server.mrkzevar.com/gate/b2b/catalog/api/v1";
-    public static String ip1 ="https://server.mrkzevar.com/uaa";
+    public static String ip1 ="https://server.mrkzevar.com/uaa";*/
 
 
     public  FragmentManager fragmentManager;
