@@ -34,6 +34,7 @@ import com.bumptech.glide.Glide;
 import com.example.compaq.b2b_application.Activity.Add_new_product_activity;
 import com.example.compaq.b2b_application.Activity.Custom_order_search_and_category_Activity;
 import com.example.compaq.b2b_application.Activity.Customize_Order;
+import com.example.compaq.b2b_application.Activity.Displaying_complete_product_details_Activity;
 import com.example.compaq.b2b_application.Activity.Search_Activity;
 import com.example.compaq.b2b_application.Adapters.Custom_Order_search_Adapter;
 import com.example.compaq.b2b_application.Model.Top_model;
@@ -50,6 +51,7 @@ import java.util.Map;
 import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.editor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,6 +65,8 @@ public class Custom_order_frag2 extends Fragment {
     TextView p_name,category,sku,purity;
     private ImageView p_image_view;
     private LinearLayout product_layout;
+    private Bundle bundle;
+
     public Custom_order_frag2() {
         // Required empty public constructor
     }
@@ -107,8 +111,6 @@ public class Custom_order_frag2 extends Fragment {
                 if(b){
                     byName.setChecked(false);
 
-
-
                 }
             }
         });
@@ -117,7 +119,23 @@ public class Custom_order_frag2 extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getActivity().getApplicationContext(), Custom_order_search_and_category_Activity.class);
+                bundle=new Bundle();
+                bundle.putString("byname","name");
+
+                Intent intent=new Intent(getActivity().getApplicationContext(), Custom_order_search_and_category_Activity.class).putExtras(bundle);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+            }
+        });
+
+        byCategory.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                bundle=new Bundle();
+                bundle.putString("byname","cat");
+
+                Intent intent=new Intent(getActivity().getApplicationContext(), Custom_order_search_and_category_Activity.class).putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent,ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
             }
@@ -164,9 +182,12 @@ public class Custom_order_frag2 extends Fragment {
             Log.e("RERERERER","GFBDJKVDFVD");
         }
     }
-
+    RequestQueue requestQueue;
     public void getProduct( String id){
-
+        if(requestQueue==null)
+        {
+            requestQueue = Volley.newRequestQueue(getActivity());
+        }
         String url = ip+"gate/b2b/catalog/api/v1/product/"+id;
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url   , new Response.Listener<String>() {
             @Override
@@ -179,12 +200,14 @@ public class Custom_order_frag2 extends Fragment {
                     p_name.setText(pro_object.getString("name"));
                     sku.setText(pro_object.getString("sku"));
                    /* purity.setText(pro_object.getString(""));*/
-                    category.setText((CharSequence) pro_object.getJSONArray("categoriesPath").toString());
+                    JSONArray cat_array=pro_object.getJSONArray("categoriesPath");
+                    category.setText(cat_array.getString(0));
                     JSONArray jsonArray=pro_object.getJSONArray("imageGridFsID");
                     image_url=jsonArray.get(0).toString();
 
                     Glide.with(getActivity()).load("https://server.mrkzevar.com/gate/b2b/catalog/api/v1/assets/image/"+image_url).into(p_image_view);
-
+                    editor.putString("cust_image_id",image_url).apply();
+                    editor.commit();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -203,14 +226,13 @@ public class Custom_order_frag2 extends Fragment {
                 if(response != null && response.data != null){
                     switch(response.statusCode){
                         case 404:
-                            BottomSheet.Builder builder = new BottomSheet.Builder(getContext());
-                            builder.setTitle("Sorry! could't reach server");
-                            builder.show();
+
+                            Snackbar.make(getView(), "Sorry! could't reach server", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                             break;
                         case 400:
-                            BottomSheet.Builder builder1 = new BottomSheet.Builder(getContext());
-                            builder1.setTitle("Sorry! No Products Available");
-                            builder1.show();
+                            Snackbar.make(getView(), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                             break;
                         case 417:
 
@@ -232,7 +254,7 @@ public class Custom_order_frag2 extends Fragment {
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+
         requestQueue.add(stringRequest);
     }
 }

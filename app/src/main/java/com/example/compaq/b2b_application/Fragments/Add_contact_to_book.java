@@ -108,7 +108,6 @@ private  String output,user_id;
             @Override
             public void onResponse(JSONObject response) {
 
-
                 Snackbar.make(view,"Contact Addedd Successfully",Snackbar.LENGTH_SHORT).show();
 
                 Customize_order_frag1 customize_order_frag1 = (Customize_order_frag1)  getActivity().getSupportFragmentManager().findFragmentByTag("customize");

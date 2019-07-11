@@ -39,6 +39,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.Customize_Oder_Adapter1;
@@ -48,6 +49,7 @@ import com.example.compaq.b2b_application.R;
 import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.michaelbel.bottomsheet.BottomSheet;
 
@@ -58,6 +60,7 @@ import java.util.Map;
 
 import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
@@ -99,7 +102,7 @@ public class Customize_order_frag1 extends Fragment {
     private RelativeLayout newLayout;
     private String selected = "";
     RecyclerView recyclerView;
-    private EditText cust_name, email, company_name;
+    private EditText cust_name, email, company_name,gstn,address;
     HashMap<String, String> all_id = new HashMap<String, String>();
     public List<String> product;
     private Button next, submit, add_product;
@@ -129,7 +132,8 @@ public class Customize_order_frag1 extends Fragment {
 
             autoCompleteTextView=view.findViewById(R.id.cust_no);
             cust_name=view.findViewById(R.id.cust_name);
-
+            gstn=view.findViewById(R.id.gstn);
+            address=view.findViewById(R.id.address);
             email=view.findViewById(R.id.cust_email);
             company_name=view.findViewById(R.id.company_name);
             next=view.findViewById(R.id.next);
@@ -141,6 +145,12 @@ public class Customize_order_frag1 extends Fragment {
                         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                           pager.setCurrentItem(1);
+                    }
+                    else {
+                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        updateCustomer_Details();
+
                     }
 
                 }
@@ -155,9 +165,26 @@ public class Customize_order_frag1 extends Fragment {
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     next.setEnabled(true);
+                    next.setText("NEXT");
                     next.setBackgroundColor(getResources().getColor(R.color.skyBlue));
                     getUserDetail(autoCompleteTextView.getText().toString());
 
+                }
+            });
+
+            cust_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+
+                    if(!contact_array.contains(autoCompleteTextView.getText().toString())){
+                        Log.e("YAHHH","SNKSSDSD");
+                        next.setText("SAVE & NEXT");
+                        next.setEnabled(true);
+                        next.setBackgroundColor(getResources().getColor(R.color.skyBlue));
+                    }
+                    else {
+                        getUserDetail(autoCompleteTextView.getText().toString());
+                    }
                 }
             });
 
@@ -264,12 +291,15 @@ public class Customize_order_frag1 extends Fragment {
                     cust_name.setText(jsonObject.getString("name"));
                     email.setText(jsonObject.getString("email"));
                     company_name.setText(jsonObject.getString("firmName"));
+                    gstn.setText(jsonObject.getString("gstNumber"));
+                    address.setText(jsonObject.getString("address"));
+                    next.setEnabled(true);
+                    next.setBackgroundColor(getResources().getColor(R.color.skyBlue));
 
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
 
             }
         },new Response.ErrorListener() {
@@ -315,7 +345,62 @@ public class Customize_order_frag1 extends Fragment {
         requestQueue.add(stringRequest);
     }
 
+    public void updateCustomer_Details() {
 
+        JSONObject mainJasan= new JSONObject();
+
+
+        try {
+
+            mainJasan.put("name",cust_name.getText().toString());
+            mainJasan.put("mobileNumber",autoCompleteTextView.getText().toString());
+            mainJasan.put("email",email.getText().toString());
+            mainJasan.put("firmName",company_name.getText().toString());
+            mainJasan.put("gstNumber",gstn.getText().toString());
+            mainJasan.put("address",address.getText().toString());
+            mainJasan.put("user",user_id);
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String url = ip1+"/b2b/contact-book";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, mainJasan, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+
+                Snackbar.make(view,"Contact Addedd Successfully",Snackbar.LENGTH_SHORT).show();
+                pager.setCurrentItem(1);
+/*
+                Customize_order_frag1 customize_order_frag1 = (Customize_order_frag1)  getActivity().getSupportFragmentManager().findFragmentByTag("customize");
+
+                customize_order_frag1.getContacts();
+                (getActivity()).getSupportFragmentManager().popBackStackImmediate();*/
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Snackbar.make(view,"Something went wrong!!",Snackbar.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headr = new HashMap<>();
+                headr.put("Authorization","bearer "+output);
+                headr.put("Content-Type", "application/json");
+                return headr;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(request);
+    }
 }
 
 

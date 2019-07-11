@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -240,7 +242,7 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
         cart_item_no=sharedPref.getString("no_of_items","");
         textCartItemCount.setText(cart_item_no);
         /* setupBadge();*/
-actionView1.setOnClickListener(new View.OnClickListener() {
+        actionView1.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
         onOptionsItemSelected(wishitem);
@@ -276,11 +278,11 @@ actionView1.setOnClickListener(new View.OnClickListener() {
         textCartItemCount.setAnimation(scaleAnimation);
 
     }
-public void setupwishBadge(){
+   public void setupwishBadge(){
 
     wish_items.setText(cart_item_no);
 
-}
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -315,6 +317,7 @@ public void setupwishBadge(){
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void loadRecycleData(){
         Bundle bundle=getIntent().getExtras();
         name= Objects.requireNonNull(bundle).getString("Item_Clicked");

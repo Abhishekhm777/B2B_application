@@ -67,6 +67,14 @@ public class Customize_Order extends AppCompatActivity {
             @Override
             public void onStepClicked(int step) {
                    /* pager.setCurrentItem(step, true);*/
+             Log.e("Log",String.valueOf(pager.getCurrentItem()));
+                Log.e("Log",String.valueOf(step));
+                if(step<pager.getCurrentItem()&&pager.getCurrentItem()!=4){
+                    pager.setCurrentItem(step, true);
+
+                }
+
+
             }
         });
 

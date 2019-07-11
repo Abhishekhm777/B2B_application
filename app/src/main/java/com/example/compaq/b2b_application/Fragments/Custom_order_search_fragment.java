@@ -1,6 +1,7 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
@@ -57,6 +59,8 @@ private ArrayList<Top_model> names;
     private ArrayList<String> ids;
 private Custom_Order_search_Adapter top_adapter;
 private RadioButton byName,byCategory;
+private  Bundle bundle;
+private String path;
 
     public Custom_order_search_fragment() {
         // Required empty public constructor
@@ -69,19 +73,8 @@ private RadioButton byName,byCategory;
             view = inflater.inflate(R.layout.fragment_custom_order_search_fragment, container, false);
 
             listView=view.findViewById(R.id.custom_search_listview);
-            searchView=view.findViewById(R.id.custom_search);
 
             searchView =  getActivity().findViewById(R.id.custom_search);
-            searchView.setSubmitButtonEnabled(true);
-
-            searchView.setIconified(false);
-            searchView.requestFocusFromTouch();
-
-            sharedPref = getActivity().getSharedPreferences("USER_DETAILS", 0);
-            editor = sharedPref.edit();
-            wholseller_id = sharedPref.getString("userid", null);
-            output = sharedPref.getString(ACCESS_TOKEN, null);
-            user_id = sharedPref.getString("userid", "");
 
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -98,6 +91,34 @@ private RadioButton byName,byCategory;
                     return true;
                 }
             });
+            sharedPref = getActivity().getSharedPreferences("USER_DETAILS", 0);
+            editor = sharedPref.edit();
+            wholseller_id = sharedPref.getString("userid", null);
+            output = sharedPref.getString(ACCESS_TOKEN, null);
+            user_id = sharedPref.getString("userid", "");
+
+            bundle = this.getArguments();
+            if(bundle.getString("path")!=null){
+                searchView.setVisibility(View.GONE);
+                path=bundle.getString("path");
+
+                String url =  ip+"gate/b2b/catalog/api/v1/product/all/category/"+path;
+                String uri=null;
+                uri = Uri.parse(url)
+                        .buildUpon()
+                        .appendQueryParameter("wholesaler",user_id)
+                        .appendQueryParameter("productType","REGULAR")
+                        .build().toString();
+                Log.e("CAT",uri);
+                getProduct(uri);
+
+            }
+            else {
+                searchView.setSubmitButtonEnabled(true);
+                searchView.setIconified(false);
+                searchView.requestFocusFromTouch();
+            }
+
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
@@ -115,22 +136,25 @@ private RadioButton byName,byCategory;
         }
         return view;
     }
+public  void getSuggestions(String text){
+    String url = ip+"gate/b2b/catalog/api/v1/searching/facets";
+    String uri=null;
+    uri = Uri.parse(url)
+            .buildUpon()
+            .appendQueryParameter("queryText",text)
+            .appendQueryParameter("wholesaler",user_id)
+            .appendQueryParameter("productType","REGULAR")
+            .build().toString();
+    Log.e("JJIB",uri);
+        getProduct(uri);
+}
 
 
 
-    public void getSuggestions( String text){
 
+    public void getProduct( String text){
 
-        String url = ip+"gate/b2b/catalog/api/v1/searching/facets";
-        String uri=null;
-        uri = Uri.parse(url)
-                .buildUpon()
-                .appendQueryParameter("queryText",text)
-                .appendQueryParameter("wholesaler",user_id)
-                .appendQueryParameter("productType","REGULAR")
-                .build().toString();
-        Log.e("JJIB",uri);
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, uri, new Response.Listener<String>() {
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, text, new Response.Listener<String>() {
             @Override
             public
             void onResponse(String response) {
