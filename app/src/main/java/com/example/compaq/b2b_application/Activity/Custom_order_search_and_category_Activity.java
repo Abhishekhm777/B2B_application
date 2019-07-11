@@ -9,12 +9,15 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.compaq.b2b_application.Fragments.Custom_order_search_fragment;
+import com.example.compaq.b2b_application.Fragments.Custom_serch_by_category_frag;
 import com.example.compaq.b2b_application.R;
 
 public class Custom_order_search_and_category_Activity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     public FragmentManager fragmentManager;
     private Toolbar toolbar;
+    private String key;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,11 +28,22 @@ public class Custom_order_search_and_category_Activity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Bundle bundle=getIntent().getExtras();
+        key=bundle.getString("byname");
+        if(key.equalsIgnoreCase("name")) {
+            Custom_order_search_fragment custom_order_search_fragment=new Custom_order_search_fragment();
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("path", null);
+            custom_order_search_fragment.setArguments(bundle);
+           getSupportFragmentManager().beginTransaction().replace(R.id.search_frame, custom_order_search_fragment,"customize_search").addToBackStack(null).commit();
 
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.search_frame, new Custom_order_search_fragment(),"customize_search");
-        fragmentTransaction.commit();
+        }
+        if(key.equalsIgnoreCase("cat")){
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.search_frame, new Custom_serch_by_category_frag(), "custom_by_cat");
+            fragmentTransaction.commit();
+        }
 
 
     }
