@@ -6,12 +6,24 @@
     tools:context=".Fragments.Custom_order_frag2">
 
     <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:id="@+id/radio">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/add_new_product_btn"
+            android:focusableInTouchMode="true"
+            android:focusedByDefault="false">
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:padding="15dp"
+         android:orientation="vertical">
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:id="@+id/radio">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -33,8 +45,132 @@
 
     </RelativeLayout>
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/product_layout"
+    android:visibility="visible"
+    android:orientation="vertical"
+    android:layout_below="@+id/radio">
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/p_name"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/bold_style"
+        android:layout_margin="15dp"
+        android:textStyle="bold"
+        android:text="@string/placed"
+
+        />
+
+
+    <ImageView
+        android:layout_width="168dp"
+        android:id="@+id/selected_product"
+        android:layout_height="168dp"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:fontFamily="@font/catamaran"
+               android:layout_marginLeft="15dp"
+                android:hint="CATEGORY :"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:textColor="@color/black"
+                android:id="@+id/category"
+                android:fontFamily="@font/catamaran"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:fontFamily="@font/catamaran"
+                android:layout_marginLeft="15dp"
+                android:hint="SKU :"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:id="@+id/sku"
+                android:textColor="@color/black"
+                android:fontFamily="@font/catamaran"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:fontFamily="@font/catamaran"
+                android:layout_marginLeft="15dp"
+                android:hint="PURITY :"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:id="@+id/purity"
+                android:textColor="@color/black"
+                android:fontFamily="@font/catamaran"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:id="@+id/confirm_butn"
+       android:layout_margin="20dp"
+        android:background="@drawable/green_colour_button"
+        android:text="CONFIRM"
+        android:layout_gravity="center"/>
+</LinearLayout>
+
+     </LinearLayout>
+        </ScrollView>
     <View  android:layout_width="match_parent"
         android:layout_height="1dp"
+
         android:layout_above="@+id/add_new_product_btn"
         android:background="@color/whish"
         />
@@ -48,4 +184,8 @@
         android:id="@+id/add_new_product_btn"
         android:textColorHint="@color/skyBlue"
         android:layout_alignParentBottom="true"/>
+
+
+
+
 </RelativeLayout>

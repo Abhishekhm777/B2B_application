@@ -13,7 +13,6 @@
     <uses-feature
         android:name="android.hardware.camera.any"
         android:required="true" />
-
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
@@ -29,39 +28,41 @@
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateHidden|adjustResize|adjustPan"
         tools:replace="android:allowBackup">
-
-        <activity android:name=".Activity.Splash_Activity"
+        <activity android:name=".Activity.Custom_order_search_and_category_Activity"></activity>
+        <activity
+            android:name=".Activity.Splash_Activity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="com.package.name.First_activity"/>
+                <action android:name="com.package.name.First_activity" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
-
         </activity>
-
-        <activity android:name=".Activity.Customize_Order"
+        <activity
+            android:name=".Activity.Customize_Order"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            />
-
-        <activity android:name=".Activity.Manage_Categories"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activity.Varient_Activity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.Update_product_Activity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.Manage_Categories"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Varient_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Update_product_Activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Scrolling_Activity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
             android:name=".Activity.Add_new_product_activity"
-            android:screenOrientation="portrait"
-            android:hardwareAccelerated="true" />
-        <activity android:name=".Activity.Manage_Exixsting_category_Activity"
-            android:screenOrientation="portrait"/>
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Manage_Exixsting_category_Activity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".Helper_classess.Push_notification">
             <intent-filter>
@@ -77,9 +78,9 @@
 
         <activity
             android:name=".Activity.FullscreenActivity"
-            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
+            android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
 
         <meta-data
@@ -89,56 +90,59 @@
         <activity
             android:name=".Activity.Request_Activity"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Slider_activity"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_slider_activity" />
+            android:label="@string/title_activity_slider_activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Order_to_bProsessed"
-            android:screenOrientation="portrait"
-            android:hardwareAccelerated="true" />
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Seller_Order_History"
             android:hardwareAccelerated="true" />
         <activity
             android:name=".Activity.Wishlist_Activity"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Address_Activivty"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Policy_activity"
             android:label="@string/title_activity_address_"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.Orders_History_Activity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.Ordes_history"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.Orders_History_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Ordes_history"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Seller_Dashboard_Activity"
             android:label="@string/title_activity_seller__portal__screen_"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.All_Sellers_Display_Activity"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.Forgot_password"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Activity.Forgot_password"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Check_out__Activity"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.LoginActivity"
-            android:theme="@style/Logintheme"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Logintheme" />
         <!--
  <activity android:name=".Displaying_complete_product_details_Activity">
             <intent-filter>
@@ -152,28 +156,29 @@
             android:name=".Activity.ImageOpening_activity"
             android:hardwareAccelerated="true"
             android:largeHeap="true"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activity.Search_Activity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Search_Activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Cart_Activity"
             android:hardwareAccelerated="true"
             android:largeHeap="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.MainActivity"
             android:hardwareAccelerated="true"
             android:largeHeap="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Displaying_complete_product_details_Activity"
             android:hardwareAccelerated="false"
             android:largeHeap="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.Sign_up_Activity"
             android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

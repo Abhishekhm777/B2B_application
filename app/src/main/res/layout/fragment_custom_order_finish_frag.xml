@@ -13,7 +13,7 @@
    <Button
        android:layout_width="match_parent"
        android:layout_height="32dp"
-       android:layout_margin="25dp"
+       android:layout_margin="45dp"
        style="@style/customer_nu"
        android:layout_gravity="center"
        android:background="@drawable/green_colour_button"
@@ -21,6 +21,8 @@
        android:hint="YOUR ORDER HAS BEEN PLACED"
        />
     </LinearLayout>
+
+
     <Button
         android:id="@+id/finish_button"
         android:layout_width="match_parent"
@@ -30,5 +32,6 @@
         android:background="@color/skyBlue"
         android:hint="FINISH"
         android:textColorHint="@color/white" />
+
 
 </RelativeLayout>

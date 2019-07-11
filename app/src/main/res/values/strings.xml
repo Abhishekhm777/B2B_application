@@ -169,5 +169,8 @@
         <item>WEIGHT-HIGH TO LOW</item>
         <item>NEW PRODUCTS</item>
     </string-array>
+    <string name="title_activity_custom_order__search_and_category_activity">
+        Custom_order_Search_and_category_activity
+    </string>
 
 </resources>

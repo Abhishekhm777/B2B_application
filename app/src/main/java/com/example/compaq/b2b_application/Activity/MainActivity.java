@@ -78,14 +78,14 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 public
 class MainActivity extends AppCompatActivity {
    //local URLs
-    public static String ip="http://192.168.1.21:8040/";
+  /*  public static String ip="http://192.168.1.21:8040/";
     public static String ip_cat="http://192.168.1.21:8009/";
-    public static String ip1="http://192.168.1.21:8769/uaa";
+    public static String ip1="http://192.168.1.21:8769/uaa";*/
 
-   /*///////////////Server Base URLS
+   ///////////////Server Base URLS
     public static String ip="https://server.mrkzevar.com/";
     public static String ip_cat="https://server.mrkzevar.com/gate/b2b/catalog/api/v1";
-    public static String ip1 ="https://server.mrkzevar.com/uaa";*/
+    public static String ip1 ="https://server.mrkzevar.com/uaa";
 
 
     public  FragmentManager fragmentManager;
@@ -99,10 +99,8 @@ class MainActivity extends AppCompatActivity {
     public String sname = "";
     public ArrayList<String> arrayList;
     public  ArrayList<String> sub_arraylist;
-
     public int position = 0;
     public static final ArrayList<String> wishlist2 = new ArrayList<>();
-
     public products_display_fragment productsdisplayfragment;
     FrameLayout actContent;
     com.example.compaq.b2b_application.Adapters.ExpandableListAdapter listAdapter;
