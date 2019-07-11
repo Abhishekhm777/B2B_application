@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -137,23 +138,30 @@ public class Customize_order_frag1 extends Fragment {
                 @Override
                 public void onClick(View view) {
                     if(contact_array.contains(autoCompleteTextView.getText().toString())){
+                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                           pager.setCurrentItem(1);
                     }
 
                 }
             });
+
             getContacts();
             autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View arg1, int pos,
                                         long id) {
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     next.setEnabled(true);
                     next.setBackgroundColor(getResources().getColor(R.color.skyBlue));
                     getUserDetail(autoCompleteTextView.getText().toString());
 
                 }
             });
+
+
 
            /* search_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -235,7 +243,10 @@ public class Customize_order_frag1 extends Fragment {
         requestQueue.add(stringRequest);
     }
     ///////////getUser_detailss///////////////
+
+
     public void getUserDetail(String mob ){
+
         String url = ip+"uaa/b2b/contact-book/get/mobile?";
         String uri=null;
         uri = Uri.parse(url)

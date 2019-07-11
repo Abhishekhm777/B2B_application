@@ -3,11 +3,13 @@ package com.example.compaq.b2b_application.Fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.compaq.b2b_application.Adapters.Customize_Oder_Adapter1;
 import com.example.compaq.b2b_application.R;
 import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
@@ -32,6 +35,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
+import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
 import static com.example.compaq.b2b_application.Fragments.products_display_fragment.item_clicked;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
@@ -60,6 +65,7 @@ public class Custom_order_frag3 extends Fragment {
     int item = 0;
     HashMap<String, String> list_id = new HashMap<String, String>();
     String all;
+   private EditText p_name,date,size,qty,qwt,melting,seal,descri;
     public Custom_order_frag3() {
         // Required empty public constructor
     }
@@ -78,24 +84,43 @@ public class Custom_order_frag3 extends Fragment {
             output = sharedPref.getString(ACCESS_TOKEN, null);
 
             wholseller_id = sharedPref.getString("userid", null);
+            p_name=view.findViewById(R.id.product_name);
+            date=view.findViewById(R.id.date);
+            size=view.findViewById(R.id.size);
+            qty=view.findViewById(R.id.qty);
+            qwt=view.findViewById(R.id.g_weight);
+            melting=view.findViewById(R.id.melting);
+            seal=view.findViewById(R.id.sea);
+            descri=view.findViewById(R.id.descr);
 
 
             session = new SessionManagement(getActivity());
-
-
             listAdapter = new Customize_Oder_Adapter1(getActivity(), listDataHeader, listDataChild, list_id, getFragmentManager(), view);
 
 
             place_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    pager.setCurrentItem(4);
                 }
             });
 
         }
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String id=sharedPref.getString("cust_id", null);
+
+        if(id!=null){
+
+            getProduct(id);
+        }
+
+    }
+
     private RequestQueue requestQueue;
     private void prepareListData () {
         bundle=this.getArguments();
@@ -259,5 +284,71 @@ public class Custom_order_frag3 extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
     }
+
+    public void getProduct( String id){
+
+        String url = ip+"gate/b2b/catalog/api/v1/product/"+id;
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, url   , new Response.Listener<String>() {
+            @Override
+            public
+            void onResponse(String response) {
+                try {
+
+                    JSONObject jsonObject=new JSONObject(response);
+                    JSONObject pro_object=jsonObject.getJSONObject("resourceSupport");
+                    p_name.setText(pro_object.getString("name"));
+                    qwt.setText(pro_object.getString("grossWeight"));
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        },new Response.ErrorListener() {
+            @Override
+            public
+            void onErrorResponse(VolleyError error) {
+                NetworkResponse response = error.networkResponse;
+
+
+                if(response != null && response.data != null){
+                    switch(response.statusCode){
+                        case 404:
+                            BottomSheet.Builder builder = new BottomSheet.Builder(getContext());
+                            builder.setTitle("Sorry! could't reach server");
+                            builder.show();
+                            break;
+                        case 400:
+                            BottomSheet.Builder builder1 = new BottomSheet.Builder(getContext());
+                            builder1.setTitle("Sorry! No Products Available");
+                            builder1.show();
+                            break;
+                        case 417:
+
+                            Snackbar.make(getView(), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                           /* BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
+                            builder2.setTitle("Sorry! No Products Available");
+                            builder2.show();*/
+                            break;
+                    }
+                }
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization","bearer "+output);
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
+        };
+        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+    }
+
 
 }

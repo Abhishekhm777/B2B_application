@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ListView;
@@ -24,6 +25,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.compaq.b2b_application.Adapters.Custom_Order_search_Adapter;
+import com.example.compaq.b2b_application.Adapters.Top_adapter;
+import com.example.compaq.b2b_application.Model.Top_model;
 import com.example.compaq.b2b_application.R;
 
 import org.json.JSONArray;
@@ -46,15 +50,17 @@ private SearchView searchView;
 private AppBarLayout appBarLayout;
 private View view;
 private SharedPreferences sharedPref;
-private  String output,user_id;
-private ArrayList<String> suggestion_list;
+private SharedPreferences.Editor editor;
+private  String output,user_id,wholseller_id;
+private ArrayList<Top_model> skus;
+private ArrayList<Top_model> names;
+    private ArrayList<String> ids;
+private Custom_Order_search_Adapter top_adapter;
 private RadioButton byName,byCategory;
 
     public Custom_order_search_fragment() {
         // Required empty public constructor
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,14 +71,15 @@ private RadioButton byName,byCategory;
             listView=view.findViewById(R.id.custom_search_listview);
             searchView=view.findViewById(R.id.custom_search);
 
-            searchView =  view.findViewById(R.id.custom_search);
+            searchView =  getActivity().findViewById(R.id.custom_search);
             searchView.setSubmitButtonEnabled(true);
 
             searchView.setIconified(false);
             searchView.requestFocusFromTouch();
 
             sharedPref = getActivity().getSharedPreferences("USER_DETAILS", 0);
-
+            editor = sharedPref.edit();
+            wholseller_id = sharedPref.getString("userid", null);
             output = sharedPref.getString(ACCESS_TOKEN, null);
             user_id = sharedPref.getString("userid", "");
 
@@ -91,44 +98,58 @@ private RadioButton byName,byCategory;
                     return true;
                 }
             });
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+
+
+                    editor.putString("cust_id",ids.get(position)).apply();
+                    editor.commit();
+                    getActivity().finish();
+
+                }
+            });
 
         }
         return view;
     }
 
+
+
     public void getSuggestions( String text){
-        Log.e("JJIB","SS");
-        suggestion_list=new ArrayList<>();
-        String url = ip+"gate/b2b/catalog/api/v1/product/getsuggesions";
+
+
+        String url = ip+"gate/b2b/catalog/api/v1/searching/facets";
         String uri=null;
         uri = Uri.parse(url)
                 .buildUpon()
-                .appendQueryParameter("text",text)
-                .appendQueryParameter("user",user_id)
+                .appendQueryParameter("queryText",text)
+                .appendQueryParameter("wholesaler",user_id)
+                .appendQueryParameter("productType","REGULAR")
                 .build().toString();
         Log.e("JJIB",uri);
         StringRequest stringRequest=new StringRequest(Request.Method.GET, uri, new Response.Listener<String>() {
             @Override
             public
             void onResponse(String response) {
-
                 try {
-                    JSONArray jsonArray=new JSONArray(response);
-                    Log.e("JJIB",response);
+                    skus=new ArrayList<>();
+                    names=new ArrayList<>();
+                    ids=new ArrayList<>();
+                    JSONObject jsonObject=new JSONObject(response);
+                   JSONObject pro_object=jsonObject.getJSONObject("products");
+                    JSONArray jsonArray=pro_object.getJSONArray("content");
                     for(int i=0;i<jsonArray.length();i++){
-                        JSONObject jsonObject=jsonArray.getJSONObject(i);
-                        suggestion_list.add(jsonObject.getString("name"));
-
-                        Log.e("JJIB","SS252525");
+                        JSONObject content=jsonArray.getJSONObject(i);
+                        names.add(new Top_model(content.getString("name"),content.getString("sku")));
+                        ids.add(content.getString("id"));
                     }
+                    top_adapter=new Custom_Order_search_Adapter(getActivity(),names,wholseller_id);
+                    listView.setAdapter(top_adapter);
 
 
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                            android.R.layout.simple_list_item_1, android.R.id.text1, suggestion_list);
-
-
-                    listView.setAdapter(adapter);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

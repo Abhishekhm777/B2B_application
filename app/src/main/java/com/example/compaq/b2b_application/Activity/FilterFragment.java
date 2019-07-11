@@ -74,7 +74,7 @@ public class FilterFragment extends Fragment {
     private Map<Object, Object> params;
     private LinkedHashMap<Object,Object>filterparams;
     private LinkedHashMap<Object,Object>sortparams;
-    //List<String>selected_list;
+    List<String>selected_list;
     Bundle bundle;
     JSONArray filter_jsonArray;
     private  static  final String base_url=ip+"gate/b2b/catalog/api/v1/product/all/category/Jewellery,";
@@ -102,8 +102,7 @@ public class FilterFragment extends Fragment {
 
         wholesaler_id=pref.getString("Wholeseller_id", null);
 
-        sortparams.putAll((LinkedHashMap<Object, Object>) bundle.getSerializable("SORT"));
-        filterparams.putAll((LinkedHashMap<Object, Object>) bundle.getSerializable("FILTER_VALUE"));
+        sortparams= (LinkedHashMap<Object, Object>) bundle.getSerializable("SORT");
         Classes=bundle.getString("CLASS");
 
         if(Classes.equals("SEARCH") ||Classes.equals("WITH_SEARCH")){
@@ -127,7 +126,38 @@ public class FilterFragment extends Fragment {
             public void onClick(View view) {
 
 
-               applyFilter();
+                JSONObject jsonObjectfinal=new JSONObject();
+                try {
+                    if (filter_jsonArray.length()> 0){
+                        jsonObjectfinal.put("filter", filter_jsonArray);
+                        filterparams.put("filterReader",jsonObjectfinal.toString());
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Bundle bundle = new Bundle();
+                bundle.putString("Item_Clicked",item_clicks);
+
+                if(Classes.equals("SEARCH") ||Classes.equals("WITH_SEARCH")){
+                    bundle.putString("CLASS","WITH_SEARCH");
+                }
+                else {
+                    bundle.putString("CLASS","FILTER");
+                }
+                bundle.putSerializable("SORT",(Serializable) sortparams);
+                bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
+                Log.d("FILTER_VALUE",filterparams.size()+"");
+
+
+
+                Fragment fragment_2 = new products_display_fragment() ;
+                fragment_2.setArguments(bundle);
+                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+                fragmentManager.popBackStackImmediate(0,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                FragmentTransaction fTransaction1 =fragmentManager.beginTransaction();
+                fTransaction1.replace(R.id.mainframe, fragment_2);
+                fTransaction1.addToBackStack(null);
+                fTransaction1.commit();
 
                 // dismiss();
 
@@ -150,8 +180,8 @@ public class FilterFragment extends Fragment {
 
 
 
-        //listAdapter = new com.example.compaq.b2b_application.Adapters.expand_listview2(getActivity(), listDataHeader, listDataChild,selection);
-       // expListView.setAdapter(listAdapter);
+        listAdapter = new com.example.compaq.b2b_application.Adapters.expand_listview2(getActivity(), listDataHeader, listDataChild,selection);
+        expListView.setAdapter(listAdapter);
 
 
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -197,37 +227,29 @@ public class FilterFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                //selected_list=new ArrayList<>();
-                if(Classes.equals("SEARCH")) {
-                    String selectedItem = ((List) (listDataChild.get(listDataHeader.get(groupPosition)))).get(childPosition).toString();
-                  filterparams.put(parent.getAdapter().getItem(groupPosition).toString(),selectedItem);
-                  applyFilter();
+                selected_list=new ArrayList<>();
+                CheckedTextView checkbox = (CheckedTextView)v.findViewById(R.id.check_box_child);
+                checkbox.toggle();
+                String parent_view=parent.getAdapter().getItem(groupPosition).toString();
+                if(checkbox.isChecked()) {
+                    // add child category to parent's selection list
 
-                }
-
-
-                else {
-                    CheckedTextView checkbox = (CheckedTextView) v.findViewById(R.id.check_box_child);
-                    checkbox.toggle();
-                    String parent_view = parent.getAdapter().getItem(groupPosition).toString();
-                    if (checkbox.isChecked()) {
-                        // add child category to parent's selection list
-
-                        Log.d("parent..", parent.getAdapter().getItem(groupPosition).toString());
-                        if (checkbox.getText().toString().equals("Yes")) {
-                            create_Data(parent_view, "true");
-                        } else {
-                            create_Data(parent_view, checkbox.getText().toString());
-                        }
-
-
-                    } else {
-                        // remove child category from parent's selection list
-
-                        remove_data(parent_view, checkbox.getText().toString());
+                    Log.d("parent..",parent.getAdapter().getItem(groupPosition).toString());
+                    if(checkbox.getText().toString().equals("Yes")) {
+                        create_Data(parent_view, "true");
+                    }
+                    else {
+                        create_Data(parent_view, checkbox.getText().toString());
                     }
 
+
                 }
+                else {
+                    // remove child category from parent's selection list
+
+                    remove_data(parent_view,checkbox.getText().toString());
+                }
+
                 return true;
             }
 
@@ -235,53 +257,6 @@ public class FilterFragment extends Fragment {
 
         return  view;
     }
-
-    ///////////////////////////////////////////////apply filter////////////////////
-    public void applyFilter(){
-        JSONObject jsonObjectfinal=new JSONObject();
-
-        try {
-            if (filter_jsonArray.length()> 0){
-                jsonObjectfinal.put("filter", filter_jsonArray);
-                filterparams.put("filterReader",jsonObjectfinal.toString());
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Bundle bundle = new Bundle();
-        bundle.putString("Item_Clicked",item_clicks);
-
-        if(Classes.equals("SEARCH") ||Classes.equals("WITH_SEARCH")){
-            bundle.putString("CLASS","WITH_SEARCH");
-        }
-        else {
-            bundle.putString("CLASS","FILTER");
-        }
-        bundle.putSerializable("SORT",(Serializable) sortparams);
-        bundle.putSerializable("FILTER_VALUE", (Serializable) filterparams);
-        Log.d("FILTER_VALUE",filterparams.size()+"");
-
-
-
-        Fragment fragment_2 = new products_display_fragment() ;
-        fragment_2.setArguments(bundle);
-        FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-        fragmentManager.popBackStackImmediate(0,FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        FragmentTransaction fTransaction1 =fragmentManager.beginTransaction();
-        fTransaction1.replace(R.id.mainframe, fragment_2);
-        fTransaction1.addToBackStack(null);
-        fTransaction1.commit();
-    }
-
-
-
-
-
-
-
-
-
     public void loadRecycleData(){
 
         String  URL_DATA=final_url;
@@ -323,7 +298,6 @@ public class FilterFragment extends Fragment {
                                 submenu.add(jsonArray1.getString(j));
                             }
                             listDataChild.put(listDataHeader.get(i), submenu);
-                            listAdapter = new com.example.compaq.b2b_application.Adapters.expand_listview2(getActivity(), listDataHeader, listDataChild,selection,Classes);
                             expListView.setAdapter(listAdapter);
 
                         }
@@ -338,7 +312,6 @@ public class FilterFragment extends Fragment {
                             submenu.add(values);
                          if(i+1==filterArray.length()){
                              listDataChild.put(listDataHeader.get(0), submenu);
-                             listAdapter = new com.example.compaq.b2b_application.Adapters.expand_listview2(getActivity(), listDataHeader, listDataChild,selection,Classes);
                              expListView.setAdapter(listAdapter);
                          }
                         }
@@ -511,7 +484,7 @@ public class FilterFragment extends Fragment {
                     params.putAll(sortparams);
 
                 }
-                if (filterparams!=null) {
+                if (filterparams.isEmpty()==false) {
                     params.putAll(filterparams);
                 }
 
