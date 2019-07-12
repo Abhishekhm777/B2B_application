@@ -16,10 +16,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.CycleInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -33,6 +37,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -112,6 +117,7 @@ public class Customize_order_frag1 extends Fragment {
     public List<String> contact_array=new ArrayList<>();
     private AutoCompleteTextView autoCompleteTextView;
     private ImageView add_contact;
+    private TextView cust_textview,cust_name_textv;
 
     public Customize_order_frag1() {
         // Required empty public constructor
@@ -130,7 +136,11 @@ public class Customize_order_frag1 extends Fragment {
             output = sharedPref.getString(ACCESS_TOKEN, null);
             user_id = sharedPref.getString("userid", null);
 
+            getContacts();
             autoCompleteTextView=view.findViewById(R.id.cust_no);
+            cust_textview=view.findViewById(R.id.customer_nu);
+            cust_name_textv=view.findViewById(R.id.customer_na);
+
             cust_name=view.findViewById(R.id.cust_name);
             gstn=view.findViewById(R.id.gstn);
             address=view.findViewById(R.id.address);
@@ -141,22 +151,31 @@ public class Customize_order_frag1 extends Fragment {
             next.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(contact_array.contains(autoCompleteTextView.getText().toString())){
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                          pager.setCurrentItem(1);
-                    }
-                    else {
-                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                        updateCustomer_Details();
 
-                    }
+                    if (isValidPhoneNumber(autoCompleteTextView.getText().toString())&&! TextUtils.isEmpty(cust_name.getText().toString().trim())) {
+                        if (contact_array.contains(autoCompleteTextView.getText().toString())) {
+                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                            pager.setCurrentItem(1);
+                        } else {
+                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                            updateCustomer_Details();
 
+                        }
+                    }
+                    else{
+                        if(TextUtils.isEmpty(cust_name.getText().toString().trim())){
+                            cust_name_textv.startAnimation(shakeError());
+                        }
+                        else{
+                            cust_textview.startAnimation(shakeError());
+                        }
+                    }
                 }
+
             });
 
-            getContacts();
             autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
@@ -175,15 +194,19 @@ public class Customize_order_frag1 extends Fragment {
             cust_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean b) {
+                    if (isValidPhoneNumber(autoCompleteTextView.getText().toString())&&cust_name.getText().toString()!="") {
 
-                    if(!contact_array.contains(autoCompleteTextView.getText().toString())){
-                        Log.e("YAHHH","SNKSSDSD");
+                    if (!contact_array.contains(autoCompleteTextView.getText().toString())) {
+
                         next.setText("SAVE & NEXT");
                         next.setEnabled(true);
                         next.setBackgroundColor(getResources().getColor(R.color.skyBlue));
-                    }
-                    else {
+                    } else {
                         getUserDetail(autoCompleteTextView.getText().toString());
+                    }
+                }
+                    else {
+                        cust_textview.startAnimation(shakeError());
                     }
                 }
             });
@@ -205,6 +228,28 @@ public class Customize_order_frag1 extends Fragment {
 
         return view;
     }
+    /////////////Validation/////////
+    public static final boolean isValidPhoneNumber(CharSequence target) {
+        if (target.length()!=10) {
+            return false;
+        } else {
+            return android.util.Patterns.PHONE.matcher(target).matches();
+        }
+    }
+
+
+
+    public TranslateAnimation shakeError() {
+        TranslateAnimation shake = new TranslateAnimation(0, 10, 0, 0);
+        shake.setDuration(600);
+        shake.setInterpolator(new CycleInterpolator(7));
+        return shake;
+    }
+
+
+
+
+
     /////////////////////get___Contacts////////////////
     public void getContacts( ){
 

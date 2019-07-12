@@ -1,5 +1,6 @@
 package com.example.compaq.b2b_application.Activity;
 
+import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import com.badoualy.stepperindicator.StepperIndicator;
 import com.example.compaq.b2b_application.Adapters.Stepper_Adapter;
@@ -27,7 +29,9 @@ public class Customize_Order extends AppCompatActivity {
     private Toolbar toolbar;
     public static ViewPager pager;
     private SharedPreferences sharedPref;
+    private Dialog  myDialogue;
     private SharedPreferences.Editor editor;
+    private Button yes,cancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,12 @@ public class Customize_Order extends AppCompatActivity {
         editor.commit();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        myDialogue = new Dialog(this);
+        myDialogue.setContentView(R.layout.back_alert_dialog_layout);
+        myDialogue.setCanceledOnTouchOutside(false);
+        yes=myDialogue.findViewById(R.id.yes);
+        cancel=myDialogue.findViewById(R.id.cancel);
 
         final Stepper_Adapter adapter=new Stepper_Adapter(this,getSupportFragmentManager(),5);
 
@@ -90,7 +100,22 @@ public class Customize_Order extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // click on 'up' button in the action bar, handle it here
-                onBackPressed();
+                myDialogue.show();
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        myDialogue.dismiss();
+                        onBackPressed();
+
+                    }
+                });
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        myDialogue.dismiss();
+                    }
+                });
+
                 return true;
 
 

@@ -84,8 +84,8 @@ private TextView textView;
 
     public TranslateAnimation shakeError() {
         TranslateAnimation shake = new TranslateAnimation(0, 10, 0, 0);
-        shake.setDuration(600);
-        shake.setInterpolator(new CycleInterpolator(7));
+        shake.setDuration(400);
+        shake.setInterpolator(new CycleInterpolator(8));
         return shake;
     }
 }

@@ -28,9 +28,9 @@
     </string-array>
 
 
-    <string name="customer_nu">Customer Number</string>
+    <string name="customer_nu">Customer Number *</string>
     <string name="product_n">Product Name</string>
-    <string name="customer_na">Customer Name</string>
+    <string name="customer_na">Customer Name *</string>
     <string name="customer_em">Customer Email</string>
     <string name="company_nam">Company Name</string>
     <string name="gstin">GSTIN</string>
