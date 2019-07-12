@@ -1,12 +1,15 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="20dp"
+    android:orientation="vertical"
     tools:context=".Fragments.OTP_fragment">
 
-    <android.support.v7.widget.CardView
+   <!-- <android.support.v7.widget.CardView
         android:layout_width="320dp"
         android:layout_height="270dp"
         android:layout_marginStart="8dp"
@@ -51,18 +54,14 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent">-->
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardview_name"
-                android:layout_width="267dp"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_gravity="start"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:padding="10dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
                 app:cardBackgroundColor="#e6e6e5"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="3dp"
@@ -72,71 +71,78 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.703">
 
-<!--
 
                 <EditText
-                    android:id="@+id/otp_edittext"
+                    android:id="@+id/otp_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Enter OTP"
                     android:inputType="number"/>
---><LinearLayout
+
+            <!-- <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                 android:layout_gravity="center"
                 >
 
                 <EditText
                     android:id="@+id/otpET1"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:inputType="number"
                     android:maxLength="1"
+
                     android:gravity="center"
                     android:textSize="20sp"/>
 
                 <EditText
                     android:id="@+id/otpET2"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:inputType="number"
                     android:maxLength="1"
+                    android:enabled="false"
                     android:gravity="center"
                     android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/otpET3"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:inputType="number"
                     android:maxLength="1"
+                    android:enabled="false"
                     android:gravity="center"
                     android:textSize="20sp"/>
 
                 <EditText
                     android:id="@+id/otpET4"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:inputType="number"
                     android:maxLength="1"
+                    android:enabled="false"
                     android:gravity="center"
                     android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/otpET5"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:inputType="number"
                     android:maxLength="1"
+                    android:enabled="false"
                     android:gravity="center"
                     android:textSize="20sp"/>
                 <EditText
                     android:id="@+id/otpET6"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:inputType="number"
                     android:gravity="center"
+                    android:enabled="false"
                     android:maxLength="1"
                     android:textSize="20sp"/>
-            </LinearLayout>
+            </LinearLayout>-->
 
 
             </android.support.v7.widget.CardView>
@@ -152,51 +158,39 @@
             app:cardCornerRadius="5dp"
             app:cardElevation="3dp" />
 -->
-
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:orientation="horizontal"
+               android:padding="10dp"
+               android:layout_marginTop="20dp">
             <Button
                 android:id="@+id/submit_otp"
                 android:layout_width="150dp"
                 android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_gravity="left"
                 android:background="@color/Toolbar"
-                android:padding="10dp"
                 android:text="submit"
+                android:layout_marginRight="5dp"
                 android:textColor="#FFF"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.744" />
+                 />
 
             <Button
                 android:id="@+id/resend_otp"
                 android:layout_width="150dp"
                 android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_gravity="right|end"
                 android:background="@color/Toolbar"
-                android:padding="10dp"
+                android:layout_marginLeft="5dp"
                 android:text="Resend OTP"
                 android:textColor="#FFF"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.962" />
+                />
+           </LinearLayout>
+        </LinearLayout>
+   <!-- </android.support.v7.widget.CardView>
 
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
-
-</android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>-->
 
 
 

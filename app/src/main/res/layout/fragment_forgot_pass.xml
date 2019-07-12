@@ -1,36 +1,88 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".Fragments.Forgot_pass">
 
-    <!-- <LinearLayout
-     android:id="@+id/LinearRP"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:background="@color/colorPrimaryDark"
-     android:gravity="center_vertical"
-     android:orientation="vertical"
-     app:layout_constraintBottom_toTopOf="@+id/LinearInfo"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="parent"
-     app:layout_constraintVertical_chainStyle="packed">
 
-     <TextView
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_gravity="center"
-         android:layout_marginBottom="15dp"
-         android:layout_marginTop="15dp"
-         android:text="registrationPage"
-         android:textSize="30sp" />
+    <LinearLayout
+        android:id="@+id/reset"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:gravity="center">
 
- </LinearLayout>-->
-    <android.support.v7.widget.CardView
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="10dp"
+            app:cardBackgroundColor="#e6e6e5"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="1dp">
+
+            <Spinner
+                android:id="@+id/fspinner"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:spinnerMode="dropdown"
+                />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview_option"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="10dp"
+            app:cardBackgroundColor="#e6e6e5"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="1dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/type"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:paddingHorizontal="10dp"
+                    android:background="#e6e6e5"
+                    android:gravity="center|start"
+                    android:textColor="#000"
+                    android:textSize="14sp"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"/>
+            </android.support.design.widget.TextInputLayout>
+        </android.support.v7.widget.CardView>
+        <Button
+            android:id="@+id/submit_forgot"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/relativeLayout2"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/butn_design2"
+            android:text="SUBMIT"
+            android:layout_marginTop="25dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#fff" />
+    </LinearLayout>
+   <!-- <android.support.v7.widget.CardView
         android:layout_width="320dp"
         android:id="@+id/forgpass_layout"
         android:layout_height="270dp"
@@ -112,7 +164,7 @@
             </android.support.v7.widget.CardView>
 
 
-            <!-- <android.support.v7.widget.CardView
+            &lt;!&ndash; <android.support.v7.widget.CardView
                 android:id="@+id/cardview_city"
                 android:layout_width="209dp"
                 android:layout_height="25dp"
@@ -121,7 +173,7 @@
                 app:cardBackgroundColor="#e6e6e5"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="3dp" />
--->
+&ndash;&gt;
             <LinearLayout
                 android:id="@+id/relativeLayout2"
                 android:layout_width="261dp"
@@ -181,9 +233,9 @@
 
 
         </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>-->
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
 
 
 

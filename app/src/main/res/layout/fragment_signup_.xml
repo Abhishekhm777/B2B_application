@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_header"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    >
+    <ScrollView
+        android:id="@+id/register_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/signup_process"
+        android:paddingBottom="20dp"
+       >
+
+        <LinearLayout
+            android:id="@+id/relativeLayout"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
+
+            >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/circle" />
+
+        <TextView
+            android:id="@+id/tx_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/roboto_thin"
+            android:text="Upload Company Logo"
+            android:textColor=" #275190"
+            android:textSize="14sp" />
+    </LinearLayout>
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="#e6e6e5"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/company_name"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:textSize="10sp"
+        android:lineSpacingExtra="3sp"
+        android:translationY="-1.55sp"
+        android:textStyle="italic"
+        android:layout_height="wrap_content"
+        app:hintTextAppearance="@color/hint">
+
+        <EditText
+            android:id="@+id/edit_company_name"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            android:background="#e6e6e5"
+            android:fontFamily="@font/roboto_italic"
+            android:gravity="center|start"
+            android:hint="Company Name*"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textSize="14sp" />
+    </android.support.design.widget.TextInputLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview_GSTIN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="#e6e6e5"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp">
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/GSTIN_no"
+            android:layout_width="match_parent"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:lineSpacingExtra="3sp"
+            android:translationY="-1.55sp"
+            android:textStyle="italic"
+            android:layout_height="wrap_content"
+            app:hintTextAppearance="@color/hint">
+
+            <EditText
+                android:id="@+id/edit_GSTIN"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="3dp"
+                android:background="#e6e6e5"
+                android:gravity="center|start"
+                android:hint="GSTIN*"
+                android:fontFamily="@font/roboto_italic"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:textColor="#000"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
+    </android.support.v7.widget.CardView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:text="UPLOAD GSTIN"
+        />
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_name"
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#e6e6e5"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="3dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_name"
+                    android:layout_width="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="15sp"
+                    android:textStyle="italic"
+                    app:hintTextAppearance="@color/hint"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/first_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="3dp"
+                        android:background="#e6e6e5"
+                        android:gravity="center|start"
+                        android:hint="Contact Person Name*"
+                        android:maxLines="1"
+                        android:fontFamily="@font/roboto_italic"
+                        android:singleLine="true"
+                        android:scrollHorizontally="true"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_email"
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#e6e6e5"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="3dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_email"
+                    android:layout_width="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="15sp"
+                    android:textStyle="italic"
+                    app:hintTextAppearance="@color/hint"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edit_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="3dp"
+                        android:background="#e6e6e5"
+                        android:gravity="center|start"
+                        android:hint="Email*"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:scrollHorizontally="true"
+                        android:textColor="#000"
+                        android:fontFamily="@font/roboto_italic"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_mobile"
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#e6e6e5"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="3dp">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="15sp"
+                    android:textStyle="italic"
+                    app:hintTextAppearance="@color/hint"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edit_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="3dp"
+                        android:background="#e6e6e5"
+                        android:gravity="center|start"
+                        android:hint="Mobile*"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:scrollHorizontally="true"
+                        android:textColor="#000"
+                        android:fontFamily="@font/roboto_italic"
+                        android:textSize="14sp" />
+                </android.support.design.widget.TextInputLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview_password"
+                android:layout_width="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#e6e6e5"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="3dp">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_password"
+                    android:layout_width="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="15sp"
+                    android:textStyle="italic"
+                    android:fontFamily="@font/roboto_italic"
+                    app:hintTextAppearance="@color/hint"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edit_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="3dp"
+                        android:background="#e6e6e5"
+                        android:gravity="center|start"
+                        android:hint="Password*"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:scrollHorizontally="true"
+                        android:textColor="#000"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/roboto_italic"/>
+                </android.support.design.widget.TextInputLayout>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_italic"
+                    android:text="Select Role*"/>
+
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:checked="false"
+                        android:text="RETAILER"
+                        android:textSize="11sp"
+                        android:layout_weight="1"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:checked="false"
+                        android:text="WHOLESALER"
+                        android:textSize="11sp"
+                        />
+                    <RadioButton
+                        android:id="@+id/radioButton3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight="1"
+                        android:checked="false"
+                        android:text="MANUFACTURER"
+                        android:textSize="11sp"
+                        />
+                </RadioGroup>
+            </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/roboto_italic"
+                    android:text="Business*"/>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardview_catalog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="#e6e6e5"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="1dp">
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#e6e6e5"
+                        android:id="@+id/set1"
+                        android:layout_marginVertical="5dp"
+
+                        >
+                        <Spinner
+                            android:id="@+id/catalog_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:spinnerMode="dropdown"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+                </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I accept"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text=" Ordofy terms and policy"
+                    android:clickable="true"
+                    android:textColor="#2196f3"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/signup_process"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Process"
+        android:textColor="@color/white"
+        android:background="#0a2342"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
