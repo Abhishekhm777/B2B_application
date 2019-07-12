@@ -88,8 +88,8 @@ private String path;
                         getSuggestions(newText);
                     }
                     if (newText.equalsIgnoreCase("")){
-
-
+                          names.clear();
+                          top_adapter.notifyDataSetChanged();
                     }
 
                     return true;

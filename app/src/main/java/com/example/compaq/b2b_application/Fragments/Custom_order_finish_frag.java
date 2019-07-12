@@ -1,6 +1,7 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.compaq.b2b_application.Activity.Add_new_product_activity;
+import com.example.compaq.b2b_application.Activity.Customize_Order;
 import com.example.compaq.b2b_application.R;
 
 import java.util.Timer;
@@ -36,15 +39,16 @@ public class Custom_order_finish_frag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_custom_order_finish_frag, container, false);
-        button=(Button)view.findViewById(R.id.finish_button);
+        button=view.findViewById(R.id.finish_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               getActivity().finish();
+
+                Intent login = new Intent(getActivity(), Customize_Order.class);
+                getActivity().startActivity(login);
+                getActivity().finish();
             }
         });
-
-
 
         return  view;
     }
