@@ -21,6 +21,9 @@ import com.example.compaq.b2b_application.Activity.LoginActivity;
 import com.example.compaq.b2b_application.Activity.Splash_Activity;
 import com.example.compaq.b2b_application.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static android.os.SystemClock.sleep;
 import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 
@@ -28,8 +31,9 @@ import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
  * A simple {@link Fragment} subclass.
  */
 public class Custom_order_placed_frag extends Fragment {
-private Button button;
-private TextView textView;
+
+@BindView(R.id.finish_button)Button button;
+@BindView(R.id.place_text) TextView textView;
 
     public Custom_order_placed_frag() {
         // Required empty public constructor
@@ -41,10 +45,8 @@ private TextView textView;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_custom_order_placed_frag, container, false);
+        ButterKnife.bind(this,view);
 
-
-         button=view.findViewById(R.id.finish_button);
-        textView=view.findViewById(R.id.place_text);
          button.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {

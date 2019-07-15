@@ -119,6 +119,10 @@ public class Recycler_Adapter2 extends RecyclerView.Adapter<Recycler_Adapter2.My
         String url=  listner.getImageId();
         if(wishlist2.contains(listner.getSku())){
            holder.whishlist_button.setChecked(true);
+            Log.e("Contains", String.valueOf(wishlist2.size()));
+        }
+        else {
+            holder.whishlist_button.setChecked(false);
         }
         Glide.with(mCtx).load(url).into(holder.imageV);
         Log.e("Name of the clicked", String.valueOf(wishlist2.size()));
@@ -208,31 +212,54 @@ public class Recycler_Adapter2 extends RecyclerView.Adapter<Recycler_Adapter2.My
         scaleAnimation.setDuration(800);
         BounceInterpolator  bounceInterpolator = new BounceInterpolator();
         scaleAnimation.setInterpolator(bounceInterpolator);
-holder.whishlist_button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-        //animation
-        compoundButton.startAnimation(scaleAnimation);
-if(isChecked) {
-Log.e("SKU",listner.getSku());
+          /*  holder.whishlist_button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    //animation
+                    compoundButton.startAnimation(scaleAnimation);
+            if(isChecked) {
+            Log.e("SKU",listner.getSku());
 
-    Vibrator v = (Vibrator)mCtx.getSystemService(Context.VIBRATOR_SERVICE);
-    v.vibrate(50);
-    addToWhishlist(listner.getSku());
-
-
-
-}
-if(!isChecked){
-    removeFromWhish(listner.getSku());
-    Log.e("UNCHECKED",listner.getSku());
+                Vibrator v = (Vibrator)mCtx.getSystemService(Context.VIBRATOR_SERVICE);
+                v.vibrate(50);
+                addToWhishlist(listner.getSku());
 
 
-}
-    }
+
+            }
+            if(!isChecked){
+                removeFromWhish(listner.getSku());
+                Log.e("UNCHECKED",listner.getSku());
 
 
-});
+            }
+                }
+
+
+            });*/
+
+            holder.whishlist_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    holder.whishlist_button.startAnimation(scaleAnimation);
+                    if(holder.whishlist_button.isChecked()) {
+                        Log.e("SKU",listner.getSku());
+
+                        Vibrator v = (Vibrator)mCtx.getSystemService(Context.VIBRATOR_SERVICE);
+                        v.vibrate(50);
+                        addToWhishlist(listner.getSku());
+
+
+
+                    }
+                    if(!holder.whishlist_button.isChecked()){
+                        removeFromWhish(listner.getSku());
+                        Log.e("UNCHECKED",listner.getSku());
+
+
+                    }
+                }
+            });
 
 }
     @Override

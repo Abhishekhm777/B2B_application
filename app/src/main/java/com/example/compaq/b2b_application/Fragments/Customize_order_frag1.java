@@ -22,6 +22,7 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
@@ -63,6 +64,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
@@ -89,11 +93,7 @@ public class Customize_order_frag1 extends Fragment {
     public int position = 0;
     String output,user_id;
     String wholseller_id;
-    private Mange_card_fragment mange_card_fragment;
-    ProgressBar progressBar;
     Button button;
-    private Spinner spinner, pro_spinner, status_spinner, prioriyt_spinner, spinner2;
-    private FragmentTransaction fragmentTransaction;
     public FragmentManager fragmentManager;
     /*private String path="";*/
     private SearchView searchView, search_by_name;
@@ -107,17 +107,23 @@ public class Customize_order_frag1 extends Fragment {
     private RelativeLayout newLayout;
     private String selected = "";
     RecyclerView recyclerView;
-    private EditText cust_name, email, company_name,gstn,address;
     HashMap<String, String> all_id = new HashMap<String, String>();
     public List<String> product;
-    private Button next, submit, add_product;
+    private Button  submit, add_product;
     private RadioButton byname, byCat;
     private LinearLayout cat_view, recy_view, second_search;
 
     public List<String> contact_array=new ArrayList<>();
-    private AutoCompleteTextView autoCompleteTextView;
+    @BindView (R.id.cust_no)AutoCompleteTextView autoCompleteTextView;
     private ImageView add_contact;
-    private TextView cust_textview,cust_name_textv;
+    @BindView(R.id.customer_nu)TextView cust_textview;
+    @BindView(R.id.customer_na)TextView cust_name_textv;
+    @BindView(R.id.cust_name) EditText cust_name;
+    @BindView(R.id.gstn) EditText gstn;
+    @BindView(R.id.address) EditText address;
+    @BindView(R.id.cust_email) EditText email;
+    @BindView(R.id.company_name) EditText company_name;
+    @BindView(R.id.next) Button next;
 
     public Customize_order_frag1() {
         // Required empty public constructor
@@ -128,25 +134,20 @@ public class Customize_order_frag1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         if (view == null) {
             view = inflater.inflate(R.layout.fragments_customize_order_frag1, container, false);
+            ButterKnife.bind(this,view);
+
 
             sharedPref = getActivity().getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
             output = sharedPref.getString(ACCESS_TOKEN, null);
             user_id = sharedPref.getString("userid", null);
 
             getContacts();
-            autoCompleteTextView=view.findViewById(R.id.cust_no);
-            cust_textview=view.findViewById(R.id.customer_nu);
-            cust_name_textv=view.findViewById(R.id.customer_na);
 
-            cust_name=view.findViewById(R.id.cust_name);
-            gstn=view.findViewById(R.id.gstn);
-            address=view.findViewById(R.id.address);
-            email=view.findViewById(R.id.cust_email);
-            company_name=view.findViewById(R.id.company_name);
-            next=view.findViewById(R.id.next);
+
             next.setEnabled(false);
             next.setOnClickListener(new View.OnClickListener() {
                 @Override

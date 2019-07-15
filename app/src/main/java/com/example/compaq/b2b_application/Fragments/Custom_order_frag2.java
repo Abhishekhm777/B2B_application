@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -48,6 +50,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
@@ -58,14 +63,21 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
  */
 public class Custom_order_frag2 extends Fragment {
 
-    private RadioButton byName,byCategory;
-    private Button add_new,confirm_buttpn;
     private SharedPreferences sharedPref;
     private String wholseller_id,output,image_url;
-    TextView p_name,category,sku,purity;
-    private ImageView p_image_view;
     private LinearLayout product_layout;
     private Bundle bundle;
+    @BindView(R.id.byname) RadioButton byName;
+    @BindView(R.id.byCategory) RadioButton byCategory;
+    @BindView(R.id.add_new_product_btn) Button add_new;
+    @BindView(R.id.confirm_butn) Button confirm_buttpn;
+
+    @BindView(R.id.p_name)  TextView p_name;
+    @BindView(R.id.category) TextView category;
+    @BindView(R.id.sku) TextView sku;
+    @BindView(R.id.selected_product) ImageView p_image_view;
+
+
 
     public Custom_order_frag2() {
         // Required empty public constructor
@@ -77,22 +89,13 @@ public class Custom_order_frag2 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_custom_order_frag2, container, false);
+        ButterKnife.bind(this,view);
 
         sharedPref = getActivity().getSharedPreferences("USER_DETAILS", 0);
         product_layout=(LinearLayout)view.findViewById(R.id.product_layout);
 
         wholseller_id = sharedPref.getString("userid", null);
         output = sharedPref.getString(ACCESS_TOKEN, null);
-        byName=view.findViewById(R.id.byname);
-        byCategory=view.findViewById(R.id.byCategory);
-        add_new=view.findViewById(R.id.add_new_product_btn);
-        confirm_buttpn=view.findViewById(R.id.confirm_butn);
-        p_name=view.findViewById(R.id.p_name);
-        category=view.findViewById(R.id.category);
-        sku=view.findViewById(R.id.sku);
-        purity=view.findViewById(R.id.purity);
-        p_image_view=view.findViewById(R.id.selected_product);
-
 
 
         byName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

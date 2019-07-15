@@ -43,6 +43,7 @@
 
         <activity android:name=".Activity.Customize_Order"
             android:hardwareAccelerated="true"
+
             android:screenOrientation="portrait"
             />
 
@@ -181,6 +182,7 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".Activity.Custom_order_search_and_category_Activity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
     </application>
 

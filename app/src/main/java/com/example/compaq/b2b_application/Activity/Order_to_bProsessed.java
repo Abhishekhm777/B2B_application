@@ -71,7 +71,6 @@ public class Order_to_bProsessed extends AppCompatActivity {
                 // click on 'up' button in the action bar, handle it here
                 onBackPressed();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -85,7 +84,6 @@ public class Order_to_bProsessed extends AppCompatActivity {
             fm.popBackStack();
         }
         else {
-
             super.onBackPressed();
         }
     }
@@ -95,4 +93,5 @@ public class Order_to_bProsessed extends AppCompatActivity {
         Order_toB_processed_fragmenrt1 company_info_fragment=new Order_toB_processed_fragmenrt1();
         company_info_fragment.updateText(text);
     }*/
+
 }

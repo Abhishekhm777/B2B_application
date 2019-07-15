@@ -61,6 +61,8 @@ public class GenericSearchFragment extends Fragment {
 
         liv=(android.widget.ListView)view.findViewById(R.id.list_view_container);
         /* array.addAll(java.util.Arrays.asList(getResources().getStringArray(R.array.array_country)));*/
+         generic_toolbar=getActivity().findViewById(R.id.tool_bar);
+         generic_toolbar.setVisibility(View.GONE);
         toolbar=(Toolbar)view.findViewById(R.id.search_toolbar);
         toolbar.setTitle("Search Your Item");
         toolbar.setNavigationIcon(R.drawable.back_btn);
@@ -230,5 +232,9 @@ public class GenericSearchFragment extends Fragment {
         }
     }*/
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        generic_toolbar.setVisibility(View.VISIBLE);
+    }
 }

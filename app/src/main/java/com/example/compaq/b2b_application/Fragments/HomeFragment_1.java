@@ -12,13 +12,19 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -33,6 +39,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.compaq.b2b_application.Activity.Cart_Activity;
 import com.example.compaq.b2b_application.Activity.Seller_Dashboard_Activity;
 import com.example.compaq.b2b_application.Adapters.RecyclerAdapter1;
 import com.example.compaq.b2b_application.Adapters.RecyclerItemClickListener;
@@ -60,7 +67,7 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment_1 extends Fragment {
+public class HomeFragment_1 extends Fragment implements Toolbar.OnMenuItemClickListener{
     private ViewPager viewPager;
     private ViewpageAdapter1 viewPageAdapter1;
     RecyclerView recyclerView;
@@ -80,6 +87,7 @@ public class HomeFragment_1 extends Fragment {
     private SessionManagement session;
     private  ArrayList<Viewpager_model1> slider_array ;
     private String user_id;
+    private DrawerLayout drawerLayout;
     private SwipeRefreshLayout swipeContainer;
     public  HomeFragment_1() {
         // Required empty public constructor
@@ -226,10 +234,34 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
         );
 
 
+        if (getActivity().getClass().getSimpleName().equalsIgnoreCase("MainActivity")) {
+            toolbar = (getActivity()).findViewById(R.id.tool_bar);
+            drawerLayout = (getActivity()).findViewById(R.id.drawer);
+            toolbar.setOnMenuItemClickListener(this);
+
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                        getActivity().getSupportFragmentManager().popBackStack();
+                    } else {
+                        drawerLayout.openDrawer(GravityCompat.START);
+                    }
+                }
+            });
+
+        }
+
+
 
 
         return  view;
     }
+
+
+
+
+
     public void loadRecycleData(){
 
        /*pref=getActivity().getSharedPreferences("USER_DETAILS",0);
@@ -353,6 +385,7 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
         requestQueue.add(stringRequest);
     }
 
+
     public  void getSlider( ){
 
 
@@ -439,4 +472,26 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
         rQueue.add(objectRequest);
 
     }
+
+
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search:
+
+                     if(isVisible()) {
+                         Fragment search = new GenericSearchFragment();
+                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                         fragmentTransaction.replace(R.id.mainframe, search).addToBackStack(null).commit();
+                     }
+
+                return true;
+        }
+
+        return false;
+    }
+
+
 }
