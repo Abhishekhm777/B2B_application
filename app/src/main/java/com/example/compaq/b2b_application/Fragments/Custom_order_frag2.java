@@ -169,7 +169,6 @@ public class Custom_order_frag2 extends Fragment {
         String id=sharedPref.getString("cust_id", null);
         product_layout.setVisibility(View.GONE);
         if(id!=null){
-
             getProduct(id);
         }
     }
@@ -178,10 +177,10 @@ public class Custom_order_frag2 extends Fragment {
     public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);
 
-        if (visible) {
-            Log.e("RERERERER","GFBDJKVDFVD");
-        }
+
     }
+
+
     RequestQueue requestQueue;
     public void getProduct( String id){
         if(requestQueue==null)
@@ -201,7 +200,9 @@ public class Custom_order_frag2 extends Fragment {
                     sku.setText(pro_object.getString("sku"));
                    /* purity.setText(pro_object.getString(""));*/
                     JSONArray cat_array=pro_object.getJSONArray("categoriesPath");
-                    category.setText(cat_array.getString(0));
+                    String string=cat_array.getString(0);
+                    String output = string.replace(",", " >  ");
+                    category.setText(output);
                     JSONArray jsonArray=pro_object.getJSONArray("imageGridFsID");
                     image_url=jsonArray.get(0).toString();
 
@@ -238,9 +239,6 @@ public class Custom_order_frag2 extends Fragment {
 
                             Snackbar.make(getView(), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
-                           /* BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
-                            builder2.setTitle("Sorry! No Products Available");
-                            builder2.show();*/
                             break;
                     }
                 }
@@ -254,7 +252,6 @@ public class Custom_order_frag2 extends Fragment {
                 return params;
             }
         };
-
         requestQueue.add(stringRequest);
     }
 }

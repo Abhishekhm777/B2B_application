@@ -179,6 +179,11 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".Activity.SignupActivity"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".Activity.Custom_order_search_and_category_Activity"
+            android:screenOrientation="portrait"/>
     </application>
+
+
 
 </manifest>

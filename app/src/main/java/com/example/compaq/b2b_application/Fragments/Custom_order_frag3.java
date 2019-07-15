@@ -99,7 +99,7 @@ public class Custom_order_frag3 extends Fragment {
     final int CAMERA_PIC_REQUEST = 1337;
     private Dialog  options_dialog,myDialogue;
     private LinearLayout gallery, camera;
-    private TextView qty_textview,dynamic_spec,conform,cancel,msg;
+    private TextView qty_textview,dynamic_spec,yes,cancel,msg;
    private EditText p_name,date,size,qty,qwt,melting,seal,descri;
    private ImageView reference_image;
    private String reference_image_id;
@@ -122,11 +122,12 @@ public class Custom_order_frag3 extends Fragment {
             output = sharedPref.getString(ACCESS_TOKEN, null);
 
             myDialogue = new Dialog(getContext());
-            myDialogue.setContentView(R.layout.alert_popup);
-            conform=(TextView) myDialogue.findViewById(R.id.ok);
-            cancel=(TextView) myDialogue.findViewById(R.id.cancel);
+            myDialogue.setContentView(R.layout.back_alert_dialog_layout);
+            myDialogue.setCanceledOnTouchOutside(false);
+            yes=myDialogue.findViewById(R.id.yes);
+            cancel=myDialogue.findViewById(R.id.cancel);
             msg=(TextView) myDialogue.findViewById(R.id.popup_textview);
-            msg.setText("Do you want to Place this order ?");
+            msg.setText("           Do you wish to place this order?              ");
 
             wholseller_id = sharedPref.getString("userid", null);
             p_name=view.findViewById(R.id.product_name);
@@ -166,7 +167,7 @@ public class Custom_order_frag3 extends Fragment {
                             }
                         });
 
-                        conform.setOnClickListener(new View.OnClickListener() {
+                        yes.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
 
@@ -186,36 +187,39 @@ public class Custom_order_frag3 extends Fragment {
             upload_reference.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.CAMERA)
-                            == PackageManager.PERMISSION_DENIED) {
-                        requestCameraPermission();
+                    if (upload_reference.getText().toString().equalsIgnoreCase("UPLOAD REFERENCE IMAGE")) {
+                        if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.CAMERA)
+                                == PackageManager.PERMISSION_DENIED) {
+                            requestCameraPermission();
+                        }
+                        if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_DENIED) {
+                            permission();
+                        } else {
+                            options_dialog.show();
+                            camera.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    options_dialog.dismiss();
+                                    cameraOpen();
+                                }
+                            });
+
+                            gallery.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    options_dialog.dismiss();
+                                    gaallery_open();
+                                }
+                            });
+                        }
                     }
-                    if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_DENIED) {
-                        permission();
-                    }
-
-                    else {
-                        options_dialog.show();
-                        camera.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                options_dialog.dismiss();
-                                cameraOpen();
-                            }
-                        });
-
-                        gallery.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                options_dialog.dismiss();
-                                gaallery_open();
-                            }
-                        });
-
-
+                    if(upload_reference.getText().toString().equalsIgnoreCase("DISCARD")){
+                        reference_image.setVisibility(View.GONE);
+                        upload_reference.setText("UPLOAD REFERENCE IMAGE");
                     }
                 }
+
             });
 
         }
@@ -598,6 +602,7 @@ public class Custom_order_frag3 extends Fragment {
                     Bitmap image = (Bitmap) data.getExtras().get("data");
                     Bitmap bitmap = Bitmap.createScaledBitmap(image, 800, 800, true);
                     reference_image.setVisibility(View.VISIBLE);
+                    upload_reference.setText("DISCARD");
                     reference_image.setImageBitmap(bitmap);
                        uploadReferenceImage();
 
@@ -617,16 +622,13 @@ public class Custom_order_frag3 extends Fragment {
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     String picturePath = cursor.getString(columnIndex);
                     Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, true);
-
-
-
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream);
-
-                    byte[] imageInByte = byteArrayOutputStream.toByteArray();
-                    long lengthbmp = imageInByte.length;
-                    Log.d("Image Size", String.valueOf(lengthbmp));
+                    reference_image.setVisibility(View.VISIBLE);
+                    upload_reference.setText("DISCARD");
                     reference_image.setImageBitmap(bitmap);
+                    Log.e("DVDVDV","bitmap");
+
+
+
                     uploadReferenceImage();
 
                     /* Upload_image(fileName);*/
@@ -651,7 +653,8 @@ public class Custom_order_frag3 extends Fragment {
                     /*cursor.close();*/
                 }
                 catch (NullPointerException e){
-
+                    Log.e("DVDVDV","ILLLE");
+                        e.printStackTrace();
                 }
 
             } /*else {
@@ -762,7 +765,7 @@ public class Custom_order_frag3 extends Fragment {
     public void uploadReferenceImage() {
         // loading or check internet connection or something...
         // ... then
-        String url = ip+"gate/b2b/zuul/order/api/v1/image/save";
+        String url = ip+"image/save";
         VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
@@ -820,6 +823,7 @@ public class Custom_order_frag3 extends Fragment {
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
                 params.put("Authorization", "bearer "+output);
+                params.put("Content-Type", "image/png");
                 return params;
             }
 
@@ -829,7 +833,7 @@ public class Custom_order_frag3 extends Fragment {
                 // file name could found file base or direct access from real path
                 // for now just get bitmap data from ImageView
 
-                params.put("file", new VolleyMultipartRequest.DataPart("file_avatar.jpg", AppHelper.getFileDataFromDrawable(getActivity(),reference_image.getDrawable()), "image/jpeg"));
+                params.put("file", new VolleyMultipartRequest.DataPart("id", AppHelper.getFileDataFromDrawable(getActivity(),reference_image.getDrawable()), "image/jpeg"));
 
                 return params;
             }

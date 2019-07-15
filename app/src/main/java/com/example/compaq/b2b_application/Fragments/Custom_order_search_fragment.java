@@ -87,6 +87,10 @@ private String path;
                     if(!newText.equalsIgnoreCase("")){
                         getSuggestions(newText);
                     }
+                    if (newText.equalsIgnoreCase("")){
+                          names.clear();
+                          top_adapter.notifyDataSetChanged();
+                    }
 
                     return true;
                 }
@@ -114,7 +118,6 @@ private String path;
 
             }
             else {
-                searchView.setSubmitButtonEnabled(true);
                 searchView.setIconified(false);
                 searchView.requestFocusFromTouch();
             }
@@ -159,27 +162,23 @@ public  void getSuggestions(String text){
             public
             void onResponse(String response) {
                 try {
-                    skus=new ArrayList<>();
-                    names=new ArrayList<>();
-                    ids=new ArrayList<>();
-                    JSONObject jsonObject=new JSONObject(response);
-                   JSONObject pro_object=jsonObject.getJSONObject("products");
-                    JSONArray jsonArray=pro_object.getJSONArray("content");
-                    for(int i=0;i<jsonArray.length();i++){
-                        JSONObject content=jsonArray.getJSONObject(i);
-                        names.add(new Top_model(content.getString("name"),content.getString("sku")));
+                    skus = new ArrayList<>();
+                    names = new ArrayList<>();
+                    ids = new ArrayList<>();
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject pro_object = jsonObject.getJSONObject("products");
+                    JSONArray jsonArray = pro_object.getJSONArray("content");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject content = jsonArray.getJSONObject(i);
+                        names.add(new Top_model(content.getString("name"), content.getString("sku")));
                         ids.add(content.getString("id"));
                     }
-                    top_adapter=new Custom_Order_search_Adapter(getActivity(),names,wholseller_id);
+                    top_adapter = new Custom_Order_search_Adapter(getActivity(), names, wholseller_id);
                     listView.setAdapter(top_adapter);
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
-
             }
         },new Response.ErrorListener() {
             @Override

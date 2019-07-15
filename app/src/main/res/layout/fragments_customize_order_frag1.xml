@@ -83,7 +83,6 @@
                 android:layout_height="wrap_content"
                 android:textStyle="italic"
                 android:layout_marginBottom="4dp"
-
                 android:text="@string/customer_na"
                 android:textAppearance="@style/customer_nu"
                 android:gravity="top"

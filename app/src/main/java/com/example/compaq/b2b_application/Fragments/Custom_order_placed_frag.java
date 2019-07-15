@@ -16,6 +16,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.compaq.b2b_application.Activity.Customize_Order;
 import com.example.compaq.b2b_application.Activity.LoginActivity;
 import com.example.compaq.b2b_application.Activity.Splash_Activity;
 import com.example.compaq.b2b_application.R;
@@ -47,6 +48,10 @@ private TextView textView;
          button.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
+               /*  getActivity().finish();*/
+
+                 Intent login = new Intent(getActivity(), Customize_Order.class);
+                 getActivity().startActivity(login);
                  getActivity().finish();
              }
          });
@@ -84,8 +89,8 @@ private TextView textView;
 
     public TranslateAnimation shakeError() {
         TranslateAnimation shake = new TranslateAnimation(0, 10, 0, 0);
-        shake.setDuration(600);
-        shake.setInterpolator(new CycleInterpolator(7));
+        shake.setDuration(400);
+        shake.setInterpolator(new CycleInterpolator(8));
         return shake;
     }
 }

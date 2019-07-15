@@ -108,6 +108,7 @@ public class Add_new_product_activity extends AppCompatActivity {
     private LinearLayout parentLinearLayout;
     private LinearLayout newLayout;
     public SharedPreferences sharedPref;
+    private static  SharedPreferences.Editor editor;
     View view;
     private String selected = "";
     Dialog myDialogue, options_dialog;
@@ -369,6 +370,7 @@ public class Add_new_product_activity extends AppCompatActivity {
         });
 
         sharedPref = getSharedPreferences("USER_DETAILS", 0);
+        editor = sharedPref.edit();
         output = sharedPref.getString(ACCESS_TOKEN, null);
         wholseller_id = sharedPref.getString("userid", null);
         spinner = (Spinner) findViewById(R.id.country);
@@ -1690,12 +1692,8 @@ else {
                     public okhttp3.Response intercept(Chain chain) throws IOException {
 
 
-
-
                         okhttp3.Request request = chain.request();
                         okhttp3.Response response = chain.proceed(request);
-
-
 
                         if (response.code()==409){
 
@@ -1727,6 +1725,7 @@ else {
                                         /*   f.refreshMethod();*/
                                         ((AppCompatActivity) mcontext).getSupportFragmentManager().popBackStackImmediate();
                                           Log.e("YAHOOOOOO","VDVDVDV");
+                                          ((AppCompatActivity) mcontext).finish();
                                     }
 
                                 }
@@ -1740,6 +1739,9 @@ else {
 
                         try {
                             JSONObject jsonObject = new JSONObject(response.body().string());
+
+                            editor.putString("cust_id",jsonObject.getString("id")).apply();
+                            editor.commit();
                             Log.e("ERROR MESSAGE", jsonObject.toString());
 
                         }

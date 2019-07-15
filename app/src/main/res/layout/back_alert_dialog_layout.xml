@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/popup_textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/black"
+        android:padding="12dp"
+        android:fontFamily="@font/catamaran"
+        android:text="Do you wish to discard your entered details?"
+        android:layout_marginTop="11dp"
+
+        android:gravity="center_horizontal|top"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_alignParentTop="true"
+            android:id="@+id/yes"
+            android:fontFamily="@font/catamaran"
+            android:textColor="@color/black"
+            android:text="YES"
+            android:layout_marginRight="8dp"
+            android:background="@color/whish"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="15dp"
+
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_alignParentTop="true"
+            android:fontFamily="@font/catamaran"
+            android:layout_marginLeft="8dp"
+            android:background="@color/skyBlue"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginRight="8dp"
+            android:text="Cancel"
+            android:id="@+id/cancel"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="15dp"
+
+            />
+
+    </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
+
+
+
