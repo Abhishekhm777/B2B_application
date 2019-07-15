@@ -27,7 +27,7 @@ public class Adapter_spesification extends BaseExpandableListAdapter  {
     private ArrayList<String> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<String, ArrayList<String>> _listDataChild;
-     private  Dialog dialog;
+    private  Dialog dialog;
     private LayoutInflater inflater;
     public    HashMap<String ,String> values=new HashMap<>();
 

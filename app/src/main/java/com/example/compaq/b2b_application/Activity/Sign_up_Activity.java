@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +27,7 @@ public class Sign_up_Activity extends AppCompatActivity {
    public String password="";
     public  String email="";
     public TabLayout tabLayout;
-    public ViewPager viewPager;
+    public static  ViewPager viewPager;
     public Toolbar toolbar;
 public SessionManagement session;
     @Override
@@ -47,6 +48,7 @@ public SessionManagement session;
         tabLayout.addTab(tabLayout.newTab().setText("RETAILER"));
         tabLayout.addTab(tabLayout.newTab().setText("WHOLESALER"));
         tabLayout.addTab(tabLayout.newTab().setText("MANUFACTURER"));
+        tabLayout.addTab(tabLayout.newTab().setText("OTP"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final Tablayout_adapter  adapter=new Tablayout_adapter(this,getSupportFragmentManager(),tabLayout.getTabCount());
@@ -60,10 +62,15 @@ public SessionManagement session;
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition(),true);
+                if(viewPager.getCurrentItem()>tab.getPosition()) {
+
+                    viewPager.setCurrentItem(tab.getPosition(), true);
+                }
+
             }
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
@@ -123,5 +130,11 @@ button.setOnClickListener(new View.OnClickListener() {
         else {
             super.onBackPressed();
         }
+    }
+
+
+
+    public static void set_view(int i){
+        viewPager.setCurrentItem(i,true);
     }
 }

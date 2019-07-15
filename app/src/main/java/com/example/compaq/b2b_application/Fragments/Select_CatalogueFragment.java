@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.compaq.b2b_application.Activity.Sign_up_Activity;
+import com.example.compaq.b2b_application.Adapters.CatalogueListAdapter;
 import com.example.compaq.b2b_application.R;
 
 import org.json.JSONArray;
@@ -34,9 +38,9 @@ import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 
 public class Select_CatalogueFragment extends Fragment {
 
-    List<String> catalogueList;
+    ArrayList<String> catalogueList;
     ListView listView;
-    TextView textView;
+    CatalogueListAdapter catalogueListAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,13 +48,16 @@ public class Select_CatalogueFragment extends Fragment {
         // Inflate the layout for this fragment
        View view= inflater.inflate(R.layout.fragment_select__catalogue, container, false);
         listView=(ListView) view.findViewById(R.id.catalogue_list);
-
         catalogueList=new ArrayList<>();
-       textView=(TextView) view.findViewById(R.id.catalog);
-
-
-
         find_catalogue();
+
+       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+               Sign_up_Activity.set_view(1);
+           }
+       });
        return  view;
     }
     public  void  find_catalogue(){
@@ -70,9 +77,9 @@ public class Select_CatalogueFragment extends Fragment {
                                         String catName=catObject.getString("name");
                                        catalogueList.add(catName);
                                        if(i==jsonArray.length()-1){
-                                           ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                                   android.R.layout.simple_expandable_list_item_1,catalogueList);
-                                                    listView.setAdapter(adapter);
+                                           Log.d("catalogue...",catalogueList.size()+"");
+                                           catalogueListAdapter=new CatalogueListAdapter(getActivity(),catalogueList);
+                                           listView.setAdapter(catalogueListAdapter);
                                        }
                                     }
 

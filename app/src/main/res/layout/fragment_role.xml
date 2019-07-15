@@ -4,16 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".Fragments.Select_CatalogueFragment">
-
+    tools:context=".Fragments.RoleFragment">
     <ListView
-        android:id="@+id/catalogue_list"
+        android:id="@+id/role_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:divider="@color/white"
         android:dividerHeight="16dp"
         ></ListView>
-
 
 </LinearLayout>

@@ -805,6 +805,7 @@ custom_order.setOnClickListener(new View.OnClickListener() {
             startActivityForResult(cameraIntent, 1000);
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super method removed

@@ -212,6 +212,7 @@ public class Forgot_pass extends Fragment  {
                         Log.d("res3", response.toString());
                         if (!response.equals(null)) {
                             myEditior.putString("PASSWORD_ID",response);
+                            myEditior.putString("CLASS_TYPE","FORGOT");
                             myEditior.commit();
                             myEditior.apply();
                             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

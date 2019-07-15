@@ -28,15 +28,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
-        <ImageView
-            android:id="@+id/profile_pic"
+        <!--<ImageView
+            android:id="@+id/profile_logo"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/circle" />
+            android:src="@drawable/circle" />-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_logo"
+            android:layout_width="72dp"
+            android:layout_gravity="center"
+            android:src="@drawable/circle"
+            android:layout_centerInParent="true"
+            android:layout_height="72dp"
+
+            />
 
         <TextView
             android:id="@+id/tx_username"
@@ -123,6 +132,7 @@
         </android.support.design.widget.TextInputLayout>
     </android.support.v7.widget.CardView>
     <Button
+        android:id="@+id/upload_gst"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginTop="20dp"
@@ -148,7 +158,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/first_name"
+                        android:id="@+id/user_name"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:layout_margin="3dp"
@@ -268,91 +278,8 @@
                 </android.support.design.widget.TextInputLayout>
             </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/roboto_italic"
-                    android:text="Select Role*"/>
 
 
-                <RadioGroup
-                    android:id="@+id/radioGroup"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <RadioButton
-                        android:id="@+id/radioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:checked="false"
-                        android:text="RETAILER"
-                        android:textSize="11sp"
-                        android:layout_weight="1"
-                        />
-
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:checked="false"
-                        android:text="WHOLESALER"
-                        android:textSize="11sp"
-                        />
-                    <RadioButton
-                        android:id="@+id/radioButton3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:checked="false"
-                        android:text="MANUFACTURER"
-                        android:textSize="11sp"
-                        />
-                </RadioGroup>
-            </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/roboto_italic"
-                    android:text="Business*"/>
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardview_catalog"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#e6e6e5"
-                    app:cardCornerRadius="5dp"
-                    app:cardElevation="1dp">
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#e6e6e5"
-                        android:id="@+id/set1"
-                        android:layout_marginVertical="5dp"
-
-                        >
-                        <Spinner
-                            android:id="@+id/catalog_spinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:spinnerMode="dropdown"
-                            />
-                    </android.support.design.widget.TextInputLayout>
-                </android.support.v7.widget.CardView>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

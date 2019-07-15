@@ -38,6 +38,7 @@ public class OTP_fragment extends Fragment {
     Button submit, resend;
     SharedPreferences sharedPref;
     SharedPreferences.Editor myEditior;
+    String calling="";
 
     public OTP_fragment() {
         // Required empty public constructor
@@ -53,6 +54,7 @@ public class OTP_fragment extends Fragment {
         sharedPref = getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         myEditior = sharedPref.edit();
 
+        calling=sharedPref.getString("CLASS_TYPE",null);
         /*otpText1=(EditText)view.findViewById(R.id.otpET1) ;
         otpText2=(EditText)view.findViewById(R.id.otpET2) ;
         otpText3=(EditText)view.findViewById(R.id.otpET3) ;
@@ -134,12 +136,13 @@ public class OTP_fragment extends Fragment {
                 Log.d("otp sucess..", response);
                 if (response.equals("true")) {
                     Log.d("otp sucess..", response);
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    // fragmentTransaction.replace(R.id.forgpass_layout, new Password_reset());
-                    fragmentTransaction.replace(R.id.fpassword, new Password_reset());
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    if(calling.equals("FORGOT")) {
+                        transaction();
+                    }
+                    else if(calling.equals("REGISTER")){
+
+                    }
+
                 } else {
                     // editText.setError("Incorrect OTP");
                     Toast toast=Toast.makeText(getActivity(), "wrong OTP!", Toast.LENGTH_SHORT);
@@ -157,8 +160,16 @@ public class OTP_fragment extends Fragment {
         });
         rqueue.add(stringRequest);
 
-
     }
+    public  void transaction(){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        // fragmentTransaction.replace(R.id.forgpass_layout, new Password_reset());
+        fragmentTransaction.replace(R.id.fpassword, new Password_reset());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 }
 
 
