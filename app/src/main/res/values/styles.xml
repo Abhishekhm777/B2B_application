@@ -9,6 +9,16 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
 
     </style>
+
+
+    <style name="Floting_toolbae" >
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Blue_colour</item>
+        <item name="colorPrimaryDark">@color/Text</item>
+        <item name="colorAccent">@color/TextBar</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
+    </style>
     ////////'''''''''''''''''''To change the Colour of the drawer
     Icon,,,,,,,,,,,.....................///////
 

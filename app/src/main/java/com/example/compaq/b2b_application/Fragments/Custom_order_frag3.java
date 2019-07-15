@@ -11,8 +11,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -64,6 +67,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.example.compaq.b2b_application.Activity.Add_new_product_activity.PICK_IMAGE;
 import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
@@ -99,10 +105,23 @@ public class Custom_order_frag3 extends Fragment {
     final int CAMERA_PIC_REQUEST = 1337;
     private Dialog  options_dialog,myDialogue;
     private LinearLayout gallery, camera;
-    private TextView qty_textview,dynamic_spec,yes,cancel,msg;
-   private EditText p_name,date,size,qty,qwt,melting,seal,descri;
-   private ImageView reference_image;
+    private TextView yes,cancel,msg;
    private String reference_image_id;
+   @Nullable @BindView(R.id.product_name)EditText p_name;
+    @Nullable @BindView(R.id.date)EditText date;
+    @Nullable @BindView(R.id.size)EditText size;
+    @Nullable @BindView(R.id.qty)EditText qty;
+    @Nullable @BindView(R.id.g_weight)EditText qwt;
+
+    @Nullable @BindView(R.id.melting)EditText melting;
+    @Nullable @BindView(R.id.sea)EditText seal;
+    @Nullable @BindView(R.id.descr)EditText descri;
+
+    @Nullable @BindView(R.id.gwt_text)TextView qty_textview;
+    @Nullable @BindView(R.id.dynamic_spec)TextView dynamic_spec;
+    @Nullable @BindView(R.id.reference_image)ImageView reference_image;
+
+
     public Custom_order_frag3() {
         // Required empty public constructor
     }
@@ -114,6 +133,7 @@ public class Custom_order_frag3 extends Fragment {
         // Inflate the layout for this fragment
         if(view==null) {
             view = inflater.inflate(R.layout.fragment_customize_order_frag2, container, false);
+            ButterKnife.bind(this,view);
 
             place_button=(Button)view.findViewById(R.id.place_button);
             upload_reference=(Button)view.findViewById(R.id.reference_image_btn);
@@ -130,17 +150,6 @@ public class Custom_order_frag3 extends Fragment {
             msg.setText("           Do you wish to place this order?              ");
 
             wholseller_id = sharedPref.getString("userid", null);
-            p_name=view.findViewById(R.id.product_name);
-            date=view.findViewById(R.id.date);
-            size=view.findViewById(R.id.size);
-            qty=view.findViewById(R.id.qty);
-            qwt=view.findViewById(R.id.g_weight);
-            melting=view.findViewById(R.id.melting);
-            seal=view.findViewById(R.id.sea);
-            descri=view.findViewById(R.id.descr);
-            qty_textview=view.findViewById(R.id.gwt_text);
-            dynamic_spec=view.findViewById(R.id.dynamic_spec);
-            reference_image=view.findViewById(R.id.reference_image);
 
             options_dialog = new Dialog(getActivity());
             options_dialog.setContentView(R.layout.photo_options_layout);
@@ -150,10 +159,12 @@ public class Custom_order_frag3 extends Fragment {
             session = new SessionManagement(getActivity());
             listAdapter = new Customize_Oder_Adapter1(getActivity(), listDataHeader, listDataChild, list_id, getFragmentManager(), view);
             place_button.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View view) {
 
                     if (TextUtils.isEmpty(qwt.getText().toString().trim())) {
+                        qty_textview.requestFocus();
                         qty_textview.startAnimation(shakeError());
 
                     }
@@ -711,10 +722,10 @@ public class Custom_order_frag3 extends Fragment {
                 try {
 
                      pager.setCurrentItem(4);
-                    Log.e("Respnse Status", response.toString());
 
-                    Snackbar.make(getView(), "Your Custom Order Placed Successfully !", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+
+                 /*   Snackbar.make(getView(), "Your Custom Order Placed Successfully !", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();*/
 
                 }
 

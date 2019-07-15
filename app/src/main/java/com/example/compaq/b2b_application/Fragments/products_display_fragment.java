@@ -164,6 +164,12 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         ed4 = (EditText) dialog.findViewById(R.id.otpET4);
         ed5 = (EditText) dialog.findViewById(R.id.otpET5);
 
+        recyclerView = (RecyclerView) view.findViewById(R.id.navrecycler);
+        productlist = new ArrayList<>();
+
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView.setHasFixedSize(true);
+
 
         ed1.addTextChangedListener(new TextWatcher() {
             @Override
@@ -286,7 +292,9 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 // once the network request has completed successfully.
                 Toast.makeText(getContext(), "REFRESGING ", Toast.LENGTH_LONG).show();
                 productlist.clear();
+                recycler_adapter2.notifyDataSetChanged();
                 loadRecycleData();
+                recycler_adapter2.notifyDataSetChanged();
             }
         });
         // Configure the refreshing colors
@@ -294,7 +302,6 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
 
        // sort_layout=view.findViewById(R.id.sort_layout);
         sortparams = new LinkedHashMap<>();
@@ -305,8 +312,6 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         sortlist = (ListView) sortDialog.findViewById(R.id.sort_list);
         sortlist.setAdapter(sortadapter);
         sortlist.setOnItemClickListener(this);
-
-
 
 
         pref = getActivity().getSharedPreferences("USER_DETAILS", 0);
@@ -383,10 +388,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
             });
 
         }
-        recyclerView = (RecyclerView) view.findViewById(R.id.navrecycler);
-        productlist = new ArrayList<>();
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setHasFixedSize(true);
+
 
 
 
@@ -507,15 +509,15 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @Override
+  /*  @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
         inflater.inflate(R.menu.actionbar_icons, menu);
         super.onCreateOptionsMenu(menu, inflater);
-       /* MenuItem mCartIconMenuItem = menu.findItem(R.id.cart);
+       *//* MenuItem mCartIconMenuItem = menu.findItem(R.id.cart);
         View actionView = MenuItemCompat.getActionView(mCartIconMenuItem);
-       *//* View actionView = mCartIconMenuItem.getActionView();
-         *//*
+       *//**//* View actionView = mCartIconMenuItem.getActionView();
+         *//**//*
 
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -527,9 +529,9 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         });
 
         // mCountTv.setText(String.valueOf(mCnt1));
-*/
+*//*
     }
-
+*/
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -721,14 +723,13 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                // startActivity(i);
 
                 ////////////////////////////////////////////////////////////////////////////////////////////////////problem
-                    Fragment search=new GenericSearchFragment();
-                    FragmentManager fragmentManager =getActivity().getSupportFragmentManager();
+                if(isVisible()) {
+                    Fragment search = new GenericSearchFragment();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.mainframe, search).addToBackStack(null).commit();
-
+                }
                 return true;
-        }
-        switch (item.getItemId()) {
             case R.id.cart:
                 //do sth here
                 Intent i = new Intent(getActivity(), Cart_Activity.class);
@@ -737,6 +738,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         }
         return false;
     }
+
 
 
     @Override
@@ -994,8 +996,6 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 fTransaction4.commit();
 
                 break;
-
-
 
         }
 

@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.badoualy.stepperindicator.StepperIndicator;
@@ -23,10 +24,14 @@ import com.example.compaq.b2b_application.Fragments.Customize_order_frag1;
 import com.example.compaq.b2b_application.Fragments.Manage_category_frag1;
 import com.example.compaq.b2b_application.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class Customize_Order extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     public FragmentManager fragmentManager;
-    private Toolbar toolbar;
+    @BindView(R.id.tool_bar)Toolbar toolbar;
+   @BindView(R.id.stepper_indicator) StepperIndicator indicator;
     public static ViewPager pager;
     private SharedPreferences sharedPref;
     private Dialog  myDialogue;
@@ -36,16 +41,19 @@ public class Customize_Order extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customize__order);
+        ButterKnife.bind(this);
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
         toolbar.setTitle("Customize Order");
+
 
         sharedPref = this.getSharedPreferences("USER_DETAILS", 0);
         editor = sharedPref.edit();
         editor.putString("cust_id",null).apply();
         editor.commit();
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         myDialogue = new Dialog(this);
         myDialogue.setContentView(R.layout.back_alert_dialog_layout);
@@ -69,7 +77,7 @@ public class Customize_Order extends AppCompatActivity {
 
         /*   pager.setAdapter(new PagerAdapter(getSupportFragmentManager(),pager.getChildCount()));
          */
-        final StepperIndicator indicator = findViewById(R.id.stepper_indicator);
+
         // We keep last page for a "finishing" page
         indicator.setViewPager(pager, true);
 

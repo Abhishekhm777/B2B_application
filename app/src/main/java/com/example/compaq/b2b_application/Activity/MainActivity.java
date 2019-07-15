@@ -113,7 +113,7 @@ class MainActivity extends AppCompatActivity {
      public  SharedPreferences sharedPref;
     public   SharedPreferences.Editor myEditor;
     public  LinearLayout home;
-    public  TextView textCartItemCount;
+    public   TextView textCartItemCount;
    NavigationView navigationView;
     private int lastExpandedPosition = -1;
    public int json_length=0;
@@ -1042,6 +1042,7 @@ public void userInformation ( ){
            // bundle.remove("CLASS");
             Fragment search=new GenericSearchFragment();
            getSupportFragmentManager().beginTransaction().replace(R.id.mainframe,search).addToBackStack(null).commit();
+
           //  Intent i = new Intent(this, Search_Activity.class);
            // startActivity(i);
             return true;

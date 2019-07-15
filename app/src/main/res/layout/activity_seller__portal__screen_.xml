@@ -22,6 +22,4 @@
         app:headerLayout="@layout/nav_header_seller__portal__screen_"
         app:menu="@menu/activity_seller__portal__screen__drawer" />
 
-
-
 </android.support.v4.widget.DrawerLayout>

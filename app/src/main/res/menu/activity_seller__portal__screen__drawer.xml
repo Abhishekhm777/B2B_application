@@ -14,7 +14,7 @@
 
     </group>
 
-    <item android:title="CATALOG">
+    <item android:title="CATALOG"  >
         <menu>
             <item
                 android:id="@+id/manage"

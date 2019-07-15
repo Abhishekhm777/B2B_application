@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.compaq.b2b_application.Activity.Customize_Order;
+import com.example.compaq.b2b_application.Fragments.Custom_order;
 import com.example.compaq.b2b_application.Fragments.Update_product_fragment;
 import com.example.compaq.b2b_application.Activity.Manage_Exixsting_category_Activity;
 import com.example.compaq.b2b_application.Model.Recy_model2;

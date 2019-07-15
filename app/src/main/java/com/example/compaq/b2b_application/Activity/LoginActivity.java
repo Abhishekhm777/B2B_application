@@ -39,18 +39,18 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
 
 
 public class LoginActivity extends AppCompatActivity {
     // Email, password edittext
-    EditText txtUsername, txtPassword;
     private FragmentTransaction fragmentTransaction;
     public FragmentManager fragmentManager;
     // login button
-    Button btnLogin,btn_Skip,btn_signup;
-
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
 
@@ -70,11 +70,17 @@ public class LoginActivity extends AppCompatActivity {
     public String cartid="";
     private String role,product;
     private String refreshtoken;
+    @BindView(R.id.txtUsername) EditText txtUsername;
+    @BindView(R.id.txtPassword) EditText txtPassword;
+    @BindView(R.id.btnLogin) Button btnLogin;
+    @BindView(R.id.signuptext)  TextView signuptext;
+    @BindView(R.id.forgot_textview)  TextView forgot_pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
 
         //check internet status for the
@@ -89,19 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         session = new SessionManagement(getApplicationContext());
         session.checkLogin(LoginActivity.this);
         // Email, Password input text
-        txtUsername = (EditText) findViewById(R.id.txtUsername);
-        txtPassword = (EditText) findViewById(R.id.txtPassword);
 
-       /* Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
-*/
-
-        // Login button
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-
-   /*     btn_signup = (Button) findViewById(R.id.signUp);*/
-
-        TextView signuptext=(TextView)findViewById(R.id.signuptext) ;
-        TextView forgot_pass=(TextView)findViewById(R.id.forgot_textview);
         forgot_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
