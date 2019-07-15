@@ -19,6 +19,9 @@ import com.example.compaq.b2b_application.R;
 
 import java.util.Timer;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static android.os.SystemClock.sleep;
 import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 
@@ -28,7 +31,7 @@ import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 public class Custom_order_finish_frag extends Fragment {
 
    View view;
-   private Button button;
+   @BindView(R.id.finish_button)Button button;
     public Custom_order_finish_frag() {
         // Required empty public constructor
     }
@@ -39,7 +42,8 @@ public class Custom_order_finish_frag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_custom_order_finish_frag, container, false);
-        button=view.findViewById(R.id.finish_button);
+        ButterKnife.bind(this,view);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +56,6 @@ public class Custom_order_finish_frag extends Fragment {
 
         return  view;
     }
-
 
     @Override
     public void setMenuVisibility(final boolean visible) {
