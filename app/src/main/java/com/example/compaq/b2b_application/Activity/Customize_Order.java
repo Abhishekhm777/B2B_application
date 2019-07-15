@@ -100,21 +100,7 @@ public class Customize_Order extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 // click on 'up' button in the action bar, handle it here
-                myDialogue.show();
-                yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        myDialogue.dismiss();
-                        onBackPressed();
-
-                    }
-                });
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        myDialogue.dismiss();
-                    }
-                });
+                onBackPressed();
 
                 return true;
 
@@ -122,18 +108,29 @@ public class Customize_Order extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+
     }
 
     @Override
     public void onBackPressed()
     {
-        FragmentManager fm = getSupportFragmentManager();
-        if (fm.getBackStackEntryCount() > 0) {
-            fm.popBackStack();
-        }
-        else {
-            super.onBackPressed();
-        }
+
+        myDialogue.show();
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialogue.dismiss();
+                finish();
+
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialogue.dismiss();
+            }
+        });
     }
 
 }
