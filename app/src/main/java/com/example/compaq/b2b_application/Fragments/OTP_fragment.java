@@ -140,7 +140,7 @@ public class OTP_fragment extends Fragment {
                         transaction();
                     }
                     else if(calling.equals("REGISTER")){
-
+                        
                     }
 
                 } else {
