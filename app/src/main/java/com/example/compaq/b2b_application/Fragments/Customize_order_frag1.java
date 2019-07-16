@@ -1,6 +1,7 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -124,6 +126,7 @@ public class Customize_order_frag1 extends Fragment {
     @BindView(R.id.cust_email) EditText email;
     @BindView(R.id.company_name) EditText company_name;
     @BindView(R.id.next) Button next;
+    private Activity activity;
 
     public Customize_order_frag1() {
         // Required empty public constructor
@@ -139,6 +142,7 @@ public class Customize_order_frag1 extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragments_customize_order_frag1, container, false);
             ButterKnife.bind(this,view);
+            activity=getActivity();
 
 
             sharedPref = getActivity().getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -312,7 +316,7 @@ public class Customize_order_frag1 extends Fragment {
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue= Volley.newRequestQueue(activity);
         requestQueue.add(stringRequest);
     }
     ///////////getUser_detailss///////////////
@@ -418,8 +422,8 @@ public class Customize_order_frag1 extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
 
-
                 Snackbar.make(view,"Contact Addedd Successfully",Snackbar.LENGTH_SHORT).show();
+                getContacts();
                 pager.setCurrentItem(1);
 /*
                 Customize_order_frag1 customize_order_frag1 = (Customize_order_frag1)  getActivity().getSupportFragmentManager().findFragmentByTag("customize");
@@ -434,6 +438,7 @@ public class Customize_order_frag1 extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
                 Snackbar.make(view,"Something went wrong!!",Snackbar.LENGTH_SHORT).show();
+
             }
         }) {
             @Override
@@ -444,9 +449,10 @@ public class Customize_order_frag1 extends Fragment {
                 return headr;
             }
         };
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        RequestQueue queue = Volley.newRequestQueue(activity);
         queue.add(request);
     }
+
 }
 
 

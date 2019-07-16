@@ -57,6 +57,7 @@ import com.example.compaq.b2b_application.Adapters.User_class_Adapter;
 import com.example.compaq.b2b_application.Fragments.Custom_order;
 import com.example.compaq.b2b_application.Fragments.Customize_order_frag1;
 import com.example.compaq.b2b_application.Helper_classess.AppHelper;
+import com.example.compaq.b2b_application.Helper_classess.ExceptionHandler;
 import com.example.compaq.b2b_application.Model.Image_Add_model;
 import com.example.compaq.b2b_application.Model.Top_model;
 import com.example.compaq.b2b_application.R;
@@ -78,6 +79,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -148,7 +151,6 @@ public class Add_new_product_activity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CAMERA = 0;
     private  static View window;
     private  static Context mcontext;
-
     private static  Activity activity ;
     private static String parent_name ;
     public    HashMap<String ,String> val_map;
@@ -158,11 +160,12 @@ public class Add_new_product_activity extends AppCompatActivity {
     private ArrayList<Top_model> list_data=new ArrayList<>();
     private User_class_Adapter user_class_adapter;
     private String  user_Catalog="";
-
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
+
+        ButterKnife.bind(this);
         setContentView(R.layout.activity_add_new_product_activity);
         toolbar =  findViewById(R.id.tool_bar);
         toolbar.setTitle("Add new product");
@@ -256,10 +259,6 @@ public class Add_new_product_activity extends AppCompatActivity {
              }
          });
         listView=myDialogue.findViewById(R.id.user_layout_list);
-
-       /* list_data.add(new Top_model("User-Class A"));
-        list_data.add(new Top_model("User-Class B"));
-        list_data.add(new Top_model("User-Class C"));*/
 
         user_class_adapter=new User_class_Adapter(this,list_data);
         listView.setAdapter(user_class_adapter);
@@ -377,10 +376,7 @@ public class Add_new_product_activity extends AppCompatActivity {
         pro_spinner = (Spinner) findViewById(R.id.product_type);
         status_spinner = (Spinner) findViewById(R.id.product_status);
         prioriyt_spinner = (Spinner) findViewById(R.id.priyority);
-
         catalog();
-
-
         priority = new ArrayList<>();
         priority.add("MODERATE");
         priority.add("LOW");
@@ -392,7 +388,6 @@ public class Add_new_product_activity extends AppCompatActivity {
             }
         };
         prioriyt_spinner.setAdapter(pri);
-
 
         type = new ArrayList<>();
         type.add("REGULAR");
