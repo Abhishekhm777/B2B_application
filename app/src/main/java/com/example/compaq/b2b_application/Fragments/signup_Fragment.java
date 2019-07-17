@@ -264,7 +264,7 @@ public class signup_Fragment extends Fragment {
                             regiter_infolist.add(postparams);
                             Log.d("json obj",postparams.toString());
                             getotp(postparams,regiter_infolist,resUrl);*/
-                        Sign_up_Activity.set_view(3);
+                       // Sign_up_Activity.set_view(3);
                     }
                 }
             }, new Response.ErrorListener() {
