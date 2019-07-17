@@ -1,49 +1,39 @@
 package com.example.compaq.b2b_application.Activity;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.compaq.b2b_application.Fragments.Custom_order_search_fragment;
 import com.example.compaq.b2b_application.Fragments.Custom_serch_by_category_frag;
 import com.example.compaq.b2b_application.R;
 
-public class Custom_order_search_and_category_Activity extends AppCompatActivity {
-    private FragmentTransaction fragmentTransaction;
-    public FragmentManager fragmentManager;
-    private Toolbar toolbar;
-    private String key;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class Offline_order extends AppCompatActivity {
+
+    @Nullable @BindView(R.id.offline_tool) Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_custom_order_search_and_category_);
-
-        toolbar=(Toolbar)findViewById(R.id.search_tool);
-
+        setContentView(R.layout.activity_offline_order);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Bundle bundle=getIntent().getExtras();
-        key=bundle.getString("byname");
-        if(key.equalsIgnoreCase("name")) {
+
             Custom_order_search_fragment custom_order_search_fragment=new Custom_order_search_fragment();
             Bundle bundle1 = new Bundle();
             bundle1.putString("path", null);
-            custom_order_search_fragment.setArguments(bundle);
-           getSupportFragmentManager().beginTransaction().replace(R.id.search_frame, custom_order_search_fragment,"customize_search").addToBackStack(null).commit();
-
-        }
-        if(key.equalsIgnoreCase("cat")){
-            fragmentManager = getSupportFragmentManager();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.search_frame, new Custom_serch_by_category_frag(), "custom_by_cat");
-            fragmentTransaction.commit();
-        }
+            getSupportFragmentManager().beginTransaction().add(R.id.offline_frame, custom_order_search_fragment,"customize_search").addToBackStack(null).commit();
 
 
 
@@ -74,4 +64,6 @@ public class Custom_order_search_and_category_Activity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+
 }

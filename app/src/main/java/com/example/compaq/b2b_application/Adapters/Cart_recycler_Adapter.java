@@ -14,8 +14,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +28,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.compaq.b2b_application.Activity.Add_new_product_activity;
 import com.example.compaq.b2b_application.Activity.Cart_Activity;
 import com.example.compaq.b2b_application.Fragments.CartUpdate_fragment;
 import com.example.compaq.b2b_application.Activity.Displaying_complete_product_details_Activity;
+import com.example.compaq.b2b_application.Helper_classess.DatePickerFragment;
 import com.example.compaq.b2b_application.Model.Cart_recy_model;
 import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.R;
@@ -57,14 +61,13 @@ public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Ad
     public Recy_model2 recyModel2;
     public  Recy_model2 onClickListener;
     public Bundle bundle;
-public Context mContext;
-private String total;
-private Double total_weight;
-
+    public Context mContext;
+    private String total;
+    private Double total_weight;
     private  Double total_double=0.0;
-
-public SharedPreferences sharedPref;
+    public SharedPreferences sharedPref;
     public   SharedPreferences.Editor myEditor;
+    DatePickerFragment datePickerFragment=new DatePickerFragment();
 
   /* public SharedPreferences cart_shared_preference;
    public SharedPreferences.Editor cartEditor;*/
@@ -100,8 +103,7 @@ if(productlist.size()==0) {
 
         final com.example.compaq.b2b_application.Model.Cart_recy_model listner=  productlist.get(position);
         holder.d_qty.setText(listner.getQty());
-
-
+        holder.d_product.setText(listner.getName());
 
         try {
 
@@ -109,13 +111,19 @@ if(productlist.size()==0) {
 
 
         String set_total=new DecimalFormat("#0.000").format(total_weight);
+            if(!listner.getExpected().equalsIgnoreCase("null")){
+                holder.excpected_date.setText(listner.getExpected());
+            }
+            else {
+                holder.excpected_date.setText(datePickerFragment.getDate());
+            }
 
-        holder.excpected_date.setText(listner.getExpected());
+
         holder.seller_name.setText(listner.getSeller_name());
 
 
             String gross=new DecimalFormat("#0.000").format(Double.parseDouble(listner.getWeight()));
-        holder.d_gweight.setText(gross);
+            holder.d_gweight.setText(gross);
 
            total_double=total_double+total_weight;
 
@@ -127,7 +135,7 @@ if(productlist.size()==0) {
         catch (Exception e){
             e.printStackTrace();
         }
-        holder.d_product.setText(listner.getName());
+
         /*holder.purity.setText(listner.getPurity());
         holder.size.setText(listner.getSize());
           holder.description.setText("Description:      "+listner.getDescript());
@@ -228,6 +236,7 @@ if(productlist.size()==0) {
         ImageView imageV;
 
         ImageView C_imageview;
+        Spinner spinner;
         TextView d_qty, purity,d_product,d_gweight,excpected_date,description,size,length,seller_name;
         public Button add_to_whishlist,remove;
         public MyViewHolder(View view) {
@@ -246,7 +255,27 @@ if(productlist.size()==0) {
             add_to_whishlist=(Button)itemView.findViewById(R.id.wishlist) ;
             remove=(Button)itemView.findViewById(R.id.remove);
             C_imageview=itemView.findViewById(R.id.cart_emppty);
+           /* spinner=itemView.findViewById(R.id.item_spinner);
+            ArrayList<String> array = new ArrayList<>();
+            array.add("1");
+            array.add("2");
+            array.add("3");
+            array.add("5");
 
+
+            final ArrayAdapter<String> country_adaper = new ArrayAdapter<String>(mContext, R.layout.support_simple_spinner_dropdown_item, array) {
+                @Override
+                public boolean isEnabled(int position) {
+                    if (position == 0) {
+                        // Disable the first item from Spinner
+                        // First item will be use for hint
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            };
+            spinner.setAdapter(country_adaper);*/
         }
     }
 

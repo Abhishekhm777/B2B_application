@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -40,6 +44,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
@@ -56,11 +62,14 @@ private SharedPreferences.Editor editor;
 private  String output,user_id,wholseller_id;
 private ArrayList<Top_model> skus;
 private ArrayList<Top_model> names;
-    private ArrayList<String> ids;
+private FragmentTransaction fragmentTransaction;
+public FragmentManager fragmentManager;
+private ArrayList<String> ids;
 private Custom_Order_search_Adapter top_adapter;
 private RadioButton byName,byCategory;
 private  Bundle bundle;
 private String path;
+private Button done_button;
 
     public Custom_order_search_fragment() {
         // Required empty public constructor
@@ -75,6 +84,7 @@ private String path;
             listView=view.findViewById(R.id.custom_search_listview);
 
             searchView =  getActivity().findViewById(R.id.custom_search);
+
 
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -101,41 +111,64 @@ private String path;
             output = sharedPref.getString(ACCESS_TOKEN, null);
             user_id = sharedPref.getString("userid", "");
 
-            bundle = this.getArguments();
-            if(bundle.getString("path")!=null){
-                searchView.setVisibility(View.GONE);
-                path=bundle.getString("path");
+            if(getActivity().getClass().toString().equalsIgnoreCase("class com.example.compaq.b2b_application.Activity.Custom_order_search_and_category_Activity")) {
 
-                String url =  ip+"gate/b2b/catalog/api/v1/product/all/category/"+path;
-                String uri=null;
-                uri = Uri.parse(url)
-                        .buildUpon()
-                        .appendQueryParameter("wholesaler",user_id)
-                        .appendQueryParameter("productType","REGULAR")
-                        .build().toString();
-                Log.e("CAT",uri);
-                getProduct(uri);
+                bundle = this.getArguments();
+                if (bundle.getString("path") != null) {
+                    searchView.setVisibility(View.GONE);
+                    path = bundle.getString("path");
 
+                    String url = ip + "gate/b2b/catalog/api/v1/product/all/category/" + path;
+                    String uri = null;
+                    uri = Uri.parse(url)
+                            .buildUpon()
+                            .appendQueryParameter("wholesaler", user_id)
+                            .appendQueryParameter("productType", "REGULAR")
+                            .build().toString();
+                    Log.e("CAT", uri);
+                    getProduct(uri);
+
+                } else {
+                    searchView.setIconified(false);
+                    searchView.requestFocusFromTouch();
+                }
             }
             else {
+                Log.e("PARENT", getActivity().getClass().toString());
                 searchView.setIconified(false);
                 searchView.requestFocusFromTouch();
+                done_button=getActivity().findViewById(R.id.done_button);
+                done_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        fragmentManager = getActivity().getSupportFragmentManager();
+                        fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.offline_frame, new Offline_fragment1(), "offline_frag1");
+                        fragmentTransaction.commit();
+                    }
+                });
+
             }
-
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
+                    Log.e("PARENT", getActivity().getClass().toString());
 
+                    if(getActivity().getClass().toString().equalsIgnoreCase("class com.example.compaq.b2b_application.Activity.Offline_order")) {
 
-                    editor.putString("cust_id",ids.get(position)).apply();
-                    editor.commit();
-                    getActivity().finish();
+                        names.remove(position);
+                        top_adapter.notifyDataSetChanged();
+                    }
+                    if(getActivity().getClass().toString().equalsIgnoreCase("class com.example.compaq.b2b_application.Activity.Custom_order_search_and_category_Activity")) {
+                        Log.e("INSIDE", getActivity().getClass().toString());
+                        editor.putString("cust_id",ids.get(position)).apply();
+                        editor.commit();
+                        getActivity().finish();
 
+                    }
                 }
             });
-
         }
         return view;
     }
@@ -219,7 +252,7 @@ public  void getSuggestions(String text){
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
     }
 }

@@ -30,6 +30,7 @@ public class Cart_recy_model {
         this.length=length;
         this.seller_name=seller_name;
         this.expected=expected;
+        this.name=name;
     }
 
     public String getExpected() {
