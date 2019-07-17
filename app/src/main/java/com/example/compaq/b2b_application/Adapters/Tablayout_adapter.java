@@ -38,9 +38,9 @@ public class Tablayout_adapter extends FragmentPagerAdapter {
             case 2:
                 signup_Fragment signup_fragment=new signup_Fragment();
                 return signup_fragment;
-            case 3:
+           /* case 3:
                 OTP_fragment otp_fragment =new OTP_fragment();
-                return otp_fragment;
+                return otp_fragment;*/
 
             default:
                 return null;

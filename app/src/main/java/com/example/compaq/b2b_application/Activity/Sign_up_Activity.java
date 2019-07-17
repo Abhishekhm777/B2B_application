@@ -48,7 +48,7 @@ public SessionManagement session;
         tabLayout.addTab(tabLayout.newTab().setText("RETAILER"));
         tabLayout.addTab(tabLayout.newTab().setText("WHOLESALER"));
         tabLayout.addTab(tabLayout.newTab().setText("MANUFACTURER"));
-        tabLayout.addTab(tabLayout.newTab().setText("OTP"));
+        //tabLayout.addTab(tabLayout.newTab().setText("OTP"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final Tablayout_adapter  adapter=new Tablayout_adapter(this,getSupportFragmentManager(),tabLayout.getTabCount());
