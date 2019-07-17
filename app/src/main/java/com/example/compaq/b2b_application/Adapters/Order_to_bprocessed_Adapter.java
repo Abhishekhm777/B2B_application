@@ -17,6 +17,7 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.compaq.b2b_application.Fragments.Seller_order_package;
+import com.example.compaq.b2b_application.Helper_classess.ExceptionHandler;
 import com.example.compaq.b2b_application.Model.OrderTobe_customer_model;
 import com.example.compaq.b2b_application.Model.Seller_order_history;
 import com.example.compaq.b2b_application.R;
@@ -37,6 +38,8 @@ public class Order_to_bprocessed_Adapter extends RecyclerView.Adapter<Order_to_b
         this.productlist=productlist;
         this.details=details;
        this. mFilteredList=productlist;
+
+
     }
 
     @NonNull
@@ -72,16 +75,20 @@ public class Order_to_bprocessed_Adapter extends RecyclerView.Adapter<Order_to_b
         holder.order_date.setText(listner.getDate());
             holder.order_type.setText(listner.getOrder_type());
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener()  {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 if (!listner.getOrder_type().equalsIgnoreCase("OFFLINE")) {
                     try {
                         Seller_order_package myFragment = new Seller_order_package();
                         bundle = new Bundle();
                         bundle.putString("order_no", listner.getOrder_no());
                         bundle.putString("task_id", listner.getTask_id());
-                        bundle.putString("cust_mobile", d_listner.getOrder_no());
+                        try {
+                            bundle.putString("cust_mobile", d_listner.getOrder_no());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
 
                         myFragment.setArguments(bundle);
                         AppCompatActivity activity = (AppCompatActivity) view.getContext();

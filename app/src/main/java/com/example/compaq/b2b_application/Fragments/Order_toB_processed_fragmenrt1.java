@@ -37,6 +37,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.compaq.b2b_application.Activity.MainActivity;
 import com.example.compaq.b2b_application.Adapters.EndlessRecyclerViewScrollListener;
 import com.example.compaq.b2b_application.Adapters.Order_to_bprocessed_Adapter;
 import com.example.compaq.b2b_application.Helper_classess.AlertDialogManager;
@@ -130,12 +131,19 @@ public class Order_toB_processed_fragmenrt1 extends Fragment {
           }
             return view1;
         }
-
+     RequestQueue mRequestQueue;
     public void Seller_history() {
+        if(requestQueue==null)
+        {
+            mRequestQueue = Volley.newRequestQueue(getActivity());
+
+        }
+
         names=new HashMap<>();
         productlist = new ArrayList<>();
         details=new HashMap<>();
          number=0;
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 ip+"gate/b2b/order/api/v1/task/orders/shipping?userId="+user_id,
 
@@ -221,9 +229,7 @@ public class Order_toB_processed_fragmenrt1 extends Fragment {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-
-        requestQueue.add(stringRequest);
+        mRequestQueue.add(stringRequest);
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void  details( final  HashMap<String, String> nam){
@@ -234,12 +240,17 @@ public class Order_toB_processed_fragmenrt1 extends Fragment {
         }
 
     }
-
+    private RequestQueue requestQueue;
     public void customer_detail(String id,final  String no) {
+        if(requestQueue==null)
+        {
+            requestQueue = Volley.newRequestQueue(getActivity());
+
+        }
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 ip+"gate/b2b/order/api/v1/getUser/"+id,
                 new Response.Listener<String>() {
-
                     @Override
                     public void onResponse(String response) {
 
@@ -313,9 +324,9 @@ public class Order_toB_processed_fragmenrt1 extends Fragment {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
         requestQueue.add(stringRequest);
+
     }
 
     public void updateText(String text){

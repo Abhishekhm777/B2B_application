@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.Seller_order_package_adapter;
+import com.example.compaq.b2b_application.Helper_classess.ExceptionHandler;
 import com.example.compaq.b2b_application.Model.Seller_order_package_model;
 import com.example.compaq.b2b_application.R;
 
@@ -41,7 +42,7 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Seller_order_package extends Fragment {
+public class Seller_order_package  extends Fragment  {
 
     public RecyclerView recyclerView;
     public ArrayList<Seller_order_package_model> productlist;
@@ -61,9 +62,10 @@ public class Seller_order_package extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState) throws NullPointerException{
         // Inflate the layout for this fragment
          view= inflater.inflate(R.layout.fragment_seller_order_package, container, false);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(getContext()));
         sharedPref =getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         sharedPref=getActivity().getSharedPreferences("USER_DETAILS",0);
         output=sharedPref.getString(ACCESS_TOKEN, null);
@@ -78,9 +80,15 @@ public class Seller_order_package extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         recyclerView.setHasFixedSize(true);
         bundle = this.getArguments();
-         order_no=bundle.getString("order_no");
-        taskid=bundle.getString("task_id");
-        cust_mobile_no=bundle.getString("cust_mobile");
+        try {
+            order_no = bundle.getString("order_no");
+            taskid = bundle.getString("task_id");
+            cust_mobile_no = bundle.getString("cust_mobile");
+        }
+
+        catch (Exception e){
+            e.printStackTrace();
+        }
         Order_package(order_no);
         return  view;
     }
@@ -195,8 +203,8 @@ public class Seller_order_package extends Fragment {
         }
     }
 
-    public void images(final String product) {
-
+    public void images(final String product) throws NullPointerException {
+      final   RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         String ui=ip+"gate/b2b/order/api/v1/getProduct/"+product;
         String url=ui.replaceAll("\\s", "");
         StringRequest stringRequest = new StringRequest(Request.Method.GET,url
@@ -227,7 +235,6 @@ public class Seller_order_package extends Fragment {
 
                             }
                             if(pro_name_array.size()==p) {
-
                                 adapter = new Seller_order_package_adapter(getContext(), productlist, view, image_map);
                                 adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
                                     @Override
@@ -285,7 +292,7 @@ public class Seller_order_package extends Fragment {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
 
         requestQueue.add(stringRequest);
     }

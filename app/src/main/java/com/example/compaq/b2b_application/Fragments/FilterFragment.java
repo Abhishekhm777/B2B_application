@@ -1,4 +1,4 @@
-package com.example.compaq.b2b_application.Activity;
+package com.example.compaq.b2b_application.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -292,12 +292,12 @@ public class FilterFragment extends Fragment {
             @Override
             public
             void onResponse(String response) {
-
+                Log.d("response",response);
                 try {
                     JSONObject jsonObj = new JSONObject(response);
                     JSONArray jsonArray=jsonObj.optJSONArray("facets");
                     if(jsonArray!=null) {
-
+                        Log.d("response",response);
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
@@ -311,7 +311,7 @@ public class FilterFragment extends Fragment {
                       }*/
                             listDataHeader.add(key);
                             JSONArray jsonArray1 = jsonObject.getJSONArray("values");
-                            final List<String> submenu = new ArrayList<String>();
+                            final List<String> submenu = new ArrayList<>();
                             for (int j = 0; j < jsonArray1.length(); j++) {
                                 if (jsonArray1.getString(j).equalsIgnoreCase("null") || jsonArray1.getString(j).equalsIgnoreCase("")) {
                                     continue;
@@ -331,7 +331,7 @@ public class FilterFragment extends Fragment {
                     else {
                         JSONArray filterArray=jsonObj.getJSONArray("filters");
                         listDataHeader.add("category");
-                        final List<String> submenu = new ArrayList<String>();
+                        final List<String> submenu = new ArrayList<>();
                         for (int i = 0; i < filterArray.length(); i++) {
                             JSONObject jsonObject = filterArray.getJSONObject(i);
                             String values = jsonObject.getString("filterValue");
@@ -454,8 +454,6 @@ public class FilterFragment extends Fragment {
 
 
         }
-
-
     }
 //////////////////////////////////////remove from filter//////////////////////////////////////
 

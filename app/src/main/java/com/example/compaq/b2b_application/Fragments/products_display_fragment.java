@@ -27,8 +27,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,8 +51,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Activity.Cart_Activity;
-import com.example.compaq.b2b_application.Activity.FilterFragment;
-import com.example.compaq.b2b_application.Activity.Search_Activity;
 import com.example.compaq.b2b_application.Adapters.RecyclerAdapter2;
 import com.example.compaq.b2b_application.Adapters.Recycler_Adapter2;
 import com.example.compaq.b2b_application.Adapters.ViewpageAdapter1;
@@ -290,7 +286,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                Toast.makeText(getContext(), "REFRESGING ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Refreshing ", Toast.LENGTH_LONG).show();
                 productlist.clear();
                 recycler_adapter2.notifyDataSetChanged();
                 loadRecycleData();
