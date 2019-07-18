@@ -61,6 +61,8 @@ public class Customize_Order extends AppCompatActivity {
         yes=myDialogue.findViewById(R.id.yes);
         cancel=myDialogue.findViewById(R.id.cancel);
 
+        myDialogue.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+
         final Stepper_Adapter adapter=new Stepper_Adapter(this,getSupportFragmentManager(),5);
 
         pager = findViewById(R.id.pager);

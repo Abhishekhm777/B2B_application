@@ -112,7 +112,7 @@ public class Add_new_product_activity extends AppCompatActivity {
     private LinearLayout newLayout;
     public SharedPreferences sharedPref;
     private static  SharedPreferences.Editor editor;
-    View view;
+    private View view;
     private String selected = "";
     Dialog myDialogue, options_dialog;
     public LinearLayout gallery, camera;
@@ -130,7 +130,6 @@ public class Add_new_product_activity extends AppCompatActivity {
     HashMap<String, ArrayList<String>> listDataChild = new HashMap<>();
 
     HashMap<String, String> all_id = new HashMap<>();
-
     Adapter_spesification expandable_spcification_adapter;
     private  TextView reselect,userclass_textView,ok,cancel;
     LinearLayout button_layout, expand_layout;
@@ -262,12 +261,10 @@ public class Add_new_product_activity extends AppCompatActivity {
 
         user_class_adapter=new User_class_Adapter(this,list_data);
         listView.setAdapter(user_class_adapter);
-
         options_dialog = new Dialog(this);
         options_dialog.setContentView(R.layout.photo_options_layout);
         gallery =  options_dialog.findViewById(R.id.gallery);
         camera =  options_dialog.findViewById(R.id.camera);
-
         image_upload =  findViewById(R.id.image_button);
         vedio_upload =  findViewById(R.id.vdo_btn);
         add_stonedetails = findViewById(R.id.add_stone);

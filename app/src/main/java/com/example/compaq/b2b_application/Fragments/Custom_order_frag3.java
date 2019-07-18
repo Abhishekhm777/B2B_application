@@ -148,6 +148,8 @@ public class Custom_order_frag3 extends Fragment {
             cancel=myDialogue.findViewById(R.id.cancel);
             msg=(TextView) myDialogue.findViewById(R.id.popup_textview);
             msg.setText("           Do you wish to place this order?              ");
+            myDialogue.getWindow()
+                    .getAttributes().windowAnimations = R.style.DialogAnimation;
 
             wholseller_id = sharedPref.getString("userid", null);
 
@@ -155,6 +157,8 @@ public class Custom_order_frag3 extends Fragment {
             options_dialog.setContentView(R.layout.photo_options_layout);
             gallery = (LinearLayout) options_dialog.findViewById(R.id.gallery);
             camera = (LinearLayout) options_dialog.findViewById(R.id.camera);
+            options_dialog.getWindow()
+                    .getAttributes().windowAnimations = R.style.DialogAnimation;
 
             session = new SessionManagement(getActivity());
             listAdapter = new Customize_Oder_Adapter1(getActivity(), listDataHeader, listDataChild, list_id, getFragmentManager(), view);

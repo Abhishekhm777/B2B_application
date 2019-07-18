@@ -95,8 +95,6 @@ TextView details,shopmore;
 
         shopmore=(TextView)dialog.findViewById(R.id.continue_shopping) ;
 
-
-
        /* sharedPref =getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);*/
         sharedPref = getApplicationContext().getSharedPreferences("USER_DETAILS", 0);
         myEditor = sharedPref.edit();
@@ -390,7 +388,6 @@ TextView details,shopmore;
                             case 401:
                                 Toast.makeText(getApplicationContext(), "Session Expired!", Toast.LENGTH_SHORT).show();
                                 session.logoutUser(Check_out__Activity.this);
-
                         }
 
                     }
@@ -411,84 +408,21 @@ TextView details,shopmore;
             queue.add(request);
         }
 
-
-
-
-   /* public void clearCart(String id){
-
-        String url=ip+"gate/b2b/order/api/v1/cart/delete/"+id;
-        Log.e("Reached clearcart","REACHED");
-        Log.e("Reached clearcart",url);
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonObjectRequest jsonObjectss = new JsonObjectRequest (Request.Method.DELETE,url,null,
-
-                new Response.Listener<JSONObject>() {
-                    public void onResponse(JSONObject response) {
-
-
-                        try {
-
-
-
-
-                            Toast.makeText(getApplicationContext(),"Placed Successfully",Toast.LENGTH_SHORT).show();
-
-
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-
-                Toast.makeText(getApplicationContext(),"Could't Place your order.Try again.",Toast.LENGTH_SHORT).show();
-
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() {
-                sharedPref=getApplicationContext().getSharedPreferences("USER_DETAILS",0);
-
-                String output=sharedPref.getString(ACCESS_TOKEN, null);
-
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization","bearer "+output);
-
-                return params;
-            }
-
-        };
-        requestQueue.add(jsonObjectss);
-
-
-    }*/
-
-
     public void clearCart(String id){
 
         String url=ip+"gate/b2b/order/api/v1/cart/delete/"+id;
-        Log.e("Reached clearcart","REACHED");
-        Log.e("Reached clearcart",url);
-
         StringRequest stringRequest=new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
             @Override
             public
             void onResponse(String response) {
 
-
-
                 try {
-
                     sharedPref =getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
                     myEditor = sharedPref.edit();
                     myEditor.putString("cartid","0");
                     myEditor.putString("no_of_items", "0");
                     myEditor.apply();
                     myEditor.commit();
-
                        try {
                            MainActivity mActivity = new MainActivity();
                            mActivity.setupBadge(getApplicationContext());
@@ -496,7 +430,6 @@ TextView details,shopmore;
                        catch (NullPointerException e){
                            e.printStackTrace();
                        }
-
                    /* alert.showAlertDialog(Check_out__Activity.this, "Congratulations.", "Your order placed Successfully.", true);*/
                     dialog.show();
                     details.setOnClickListener(new View.OnClickListener() {
@@ -519,16 +452,9 @@ TextView details,shopmore;
                             Check_out__Activity.this.finish();
                         }
                     });
-
-
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
-
             }
         },new Response.ErrorListener() {
             @Override
@@ -553,6 +479,5 @@ TextView details,shopmore;
         RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }
-
 }
 

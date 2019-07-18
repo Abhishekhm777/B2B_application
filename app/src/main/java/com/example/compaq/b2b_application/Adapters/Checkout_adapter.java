@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.compaq.b2b_application.Helper_classess.DatePickerFragment;
 import com.example.compaq.b2b_application.Model.Cart_recy_model;
 import com.example.compaq.b2b_application.Model.Check_out_Recyclemodel;
 import com.example.compaq.b2b_application.Model.Recy_model2;
@@ -24,7 +25,7 @@ import com.example.compaq.b2b_application.R;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class Checkout_adapter extends RecyclerView.Adapter<Checkout_adapter.MyViewHolder> {
+public class Checkout_adapter  extends RecyclerView.Adapter<Checkout_adapter.MyViewHolder> {
     public FragmentActivity mCtx;
     private ArrayList<Check_out_Recyclemodel> productlist;
     private CardView cardView;
@@ -37,51 +38,51 @@ public class Checkout_adapter extends RecyclerView.Adapter<Checkout_adapter.MyVi
     public Bundle bundle;
     public Context mContext;
     public SharedPreferences pref;
+    DatePickerFragment datePickerFragment=new DatePickerFragment();
     public Checkout_adapter(Context mContext, ArrayList<Check_out_Recyclemodel> productlist) {
         this.productlist=productlist;
         this.mContext=mContext;
+
     }
 
     @NonNull
     @Override
     public Checkout_adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.checkout_cardlayout, parent, false);
-        return new Checkout_adapter.MyViewHolder(itemView);
+
+            return new MyViewHolder(itemView);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull Checkout_adapter.MyViewHolder holder, int position) {
         final com.example.compaq.b2b_application.Model.Check_out_Recyclemodel listner=  productlist.get(position);
-        holder.desc.setText("Description:     "+listner.getDesc());
+
         holder.d_qty.setText(listner.getQty());
         try {
 
             Double total_weight = Double.parseDouble(listner.getQty()) * Double.parseDouble(listner.getWeight());
-
-
             String set_total=new DecimalFormat("#0.000").format(total_weight);
             holder.total_weight.setText(set_total);
+
+              holder.date.setText(datePickerFragment.getDate());
 
         }
         catch (Exception e){
             e.printStackTrace();
-        }
-try {
-    String gross = new DecimalFormat("#0.000").format(Double.parseDouble(listner.getWeight()));
-    holder.d_gweight.setText(gross);
-    holder.d_product.setText(listner.getName());
+                    }
+            try {
+                String gross = new DecimalFormat("#0.000").format(Double.parseDouble(listner.getWeight()));
+                holder.d_gweight.setText(gross);
+                holder.d_product.setText(listner.getName());
 
-    holder.purity.setText(listner.getPurity());
-    holder.size.setText(listner.getSize());
-    holder.length.setText(listner.getLength());
-
-    String url = listner.getImg_url();
-    Glide.with(mContext).load(url).into(holder.imageV);
-}
-catch (NullPointerException e){
-    e.printStackTrace();
-}
-    }
+                String url = listner.getImg_url();
+                Glide.with(mContext).load(url).into(holder.imageV);
+            }
+            catch (NullPointerException e){
+                e.printStackTrace();
+            }
+                }
 
     @Override
     public int getItemCount() {
@@ -90,18 +91,20 @@ catch (NullPointerException e){
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView imageV;
-        TextView d_qty, pname,d_product,d_gweight,desc,total_weight,purity,size,length;
-        public MyViewHolder(View itemView) {
+        TextView d_qty, pname,d_product,d_gweight,desc,total_weight,date,size,length;
+        public MyViewHolder(View itemView){
             super(itemView);
-            purity=(TextView)itemView.findViewById(R.id.purity);
-            size=(TextView)itemView.findViewById(R.id.size);
-            length=(TextView)itemView.findViewById(R.id.length);
+
+            date=(TextView)itemView.findViewById(R.id.date);
+
             d_gweight=(TextView)itemView.findViewById(R.id.check_grpss_weight);
-            desc =(TextView)itemView.findViewById(R.id.description);
+
             d_product=(TextView)itemView.findViewById(R.id.check_produc_name);
             d_qty = (TextView) itemView.findViewById(R.id.check_quantity);
             imageV=(ImageView)itemView.findViewById(R.id.checkout_image);
             total_weight=(TextView) itemView.findViewById(R.id.totl_weight);
+
         }
+
     }
 }

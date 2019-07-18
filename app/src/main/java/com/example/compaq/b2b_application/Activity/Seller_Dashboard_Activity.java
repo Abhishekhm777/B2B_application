@@ -209,6 +209,7 @@ linearLayout=(LinearLayout)findViewById(R.id.graphlayout);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.seller__portal__screen_, menu);
         return true;
@@ -230,7 +231,6 @@ linearLayout=(LinearLayout)findViewById(R.id.graphlayout);
 
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -264,6 +264,11 @@ linearLayout=(LinearLayout)findViewById(R.id.graphlayout);
         }
         else if (id == R.id.proccess) {
             Intent intent=new Intent(getApplicationContext(), Order_to_bProsessed.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        }
+        else if (id == R.id.offline) {
+            Intent intent=new Intent(getApplicationContext(), Offline_order.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         }
