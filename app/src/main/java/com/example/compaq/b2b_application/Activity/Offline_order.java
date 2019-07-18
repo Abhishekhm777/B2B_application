@@ -30,8 +30,8 @@ public class Offline_order extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Offline_order_search_fragment custom_order_search_fragment=new Offline_order_search_fragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.offline_frame, custom_order_search_fragment,"customize_search").addToBackStack(null).commit();
+        Offline_order_search_fragment offline_order_search_fragment=new Offline_order_search_fragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.offline_frame, offline_order_search_fragment,"customize_search").addToBackStack(null).commit();
 
     }
 

@@ -8,7 +8,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -44,12 +46,15 @@ private  View view;
         view= inflater.inflate(R.layout.fragment_offline_fragment1, container, false);
         ButterKnife.bind(this,view);
         searchView=getActivity().findViewById(R.id.custom_search);
-        Offline_order_search_fragment offline_order_search_fragment=new Offline_order_search_fragment();
-        productlist=offline_order_search_fragment.getOrderDetails();
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         recyclerView.setHasFixedSize(true);
+        productlist=new ArrayList<>();
+        productlist.add(new Offline_order_model("","","","","","","" ));
+        productlist.add(new Offline_order_model("","","","","","","" ));
+
         offlineOrderAdapter = new Offline_order_Adapter(getContext(), productlist);
+
         recyclerView.setAdapter(offlineOrderAdapter);
         return view;
     }
@@ -57,7 +62,14 @@ private  View view;
     @Override
     public void onResume() {
         super.onResume();
-        searchView.setIconified(true);
-        searchView.onActionViewCollapsed();
+      searchView.setVisibility(View.GONE);
+       /* searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("THINDDD","DBBUIDVDV");
+                Offline_order_search_fragment offline_order_search_fragment = new Offline_order_search_fragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.offline_frame, offline_order_search_fragment, "customize_search").addToBackStack(null).commit();
+            }
+        });*/
     }
 }

@@ -119,7 +119,7 @@ public class Offline_order_search_fragment extends Fragment {
                     myDialogue.dismiss();
                     fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.offline_frame, new Offline_fragment1(), "offline_frag1");
+                    fragmentTransaction.replace(R.id.offline_frame, new Offline_fragment1(), "offline_frag1");
                     fragmentTransaction.commit();
                 }
             });
