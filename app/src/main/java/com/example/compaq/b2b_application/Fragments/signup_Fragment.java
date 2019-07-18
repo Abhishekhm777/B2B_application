@@ -13,6 +13,8 @@ import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -29,10 +31,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -198,15 +202,16 @@ public class signup_Fragment extends Fragment {
                     password.setError("Invalid password.Password must be at least 6 characters long and contain a number");
                     return;
                 }
-                if(!checkBox.isChecked()){
+               /* if(!checkBox.isChecked()){
                     BottomSheet.Builder builder1 = new BottomSheet.Builder(getContext());
                     builder1.setTitle("Please accept Terms and conditions");
                     builder1.show();
                     return;
-                }else{
+                }*/else{
                     signupModel=new SignupModel(company,gstin_t,firstname_t,email_t,phone_t,password_t);
-                    dialog.show();
+                    //dialog.show();
                     check();
+                    id=email_t;
                    // send_otp(phone_t,email_t);
 
                 }
@@ -245,26 +250,17 @@ public class signup_Fragment extends Fragment {
                         return;
                     }
                     else if(response.equals("false")&&count==2) {
-                        myEditior.putString("CLASS_TYPE", "REGISTER");
+                        String url=ip1+"/b2b/api/v1/user/otp?mobileNumber=%2B91"+phone_t+"&email="+email_t+"&verification=true";
+                        myEditior.putString("PASSWORD_ID",signupModel.getEmail());
+                        myEditior.putString("RESEND_OTP",url);
                         myEditior.commit();
                         myEditior.apply();
 
+                        getotp(url);
 
 
-                        /*final JSONObject postparams = new JSONObject();
-                        ArrayList<JSONObject>regiter_infolist=new ArrayList<>();
-                        String resUrl=Domain.domainName()+"/api/v1/user/otp?mobileNumber=%2B91"+mobileNumber+"&email="+email+"&verification=true";
-                        try {
-                            postparams.put("email",email);
-                            postparams.put("firstName",firstName);
-                            postparams.put("lastName", lastName);
-                            postparams.put("mobileNumber","+91"+mobileNumber);
-                            postparams.put("password", password);
-                            postparams.put("role","ROLE_CUSTOMER");
-                            regiter_infolist.add(postparams);
-                            Log.d("json obj",postparams.toString());
-                            getotp(postparams,regiter_infolist,resUrl);*/
-                       // Sign_up_Activity.set_view(3);
+
+
                     }
                 }
             }, new Response.ErrorListener() {
@@ -285,6 +281,51 @@ public class signup_Fragment extends Fragment {
 
         requestQueue.add(stringRequest);
 }
+
+
+    public void getotp (String resUrl)
+    {
+
+
+        Log.d("response Params",resUrl);
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        StringRequest req = new StringRequest(Request.Method.GET,resUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //8481903248
+                        Log.d("response",response);
+                        Fragment signOtp = new Signup_OtpFragment();
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.register_layout, signOtp).addToBackStack(null).commit();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Log.d("response123",error.toString());
+                        NetworkResponse response = error.networkResponse;
+                        if(response != null && response.data != null) {
+                            switch (response.statusCode) {
+
+                                case 500:
+                                    error.printStackTrace();
+                            }
+
+                        }
+
+                    }
+
+
+
+        });
+        requestQueue.add(req);
+    }
+
+
+
 
 
     //////////////////Opening Gallery On Clicking imageview On Drawer///////////////
