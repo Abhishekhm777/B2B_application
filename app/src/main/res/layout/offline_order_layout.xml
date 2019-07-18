@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+       android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="2"
+            android:background="@drawable/borders">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/main_logo"
+                android:layout_marginTop="2dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center_horizontal|center_vertical"
+                />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/image"
+                android:text="ANTIQUE BANGLES"
+                android:textAppearance="@style/product_name"
+                android:lineSpacingExtra="6sp"
+                android:gravity="center_horizontal|center_vertical"
+                />
+
+            <TextView
+                android:id="@+id/sku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/name"
+                android:text="ATQ00022321JS23232"
+                android:textAppearance="@style/sku"
+                android:lineSpacingExtra="8sp"
+                android:gravity="center_horizontal|center_vertical"
+                />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="0.8"
+            android:layout_gravity="center"
+            android:background="@drawable/borders">
+
+            <TextView
+                android:id="@+id/size_length"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:text="20"
+                android:textAppearance="@style/size_length"
+                android:gravity="center_horizontal|center_vertical"
+                />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1.2"
+            android:layout_gravity="center"
+            android:background="@drawable/borders">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center"
+            android:background="@drawable/gray_backround_design">
+
+            <TextView
+                android:id="@+id/g_wt_gms_"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/gray_backround_design"
+                android:layout_alignParentBottom="true"
+                android:text="20.000"
+                android:textAppearance="@style/item"
+                android:lineSpacingExtra="0sp"
+                android:gravity="center_horizontal|center_vertical"
+                />
+        </RelativeLayout>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center"
+        android:background="@drawable/borders">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center"
+            android:background="@drawable/gray_backround_design">
+            <TextView
+                android:id="@+id/qty"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:text="22"
+                android:textAppearance="@style/item"
+                android:lineSpacingExtra="0sp"
+                android:gravity="center_horizontal|center_vertical"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1.2"
+        android:layout_gravity="center"
+        android:background="@drawable/borders">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/gray_backround_design">
+            <TextView
+                android:id="@+id/total_g_wt_"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:text="800.000"
+                android:textAppearance="@style/item"
+                android:lineSpacingExtra="0sp"
+                android:gravity="center_horizontal|center_vertical"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

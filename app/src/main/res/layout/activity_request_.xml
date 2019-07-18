@@ -22,7 +22,7 @@ tools:context=".Activity.Request_Activity">
         android:theme="@style/Toolbar_Arrow"
         android:textAlignment="center"
         app:titleTextAppearance="@color/Titel"
-        android:background="@color/Toolbar">
+        android:background="@color/Text">
     </android.support.v7.widget.Toolbar>
 </LinearLayout>
 

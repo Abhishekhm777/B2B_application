@@ -111,7 +111,6 @@ private Button done_button;
             output = sharedPref.getString(ACCESS_TOKEN, null);
             user_id = sharedPref.getString("userid", "");
 
-            if(getActivity().getClass().toString().equalsIgnoreCase("class com.example.compaq.b2b_application.Activity.Custom_order_search_and_category_Activity")) {
 
                 bundle = this.getArguments();
                 if (bundle.getString("path") != null) {
@@ -132,41 +131,19 @@ private Button done_button;
                     searchView.setIconified(false);
                     searchView.requestFocusFromTouch();
                 }
-            }
-            else {
-                Log.e("PARENT", getActivity().getClass().toString());
-                searchView.setIconified(false);
-                searchView.requestFocusFromTouch();
-                done_button=getActivity().findViewById(R.id.done_button);
-                done_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        fragmentManager = getActivity().getSupportFragmentManager();
-                        fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.offline_frame, new Offline_fragment1(), "offline_frag1");
-                        fragmentTransaction.commit();
-                    }
-                });
 
-            }
+
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
                     Log.e("PARENT", getActivity().getClass().toString());
 
-                    if(getActivity().getClass().toString().equalsIgnoreCase("class com.example.compaq.b2b_application.Activity.Offline_order")) {
 
-                        names.remove(position);
-                        top_adapter.notifyDataSetChanged();
-                    }
-                    if(getActivity().getClass().toString().equalsIgnoreCase("class com.example.compaq.b2b_application.Activity.Custom_order_search_and_category_Activity")) {
-                        Log.e("INSIDE", getActivity().getClass().toString());
                         editor.putString("cust_id",ids.get(position)).apply();
                         editor.commit();
                         getActivity().finish();
 
-                    }
                 }
             });
         }

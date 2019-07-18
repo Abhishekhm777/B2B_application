@@ -23,11 +23,11 @@
             android:layout_marginBottom="15dp"
             android:orientation="horizontal"
             android:padding="5dp"
-            android:weightSum="10">
+          >
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="6"
+                android:layout_weight="7"
                 android:layout_gravity="center"
                 android:id="@+id/checkout_image"
                 android:layout_margin="2dp"
@@ -38,14 +38,14 @@
                 android:layout_height="match_parent"
                 android:weightSum="4"
                 android:layout_marginStart="22dp"
-                android:layout_weight="4">
+                android:layout_weight="3">
 
                 <TableRow>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textSize="12dp"
-                        android:layout_weight="2"
+                        android:layout_weight="0"
                         android:text="SKU:"
                         android:fontFamily="@font/catamaran"
                         android:layout_marginBottom="8dp"/>
@@ -53,6 +53,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
+                        android:textAlignment="center"
                         android:layout_weight="2"
                         android:singleLine="true"
                         android:fontFamily="@font/catamaran"
@@ -64,7 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textSize="12dp"
-                        android:layout_weight="2"
+                        android:layout_weight="0"
                         android:fontFamily="@font/catamaran"
                         android:text="Quantity: "
 
@@ -74,6 +75,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
                         android:id="@+id/check_quantity"
+                        android:textAlignment="center"
                         android:fontFamily="@font/catamaran"
                         android:layout_weight="2"
                         android:layout_marginBottom="8dp"/>
@@ -83,7 +85,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textSize="12dp"
-                        android:layout_weight="2"
+                        android:layout_weight="0"
                         android:fontFamily="@font/catamaran"
                         android:text="Gross weight(gms):"
                         android:layout_marginBottom="8dp"/>
@@ -91,6 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
+                        android:textAlignment="center"
                         android:fontFamily="@font/catamaran"
                         android:layout_weight="2"
                         android:id="@+id/check_grpss_weight"
@@ -102,13 +105,14 @@
                         android:layout_height="match_parent"
                         android:textSize="12dp"
                         android:fontFamily="@font/catamaran"
-                        android:layout_weight="2"
+                        android:layout_weight="0"
                         android:text="Estimated Total :"
                         android:layout_marginBottom="8dp"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
+                        android:textAlignment="center"
                         android:layout_weight="2"
                         android:fontFamily="@font/catamaran"
                         android:id="@+id/totl_weight"
@@ -120,124 +124,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
-                        android:layout_weight="2"
+                        android:layout_weight="0"
                         android:fontFamily="@font/catamaran"
-                        android:text="Purity(Kt):"
+                        android:text="Expected Delivery Date :"
                         android:layout_marginBottom="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:text=""
-                        android:id="@+id/purity"
-                        android:layout_weight="2"
-                        android:layout_marginBottom="8dp"/>
-                </TableRow>
-
-                <TableRow>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12dp"
+                        android:textAlignment="center"
                         android:fontFamily="@font/catamaran"
                         android:layout_weight="2"
-                        android:text="Size :"
+                        android:id="@+id/date"
                         android:layout_marginBottom="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:text=""
-                        android:id="@+id/size"
-                        android:layout_weight="2"
-                        android:layout_marginBottom="8dp"/>
+
                 </TableRow>
-
-                <TableRow>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_weight="2"
-                        android:fontFamily="@font/catamaran"
-                        android:text="Length(cm) :"
-                        android:layout_marginBottom="8dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:text=""
-                        android:id="@+id/length"
-                        android:layout_weight="2"
-                        android:layout_marginBottom="8dp"/>
-                </TableRow>
-               <!-- <TableRow>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textSize="12dp"
-                        android:layout_weight="2"
-                        android:text="Melting:"
-                        android:layout_marginBottom="8dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:text="0"
-                        android:id="@+id/check_melting"
-                        android:layout_weight="2"
-                        android:layout_marginBottom="8dp"/>
-                </TableRow>
-
-                <TableRow>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textSize="12dp"
-                        android:layout_weight="2"
-                        android:text="Rate:"
-
-                        android:layout_marginBottom="8dp"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_weight="2"
-                        android:text="0"
-                        android:id="@+id/check_rate"
-                        android:layout_marginBottom="8dp"/>
-                </TableRow>-->
-               <!-- <TableRow>
-                   &lt;!&ndash; <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textSize="12dp"
-                        android:layout_weight="2"
-                        android:layout_marginBottom="8dp"/>&ndash;&gt;
-                  &lt;!&ndash;  <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:layout_weight="2"
-                        android:id="@+id/check_advance"
-                        android:layout_marginBottom="8dp"/>&ndash;&gt;
-                </TableRow>-->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/description"/>
-
-
-                </LinearLayout>
-s
             </TableLayout>
-
         </LinearLayout>
-
     </LinearLayout>
 </android.support.v7.widget.CardView>
     <!--

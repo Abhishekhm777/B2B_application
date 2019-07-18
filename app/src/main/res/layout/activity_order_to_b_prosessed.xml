@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
             android:elevation="10dp"
             app:titleTextColor="@color/white"
-            android:background="@color/Toolbar"
+            android:background="@color/Text"
             android:theme="@style/Toolbar_Arrow"
         android:layout_height="wrap_content"
         app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
