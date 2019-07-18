@@ -173,4 +173,22 @@
         Custom_order_Search_and_category_activity
     </string>
 
+    ///////////////offline_order///////////////
+    <string name="size_length">
+       Size/\nLength
+            </string>
+
+    <string name="g_wt_gms_">G. Wt \n(gms)</string>
+
+    <string name="quantity">Qty</string>
+
+    <string name="total_g_wt_">Total \nG. Wt (gms)</string>
+    <string name="purity">Purity (kt):</string>
+    <string name="gross_weigh">Gross Weight  (gms):</string>
+    <string name="sizelen">Size/Length:</string>
+
+
+
+
+
 </resources>

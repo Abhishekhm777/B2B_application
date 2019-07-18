@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.Offline_fragment1">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+       android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/offline_colour">
+
+       <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="40dp"
+           android:layout_weight="2"
+           android:background="@drawable/borders">
+           <TextView
+               android:id="@+id/item"
+               android:layout_width="0dp"
+               android:layout_height="0dp"
+               android:layout_alignParentLeft="true"
+               android:layout_alignParentRight="true"
+               android:layout_alignParentTop="true"
+               android:layout_alignParentBottom="true"
+               android:text="Item"
+               android:textAppearance="@style/item"
+               android:lineSpacingExtra="6sp"
+               android:gravity="center_horizontal|center_vertical"
+               />
+       </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.8"
+            android:layout_gravity="center"
+            android:background="@drawable/borders">
+
+            <TextView
+                android:id="@+id/size_length"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:text="@string/size_length"
+                android:textAppearance="@style/size_length"
+                android:gravity="center_horizontal|center_vertical"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1.2"
+            android:layout_gravity="center"
+            android:background="@drawable/borders">
+
+            <TextView
+                android:id="@+id/g_wt_gms_"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:text="@string/g_wt_gms_"
+                android:textAppearance="@style/item"
+                android:lineSpacingExtra="0sp"
+                android:gravity="center_horizontal|center_vertical"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/borders">
+            <TextView
+                android:id="@+id/qty"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:text="@string/quantity"
+                android:textAppearance="@style/item"
+                android:lineSpacingExtra="0sp"
+                android:gravity="center_horizontal|center_vertical"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1.2"
+            android:layout_gravity="center"
+            android:background="@drawable/borders">
+            <TextView
+                android:id="@+id/total_g_wt_"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:text="@string/total_g_wt_"
+                android:textAppearance="@style/item"
+                android:lineSpacingExtra="0sp"
+                android:gravity="center_horizontal|center_vertical"
+                />
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/offline_recycler"
+        android:layout_below="@+id/header">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

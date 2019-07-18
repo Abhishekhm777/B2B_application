@@ -20,31 +20,29 @@
          android:layout_height="wrap_content"
          android:padding="15dp"
          android:orientation="vertical">
-           <RelativeLayout
+           <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:orientation="horizontal"
                android:id="@+id/radio">
 
         <RadioButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:textColorHint="@color/black"
             android:id="@+id/byname"
-            android:layout_marginEnd="68dp"
             android:hint="Search By Name/SKU" />
 
         <RadioButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
             android:id="@+id/byCategory"
             android:textColorHint="@color/black"
-            android:layout_alignParentRight="true"
             android:hint="Search By Category"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 <LinearLayout
     android:layout_width="match_parent"

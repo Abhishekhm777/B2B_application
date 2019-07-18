@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.example.compaq.b2b_application.Fragments.Custom_order_search_fragment;
 import com.example.compaq.b2b_application.Fragments.Custom_serch_by_category_frag;
+import com.example.compaq.b2b_application.Fragments.Offline_order_search_fragment;
 import com.example.compaq.b2b_application.R;
 
 import butterknife.BindView;
@@ -29,13 +30,8 @@ public class Offline_order extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-            Custom_order_search_fragment custom_order_search_fragment=new Custom_order_search_fragment();
-            Bundle bundle1 = new Bundle();
-            bundle1.putString("path", null);
-            getSupportFragmentManager().beginTransaction().add(R.id.offline_frame, custom_order_search_fragment,"customize_search").addToBackStack(null).commit();
-
-
+        Offline_order_search_fragment offline_order_search_fragment=new Offline_order_search_fragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.offline_frame, offline_order_search_fragment,"customize_search").addToBackStack(null).commit();
 
     }
 
@@ -64,6 +60,5 @@ public class Offline_order extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 
 }

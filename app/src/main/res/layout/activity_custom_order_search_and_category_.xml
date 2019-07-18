@@ -24,7 +24,7 @@ tools:context=".Activity.Seller_Order_History">
         android:layout_height="45dp"
         android:elevation="10dp"
         app:titleTextColor="@color/white"
-        android:background="@color/Toolbar"
+        android:background="@color/Text"
         android:theme="@style/Toolbar_Arrow"
         android:layout_gravity="center"
         android:textAlignment="center">
@@ -37,7 +37,7 @@ tools:context=".Activity.Seller_Order_History">
                 app:searchIcon="@drawable/ic_search_black_24dp"
                 android:id="@+id/custom_search"
                 android:layout_alignParentRight="true"
-                app:defaultQueryHint="Search Product"
+                app:defaultQueryHint="Search product"
                 android:layout_alignParentEnd="true"
 
                 >

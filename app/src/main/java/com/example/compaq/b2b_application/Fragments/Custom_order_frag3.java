@@ -425,8 +425,6 @@ public class Custom_order_frag3 extends Fragment {
             void onResponse(String response) {
                 try {
 
-
-
                     JSONObject jsonObject=new JSONObject(response);
                     JSONObject pro_object=jsonObject.getJSONObject("resourceSupport");
                     p_name.setText(pro_object.getString("name"));

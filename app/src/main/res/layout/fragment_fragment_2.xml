@@ -94,10 +94,10 @@
               android:layout_height="wrap_content"
               android:layout_alignParentBottom="true"
               android:layout_alignParentStart="true"
-              android:background="@color/Toolbar"
-              app:itemTextColor="@color/bottomifyPassiveColor"
+              android:background="@color/Text"
+              app:itemTextColor="@color/white"
               android:fontFamily="@font/catamaran"
-              app:itemIconTint="@color/bottomifyPassiveColor"
+              app:itemIconTint="@color/white"
              android:animateLayoutChanges="true"
               app:menu="@menu/botoom_items"/>
       </RelativeLayout>

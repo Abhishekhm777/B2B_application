@@ -17,7 +17,7 @@
         android:theme="@style/Toolbar_Arrow"
         android:textAlignment="center"
         app:titleTextAppearance="@color/Titel"
-        android:background="@color/Toolbar">
+        android:background="@color/Text">
     </android.support.v7.widget.Toolbar>
 
 <RelativeLayout
@@ -135,7 +135,7 @@
             android:elevation="4dp"
             android:text="check out"
             android:textColor="#fff"
-            android:background="@color/Toolbar"/>
+            android:background="@color/Text"/>
     </LinearLayout>
 
    <!-- <LinearLayout

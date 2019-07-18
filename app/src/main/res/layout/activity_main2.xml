@@ -22,7 +22,7 @@
             android:id="@+id/new_toolbar"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:background="@color/Toolbar"
+            android:background="@color/Text"
             android:textAlignment="center"
             android:elevation="5dp"
             android:theme="@style/Toolbar_Arrow"
@@ -84,7 +84,7 @@
                    android:layout_height="wrap_content"
                    android:layout_weight="1"
                    android:elevation="4dp"
-                   android:background="@color/Toolbar"
+                   android:background="@color/Text"
                    android:fontFamily="@font/catamaran"
                    android:text="Add To BAG"
                    android:textColor="@color/white"/>
