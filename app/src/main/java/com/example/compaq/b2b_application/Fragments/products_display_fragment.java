@@ -140,7 +140,10 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         class2 = "";
         Log.d("class...", class2);
 
-        item_clicked = bundle.getString("Item_Clicked");
+        item_clicked = bundle.getString("Item_Clicked").replace(" ","%20");
+        if(!item_clicked.equals("")&&!item_clicked.equals(FilterFragment.path)){
+            FilterFragment.path="";
+        }
         class2 = bundle.getString("CLASS");
         Log.d(".........item click",item_clicked+class2);
 
@@ -343,7 +346,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                     Fragment filterFragment=new FilterFragment();
                     filterFragment.setArguments(args);
                     //bottom_sheet_dialog.show(getFragmentManager(), bottom_sheet_dialog.getTag());
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe,filterFragment).addToBackStack(null).commit();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainframe,filterFragment,"FilterFragment").addToBackStack(null).commit();
 
                     return true;
                 }
