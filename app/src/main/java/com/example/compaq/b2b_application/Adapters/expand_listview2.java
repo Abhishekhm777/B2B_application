@@ -2,6 +2,8 @@ package com.example.compaq.b2b_application.Adapters;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,20 +29,27 @@ public class expand_listview2 extends BaseExpandableListAdapter {
     // child data in format of header title, child title
     private HashMap<String, List<String>> _listDataChild;
     private String className;
+    private ExpandableListView accordion;
+   // LayoutInflater infalInflater;
+
 
     public ArrayList<String> selection;
     public expand_listview2(Context context, List<String> listDataHeader,
-                            HashMap<String, List<String>> listChildData, ArrayList<String> selection,String className) {
+                            HashMap<String, List<String>> listChildData, ArrayList<String> selection,String className,ExpandableListView accordion) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
         this.selection=selection;
         this.className=className;
+        this.accordion = accordion;
+
+
+        //infalInflater = LayoutInflater.from(context);
+
     }
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition))
-                .get(childPosititon);
+        return _listDataChild.get(_listDataHeader.get(groupPosition)).get(childPosititon);
     }
 
     @Override
@@ -52,11 +62,11 @@ public class expand_listview2 extends BaseExpandableListAdapter {
     View getChildView(int groupPosition, final int childPosition,
                       boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final String childText = (String) getChild(groupPosition, childPosition);
+         String childText = (String) getChild(groupPosition, childPosition);
         Log.d("class name..",className);
          if(className.equals("SEARCH")){
              if (convertView == null) {
-                 LayoutInflater infalInflater = (LayoutInflater) this._context
+                 LayoutInflater infalInflater = (LayoutInflater) _context
                          .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                  convertView = infalInflater.inflate(R.layout.child_list_category_layout, null);
 
@@ -67,9 +77,9 @@ public class expand_listview2 extends BaseExpandableListAdapter {
          }
          else {
              if (convertView == null) {
-                 LayoutInflater infalInflater = (LayoutInflater) this._context
+                 LayoutInflater infalInflaters = (LayoutInflater) _context
                          .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                 convertView = infalInflater.inflate(R.layout.child_list_item_layout, null);
+                 convertView = infalInflaters.inflate(R.layout.child_list_item_layout, null);
 
              }
 
@@ -77,30 +87,41 @@ public class expand_listview2 extends BaseExpandableListAdapter {
                      .findViewById(R.id.check_box_child);
 
              txtListChild.setText(childText);
-
-             if (selection.contains(txtListChild.getText().toString())) {
+             if(txtListChild.getText().toString().equals("Yes")&&selection.contains("true")){
+                 txtListChild.setChecked(true);
+             }
+             else if (!txtListChild.getText().toString().equals("Yes")&&selection.contains(txtListChild.getText().toString())) {
                  txtListChild.setChecked(true);
              } else {
                  txtListChild.setChecked(false);
+
+                // accordion.collapseGroup(groupPosition);
+
+
              }
+
          }
+
         return convertView;
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition)).size();
+        Log.d("child count..",_listDataHeader.size()+"");
+        return _listDataChild.get(_listDataHeader.get(groupPosition)).size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this._listDataHeader.get(groupPosition);
+
+        return _listDataHeader.get(groupPosition);
     }
 
     @Override
     public int getGroupCount() {
-        return this._listDataHeader.size();
+        Log.d("group count..",_listDataHeader.size()+"");
+
+        return _listDataHeader.size();
     }
 
     @Override
@@ -108,16 +129,18 @@ public class expand_listview2 extends BaseExpandableListAdapter {
         return groupPosition;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
         String headerTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
+           LayoutInflater infalInflater = (LayoutInflater) _context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.expandabale_grouplayout, null);
         }
 
+       // convertView.setEnabled(true);
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.expand_id);
         //  lblListHeader.setTypeface(null, Typeface.BOLD);
@@ -150,5 +173,24 @@ else {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
+
+
+    public void onGroupExpanded(int groupPosition) {
+
+        accordion.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int lastExpandedGroupPosition = -1;
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (lastExpandedGroupPosition != -1 && groupPosition != lastExpandedGroupPosition) {
+                    accordion.collapseGroup(lastExpandedGroupPosition);
+                    lastExpandedGroupPosition = groupPosition;
+                }
+               // lastExpandedGroupPosition = groupPosition;
+            }
+        });
+    }
+
 
 }

@@ -237,7 +237,7 @@ public class signup_Fragment extends Fragment {
                         Toast.makeText(getActivity(),"Mail already exist change the Mail id!",Toast.LENGTH_SHORT).show();
                     }
                     else if(response.equals("true")&&count==2){
-                        Toast.makeText(getActivity(),"Mail already exist change the Mail id!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Mobile number already exist. change the number!",Toast.LENGTH_SHORT).show();
                     }
                     else if (response.equals("false")&&count==1){
                         count=2;

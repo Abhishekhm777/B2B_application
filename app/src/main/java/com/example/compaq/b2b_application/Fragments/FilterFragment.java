@@ -3,6 +3,7 @@ package com.example.compaq.b2b_application.Fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,14 +66,14 @@ public class FilterFragment extends Fragment {
     public List<String> listDataHeader = new ArrayList<String>();
     HashMap<String, List<String>> listDataChild ;
     public SharedPreferences sharedPref;
-
+    public   static  String path="";
     public static String result,item_clicks ;
     public ArrayList<String> children;
     public ArrayList<String> selection;
     public ArrayList<String> urls;
     private Button clear_all,apply;
     private Map<Object, Object> params;
-    private LinkedHashMap<Object,Object>filterparams;
+    private LinkedHashMap<Object,Object>filterparams,filterValues;
     private LinkedHashMap<Object,Object>sortparams;
     //List<String>selected_list;
     Bundle bundle;
@@ -81,159 +82,176 @@ public class FilterFragment extends Fragment {
     private static final String search_url=ip_cat + "/searching/facets";
     private  static  String final_url="" ,wholesaler_id="";
     String Classes=" ";
+    private static View views=null;
+    private static Fragment fragment_2;
+    private static FragmentManager fragmentManager;
+    private static FragmentTransaction fTransaction1;
+    CheckedTextView checkbox;
+    Fragment frg = null;
+     FragmentTransaction ft;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_filter, container, false);
 
-        listDataChild = new HashMap<String, List<String>>();
-        sortparams=new LinkedHashMap<>();
-        filterparams=new LinkedHashMap<>();
-        children = new ArrayList<String>();
-        selection = new ArrayList<String>();
-        urls = new ArrayList<String>();
-        expListView = view.findViewById(R.id.expand);
-        sharedPref = getContext().getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         bundle = this.getArguments();
+        fragment_2 = new products_display_fragment() ;
+        fragmentManager=getActivity().getSupportFragmentManager();
+        item_clicks = bundle.getString("Item_Clicked").replace(" ","%20");
+        Log.d("view check",item_clicks+path);
+        if(item_clicks.equals(path)){
 
-        // result = bundle.getString("TeamName");
-        item_clicks=bundle.getString("Item_Clicked");
 
-        wholesaler_id=pref.getString("Wholeseller_id", null);
-
-        sortparams.putAll((LinkedHashMap<Object, Object>) bundle.getSerializable("SORT"));
-        filterparams.putAll((LinkedHashMap<Object, Object>) bundle.getSerializable("FILTER_VALUE"));
-        Classes=bundle.getString("CLASS");
-
-        if(Classes.equals("SEARCH") ||Classes.equals("WITH_SEARCH")){
-            final_url= create_url(search_url);
+            return views;
         }
+
         else {
-            final_url= create_url(base_url);
-        }
+            views = inflater.inflate(R.layout.fragment_filter, container, false);
+             path=item_clicks;
+             filterValues=new LinkedHashMap<>();
+            listDataChild = new HashMap<>();
+            sortparams = new LinkedHashMap<>();
+            filterparams = new LinkedHashMap<>();
+            filter_jsonArray = new JSONArray();
+            children = new ArrayList<>();
+            selection = new ArrayList<>();
+            urls = new ArrayList<>();
+            expListView = views.findViewById(R.id.expand);
+            sharedPref = getContext().getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+           // bundle = this.getArguments();
 
-        filter_jsonArray=new JSONArray();
+           // item_clicks = bundle.getString("Item_Clicked");
 
-        loadRecycleData();
+            frg = getActivity().getSupportFragmentManager().findFragmentByTag("FilterFragment");
+            ft = getActivity().getSupportFragmentManager().beginTransaction();
 
-        clear_all=(Button)view.findViewById(R.id.clear);
-        apply=(Button)view.findViewById(R.id.applay);
+            wholesaler_id = pref.getString("Wholeseller_id", null);
+            sortparams.putAll((LinkedHashMap<Object, Object>) bundle.getSerializable("SORT"));
+            filterparams.putAll((LinkedHashMap<Object, Object>) bundle.getSerializable("FILTER_VALUE"));
+            Classes = bundle.getString("CLASS");
 
-
-
-        apply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                applyFilter();
-
-                // dismiss();
-
-
+            if (Classes.equals("SEARCH") || Classes.equals("WITH_SEARCH")) {
+                final_url = create_url(search_url);
+            } else {
+                final_url = create_url(base_url);
             }
-        });
-        clear_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //dismiss();
-
-            }
-        });
 
 
 
+            loadRecycleData();
 
+            clear_all = (Button) views.findViewById(R.id.clear);
+            apply = (Button) views.findViewById(R.id.applay);
 
+            apply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-
-
-        //listAdapter = new com.example.compaq.b2b_application.Adapters.expand_listview2(getActivity(), listDataHeader, listDataChild,selection);
-        // expListView.setAdapter(listAdapter);
-
-
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
-                //  mDrawerLayout.closeDrawers();
-                // Toast.makeText(getApplicationContext(),
-                // "Group Clicked " + listDataHeader.get(groupPosition),
-                // Toast.LENGTH_SHORT).show();
-
-
-                return false;
-            }
-        });
-
-        // Listview Group expanded listener
-        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                //  mDrawerLayout.closeDrawers();
-                /*Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();*/
-            }
-        });
-
-        // Listview Group collasped listener
-        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-
-
-            }
-        });
-
-        // Listview on child click listener
-        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                //selected_list=new ArrayList<>();
-                if(Classes.equals("SEARCH")) {
-                    String selectedItem = ((List) (listDataChild.get(listDataHeader.get(groupPosition)))).get(childPosition).toString();
-                    filterparams.put(parent.getAdapter().getItem(groupPosition).toString(),selectedItem);
                     applyFilter();
 
                 }
+            });
+            clear_all.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public void onClick(View view) {
+
+                   // path="";
+                    filterparams.clear();
+                    children.clear();
+                    listAdapter.notifyDataSetChanged();
+                   // selection.clear();
+                    selection.clear();
+                    params.clear();
+                    filter_jsonArray=new JSONArray();
+
+                }
+            });
 
 
-                else {
-                    CheckedTextView checkbox = (CheckedTextView) v.findViewById(R.id.check_box_child);
-                    checkbox.toggle();
-                    String parent_view = parent.getAdapter().getItem(groupPosition).toString();
-                    if (checkbox.isChecked()) {
-                        // add child category to parent's selection list
+            expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
-                        Log.d("parent..", parent.getAdapter().getItem(groupPosition).toString());
-                        if (checkbox.getText().toString().equals("Yes")) {
-                            create_Data(parent_view, "true");
-                        } else {
-                            create_Data(parent_view, checkbox.getText().toString());
-                        }
+                @Override
+                public boolean onGroupClick(ExpandableListView parent, View v,
+                                            int groupPosition, long id) {
+
+                    return false;
+                }
+            });
+
+
+            expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+                @Override
+                public void onGroupExpand(int groupPosition) {
+                    Log.d("view check22","..........343"+expListView.isClickable()+expListView.isActivated()+expListView.isEnabled());
+                }
+            });
+
+            // Listview Group collasped listener
+            expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+                @Override
+                public void onGroupCollapse(int groupPosition) {
+
+                }
+            });
+
+            // Listview on child click listener
+            expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public boolean onChildClick(ExpandableListView parent, View v,
+                                            int groupPosition, int childPosition, long id) {
+                    //selected_list=new ArrayList<>();
+                    if (Classes.equals("SEARCH")) {
+                        String selectedItem = ((List) (listDataChild.get(listDataHeader.get(groupPosition)))).get(childPosition).toString();
+                        filterparams.put(parent.getAdapter().getItem(groupPosition).toString(), selectedItem);
+                        applyFilter();
 
 
                     } else {
-                        // remove child category from parent's selection list
+                        checkbox = (CheckedTextView) v.findViewById(R.id.check_box_child);
+                        checkbox.toggle();
+                       // String parent_view = parent.getAdapter().getItem(groupPosition).toString();
+                        String parent_view = ((listDataHeader.get(groupPosition))).toString();;
+                        if (checkbox.isChecked()) {
+                            // add child category to parent's selection list
 
-                        remove_data(parent_view, checkbox.getText().toString());
+                            Log.d("parent..", parent.getAdapter().getItem(groupPosition).toString()+parent_view);
+                            if (checkbox.getText().toString().equals("Yes")) {
+                                create_Data(parent_view, "true");
+                                filterValues.put(parent_view, "true");
+                                selection.add("true");
+
+
+
+                            } else {
+                                create_Data(parent_view, checkbox.getText().toString());
+                                filterValues.put(parent_view, checkbox.getText().toString());
+                                selection.add(checkbox.getText().toString());
+
+                            }
+
+
+                        } else {
+                            // remove child category from parent's selection list
+
+                            remove_data(parent_view, checkbox.getText().toString());
+                            filterValues.remove(parent_view,checkbox.getText().toString());
+                            selection.remove(checkbox.getText().toString());
+                        }
+
                     }
-
+                    return true;
                 }
-                return true;
-            }
 
-        });
+            });
+        }
 
-        return  view;
+        return  views;
     }
 
     ///////////////////////////////////////////////apply filter////////////////////
@@ -254,6 +272,11 @@ public class FilterFragment extends Fragment {
 
         if(Classes.equals("SEARCH") ||Classes.equals("WITH_SEARCH")){
             bundle.putString("CLASS","WITH_SEARCH");
+            if(Classes.equals("SEARCH")) {
+                path = "";
+            }
+
+
         }
         else {
             bundle.putString("CLASS","FILTER");
@@ -264,14 +287,14 @@ public class FilterFragment extends Fragment {
 
 
 
-        Fragment fragment_2 = new products_display_fragment() ;
-        fragment_2.setArguments(bundle);
-        FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-        fragmentManager.popBackStackImmediate(0,FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        FragmentTransaction fTransaction1 =fragmentManager.beginTransaction();
-        fTransaction1.replace(R.id.mainframe, fragment_2);
-        fTransaction1.addToBackStack(null);
-        fTransaction1.commit();
+         // fragment_2 = new products_display_fragment() ;
+          fragment_2.setArguments(bundle);
+        // fragmentManager=getActivity().getSupportFragmentManager();
+         fragmentManager.popBackStackImmediate(0,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+         fTransaction1 =fragmentManager.beginTransaction();
+         fTransaction1.replace(R.id.mainframe, fragment_2);
+         fTransaction1.addToBackStack(null);
+         fTransaction1.commit();
     }
 
 
@@ -302,13 +325,7 @@ public class FilterFragment extends Fragment {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                             String key = jsonObject.getString("facetKey");
-                      /*if(key.equalsIgnoreCase("newLaunch"))
-                      {
-                          key="SORT";
-                      }*/
-                     /* if(key.equalsIgnoreCase("PRIORITY")){
-                          continue;
-                      }*/
+
                             listDataHeader.add(key);
                             JSONArray jsonArray1 = jsonObject.getJSONArray("values");
                             final List<String> submenu = new ArrayList<>();
@@ -323,7 +340,7 @@ public class FilterFragment extends Fragment {
                                 submenu.add(jsonArray1.getString(j));
                             }
                             listDataChild.put(listDataHeader.get(i), submenu);
-                            listAdapter = new com.example.compaq.b2b_application.Adapters.expand_listview2(getActivity(), listDataHeader, listDataChild,selection,Classes);
+                            listAdapter = new com.example.compaq.b2b_application.Adapters.expand_listview2(getActivity(), listDataHeader, listDataChild,selection,Classes,expListView);
                             expListView.setAdapter(listAdapter);
 
                         }
@@ -338,7 +355,7 @@ public class FilterFragment extends Fragment {
                             submenu.add(values);
                             if(i+1==filterArray.length()){
                                 listDataChild.put(listDataHeader.get(0), submenu);
-                                listAdapter = new com.example.compaq.b2b_application.Adapters.expand_listview2(getActivity(), listDataHeader, listDataChild,selection,Classes);
+                                listAdapter = new com.example.compaq.b2b_application.Adapters.expand_listview2(getActivity(), listDataHeader, listDataChild,selection,Classes,expListView);
                                 expListView.setAdapter(listAdapter);
                             }
                         }
@@ -366,19 +383,16 @@ public class FilterFragment extends Fragment {
                             BottomSheet.Builder builder = new BottomSheet.Builder(getContext());
                             builder.setTitle("Sorry! could't reach server");
                             builder.show();
-                            // dismiss();
                             break;
                         case 400:
                             BottomSheet.Builder builder1 = new BottomSheet.Builder(getContext());
                             builder1.setTitle("Sorry! No Products Available");
                             builder1.show();
-                            // dismiss();
                             break;
                         case 417:
                             BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
                             builder2.setTitle("Sorry! No Products Available");
                             builder2.show();
-                            //dismiss();
                             break;
 
 
@@ -407,13 +421,7 @@ public class FilterFragment extends Fragment {
         try {
             if (filter_jsonArray.length() > 0) {
                 boolean b1 = false;
-               /* for (Object key : listDataChild.keySet()) {
-                    Object value = listDataChild.get(key);
-                    Log.d("Key..",key.toString()+value.toString());
 
-
-                }
-            }*/
                 for (int n = 0; n < filter_jsonArray.length(); n++) {
                     JSONObject object = filter_jsonArray.getJSONObject(n);
                     if (object.get("facetKey").equals(facetKeys)) {
