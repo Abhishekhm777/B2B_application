@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -33,14 +36,19 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Activity.Sign_up_Activity;
+import com.example.compaq.b2b_application.Helper_classess.AppHelper;
+import com.example.compaq.b2b_application.Helper_classess.VolleyMultipartRequest;
+import com.example.compaq.b2b_application.Helper_classess.VolleySingleton;
 import com.example.compaq.b2b_application.Model.SignupModel;
 import com.example.compaq.b2b_application.R;
 
@@ -48,7 +56,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.michaelbel.bottomsheet.BottomSheet;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +66,7 @@ import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
+import static com.example.compaq.b2b_application.Fragments.Custom_order.PICK_IMAGE;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 
@@ -65,7 +76,7 @@ public class signup_Fragment extends Fragment {
     CheckBox checkBox;
     public Button sign_upbutton,upload_logo,gstn_button;
     ImageView imageView;
-
+    private static String imageid="";
     Toolbar toolbar;
     private static  int count=1;
     private static String id="";
@@ -80,6 +91,8 @@ public class signup_Fragment extends Fragment {
     // Inflate the layout for this fragment
     SharedPreferences sharedPref;
     SharedPreferences.Editor myEditior;
+    Bundle bundle;
+    ArrayList<SignupModel>signupModelArrayList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,6 +102,8 @@ public class signup_Fragment extends Fragment {
 
         sharedPref = getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         myEditior = sharedPref.edit();
+        bundle=new Bundle();
+        signupModelArrayList= new ArrayList<>();
         company_name=(EditText)view.findViewById(R.id.edit_company_name);
         gstin_e=(EditText)view.findViewById(R.id.edit_GSTIN);
         gstn_button=(Button)view.findViewById(R.id.upload_gst);
@@ -131,22 +146,7 @@ public class signup_Fragment extends Fragment {
 
             }
         });
-        email_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-              //  chec_otp(email_otp.getText().toString(),email_btn,email_otp);
-            }
-        });
-
-        mobile_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //chec_otp(mobile_otp.getText().toString(),mobile_btn,mobile_otp);
-
-            }
-        });
 
         gstn_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,11 +208,20 @@ public class signup_Fragment extends Fragment {
                     builder1.show();
                     return;
                 }*/else{
-                    signupModel=new SignupModel(company,gstin_t,firstname_t,email_t,phone_t,password_t);
+                    try {
+                        if(imageid==""|| imageid==null){
+                            imageid="35f05e0e-56fb-4676-9819-381da000696b";
+                        }
+                    signupModel=new SignupModel(imageid,company,gstin_t,firstname_t,email_t,phone_t,password_t);
+                        signupModelArrayList.add(signupModel);
+                     bundle.putSerializable("Data", signupModelArrayList.toString());
                     //dialog.show();
                     check();
                     id=email_t;
                    // send_otp(phone_t,email_t);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
 
                 }
 
@@ -296,6 +305,7 @@ public class signup_Fragment extends Fragment {
                         //8481903248
                         Log.d("response",response);
                         Fragment signOtp = new Signup_OtpFragment();
+                        signOtp.setArguments(bundle);
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.register_layout, signOtp).addToBackStack(null).commit();
@@ -345,6 +355,7 @@ public class signup_Fragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super method removed
+          Log.d("requestcode.....",requestCode+"");
         if (resultCode == RESULT_OK) {
             if (requestCode == 1000) {
                 Uri returnUri = data.getData();
@@ -354,13 +365,38 @@ public class signup_Fragment extends Fragment {
                     bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
                     bitimage = getResizedBitmap(bitmapImage, 400);
                     imageView.setImageBitmap(bitimage);
+
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getActivity().getContentResolver().query(returnUri, filePathColumn, null, null, null);
+
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+
+
+                    Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, true);
+
+
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream);
+
+                    byte[] imageInByte = byteArrayOutputStream.toByteArray();
+                    long lengthbmp = imageInByte.length;
+                    Log.d("Image Size", String.valueOf(lengthbmp));
+
+
+                    Upload_image(bitmap);
+                   // upload_logo.setText("Replace image");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
 
             }
+
         }
+
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -378,5 +414,87 @@ public class signup_Fragment extends Fragment {
             width = (int) (height * bitmapRatio);
         }
         return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
+
+///////////////////////get image id to load//////////////////////////////////////////////////////////
+
+    public void Upload_image(final Bitmap bitmap) {
+
+
+        String url = ip1+"/b2b/api/v1/user/image/save";
+        VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
+            @Override
+            public void onResponse(NetworkResponse response) {
+                String resultResponse = new String(response.data);
+                try {
+
+                    imageid=resultResponse;
+                    Log.i("Unexpected", resultResponse);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse networkResponse = error.networkResponse;
+                String errorMessage = "Unknown error";
+                if (networkResponse == null) {
+                    if (error.getClass().equals(TimeoutError.class)) {
+                        errorMessage = "Request timeout";
+                    } else if (error.getClass().equals(NoConnectionError.class)) {
+                        errorMessage = "Failed to connect server";
+                    }
+                } else {
+                    String result = new String(networkResponse.data);
+                    try {
+                        JSONObject response = new JSONObject(result);
+                        String status = response.getString("exception");
+                        String message = response.getString("message");
+
+                        Log.e("Error Status", status);
+                        Log.e("Error Message", message);
+
+                        if (networkResponse.statusCode == 404) {
+                            errorMessage = "Resource not found";
+                        } else if (networkResponse.statusCode == 401) {
+                            errorMessage = message + " Please login again";
+                        } else if (networkResponse.statusCode == 400) {
+                            errorMessage = message + " Check your inputs";
+                        } else if (networkResponse.statusCode == 500) {
+                            errorMessage = message + " Something is getting wrong";
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Log.i("Error", errorMessage);
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+
+                return params;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                // file name could found file base or direct access from real path
+                // for now just get bitmap data from ImageView
+
+                params.put("file", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromDrawable(getActivity(),bitmap), "image/jpeg"));
+
+                return params;
+            }
+        };
+
+
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(multipartRequest);
     }
 }

@@ -2,6 +2,7 @@ package com.example.compaq.b2b_application.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,6 +35,7 @@ import java.util.List;
 
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 
 public class Select_CatalogueFragment extends Fragment {
@@ -41,6 +43,8 @@ public class Select_CatalogueFragment extends Fragment {
     ArrayList<String> catalogueList;
     ListView listView;
     CatalogueListAdapter catalogueListAdapter;
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor myEditior;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,12 +54,25 @@ public class Select_CatalogueFragment extends Fragment {
         listView=(ListView) view.findViewById(R.id.catalogue_list);
         catalogueList=new ArrayList<>();
         find_catalogue();
+        sharedPref = getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        myEditior = sharedPref.edit();
 
        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               if(catalogueList.size()>0) {
+                   String catname = catalogueList.get(i);
+                   myEditior.putString("CATALOGUE", catname);
+                   myEditior.commit();
+                   myEditior.apply();
 
-               Sign_up_Activity.set_view(1);
+                   Log.d("catalog...", catname);
+                   Sign_up_Activity.set_view(1);
+               }
+               else {
+                   Toast.makeText(getContext(),"Something went wrong!",
+                           Toast.LENGTH_SHORT).show();
+               }
            }
        });
        return  view;

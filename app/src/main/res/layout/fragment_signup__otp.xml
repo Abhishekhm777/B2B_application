@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Fragments.Signup_OtpFragment">
-        <android.support.v7.widget.Toolbar
+        <!--<android.support.v7.widget.Toolbar
             android:id="@+id/fpassword2_toolbar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -16,7 +16,7 @@
             app:title="OTP"
             android:elevation="6dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark">
-        </android.support.v7.widget.Toolbar>
+        </android.support.v7.widget.Toolbar>-->
         <LinearLayout
             android:id="@+id/otp_layout"
             android:orientation="vertical"

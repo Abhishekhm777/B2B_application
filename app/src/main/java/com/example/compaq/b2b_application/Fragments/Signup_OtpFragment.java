@@ -30,6 +30,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Activity.LoginActivity;
+import com.example.compaq.b2b_application.Model.SignupModel;
 import com.example.compaq.b2b_application.R;
 
 import org.json.JSONException;
@@ -47,8 +48,10 @@ public class Signup_OtpFragment extends Fragment {
     TextView resend;
     SharedPreferences sharedPref;
     SharedPreferences.Editor myEditior;
-    String calling="";
+    String calling="",role="",product="",logo="";
     android.support.v7.widget.Toolbar toolbar;
+    SignupModel signupModel;
+    ArrayList<SignupModel>signuplist;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,11 +61,17 @@ public class Signup_OtpFragment extends Fragment {
 
         sharedPref = getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         myEditior = sharedPref.edit();
-
+        Bundle bundle=this.getArguments();
+        role=sharedPref.getString("ROLE","");
+        product=sharedPref.getString("CATALOGUE","");
         otpText=(EditText)view.findViewById(R.id.otp_register);
         submit=(Button)view.findViewById(R.id.submit_res_otp);
         resend=(TextView)view.findViewById(R.id.text_resend);
+        signuplist=new ArrayList<>();
+        signuplist.addAll((ArrayList<SignupModel>) bundle.getSerializable("Data"));
+        signupModel= (SignupModel) signuplist.get(0);
 
+        logo="35f05e0e-56fb-4676-9819-381da000696b";
 
         /*toolbar = (android.support.v7.widget.Toolbar)view.findViewById(R.id.fpassword2_toolbar);
         toolbar.setNavigationIcon(R.drawable.left_black_24dp);
@@ -95,6 +104,7 @@ public class Signup_OtpFragment extends Fragment {
                                 fragmentTransaction.replace(R.id.register_layout, new Reset_password());
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();*/
+                                submitData();
                             } else {
                                 otpText.setError("Incorrect OTP");
                                 otpText.setText("");
@@ -149,27 +159,35 @@ public class Signup_OtpFragment extends Fragment {
 
     public void submitData(){
         final JSONObject postparams = new JSONObject();
-        ArrayList<JSONObject> regiter_infolist=new ArrayList<>();
-       /* try {
-            *//*postparams.put("email",email);
-            postparams.put("firstName",firstName);
-            postparams.put("lastName", lastName);
-            postparams.put("mobileNumber","+91"+mobileNumber);
-            postparams.put("password", password);
-            postparams.put("role","ROLE_CUSTOMER");
-            regiter_infolist.add(postparams);
-            Log.d("json obj",postparams.toString());*//*
+        final JSONObject comoanyParams = new JSONObject();
+        //ArrayList<JSONObject> regiter_infolist=new ArrayList<>();
+        try {
+            comoanyParams.put("name",signupModel.getCompany());
+            comoanyParams.put("product",product);
+            comoanyParams.put("gstin",signupModel.getGst());
+            comoanyParams.put("logoImageId",signupModel.getLogoId());
+            postparams.put("company",comoanyParams);
+            postparams.put("role","ROLE_"+role);
+            postparams.put("gstin",signupModel.getGst());
+            postparams.put("firstName",signupModel.getPerson());
+            postparams.put("email",signupModel.getEmail());
+            postparams.put("mobileNumber","+91"+signupModel.getMobile());
+            postparams.put("password", signupModel.getPassword());
+
+            //regiter_infolist.add(postparams);
+            Log.d("json obj",postparams.toString());
+            postrequest(postparams);
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
 
     /////////////////////////////////////////////////send request//////////////////////////////////////////
     public void postrequest (final JSONObject jsonObject)
     {
-        String url=ip1+"/api/v1/user/save";
+        String url=ip1+"/b2b/api/v1/user/save";
 
 //    Log.d("response Params",postparamslist.get(0).toString());
 
