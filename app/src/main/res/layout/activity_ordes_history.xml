@@ -10,7 +10,7 @@ tools:context=".Activity.Ordes_history">
     android:id="@+id/orderhistory_toolbar"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/colorPrimary" />
+    android:background="@color/Text" />
 <RelativeLayout
     android:id="@+id/orderRelative"
     android:layout_width="match_parent"

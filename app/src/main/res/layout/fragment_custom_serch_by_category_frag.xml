@@ -19,19 +19,13 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:orientation="vertical">
-
-
         <!--  <Spinner
 
               android:id="@+id/country"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               />-->
-
-
     </LinearLayout>
-
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,26 +37,44 @@
         android:id="@+id/new_layout">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
             android:id="@+id/clear"
-            android:elevation="10dp"
-            android:background="@drawable/shadow_effect"
-            android:stateListAnimator="@anim/no_animation"
-            android:shadowColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:background="@color/whish"
+            android:fontFamily="@font/catamaran"
+            android:gravity="center"
             android:text="clear"
-            />
-
+            android:textColor="@color/black" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
             android:id="@+id/submit"
-            android:background="@drawable/shadow_effect"
-            android:elevation="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="submit" />
-
+            android:layout_marginStart="110dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="15dp"
+            android:layout_toEndOf="@+id/clear"
+            android:layout_weight="1"
+            android:background="@color/skyBlue"
+            android:fontFamily="@font/catamaran"
+            android:gravity="center"
+            android:text="submit"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
     </LinearLayout>

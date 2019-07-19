@@ -24,7 +24,7 @@
             app:titleTextColor="@color/white"
             android:fontFamily="@font/catamaran"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/Toolbar"
+            android:background="@color/Text"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>

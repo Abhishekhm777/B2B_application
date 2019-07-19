@@ -24,7 +24,7 @@
                 android:id="@+id/tool_bar"
                 android:layout_height="45dp"
                 android:elevation="10dp"
-                android:background="@color/Toolbar"
+                android:background="@color/Text"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 >

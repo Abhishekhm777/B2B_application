@@ -20,7 +20,7 @@
             android:theme="@style/Toolbar_Arrow"
             android:textAlignment="center"
             app:titleTextAppearance="@color/Titel"
-            android:background="@color/Toolbar">
+            android:background="@color/Text">
 
 
 
@@ -40,7 +40,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
-
         </ListView>
     </LinearLayout>
 

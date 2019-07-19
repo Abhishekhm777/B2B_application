@@ -23,7 +23,7 @@ tools:context=".Activity.Address_Activivty">
         android:elevation="10dp"
         android:textAlignment="center"
         app:titleTextAppearance="@color/Titel"
-        android:background="@color/Toolbar">
+        android:background="@color/Text">
 
 
 
