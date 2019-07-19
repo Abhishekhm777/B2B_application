@@ -23,9 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/main_logo"
                 android:layout_marginTop="2dp"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:gravity="center_horizontal|center_vertical"
                 />
@@ -72,11 +70,39 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
-                android:text="20"
                 android:textAppearance="@style/size_length"
                 android:gravity="center_horizontal|center_vertical"
                 />
         </RelativeLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="0.8"
+            android:layout_gravity="center"
+            android:background="@drawable/borders">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_gravity="center"
+                android:background="@drawable/gray_backround_design">
+                <TextView
+                    android:id="@+id/qty"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:textAppearance="@style/item"
+                    android:lineSpacingExtra="0sp"
+                    android:gravity="center_horizontal|center_vertical"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="100dp"
@@ -98,7 +124,6 @@
                 android:layout_alignParentTop="true"
                 android:background="@drawable/gray_backround_design"
                 android:layout_alignParentBottom="true"
-                android:text="20.000"
                 android:textAppearance="@style/item"
                 android:lineSpacingExtra="0sp"
                 android:gravity="center_horizontal|center_vertical"
@@ -106,36 +131,8 @@
         </RelativeLayout>
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_weight="0.5"
-        android:layout_gravity="center"
-        android:background="@drawable/borders">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_gravity="center"
-            android:background="@drawable/gray_backround_design">
-            <TextView
-                android:id="@+id/qty"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentBottom="true"
-                android:text="22"
-                android:textAppearance="@style/item"
-                android:lineSpacingExtra="0sp"
-                android:gravity="center_horizontal|center_vertical"
-                />
-        </RelativeLayout>
-    </LinearLayout>
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_weight="1.2"
@@ -162,7 +159,7 @@
                 android:gravity="center_horizontal|center_vertical"
                 />
         </RelativeLayout>
-    </LinearLayout>
+    </LinearLayout>-->
 
     </LinearLayout>
 

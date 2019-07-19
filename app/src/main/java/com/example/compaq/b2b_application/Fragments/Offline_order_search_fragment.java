@@ -1,6 +1,7 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -11,10 +12,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -73,12 +77,17 @@ public class Offline_order_search_fragment extends Fragment {
     private TextView name,sku,purity,gwt,size;
     private  Button confirm,cancel;
     private ImageView imageView;
+    private Toolbar toolbar;
     private  String basee="https://server.mrkzevar.com/gate/b2b/catalog/api/v1/assets/image/";
+    private String imageurl;
     private ArrayList<Offline_order_model> productlist;
     public Offline_order_search_fragment() {
         // Required empty public constructor
     }
-
+    SubmitClicked mCallback;
+    public interface SubmitClicked{
+        public void sendText(String text);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,15 +98,17 @@ public class Offline_order_search_fragment extends Fragment {
 
             listView = view.findViewById(R.id.custom_search_listview);
 
+            toolbar=getActivity().findViewById(R.id.offline_tool);
+
             searchView = getActivity().findViewById(R.id.custom_search);
              productlist=new ArrayList<>();
 
             myDialogue = new Dialog(getContext());
             myDialogue.setContentView(R.layout.offline_order_dialog_layout);
+
             myDialogue.setCanceledOnTouchOutside(false);
             confirm=myDialogue.findViewById(R.id.confrim);
             cancel=myDialogue.findViewById(R.id.cancel);
-
             name=myDialogue.findViewById(R.id.name);
             sku=myDialogue.findViewById(R.id.sku);
             gwt=myDialogue.findViewById(R.id.weight_t);
@@ -106,6 +117,8 @@ public class Offline_order_search_fragment extends Fragment {
             imageView=myDialogue.findViewById(R.id.image_view);
 
             myDialogue.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            Window window = myDialogue.getWindow();
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -115,12 +128,29 @@ public class Offline_order_search_fragment extends Fragment {
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    productlist.add(new Offline_order_model(name.getText().toString(),"",sku.getText().toString(),gwt.getText().toString(),size.getText().toString(),purity.getText().toString(),"1" ));
-                    myDialogue.dismiss();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList("arraylist", productlist);
                     fragmentManager = getActivity().getSupportFragmentManager();
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.offline_frame, new Offline_fragment1(), "offline_frag1");
-                    fragmentTransaction.commit();
+
+                        productlist.add(new Offline_order_model(name.getText().toString(),basee+imageurl,sku.getText().toString(),gwt.getText().toString(),size.getText().toString(),purity.getText().toString(),"1" ));
+                    myDialogue.dismiss();
+                    Fragment fragmentA = fragmentManager.findFragmentByTag("offline_frag1");
+                    if (fragmentA == null) {
+                       Log.e("EXISTSS","NPOO");
+                        Offline_fragment1 offline_fragment1=new Offline_fragment1();
+                        offline_fragment1.setArguments(bundle);
+                        fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.offline_frame, offline_fragment1, "offline_frag1");
+                        fragmentTransaction.commit();
+                    }
+                    else{
+                        //fragment exist
+                        Log.e("EXISTSS","YESSSSSS");
+                        mCallback.sendText("YOUR TEXT");
+                        getActivity().getSupportFragmentManager().popBackStack();
+                    }
+
                 }
             });
 
@@ -302,6 +332,7 @@ public class Offline_order_search_fragment extends Fragment {
                             }
                         }
                     }
+                    imageurl=jsonArray.get(0).toString();
                     Glide.with(getActivity()).load(basee+ jsonArray.get(0).toString()).into(imageView);
 
 
@@ -351,5 +382,35 @@ public class Offline_order_search_fragment extends Fragment {
     }
     public ArrayList<Offline_order_model> getOrderDetails(){
         return productlist;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        toolbar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (SubmitClicked) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement TextClicked");
+        }
+    }
+
+    public void someMethod(){
+
+    }
+
+    @Override
+    public void onDetach() {
+        mCallback = null; // => avoid leaking, thanks @Deepscorn
+        super.onDetach();
     }
 }

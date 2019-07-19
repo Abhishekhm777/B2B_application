@@ -112,11 +112,9 @@ public class Custom_order_frag3 extends Fragment {
     @Nullable @BindView(R.id.size)EditText size;
     @Nullable @BindView(R.id.qty)EditText qty;
     @Nullable @BindView(R.id.g_weight)EditText qwt;
-
     @Nullable @BindView(R.id.melting)EditText melting;
     @Nullable @BindView(R.id.sea)EditText seal;
     @Nullable @BindView(R.id.descr)EditText descri;
-
     @Nullable @BindView(R.id.gwt_text)TextView qty_textview;
     @Nullable @BindView(R.id.dynamic_spec)TextView dynamic_spec;
     @Nullable @BindView(R.id.reference_image)ImageView reference_image;

@@ -1,6 +1,9 @@
 package com.example.compaq.b2b_application.Model;
 
-public class Offline_order_model {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Offline_order_model implements Parcelable {
     String name,img_url,sku,weight,size,purity,quantity;
 
     public Offline_order_model(String name, String img_url,String sku,String weight,String size,String purity,String quantity) {
@@ -13,6 +16,28 @@ public class Offline_order_model {
         this.quantity=quantity;
 
     }
+
+    protected Offline_order_model(Parcel in) {
+        name = in.readString();
+        img_url = in.readString();
+        sku = in.readString();
+        weight = in.readString();
+        size = in.readString();
+        purity = in.readString();
+        quantity = in.readString();
+    }
+
+    public static final Creator<Offline_order_model> CREATOR = new Creator<Offline_order_model>() {
+        @Override
+        public Offline_order_model createFromParcel(Parcel in) {
+            return new Offline_order_model(in);
+        }
+
+        @Override
+        public Offline_order_model[] newArray(int size) {
+            return new Offline_order_model[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -68,5 +93,21 @@ public class Offline_order_model {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(img_url);
+        parcel.writeString(sku);
+        parcel.writeString(weight);
+        parcel.writeString(size);
+        parcel.writeString(purity);
+        parcel.writeString(quantity);
     }
 }
