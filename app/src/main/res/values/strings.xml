@@ -187,8 +187,7 @@
     <string name="gross_weigh">Gross Weight  (gms):</string>
     <string name="sizelen">Size/Length:</string>
 
-
-
+    <string name="tool_text">OFFLINE ORDER</string>
 
 
 </resources>

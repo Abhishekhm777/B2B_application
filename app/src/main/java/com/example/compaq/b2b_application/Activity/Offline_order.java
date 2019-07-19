@@ -11,17 +11,18 @@ import android.widget.EditText;
 
 import com.example.compaq.b2b_application.Fragments.Custom_order_search_fragment;
 import com.example.compaq.b2b_application.Fragments.Custom_serch_by_category_frag;
+import com.example.compaq.b2b_application.Fragments.Offline_fragment1;
 import com.example.compaq.b2b_application.Fragments.Offline_order_search_fragment;
+import com.example.compaq.b2b_application.Model.Offline_order_model;
 import com.example.compaq.b2b_application.R;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Offline_order extends AppCompatActivity {
-
+public class Offline_order extends AppCompatActivity implements Offline_order_search_fragment.SubmitClicked{
     @Nullable @BindView(R.id.offline_tool) Toolbar toolbar;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,4 +62,9 @@ public class Offline_order extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void sendText(String text) {
+        Offline_fragment1 frag = (Offline_fragment1)getSupportFragmentManager().findFragmentByTag("offline_frag1");
+        frag.updateText(text);
+    }
 }
