@@ -188,6 +188,8 @@
     <string name="sizelen">Size/Length:</string>
 
     <string name="tool_text">OFFLINE ORDER</string>
+    <string name="total_gross">TOTAL GROSS WEIGHT (gms)</string>
+
 
 
 </resources>

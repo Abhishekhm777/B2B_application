@@ -18,14 +18,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.compaq.b2b_application.Adapters.Offline_order_Adapter;
 import com.example.compaq.b2b_application.Adapters.Order_to_bprocessed_Adapter;
+import com.example.compaq.b2b_application.Helper_classess.Back_alert_class;
 import com.example.compaq.b2b_application.Model.Offline_order_model;
 import com.example.compaq.b2b_application.Model.Seller_order_history;
 import com.example.compaq.b2b_application.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +49,9 @@ private  View view;
  @BindView(R.id.add_button) ImageView add_button;
  @BindView(R.id.place_button) Button place_button;
  private  Bundle bundle;
- private Boolean bb=false;
+
+ private  TextView total;
+
 
     public Offline_fragment1() {
         // Required empty public constructor
@@ -60,13 +65,23 @@ private  View view;
         ButterKnife.bind(this,view);
         searchView=getActivity().findViewById(R.id.custom_search);
         toolbar=getActivity().findViewById(R.id.offline_tool);
-        bb=true;
+        total= view.findViewById(R.id.total);
 
         thisToolbar.setNavigationIcon(R.drawable.back_btn);
         thisToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    getActivity().finish();
+
+                final Back_alert_class back_alert_class=new Back_alert_class(getContext());
+                back_alert_class.showAlert();
+                back_alert_class.getYes().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                          back_alert_class.getMyDialogue().dismiss();
+                          getActivity().finish();
+                    }
+                });
+
             }
         });
 
@@ -97,7 +112,7 @@ private  View view;
         bundle=this.getArguments();
         productlist= bundle.getParcelableArrayList("arraylist");
         Log.e("Yeahhhhhh",String.valueOf(productlist.size()));
-        offlineOrderAdapter = new Offline_order_Adapter(getContext(), productlist);
+        offlineOrderAdapter = new Offline_order_Adapter(getContext(), productlist,view);
         recyclerView.setAdapter(offlineOrderAdapter);
         return view;
     }
@@ -105,12 +120,7 @@ private  View view;
     @Override
     public void onResume() {
         super.onResume();
-        if(bb){
-            Log.e("truew",String.valueOf(productlist.size()));
-            productlist.add(new Offline_order_model("n","n","n","n","n","1" ,"1"));
-        }
-
-        toolbar.setVisibility(View.GONE);
+       toolbar.setVisibility(View.GONE);
 
        /* searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,10 +135,12 @@ private  View view;
     @Override
     public void onPause() {
         super.onPause();
+    }
+    public void updateText(HashMap<String,String> text){
+       Log.e("yaaaaaaaaaaa",  text.get("name"));
 
+        productlist.add(new Offline_order_model(text.get("name"), text.get("url"),text.get("sku"),text.get("gwt"),text.get("size"),text.get("purity") ,"1"));
+        offlineOrderAdapter.notifyDataSetChanged();
     }
 
-    public void updateText(String text){
-       Log.e("yaaaaaaaaaaa",text);
-    }
 }

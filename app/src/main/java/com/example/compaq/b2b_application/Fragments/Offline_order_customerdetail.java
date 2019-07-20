@@ -44,6 +44,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.Customize_Oder_Adapter1;
 import com.example.compaq.b2b_application.Adapters.Manage_Adapter;
+import com.example.compaq.b2b_application.Helper_classess.Order_Placed_Splashfragment;
 import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.R;
@@ -137,6 +138,15 @@ public class Offline_order_customerdetail extends Fragment {
             myDialogue.setContentView(R.layout.back_alert_dialog_layout);
             myDialogue.setCanceledOnTouchOutside(false);
            TextView yes=myDialogue.findViewById(R.id.yes);
+           yes.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   myDialogue.dismiss();
+                     Order_Placed_Splashfragment order_placed_splashfragment = new Order_Placed_Splashfragment();
+                   getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.offline_frame, order_placed_splashfragment, "splash").commit();
+
+               }
+           });
            TextView cancel=myDialogue.findViewById(R.id.cancel);
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -157,7 +167,6 @@ public class Offline_order_customerdetail extends Fragment {
                     public void onClick(View v) {
                         if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
                             getActivity().getSupportFragmentManager().popBackStack();
-
                         }
                     }
                 });

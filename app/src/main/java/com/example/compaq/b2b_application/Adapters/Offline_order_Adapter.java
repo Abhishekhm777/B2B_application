@@ -4,21 +4,28 @@ import android.content.Context;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.compaq.b2b_application.Activity.Cart_Activity;
+import com.example.compaq.b2b_application.Activity.Offline_order;
+import com.example.compaq.b2b_application.Fragments.Offline_fragment1;
+import com.example.compaq.b2b_application.Helper_classess.Number_picker_dialogue;
 import com.example.compaq.b2b_application.Model.Offline_order_model;
 import com.example.compaq.b2b_application.Model.OrderTobe_customer_model;
-import com.example.compaq.b2b_application.Model.Seller_order_history;
 import com.example.compaq.b2b_application.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -29,10 +36,16 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
     private FragmentTransaction fragmentTransaction;
     public FragmentManager fragmentManager;
     private HashMap<String, OrderTobe_customer_model> details;
-    public Offline_order_Adapter(Context applicationContext, ArrayList<Offline_order_model> productlist) {
+    private Double grosswt;
+    private   Double total_double=0.0;
+
+    private View view;
+    public   TextView textView;
+    public Offline_order_Adapter(Context applicationContext, ArrayList<Offline_order_model> productlist, View view) {
         this.mContext=applicationContext;
         this.productlist=productlist;
-
+        this.view=view;
+      textView=view.findViewById(R.id.total);
     }
     @NonNull
     @Override
@@ -42,37 +55,77 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final com.example.compaq.b2b_application.Model.Offline_order_model listner=  productlist.get(position);
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+
+        final com.example.compaq.b2b_application.Model.Offline_order_model listner = productlist.get(position);
         holder.pr_name.setText(listner.getName());
         holder.pro_sku.setText(listner.getSku());
-        holder.pro_qty.setText(listner.getQuantity());
         holder.pro_size.setText(listner.getSize());
-        holder.pro_gwt.setText(listner.getWeight());
+        holder.qty.setText(listner.getQuantity());
+
+        holder.qty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Number_picker_dialogue number_picker_dialogue = new Number_picker_dialogue(mContext);
+                number_picker_dialogue.showPicker();
+                number_picker_dialogue.set.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        number_picker_dialogue.myDialogue.dismiss();
+                        listner.setQuantity(String.valueOf(number_picker_dialogue.np.getValue()));
+                        holder.qty.setText(String.valueOf(number_picker_dialogue.np.getValue()));
+                        notifyDataSetChanged();
+                    }
+                });
+
+            }
+        });
+
 
         Glide.with(mContext).load(listner.getImg_url()).into(holder.product_image);
+        holder.itemlayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                holder.itemlayout.setAlpha(0.3f);
+                return false;
+            }
 
+        });
+
+        try {
+            grosswt = Double.parseDouble(listner.getQuantity()) * Double.parseDouble(listner.getWeight());
+            String gross=new DecimalFormat("#0.000").format(Double.parseDouble(grosswt.toString()));
+            holder.pro_gwt.setText(gross);
+            total_double = total_double + grosswt;
+            String total=new DecimalFormat("#0.000").format(Double.parseDouble(total_double.toString()));
+             textView.setText(total);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public int getItemCount() {
         return productlist.size();
-
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
        ImageView product_image;
-       TextView pr_name,pro_sku,pro_size,pro_gwt,pro_qty;
+       TextView pr_name,pro_sku,pro_size,qty;
+       EditText pro_gwt;
+       RelativeLayout itemlayout;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            pr_name=itemView.findViewById(R.id.name);
+            pro_sku=itemView.findViewById(R.id.sku);
+            pro_size=itemView.findViewById(R.id.size_length);
+            pro_gwt=itemView.findViewById(R.id.g_wt_gms_);
+            product_image=itemView.findViewById(R.id.image);
+            itemlayout=itemView.findViewById(R.id.item_layout);
+            qty=itemView.findViewById(R.id.qty);
 
-            pr_name=(TextView)itemView.findViewById(R.id.name);
-            pro_sku=(TextView)itemView.findViewById(R.id.sku);
-            pro_size=(TextView)itemView.findViewById(R.id.size_length);
-            pro_gwt=(TextView)itemView.findViewById(R.id.g_wt_gms_);
-            pro_qty=(TextView)itemView.findViewById(R.id.qty);
-            product_image=(ImageView) itemView.findViewById(R.id.image);
         }
     }
 }

@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class Offline_order_model implements Parcelable {
     String name,img_url,sku,weight,size,purity,quantity;
-
+    String total_weight;
     public Offline_order_model(String name, String img_url,String sku,String weight,String size,String purity,String quantity) {
         this.name = name;
         this.img_url = img_url;
@@ -110,4 +110,5 @@ public class Offline_order_model implements Parcelable {
         parcel.writeString(purity);
         parcel.writeString(quantity);
     }
+
 }
