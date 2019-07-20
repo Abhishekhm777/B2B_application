@@ -81,12 +81,13 @@ public class Offline_order_search_fragment extends Fragment {
     private  String basee="https://server.mrkzevar.com/gate/b2b/catalog/api/v1/assets/image/";
     private String imageurl;
     private ArrayList<Offline_order_model> productlist;
+    private HashMap<String,String> product_map=new HashMap<>();
     public Offline_order_search_fragment() {
         // Required empty public constructor
     }
     SubmitClicked mCallback;
     public interface SubmitClicked{
-        public void sendText(String text);
+        public void sendText(HashMap<String,String > text);
     }
 
     @Override
@@ -128,12 +129,10 @@ public class Offline_order_search_fragment extends Fragment {
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     Bundle bundle = new Bundle();
                     bundle.putParcelableArrayList("arraylist", productlist);
                     fragmentManager = getActivity().getSupportFragmentManager();
-
-                        productlist.add(new Offline_order_model(name.getText().toString(),basee+imageurl,sku.getText().toString(),gwt.getText().toString(),size.getText().toString(),purity.getText().toString(),"1" ));
+                    productlist.add(new Offline_order_model(name.getText().toString(),basee+imageurl,sku.getText().toString(),gwt.getText().toString(),size.getText().toString(),purity.getText().toString(),"1" ));
                     myDialogue.dismiss();
                     Fragment fragmentA = fragmentManager.findFragmentByTag("offline_frag1");
                     if (fragmentA == null) {
@@ -145,15 +144,20 @@ public class Offline_order_search_fragment extends Fragment {
                         fragmentTransaction.commit();
                     }
                     else{
-                        //fragment exist
-                        Log.e("EXISTSS","YESSSSSS");
-                        mCallback.sendText("YOUR TEXT");
+                        //fragment exis
+
+                        product_map.put("name",name.getText().toString());
+                        product_map.put("url",basee+imageurl);
+                        product_map.put("sku",sku.getText().toString());
+                        product_map.put("gwt",gwt.getText().toString());
+                        product_map.put("size",size.getText().toString());
+                        product_map.put("purity",purity.getText().toString());
+
+                        mCallback.sendText(product_map);
                         getActivity().getSupportFragmentManager().popBackStack();
                     }
-
                 }
             });
-
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
@@ -199,7 +203,7 @@ public class Offline_order_search_fragment extends Fragment {
                    Top_model top_model=names.get(position);
                    name.setText(top_model.getPname());
                    sku.setText(top_model.getPsku());
-                    myDialogue.show();
+
 
                 }
             });
@@ -283,7 +287,7 @@ public class Offline_order_search_fragment extends Fragment {
                 return params;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(this.getActivity());
         requestQueue.add(stringRequest);
     }
 
@@ -299,6 +303,7 @@ public class Offline_order_search_fragment extends Fragment {
             public
             void onResponse(String response) {
                 try {
+                    myDialogue.show();
 
                     JSONObject jsonObject=new JSONObject(response);
                     JSONObject pro_object=jsonObject.getJSONObject("resourceSupport");
@@ -404,13 +409,9 @@ public class Offline_order_search_fragment extends Fragment {
         }
     }
 
-    public void someMethod(){
-
-    }
-
     @Override
     public void onDetach() {
-        mCallback = null; // => avoid leaking, thanks @Deepscorn
+        mCallback = null; // => avoid leaking
         super.onDetach();
     }
 }
