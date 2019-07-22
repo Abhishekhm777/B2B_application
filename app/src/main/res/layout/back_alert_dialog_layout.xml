@@ -32,20 +32,21 @@
 
         >
 
+
         <Button
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_alignParentTop="true"
-            android:id="@+id/yes"
             android:fontFamily="@font/catamaran"
-            android:textColor="@color/black"
-            android:text="YES"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
             android:background="@color/whish"
+            android:textColor="@color/black"
             android:gravity="center"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp"
-            android:layout_alignParentLeft="true"
+            android:layout_marginRight="8dp"
+            android:text="Cancel"
+            android:id="@+id/cancel"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="11dp"
             android:layout_marginBottom="15dp"
 
@@ -54,16 +55,17 @@
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_alignParentTop="true"
+            android:id="@+id/yes"
             android:fontFamily="@font/catamaran"
-            android:layout_marginLeft="8dp"
-            android:background="@color/skyBlue"
+
+            android:text="YES"
+            android:layout_marginRight="8dp"
             android:textColor="@color/white"
+            android:background="@color/skyBlue"
             android:gravity="center"
             android:layout_weight="1"
-            android:layout_marginRight="8dp"
-            android:text="Cancel"
-            android:id="@+id/cancel"
-            android:layout_alignParentRight="true"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentLeft="true"
             android:layout_marginTop="11dp"
             android:layout_marginBottom="15dp"
 

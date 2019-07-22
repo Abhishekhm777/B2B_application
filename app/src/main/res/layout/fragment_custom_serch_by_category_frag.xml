@@ -26,13 +26,11 @@
               android:layout_height="wrap_content"
               />-->
     </LinearLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="55dp"
-        android:layout_marginRight="55dp"
         android:visibility="visible"
-        android:layout_marginTop="25dp"
+        android:layout_margin="25dp"
         android:orientation="horizontal"
         android:id="@+id/new_layout">
 
@@ -40,42 +38,26 @@
             android:id="@+id/clear"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="11dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="15dp"
             android:layout_weight="1"
+            android:layout_marginRight="15dp"
             android:background="@color/whish"
             android:fontFamily="@font/catamaran"
             android:gravity="center"
             android:text="clear"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"/>
 
         <Button
             android:id="@+id/submit"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="110dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="11dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="15dp"
             android:layout_toEndOf="@+id/clear"
             android:layout_weight="1"
             android:background="@color/skyBlue"
             android:fontFamily="@font/catamaran"
             android:gravity="center"
             android:text="submit"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"/>
 
-    </RelativeLayout>
+    </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

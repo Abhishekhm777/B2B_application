@@ -98,8 +98,13 @@ private Button done_button;
                         getSuggestions(newText);
                     }
                     if (newText.equalsIgnoreCase("")){
-                          names.clear();
-                          top_adapter.notifyDataSetChanged();
+                        try {
+                            names.clear();
+                            top_adapter.notifyDataSetChanged();
+                        }
+                        catch (NullPointerException e){
+
+                        }
                     }
 
                     return true;

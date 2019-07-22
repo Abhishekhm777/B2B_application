@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.compaq.b2b_application.Model.Offline_order_model;
 import com.example.compaq.b2b_application.Model.OrderTobe_customer_model;
 import com.example.compaq.b2b_application.Model.Seller_order_history;
@@ -43,7 +44,13 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final com.example.compaq.b2b_application.Model.Offline_order_model listner=  productlist.get(position);
-        holder.pr_name.setText("AHOOOO");
+        holder.pr_name.setText(listner.getName());
+        holder.pro_sku.setText(listner.getSku());
+        holder.pro_qty.setText(listner.getQuantity());
+        holder.pro_size.setText(listner.getSize());
+        holder.pro_gwt.setText(listner.getWeight());
+
+        Glide.with(mContext).load(listner.getImg_url()).into(holder.product_image);
 
     }
 
@@ -55,7 +62,7 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
        ImageView product_image;
-       TextView pr_name,pro_sku,pro_size,pro_gwt,pro_qty,total_weight;
+       TextView pr_name,pro_sku,pro_size,pro_gwt,pro_qty;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -65,7 +72,6 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
             pro_size=(TextView)itemView.findViewById(R.id.size_length);
             pro_gwt=(TextView)itemView.findViewById(R.id.g_wt_gms_);
             pro_qty=(TextView)itemView.findViewById(R.id.qty);
-            total_weight=(TextView)itemView.findViewById(R.id.total_g_wt_);
             product_image=(ImageView) itemView.findViewById(R.id.image);
         }
     }

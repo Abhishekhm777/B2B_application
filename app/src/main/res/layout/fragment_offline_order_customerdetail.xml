@@ -1,22 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusedByDefault="false"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    android:id="@+id/cart_layout_frame"
-    tools:context=".Fragments.Customize_order_frag1">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:focusedByDefault="false"
+android:focusableInTouchMode="true"
+android:orientation="vertical"
+android:id="@+id/cart_layout_frame"
+tools:context=".Fragments.Offline_order_customerdetail">
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progress"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/next"
+        android:layout_marginBottom="3dp"
+        android:id="@+id/frame2">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/offline_toolbar1"
+        android:layout_height="45dp"
+        app:titleTextColor="@color/Titel"
+        android:theme="@style/Toolbar_Arrow"
+        android:textAlignment="center"
+        app:titleTextAppearance="@color/Titel"
+        android:background="@color/Text">
+
+    </android.support.v7.widget.Toolbar>
+
+<ProgressBar
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/progress"
+    android:layout_centerInParent="true"
+    android:visibility="gone"
+    android:layout_centerHorizontal="true"/>
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -53,23 +72,23 @@
 
 
 
-                <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:id="@+id/cust_no"
-                    android:layout_height="40dp"
-                    android:paddingLeft="4dp"
-                    android:layout_weight="2"
-                    android:background="@drawable/light_blue_background"
-                    android:inputType="number"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:textColor="#000"
-                    android:textSize="16sp" />
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:id="@+id/cust_no"
+                android:layout_height="40dp"
+                android:paddingLeft="4dp"
+                android:layout_weight="2"
+                android:background="@drawable/light_blue_background"
+                android:inputType="number"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
 
-               <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -241,20 +260,21 @@
         </LinearLayout>
 
 
-        </LinearLayout>
+    </LinearLayout>
 
 
 </ScrollView>
-    <Button
-        android:id="@+id/next"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-        android:textSize="15dp"
-        android:textColor="@color/white"
-        android:background="@color/whish"
-        android:hint="NEXT"
-        android:textColorHint="@color/white" />
+    </LinearLayout>
+<Button
+    android:id="@+id/next"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:textSize="15dp"
+    android:textColor="@color/white"
+    android:background="@color/whish"
+    android:hint="NEXT"
+    android:textColorHint="@color/white" />
 
 </RelativeLayout>
 
