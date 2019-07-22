@@ -69,6 +69,7 @@ public class Signup_OtpFragment extends Fragment {
         resend=(TextView)view.findViewById(R.id.text_resend);
         signuplist=new ArrayList<>();
         signuplist.addAll((ArrayList<SignupModel>) bundle.getSerializable("Data"));
+        bundle.remove("Data");
         signupModel= (SignupModel) signuplist.get(0);
 
         logo="35f05e0e-56fb-4676-9819-381da000696b";
@@ -162,16 +163,21 @@ public class Signup_OtpFragment extends Fragment {
         final JSONObject comoanyParams = new JSONObject();
         //ArrayList<JSONObject> regiter_infolist=new ArrayList<>();
         try {
+            if(!signupModel.getGstId().equals("")){
+                comoanyParams.put("gstDocumentId",signupModel.getGstId());
+                postparams.put("gstDocumentId",signupModel.getGstId());
+            }
             comoanyParams.put("name",signupModel.getCompany());
             comoanyParams.put("product",product);
             comoanyParams.put("gstin",signupModel.getGst());
+
             comoanyParams.put("logoImageId",signupModel.getLogoId());
             postparams.put("company",comoanyParams);
             postparams.put("role","ROLE_"+role);
             postparams.put("gstin",signupModel.getGst());
             postparams.put("firstName",signupModel.getPerson());
             postparams.put("email",signupModel.getEmail());
-            postparams.put("mobileNumber","+91"+signupModel.getMobile());
+            postparams.put("mobileNumber","+"+signupModel.getMobile());
             postparams.put("password", signupModel.getPassword());
 
             //regiter_infolist.add(postparams);

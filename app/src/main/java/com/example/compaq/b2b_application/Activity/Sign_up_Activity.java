@@ -1,5 +1,8 @@
 package com.example.compaq.b2b_application.Activity;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentManager;
@@ -21,7 +24,6 @@ import com.example.compaq.b2b_application.R;
 import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 
 public class Sign_up_Activity extends AppCompatActivity {
-    public TextInputEditText user_edittext,passw_edittext,email_edittext;
     public Button button;
     public String username="";
    public String password="";
@@ -53,27 +55,25 @@ public SessionManagement session;
 
         final Tablayout_adapter  adapter=new Tablayout_adapter(this,getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
-        viewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
-            }
-        });
+
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(viewPager.getCurrentItem()>tab.getPosition()) {
 
                     viewPager.setCurrentItem(tab.getPosition(), true);
-                }
 
+                }
+                tabLayout.getTabAt(viewPager.getCurrentItem()).select();
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+
             }
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
@@ -131,7 +131,6 @@ button.setOnClickListener(new View.OnClickListener() {
             super.onBackPressed();
         }
     }
-
 
 
     public static void set_view(int i){
