@@ -87,7 +87,7 @@
                 android:layout_marginRight="4dp"
                 android:layout_marginLeft="4dp"
                 android:layout_gravity="center"
-                android:background="@drawable/gray_backround_design">
+              >
                 <TextView
                     android:id="@+id/qty"
                     android:layout_width="0dp"
@@ -96,6 +96,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:background="@null"
+                    android:textStyle="bold"
                     android:layout_alignParentBottom="true"
                     android:textAppearance="@style/item"
                     android:lineSpacingExtra="0sp"
@@ -118,7 +119,7 @@
             android:layout_marginRight="4dp"
             android:layout_marginLeft="4dp"
             android:layout_gravity="center"
-            android:background="@drawable/gray_backround_design">
+         >
 
             <EditText
                 android:id="@+id/g_wt_gms_"
@@ -126,7 +127,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
                 android:layout_alignParentTop="true"
-                android:background="@drawable/gray_backround_design"
+               android:background="@null"
+                android:textStyle="bold"
                 android:layout_alignParentBottom="true"
                 android:textAppearance="@style/item"
                 android:lineSpacingExtra="0sp"

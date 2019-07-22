@@ -68,8 +68,8 @@ public class Seller_Dashboard_Activity extends AppCompatActivity
 
         sharedPref = getSharedPreferences("USER_DETAILS", 0);
         mLayout=  findViewById(R.id.drawer_layout);
-        button=(Button)findViewById(R.id.notify);
-        button.setOnClickListener(new View.OnClickListener() {
+
+       /* button.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
@@ -109,7 +109,7 @@ public class Seller_Dashboard_Activity extends AppCompatActivity
 
             }
         });
-
+*/
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)

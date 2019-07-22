@@ -6,7 +6,8 @@ import android.os.Parcelable;
 public class Offline_order_model implements Parcelable {
     String name,img_url,sku,weight,size,purity,quantity;
     String total_weight;
-    public Offline_order_model(String name, String img_url,String sku,String weight,String size,String purity,String quantity) {
+    String product_id;
+    public Offline_order_model(String name, String img_url,String sku,String weight,String size,String purity,String quantity,String product_id,String total_weight) {
         this.name = name;
         this.img_url = img_url;
         this.sku=sku;
@@ -14,6 +15,8 @@ public class Offline_order_model implements Parcelable {
         this.size=size;
         this.purity=purity;
         this.quantity=quantity;
+        this.product_id=product_id;
+        this.total_weight=total_weight;
 
     }
 
@@ -25,6 +28,7 @@ public class Offline_order_model implements Parcelable {
         size = in.readString();
         purity = in.readString();
         quantity = in.readString();
+        total_weight=in.readString();
     }
 
     public static final Creator<Offline_order_model> CREATOR = new Creator<Offline_order_model>() {
@@ -100,6 +104,26 @@ public class Offline_order_model implements Parcelable {
         return 0;
     }
 
+    public String getTotal_weight() {
+        return total_weight;
+    }
+
+    public void setTotal_weight(String total_weight) {
+        this.total_weight = total_weight;
+    }
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
+    }
+
+    public static Creator<Offline_order_model> getCREATOR() {
+        return CREATOR;
+    }
+
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
@@ -109,6 +133,8 @@ public class Offline_order_model implements Parcelable {
         parcel.writeString(size);
         parcel.writeString(purity);
         parcel.writeString(quantity);
+        parcel.writeString(total_weight);
     }
+
 
 }

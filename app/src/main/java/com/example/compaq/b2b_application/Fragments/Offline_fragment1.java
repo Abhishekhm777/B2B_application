@@ -1,8 +1,10 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -48,6 +50,7 @@ private  View view;
  @BindView(R.id.offline_toolbar)Toolbar thisToolbar;
  @BindView(R.id.add_button) ImageView add_button;
  @BindView(R.id.place_button) Button place_button;
+ public Context context;
  private  Bundle bundle;
 
  private  TextView total;
@@ -66,6 +69,8 @@ private  View view;
         searchView=getActivity().findViewById(R.id.custom_search);
         toolbar=getActivity().findViewById(R.id.offline_tool);
         total= view.findViewById(R.id.total);
+
+        context=getActivity().getApplicationContext();
 
         thisToolbar.setNavigationIcon(R.drawable.back_btn);
         thisToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -97,18 +102,27 @@ private  View view;
           place_button.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
-                  fragmentManager = getActivity().getSupportFragmentManager();
-                  fragmentTransaction = fragmentManager.beginTransaction();
-                  fragmentTransaction.replace(R.id.offline_frame, new Offline_order_customerdetail()).addToBackStack(null);
-                  fragmentTransaction.commit();
-                 /* Offline_order_customerdetail offline_order_customerdetail = new Offline_order_customerdetail();
-                  getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.offline_frame, offline_order_customerdetail).addToBackStack(null).commit();*/
+
+                  if(productlist.size()>0) {
+                      Bundle bundle = new Bundle();
+                      bundle.putParcelableArrayList("arraylist", productlist);
+                      Offline_order_customerdetail offline_order_customerdetail = new Offline_order_customerdetail();
+                      offline_order_customerdetail.setArguments(bundle);
+                      fragmentManager = getActivity().getSupportFragmentManager();
+                      fragmentTransaction = fragmentManager.beginTransaction();
+                      fragmentTransaction.replace(R.id.offline_frame, offline_order_customerdetail, "offline_order_customerdetail").addToBackStack(null).commit();
+                  }
+                  else {
+                      Snackbar.make(getView(), "Please add some items ", Snackbar.LENGTH_SHORT)
+                              .setAction("Action", null).show();
+                  }
+
+
               }
           });
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
         recyclerView.setHasFixedSize(true);
-
         bundle=this.getArguments();
         productlist= bundle.getParcelableArrayList("arraylist");
         Log.e("Yeahhhhhh",String.valueOf(productlist.size()));
@@ -139,7 +153,7 @@ private  View view;
     public void updateText(HashMap<String,String> text){
        Log.e("yaaaaaaaaaaa",  text.get("name"));
 
-        productlist.add(new Offline_order_model(text.get("name"), text.get("url"),text.get("sku"),text.get("gwt"),text.get("size"),text.get("purity") ,"1"));
+        productlist.add(new Offline_order_model(text.get("name"), text.get("url"),text.get("sku"),text.get("gwt"),text.get("size"),text.get("purity") ,"1",text.get("pro_id"),"0"));
         offlineOrderAdapter.notifyDataSetChanged();
     }
 
