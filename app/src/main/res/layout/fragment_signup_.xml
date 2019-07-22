@@ -134,11 +134,20 @@
                 android:textSize="14sp" />
         </android.support.design.widget.TextInputLayout>
     </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/gst_file"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="#53AAFA"
+                android:textStyle="italic"
+                android:textSize="12sp"
+                />
     <Button
         android:id="@+id/upload_gst"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="2dp"
         android:text="UPLOAD GSTIN"
         />
             <android.support.v7.widget.CardView

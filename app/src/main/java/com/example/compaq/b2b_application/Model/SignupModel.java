@@ -1,15 +1,24 @@
 package com.example.compaq.b2b_application.Model;
 
 public class SignupModel {
-    String company,gst,person,email,mobile,password;
+    String logoId,company,gst,person,email,mobile,password;
 
-    public SignupModel(String company, String gst, String person, String email, String mobile, String password) {
+    public SignupModel(String logoId,String company, String gst, String person, String email, String mobile, String password) {
         this.company = company;
         this.gst = gst;
         this.person = person;
         this.email = email;
         this.mobile = mobile;
         this.password = password;
+        this.logoId=logoId;
+    }
+
+    public String getLogoId() {
+        return logoId;
+    }
+
+    public void setLogoId(String logoId) {
+        this.logoId = logoId;
     }
 
     public String getCompany() {

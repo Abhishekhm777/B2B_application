@@ -45,9 +45,9 @@ public SessionManagement session;
         tabLayout=(TabLayout)findViewById(R.id.tabs);
         viewPager=(ViewPager)findViewById(R.id.viewpager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("RETAILER"));
-        tabLayout.addTab(tabLayout.newTab().setText("WHOLESALER"));
-        tabLayout.addTab(tabLayout.newTab().setText("MANUFACTURER"));
+        tabLayout.addTab(tabLayout.newTab().setText("STEP1"));
+        tabLayout.addTab(tabLayout.newTab().setText("STEP2"));
+        tabLayout.addTab(tabLayout.newTab().setText("STEP3"));
         //tabLayout.addTab(tabLayout.newTab().setText("OTP"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
