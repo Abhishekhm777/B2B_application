@@ -22,6 +22,7 @@ import com.example.compaq.b2b_application.Adapters.Stepper_Adapter;
 import com.example.compaq.b2b_application.Adapters.Tablayout_adapter;
 import com.example.compaq.b2b_application.Fragments.Customize_order_frag1;
 import com.example.compaq.b2b_application.Fragments.Manage_category_frag1;
+import com.example.compaq.b2b_application.Helper_classess.Back_alert_class;
 import com.example.compaq.b2b_application.R;
 
 import butterknife.BindView;
@@ -34,9 +35,7 @@ public class Customize_Order extends AppCompatActivity {
    @BindView(R.id.stepper_indicator) StepperIndicator indicator;
     public static ViewPager pager;
     private SharedPreferences sharedPref;
-    private Dialog  myDialogue;
     private SharedPreferences.Editor editor;
-    private Button yes,cancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +53,6 @@ public class Customize_Order extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        myDialogue = new Dialog(this);
-        myDialogue.setContentView(R.layout.back_alert_dialog_layout);
-        myDialogue.setCanceledOnTouchOutside(false);
-        yes=myDialogue.findViewById(R.id.yes);
-        cancel=myDialogue.findViewById(R.id.cancel);
-
-        myDialogue.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         final Stepper_Adapter adapter=new Stepper_Adapter(this,getSupportFragmentManager(),5);
 
@@ -93,8 +84,6 @@ public class Customize_Order extends AppCompatActivity {
                     pager.setCurrentItem(step, true);
 
                 }
-
-
             }
         });
 
@@ -125,20 +114,15 @@ public class Customize_Order extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
+        final Back_alert_class back_alert_class=new Back_alert_class(this);
+        back_alert_class.showAlert();
 
-        myDialogue.show();
-        yes.setOnClickListener(new View.OnClickListener() {
+        back_alert_class.getYes().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myDialogue.dismiss();
+                back_alert_class.getMyDialogue().dismiss();
                 finish();
 
-            }
-        });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myDialogue.dismiss();
             }
         });
     }

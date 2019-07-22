@@ -68,7 +68,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="@string/gross_weigh"
-                android:textAppearance="@style/thin" />
+                android:textAppearance="@style/thick" />
 
 
             <TextView
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/weight"
                 android:text="@string/sizelen"
-                android:textAppearance="@style/thin" />
+                android:textAppearance="@style/thick" />
 
 
             <TextView
@@ -120,7 +120,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:text="@string/purity"
-                android:textAppearance="@style/thin" />
+                android:textAppearance="@style/thick" />
 
 
             <TextView
