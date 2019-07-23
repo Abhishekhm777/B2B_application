@@ -183,4 +183,16 @@
 
     </style>
 
+    <style name="heading1">
+
+        <item name="android:textSize">
+            10sp
+        </item>
+
+        <item name="android:textColor">
+            #24406A
+        </item>
+
+    </style>
+
 </resources>

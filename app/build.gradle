@@ -87,6 +87,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.github.joielechong:countrycodepicker:2.3.3'
 
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

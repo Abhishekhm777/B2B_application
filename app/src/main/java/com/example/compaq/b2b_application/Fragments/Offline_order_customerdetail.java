@@ -44,7 +44,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.Customize_Oder_Adapter1;
 import com.example.compaq.b2b_application.Adapters.Manage_Adapter;
+import com.example.compaq.b2b_application.Helper_classess.Order_Placed_Splashfragment;
 import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
+import com.example.compaq.b2b_application.Model.Offline_order_model;
 import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.R;
 
@@ -53,7 +55,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.michaelbel.bottomsheet.BottomSheet;
 
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,11 +92,11 @@ public class Offline_order_customerdetail extends Fragment {
     public String sname = "";
     private View view;
     public int position = 0;
-    String output,user_id;
-    String wholseller_id;
+    public String output,user_id;
+    public  String wholseller_id;
     Button button;
     public FragmentManager fragmentManager;
-    public ArrayList<Recy_model2> productlist;
+    public ArrayList<Offline_order_model> productlist;
     Manage_category_frag1.TextClicked mCallback;
     private StringBuilder category_path = new StringBuilder();
     private List list = new ArrayList();
@@ -115,6 +122,8 @@ public class Offline_order_customerdetail extends Fragment {
     @BindView(R.id.offline_toolbar1) Toolbar toolbar;
     private Activity activity;
     private Dialog  myDialogue;
+    public   JSONObject json1;
+    public    JSONArray items_jsonArray;
 
 
     public Offline_order_customerdetail() {
@@ -137,6 +146,15 @@ public class Offline_order_customerdetail extends Fragment {
             myDialogue.setContentView(R.layout.back_alert_dialog_layout);
             myDialogue.setCanceledOnTouchOutside(false);
            TextView yes=myDialogue.findViewById(R.id.yes);
+           yes.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   myDialogue.dismiss();
+                   setItemDetailsForOrder();
+
+
+               }
+           });
            TextView cancel=myDialogue.findViewById(R.id.cancel);
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -157,7 +175,6 @@ public class Offline_order_customerdetail extends Fragment {
                     public void onClick(View v) {
                         if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
                             getActivity().getSupportFragmentManager().popBackStack();
-
                         }
                     }
                 });
@@ -167,7 +184,12 @@ public class Offline_order_customerdetail extends Fragment {
             output = sharedPref.getString(ACCESS_TOKEN, null);
             user_id = sharedPref.getString("userid", null);
 
+            bundle=this.getArguments();
+            productlist= bundle.getParcelableArrayList("arraylist");
+
+
             getContacts();
+
 
 
             next.setEnabled(false);
@@ -209,7 +231,7 @@ public class Offline_order_customerdetail extends Fragment {
                     InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     next.setEnabled(true);
-                    next.setText("NEXT");
+                    next.setText("PLACE ORDER");
                     next.setBackgroundColor(getResources().getColor(R.color.Text));
                     getUserDetail(autoCompleteTextView.getText().toString());
 
@@ -235,6 +257,9 @@ public class Offline_order_customerdetail extends Fragment {
                     }
                 }
             });
+
+
+
 
         }
 
@@ -272,7 +297,7 @@ public class Offline_order_customerdetail extends Fragment {
                     JSONArray jsonArray=new JSONArray(response);
                     for(int i=0;i<jsonArray.length();i++){
                         contact_array.add(jsonArray.getString(i));
-                        Log.e("MOB",jsonArray.getString(i));
+
                     }
                     autoCompleteTextView.setAdapter(new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,contact_array));
 
@@ -447,6 +472,156 @@ public class Offline_order_customerdetail extends Fragment {
             }
         };
         RequestQueue queue = Volley.newRequestQueue(activity);
+        queue.add(request);
+    }
+
+    private void setItemDetailsForOrder(){
+        Log.e("SIZEEEE",String.valueOf(productlist.size()));
+
+        items_jsonArray=new JSONArray();
+         String formattedDate="";
+
+        Calendar cal = GregorianCalendar.getInstance();
+        try {
+            cal.add(Calendar.DAY_OF_YEAR, +30);
+            Date seven_days = cal.getTime();
+
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            formattedDate= df.format(seven_days);
+
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+
+        }
+        for(int i=0;i<productlist.size();i++){
+            json1= new JSONObject();
+
+            Offline_order_model offline_order_model=productlist.get(i);
+          try {
+
+              json1.put("name", offline_order_model.getName());
+              json1.put("product", offline_order_model.getSku());
+              json1.put("quantity", offline_order_model.getQuantity());
+              json1.put("size", offline_order_model.getSize());
+              json1.put("paymentStatus", "PAID");
+              json1.put("productID", offline_order_model.getProduct_id());
+              json1.put("seller", user_id);
+              json1.put("expectedDeliveryDate",formattedDate);
+              json1.put("grossWeight", offline_order_model.getWeight());
+              json1.put("netWeight", offline_order_model.getWeight());
+              json1.put("productImage", offline_order_model.getImg_url());
+
+          }
+          catch (JSONException e){
+              e.printStackTrace();
+          }
+            items_jsonArray.put(json1);
+
+        }
+
+              placeOrder();
+    }
+
+
+    public void placeOrder() {
+
+        String  customer_id = sharedPref.getString("userid", null);
+
+        JSONObject mainJasan= new JSONObject();
+        String  url=ip+"gate/b2b/order/api/v1/order/add";
+        try {
+
+            mainJasan.put("items",items_jsonArray);
+
+            mainJasan.put("paymentStatus","PENDING");
+            mainJasan.put("orderType","OFFLINE_SALES_ORDER");
+            mainJasan.put("consigneeName",cust_name.getText().toString());
+            mainJasan.put("consigneeEmail",email.getText().toString());
+            mainJasan.put("consigneeNumber",autoCompleteTextView.getText().toString());
+            mainJasan.put("consigneeGstNumber",gstn.getText().toString());
+
+
+            Log.e("OBJECT Status", mainJasan.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Map<String, String> params = new HashMap<>();
+        params.put("items", String.valueOf(items_jsonArray));
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, mainJasan, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+
+
+                   Order_Placed_Splashfragment order_placed_splashfragment = new Order_Placed_Splashfragment();
+                   getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.offline_frame, order_placed_splashfragment, "splash").commit();
+
+                  /*  Snackbar.make(getView(), "Your Offline Order Placed Successfully !", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();*/
+
+                }
+
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse response = error.networkResponse;
+
+
+                if(response != null && response.data != null){
+
+                    String responseBody = null;
+                    try {
+                        responseBody = new String(response.data, "utf-8");
+                        JSONObject data = new JSONObject(responseBody);
+
+                        Log.e("ERERERERERER",responseBody);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    switch(response.statusCode) {
+                        case 404:
+
+                            Snackbar.make(getView(), "Sorry! could't reach server", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                            break;
+                        case 400:
+
+                            Snackbar.make(getView(), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                            break;
+                        case 417:
+
+                            Snackbar.make(getView(), "Sorry! Something went wrong", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                            break;
+                    }
+                }
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headr = new HashMap<>();
+                headr.put("Authorization","bearer "+output);
+                headr.put("Content-Type", "application/json");
+                return headr;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
     }
 }

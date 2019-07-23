@@ -23,19 +23,14 @@ tools:context=".Fragments.Offline_order_customerdetail">
         android:layout_height="45dp"
         app:titleTextColor="@color/Titel"
         android:theme="@style/Toolbar_Arrow"
+        app:title="@string/enter_custo"
         android:textAlignment="center"
         app:titleTextAppearance="@color/Titel"
         android:background="@color/Text">
 
     </android.support.v7.widget.Toolbar>
 
-<ProgressBar
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/progress"
-    android:layout_centerInParent="true"
-    android:visibility="gone"
-    android:layout_centerHorizontal="true"/>
+
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -270,10 +265,9 @@ tools:context=".Fragments.Offline_order_customerdetail">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:textSize="15dp"
     android:textColor="@color/white"
     android:background="@color/whish"
-    android:hint="NEXT"
+    android:hint="PLACE ORDER"
     android:textColorHint="@color/white" />
 
 </RelativeLayout>
