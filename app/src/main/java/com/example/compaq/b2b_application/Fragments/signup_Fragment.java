@@ -265,10 +265,20 @@ public class signup_Fragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                choosePhotoFromGallary(code);
+                                if(code==1000) {
+                                    choosePhotoFromGallary(1020);
+                                }
+                                else if(code==5000){
+                                    choosePhotoFromGallary(5020);
+                                }
                                 break;
                             case 1:
+                                if(code==1000) {
                                     takePhotoFromCamera(1010);
+                                }
+                                else if(code==5000){
+                                    takePhotoFromCamera(5010);
+                                }
 
                                 break;
                         }
@@ -296,14 +306,22 @@ public class signup_Fragment extends Fragment {
     private void takePhotoFromCamera(int code) {
         /*Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA);*/
-        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),
-
-                Manifest.permission.CAMERA);
+        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
         if(ActivityCompat.checkSelfPermission(getActivity(),
+
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
         {
             requestPermissions(
                     new String[]{Manifest.permission.CAMERA},
+                    2000);
+        }
+        int permissionChec2k = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(ActivityCompat.checkSelfPermission(getActivity(),
+
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     2000);
         }
         else {
@@ -325,11 +343,11 @@ public class signup_Fragment extends Fragment {
         cameraIntent.putExtra("outputY", 356);
         cameraIntent.setType("image/*");
         if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            if(code==1000) {
-                startActivityForResult(cameraIntent, 1000);
+            if(code==1020) {
+                startActivityForResult(cameraIntent, code);
             }
-            else if(code==5000){
-                startActivityForResult(cameraIntent, 5000);
+            else if(code==5020){
+                startActivityForResult(cameraIntent, code);
             }
         }
     }
@@ -348,7 +366,7 @@ public class signup_Fragment extends Fragment {
         //super method removed
         Log.d("requestcode.....",requestCode+"");
         switch (requestCode) {
-            case 1000:
+            case 1020:
         if (resultCode == RESULT_OK) {
 
                 Uri returnUri = data.getData();
@@ -366,8 +384,8 @@ public class signup_Fragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-        break;
-            case 5000:
+           break;
+            case 5020:
                 if (resultCode == RESULT_OK) {
 
                     Uri returnUri = data.getData();
@@ -405,6 +423,27 @@ public class signup_Fragment extends Fragment {
                     }
                 }
                 break;
+            case 5010:
+                    if (resultCode == RESULT_OK) {
+
+
+                        Bitmap bitmapImage ;
+                       // Bitmap bitimage = null;
+                        try {
+                            bitmapImage =(Bitmap) data.getExtras().get("data");
+                            Bitmap bitimage = getResizedBitmap(bitmapImage, 400);
+
+                            //Upload_image(requestCode,bitimage);
+                            Uri returnUri = getImageUri(getContext(),bitimage);
+                            imagePick( requestCode,returnUri);
+
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
 
            /* else if(requestCode == 1200){
                 Uri returnUri = data.getData();
@@ -426,6 +465,14 @@ public class signup_Fragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(),
+                inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
     //////////////////////////////////////////image pick///////////////////////////////
     public  void imagePick(int code,Uri returnUri){
         try {
@@ -438,7 +485,7 @@ public class signup_Fragment extends Fragment {
 
 
             Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, true);
-            if(code==5000) {
+            if(code==5020 ||code==5010) {
                 File f = new File(picturePath);
                 String imageName = f.getName();
                 Log.d("image name....", imageName);
@@ -493,11 +540,11 @@ public class signup_Fragment extends Fragment {
             public void onResponse(NetworkResponse response) {
                 String resultResponse = new String(response.data);
                 try {
-                    if(code==1000 ||code==1010) {
+                    if(code==1020 ||code==1010) {
                         imageid = resultResponse;
                         Log.i("Unexpected", resultResponse);
                     }
-                    else if(code==5000){
+                    else if(code==5020||code==5010){
                       gstid=resultResponse;
                     }
 
