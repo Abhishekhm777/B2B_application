@@ -14,7 +14,7 @@
         android:theme="@style/Toolbar_Arrow"
         android:textAlignment="center"
         app:titleTextAppearance="@color/Titel"
-        android:background="@color/Text">
+        android:background="#275191">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,14 +35,12 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabSelectedTextColor="@color/view"
-        android:background="@color/card"
-        >
-
-    </android.support.design.widget.TabLayout>
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        app:tabSelectedTextColor="@color/Titel"
+        app:tabTextColor="#A4A4A4"
+        android:background="#275191"
+        android:scrollIndicators="none"
+        android:clickable="false"
+        />
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:id="@+id/viewpager"

@@ -3,6 +3,7 @@ package com.example.compaq.b2b_application.Fragments;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -32,6 +33,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -51,12 +53,14 @@ import com.example.compaq.b2b_application.Helper_classess.VolleyMultipartRequest
 import com.example.compaq.b2b_application.Helper_classess.VolleySingleton;
 import com.example.compaq.b2b_application.Model.SignupModel;
 import com.example.compaq.b2b_application.R;
+import com.rilixtech.CountryCodePicker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.michaelbel.bottomsheet.BottomSheet;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -65,6 +69,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
+import static android.media.MediaRecorder.VideoSource.CAMERA;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
 import static com.example.compaq.b2b_application.Fragments.Custom_order.PICK_IMAGE;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
@@ -76,7 +81,7 @@ public class signup_Fragment extends Fragment {
     CheckBox checkBox;
     public Button sign_upbutton,upload_logo,gstn_button;
     ImageView imageView;
-    private static String imageid="";
+    private static String imageid="",gstid="";
     Toolbar toolbar;
     private static  int count=1;
     private static String id="";
@@ -93,6 +98,10 @@ public class signup_Fragment extends Fragment {
     SharedPreferences.Editor myEditior;
     Bundle bundle;
     ArrayList<SignupModel>signupModelArrayList;
+    private int GALLERY = 1, CAMERA = 2;
+    TextView gst_file;
+    CountryCodePicker ccp;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -112,11 +121,13 @@ public class signup_Fragment extends Fragment {
         teli_phone=(EditText)view.findViewById(R.id.edit_mobile);
         password=(EditText)view.findViewById(R.id.edit_password);
         imageView=(ImageView)view.findViewById(R.id.profile_logo);
+        gst_file=(TextView)view.findViewById(R.id.gst_file);
 
         upload_logo=(Button)view.findViewById(R.id.upload_logBtn);
         sign_upbutton=(Button)view.findViewById(R.id.signup_process);
         checkBox=(CheckBox)view.findViewById(R.id.seller_checkbox);
-
+        ccp = (CountryCodePicker)view.findViewById(R.id.ccp);
+        Log.d("emial....",ccp.getDefaultCountryName()+ccp.getSelectedCountryCode());
 
 
         dialog = new Dialog(getContext());
@@ -131,7 +142,9 @@ public class signup_Fragment extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),
+
+                showPictureDialog(1000);
+               /* int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.READ_EXTERNAL_STORAGE);
                 if(ActivityCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
@@ -142,7 +155,7 @@ public class signup_Fragment extends Fragment {
                 }
                 else {
                     startGallery();
-                }
+                }*/
 
             }
         });
@@ -151,7 +164,7 @@ public class signup_Fragment extends Fragment {
         gstn_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pickImageIntent = new Intent(Intent.ACTION_PICK,
+               /* Intent pickImageIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 pickImageIntent.setType("image/*");
                 pickImageIntent.putExtra("aspectX", 1);
@@ -159,7 +172,9 @@ public class signup_Fragment extends Fragment {
                 pickImageIntent.putExtra("scale", true);
                 pickImageIntent.putExtra("outputFormat",
                         Bitmap.CompressFormat.JPEG.toString());
-                startActivityForResult(pickImageIntent, PICK_IMAGE_REQUEST);
+                startActivityForResult(pickImageIntent, PICK_IMAGE_REQUEST);*/
+               showPictureDialog(5000);
+
             }
         });
 
@@ -178,6 +193,8 @@ public class signup_Fragment extends Fragment {
                 phone_t = teli_phone.getText().toString();
                 password_t = password.getText().toString();
                 gstin_t=gstin_e.getText().toString();
+
+                Log.d("emial....",ccp.getSelectedCountryCode());
 
                 if (TextUtils.isEmpty(company.trim())) {
                     company_name.setError("Company name is required");
@@ -212,12 +229,14 @@ public class signup_Fragment extends Fragment {
                         if(imageid==""|| imageid==null){
                             imageid="35f05e0e-56fb-4676-9819-381da000696b";
                         }
-                    signupModel=new SignupModel(imageid,company,gstin_t,firstname_t,email_t,phone_t,password_t);
+                        phone_t=ccp.getSelectedCountryCode()+phone_t;
+                    signupModel=new SignupModel(imageid,gstid,company,gstin_t,firstname_t,email_t,phone_t,password_t);
                         signupModelArrayList.add(signupModel);
-                     bundle.putSerializable("Data", signupModelArrayList.toString());
+                     bundle.putSerializable("Data",(Serializable) signupModelArrayList);
                     //dialog.show();
-                    check();
-                    id=email_t;
+                        id=email_t;
+                        check();
+
                    // send_otp(phone_t,email_t);
                     }catch (Exception e){
                         e.printStackTrace();
@@ -233,10 +252,375 @@ public class signup_Fragment extends Fragment {
 
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////
+    private void showPictureDialog(final int code){
+        android.app.AlertDialog.Builder pictureDialog = new android.app.AlertDialog.Builder(getActivity());
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Select photo from gallery",
+                "Capture photo from camera" };
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                if(code==1000) {
+                                    choosePhotoFromGallary(1020);
+                                }
+                                else if(code==5000){
+                                    choosePhotoFromGallary(5020);
+                                }
+                                break;
+                            case 1:
+                                if(code==1000) {
+                                    takePhotoFromCamera(1010);
+                                }
+                                else if(code==5000){
+                                    takePhotoFromCamera(5010);
+                                }
+
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
+    }
+    public void choosePhotoFromGallary(int code) {
+
+        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),
+
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+        if(ActivityCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    2000);
+        }
+        else {
+            startGallery(code);
+        }
+    }
+
+    private void takePhotoFromCamera(int code) {
+        /*Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA);*/
+        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
+        if(ActivityCompat.checkSelfPermission(getActivity(),
+
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(
+                    new String[]{Manifest.permission.CAMERA},
+                    2000);
+        }
+        int permissionChec2k = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(ActivityCompat.checkSelfPermission(getActivity(),
+
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    2000);
+        }
+        else {
+            Log.d("clode...",code+"");
+           startCamera(code);
+        }
+    }
+
+
+
+
+    //////////////////Opening Gallery On Clicking imageview On Drawer///////////////
+    private void startGallery(int code) {
+        Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        cameraIntent.putExtra("crop", "true");
+        cameraIntent.putExtra("aspectX", 100);
+        cameraIntent.putExtra("aspectY", 100);
+        cameraIntent.putExtra("outputX", 256);
+        cameraIntent.putExtra("outputY", 356);
+        cameraIntent.setType("image/*");
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            if(code==1020) {
+                startActivityForResult(cameraIntent, code);
+            }
+            else if(code==5020){
+                startActivityForResult(cameraIntent, code);
+            }
+        }
+    }
+    ////////////////////////////////////////////////////////////////////////////////////
+    private void startCamera(int code){
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, code);
+       /* if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(intent, code);
+        }*/
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super method removed
+        Log.d("requestcode.....",requestCode+"");
+        switch (requestCode) {
+            case 1020:
+        if (resultCode == RESULT_OK) {
+
+                Uri returnUri = data.getData();
+                Bitmap bitmapImage ;
+                Bitmap bitimage = null;
+                try {
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
+                    bitimage = getResizedBitmap(bitmapImage, 400);
+
+                    imageView.setImageBitmap(bitimage);
+                    imagePick( requestCode,returnUri);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+           break;
+            case 5020:
+                if (resultCode == RESULT_OK) {
+
+                    Uri returnUri = data.getData();
+                    Bitmap bitmapImage ;
+                    Bitmap bitimage = null;
+                    try {
+                      //  bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
+                        //bitimage = getResizedBitmap(bitmapImage, 400);
+
+                        imagePick(requestCode, returnUri);
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case 1010:
+                if (resultCode == RESULT_OK) {
+
+
+                    Bitmap bitmapImage ;
+                    Bitmap bitimage = null;
+                    try {
+                        bitmapImage =(Bitmap) data.getExtras().get("data");
+                        bitimage = getResizedBitmap(bitmapImage, 400);
+
+                        imageView.setImageBitmap(bitimage);
+                        Upload_image(requestCode,bitimage);
+                       // imagePick( requestCode,returnUri);
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case 5010:
+                    if (resultCode == RESULT_OK) {
+
+
+                        Bitmap bitmapImage ;
+                       // Bitmap bitimage = null;
+                        try {
+                            bitmapImage =(Bitmap) data.getExtras().get("data");
+                            Bitmap bitimage = getResizedBitmap(bitmapImage, 400);
+
+                            //Upload_image(requestCode,bitimage);
+                            Uri returnUri = getImageUri(getContext(),bitimage);
+                            imagePick( requestCode,returnUri);
+
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+
+           /* else if(requestCode == 1200){
+                Uri returnUri = data.getData();
+                Bitmap bitmapImage ;
+                Bitmap bitimage = null;
+                try {
+
+                    bitmapImage =(Bitmap) data.getExtras().get("data");
+                    bitimage = getResizedBitmap(bitmapImage, 400);
+                    imageView.setImageBitmap(bitimage);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }*/
+        }
+
+
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(),
+                inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    //////////////////////////////////////////image pick///////////////////////////////
+    public  void imagePick(int code,Uri returnUri){
+        try {
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            Cursor cursor = getActivity().getContentResolver().query(returnUri, filePathColumn, null, null, null);
+
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+
+
+            Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, true);
+            if(code==5020 ||code==5010) {
+                File f = new File(picturePath);
+                String imageName = f.getName();
+                Log.d("image name....", imageName);
+                gst_file.setText(imageName);
+            }
+
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream);
+
+            byte[] imageInByte = byteArrayOutputStream.toByteArray();
+            long lengthbmp = imageInByte.length;
+            Log.d("Image Size", String.valueOf(lengthbmp));
+
+
+            Upload_image(code,bitmap);
+
+        }
+        catch (Exception e){
+
+        }
+
+    }
+
+
+
+    //////////////Resizing Images.///////////////////////////////////////
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
+
+///////////////////////get image id to load//////////////////////////////////////////////////////////
+
+    public void Upload_image(final int code, final Bitmap bitmap) {
+
+
+        String url = ip1+"/b2b/api/v1/user/image/save";
+        VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
+            @Override
+            public void onResponse(NetworkResponse response) {
+                String resultResponse = new String(response.data);
+                try {
+                    if(code==1020 ||code==1010) {
+                        imageid = resultResponse;
+                        Log.i("Unexpected", resultResponse);
+                    }
+                    else if(code==5020||code==5010){
+                      gstid=resultResponse;
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse networkResponse = error.networkResponse;
+                String errorMessage = "Unknown error";
+                if (networkResponse == null) {
+                    if (error.getClass().equals(TimeoutError.class)) {
+                        errorMessage = "Request timeout";
+                    } else if (error.getClass().equals(NoConnectionError.class)) {
+                        errorMessage = "Failed to connect server";
+                    }
+                } else {
+                    String result = new String(networkResponse.data);
+                    try {
+                        JSONObject response = new JSONObject(result);
+                        String status = response.getString("exception");
+                        String message = response.getString("message");
+
+                        Log.e("Error Status", status);
+                        Log.e("Error Message", message);
+
+                        if (networkResponse.statusCode == 404) {
+                            errorMessage = "Resource not found";
+                        } else if (networkResponse.statusCode == 401) {
+                            errorMessage = message + " Please login again";
+                        } else if (networkResponse.statusCode == 400) {
+                            errorMessage = message + " Check your inputs";
+                        } else if (networkResponse.statusCode == 500) {
+                            errorMessage = message + " Something is getting wrong";
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Log.i("Error", errorMessage);
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+
+                return params;
+            }
+
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                // file name could found file base or direct access from real path
+                // for now just get bitmap data from ImageView
+
+                params.put("file", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromDrawable(getActivity(),bitmap), "image/jpeg"));
+
+                return params;
+            }
+        };
+
+
+        VolleySingleton.getInstance(getActivity()).addToRequestQueue(multipartRequest);
+    }
+
+
+
+
     //////////////////////////check email or phone/////////////////////////////////////
     public  void check(){
     if(count==2){
-        id="%2B91"+phone_t;
+        id="%2B"+phone_t;
     }
     String checkurl=ip1+"/b2b/api/v1/user/userExist?emailOrMobile="+id;
         Log.d("checkUrl",checkurl);
@@ -259,7 +643,7 @@ public class signup_Fragment extends Fragment {
                         return;
                     }
                     else if(response.equals("false")&&count==2) {
-                        String url=ip1+"/b2b/api/v1/user/otp?mobileNumber=%2B91"+phone_t+"&email="+email_t+"&verification=true";
+                        String url=ip1+"/b2b/api/v1/user/otp?mobileNumber=%2B"+phone_t+"&email="+email_t+"&verification=true";
                         myEditior.putString("PASSWORD_ID",signupModel.getEmail());
                         myEditior.putString("RESEND_OTP",url);
                         myEditior.commit();
@@ -338,163 +722,5 @@ public class signup_Fragment extends Fragment {
 
 
 
-    //////////////////Opening Gallery On Clicking imageview On Drawer///////////////
-    private void startGallery() {
-        Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        cameraIntent.putExtra("crop", "true");
-        cameraIntent.putExtra("aspectX", 100);
-        cameraIntent.putExtra("aspectY", 100);
-        cameraIntent.putExtra("outputX", 256);
-        cameraIntent.putExtra("outputY", 356);
-        cameraIntent.setType("image/*");
-        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(cameraIntent, 1000);
-        }
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //super method removed
-          Log.d("requestcode.....",requestCode+"");
-        if (resultCode == RESULT_OK) {
-            if (requestCode == 1000) {
-                Uri returnUri = data.getData();
-                Bitmap bitmapImage ;
-                Bitmap bitimage = null;
-                try {
-                    bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
-                    bitimage = getResizedBitmap(bitmapImage, 400);
-                    imageView.setImageBitmap(bitimage);
-
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    Cursor cursor = getActivity().getContentResolver().query(returnUri, filePathColumn, null, null, null);
-
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-
-
-                    Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, true);
-
-
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream);
-
-                    byte[] imageInByte = byteArrayOutputStream.toByteArray();
-                    long lengthbmp = imageInByte.length;
-                    Log.d("Image Size", String.valueOf(lengthbmp));
-
-
-                    Upload_image(bitmap);
-                   // upload_logo.setText("Replace image");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-
-        }
-
-
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    //////////////Resizing Images.///////////////////////////////////////
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        float bitmapRatio = (float)width / (float) height;
-        if (bitmapRatio > 1) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
-        } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
-        }
-        return Bitmap.createScaledBitmap(image, width, height, true);
-    }
-
-
-///////////////////////get image id to load//////////////////////////////////////////////////////////
-
-    public void Upload_image(final Bitmap bitmap) {
-
-
-        String url = ip1+"/b2b/api/v1/user/image/save";
-        VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
-            @Override
-            public void onResponse(NetworkResponse response) {
-                String resultResponse = new String(response.data);
-                try {
-
-                    imageid=resultResponse;
-                    Log.i("Unexpected", resultResponse);
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                NetworkResponse networkResponse = error.networkResponse;
-                String errorMessage = "Unknown error";
-                if (networkResponse == null) {
-                    if (error.getClass().equals(TimeoutError.class)) {
-                        errorMessage = "Request timeout";
-                    } else if (error.getClass().equals(NoConnectionError.class)) {
-                        errorMessage = "Failed to connect server";
-                    }
-                } else {
-                    String result = new String(networkResponse.data);
-                    try {
-                        JSONObject response = new JSONObject(result);
-                        String status = response.getString("exception");
-                        String message = response.getString("message");
-
-                        Log.e("Error Status", status);
-                        Log.e("Error Message", message);
-
-                        if (networkResponse.statusCode == 404) {
-                            errorMessage = "Resource not found";
-                        } else if (networkResponse.statusCode == 401) {
-                            errorMessage = message + " Please login again";
-                        } else if (networkResponse.statusCode == 400) {
-                            errorMessage = message + " Check your inputs";
-                        } else if (networkResponse.statusCode == 500) {
-                            errorMessage = message + " Something is getting wrong";
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Log.i("Error", errorMessage);
-                error.printStackTrace();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-
-                return params;
-            }
-
-            @Override
-            protected Map<String, DataPart> getByteData() {
-                Map<String, DataPart> params = new HashMap<>();
-                // file name could found file base or direct access from real path
-                // for now just get bitmap data from ImageView
-
-                params.put("file", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromDrawable(getActivity(),bitmap), "image/jpeg"));
-
-                return params;
-            }
-        };
-
-
-        VolleySingleton.getInstance(getActivity()).addToRequestQueue(multipartRequest);
-    }
 }

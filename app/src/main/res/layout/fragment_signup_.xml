@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     >
     <ScrollView
         android:id="@+id/register_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/signup_process"
-        android:paddingBottom="20dp"
+        android:layout_above="@+id/process_layout"
+
        >
 
         <LinearLayout
@@ -41,10 +40,9 @@
             android:id="@+id/profile_logo"
             android:layout_width="72dp"
             android:layout_gravity="center"
-            android:src="@drawable/circle"
+            android:src="@drawable/logo_image"
             android:layout_centerInParent="true"
             android:layout_height="72dp"
-
             />
 
         <TextView
@@ -65,6 +63,7 @@
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="#e6e6e5"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp">
     <android.support.design.widget.TextInputLayout
@@ -76,7 +75,7 @@
         android:translationY="-1.55sp"
         android:textStyle="italic"
         android:layout_height="wrap_content"
-        app:hintTextAppearance="@color/hint">
+        >
 
         <EditText
             android:id="@+id/edit_company_name"
@@ -90,6 +89,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:maxLength="40"
+            android:focusableInTouchMode="true"
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textColor="#000"
@@ -114,8 +114,7 @@
             android:lineSpacingExtra="3sp"
             android:translationY="-1.55sp"
             android:textStyle="italic"
-            android:layout_height="wrap_content"
-            app:hintTextAppearance="@color/hint">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/edit_GSTIN"
@@ -166,7 +165,7 @@
                     android:layout_centerHorizontal="true"
                     android:textSize="15sp"
                     android:textStyle="italic"
-                    app:hintTextAppearance="@color/hint"
+
                     android:layout_height="wrap_content">
 
                     <EditText
@@ -203,7 +202,7 @@
                     android:layout_centerHorizontal="true"
                     android:textSize="15sp"
                     android:textStyle="italic"
-                    app:hintTextAppearance="@color/hint"
+
                     android:layout_height="wrap_content">
 
                     <EditText
@@ -224,11 +223,28 @@
                         android:textSize="14sp" />
                 </android.support.design.widget.TextInputLayout>
             </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:weightSum="5"
+            android:gravity="center_vertical"
+            >
+            <com.rilixtech.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                app:ccp_defaultNameCode="IN"
+                app:ccp_textSize="14sp"
+                android:layout_weight="3.5"/>
             <android.support.v7.widget.CardView
                 android:id="@+id/cardview_mobile"
                 android:layout_width="match_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_weight="1.5"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="#e6e6e5"
                 app:cardCornerRadius="5dp"
@@ -239,7 +255,6 @@
                     android:layout_centerHorizontal="true"
                     android:textSize="15sp"
                     android:textStyle="italic"
-                    app:hintTextAppearance="@color/hint"
                     android:layout_height="wrap_content">
 
                     <EditText
@@ -260,12 +275,14 @@
                         android:textSize="14sp" />
                 </android.support.design.widget.TextInputLayout>
             </android.support.v7.widget.CardView>
+        </LinearLayout>
             <android.support.v7.widget.CardView
                 android:id="@+id/cardview_password"
                 android:layout_width="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="match_parent"
                 app:cardBackgroundColor="#e6e6e5"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="3dp">
@@ -276,7 +293,6 @@
                     android:textSize="15sp"
                     android:textStyle="italic"
                     android:fontFamily="@font/roboto_italic"
-                    app:hintTextAppearance="@color/hint"
                     android:layout_height="wrap_content">
 
                     <EditText
@@ -300,7 +316,7 @@
 
 
 
-            <LinearLayout
+           <!-- <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -316,16 +332,24 @@
                     android:text=" Ordofy terms and policy"
                     android:clickable="true"
                     android:textColor="#2196f3"/>
-            </LinearLayout>
+            </LinearLayout>-->
 
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:id="@+id/process_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
     <Button
         android:id="@+id/signup_process"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Process"
+        android:text="I ACCEPT Ordofy terms and policy"
         android:textColor="@color/white"
-        android:background="#0a2342"
-        android:layout_alignParentBottom="true" />
+        android:background="#275191"
+        android:layout_gravity="bottom|end"
+         />
+    </LinearLayout>
 </RelativeLayout>
