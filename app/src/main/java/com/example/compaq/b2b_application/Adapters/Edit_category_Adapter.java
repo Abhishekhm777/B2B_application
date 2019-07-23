@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
@@ -49,7 +49,7 @@ public class Edit_category_Adapter  extends BaseExpandableListAdapter {
     private LayoutInflater inflater;
     private HashMap<String, String> value_map;
     public SharedPreferences sharedPref;
-    private   String output,wholseller_id;
+    private   String output,wholseller_id,urldata;
     public FragmentManager fragmentManager;
     private ArrayList<String> filters;
     private ArrayList<String> varients;
@@ -377,8 +377,8 @@ public class Edit_category_Adapter  extends BaseExpandableListAdapter {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        URL_DATA = ip_cat + "/category/secure/update?wholesaler="+wholseller_id;
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL_DATA, main_object, new Response.Listener<JSONObject>() {
+        urldata = ip_cat + "/category/secure/update?wholesaler="+wholseller_id;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urldata, main_object, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {

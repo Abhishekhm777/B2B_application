@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
@@ -56,7 +56,7 @@ public class Add_category_Adapter extends BaseExpandableListAdapter {
     private ArrayList<String> filters;
     private ArrayList<String> varients;
     public SharedPreferences sharedPref;
-    private   String output,wholseller_id;
+    private   String output,wholseller_id,urldata;
     private Dialog dialog;
     public FragmentManager fragmentManager;
 
@@ -388,9 +388,9 @@ public class Add_category_Adapter extends BaseExpandableListAdapter {
         }
 
 
-        URL_DATA = ip_cat + "/category/secure/add?wholesaler="+wholseller_id;
+        urldata = ip_cat + "/category/secure/add?wholesaler="+wholseller_id;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL_DATA, main_object, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urldata, main_object, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {

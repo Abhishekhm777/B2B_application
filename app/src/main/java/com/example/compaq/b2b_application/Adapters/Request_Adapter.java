@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,9 +31,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.compaq.b2b_application.Activity.LoginActivity;
 import com.example.compaq.b2b_application.Model.Request_model;
 import com.example.compaq.b2b_application.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -51,19 +55,18 @@ public class Request_Adapter extends RecyclerView.Adapter<Request_Adapter.MyView
     private int pos=-1;
     Dialog dialog;
     ImageView canel;
-    ArrayList<String> spin_calls;
-     String item;
+   private ArrayList<String> spin_calls;
+    private String item;
 
     public Request_Adapter(Context context, ArrayList<Request_model> productlist) {
         this.context=context;
         this.productlist=productlist;
         sharedPref=context.getSharedPreferences("USER_DETAILS",0);
-
         output=sharedPref.getString(ACCESS_TOKEN, null);
-
         dialog = new Dialog(context);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.settings_layout);
+        userInformation();
 
     }
 
@@ -71,7 +74,6 @@ public class Request_Adapter extends RecyclerView.Adapter<Request_Adapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.request_layout, parent, false);
-
 
         return new MyViewHolder(itemView);
     }
@@ -105,8 +107,6 @@ public class Request_Adapter extends RecyclerView.Adapter<Request_Adapter.MyView
         int spinnerPosition = country_adaper.getPosition(listner.getStatus());
 
         holder.spinner.setSelection(spinnerPosition);
-
-
 
         holder.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -147,22 +147,17 @@ public class Request_Adapter extends RecyclerView.Adapter<Request_Adapter.MyView
 
             }
         });
-   holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-       @Override
-       public void onClick(View view) {
-               relation(listner.getSettings());
+               holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View view) {
+                           relation(listner.getSettings());
+                   }
+               });
+            try {
+                Glide.with(context).load(logo_url).into(holder.imageView);
+            }catch (Exception e){
 
-
-
-
-
-       }
-   });
-try {
-    Glide.with(context).load(logo_url).into(holder.imageView);
-}catch (Exception e){
-
-}
+            }
     }
 
     @Override
@@ -263,12 +258,8 @@ try {
 
                         try {
 
-                            spin_calls=new ArrayList<>();
-                            spin_calls.add("A");
-                            spin_calls.add("B");
-                            spin_calls.add("C");
-                             JSONObject jsonObject=new JSONObject(response);
-                             Log.e("OBJDDV",jsonObject.toString());
+                            JSONObject jsonObject=new JSONObject(response);
+                            Log.e("OBJDDV",jsonObject.toString());
                             dialog.show();
                             canel = (ImageView) dialog.findViewById(R.id.cancel);
 
@@ -279,19 +270,14 @@ try {
                                     dialog.dismiss();
                                 }
                             });
-                            final EditText editText=(EditText)dialog.findViewById(R.id.disc);
-                            final EditText weigt=(EditText)dialog.findViewById(R.id.weight);
-                            final CheckBox rate=(CheckBox)dialog.findViewById(R.id.rate);
-                            final CheckBox advance=(CheckBox)dialog.findViewById(R.id.advance);
-                            final Button save=(Button) dialog.findViewById(R.id.save);
 
+                            final Button save=(Button) dialog.findViewById(R.id.save);
                             Spinner spinner=(Spinner) dialog.findViewById(R.id.spinn);
                             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, spin_calls) {
                                 @Override
                                 public boolean isEnabled(int position) {
                                     if (position == 0) {
-                                        // Disable the first item from Spinner
-                                        // First item will be use for hint
+
                                         return true;
                                     } else {
 
@@ -314,31 +300,20 @@ try {
 
                                 }
                             });
-                           try {
-                               rate.setChecked(jsonObject.getBoolean("rateCut"));
-                               advance.setChecked(jsonObject.getBoolean("advance"));
-                           }
-                           catch (Exception e){
 
-                           }
-                            editText.setText(jsonObject.getString("discountPercentage"));
-                            weigt.setText(jsonObject.getString("minWeight"));
 
                             save.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
 
-                                    settings_update(id,weigt.getText().toString(),editText.getText().toString(),item,advance.isChecked(),rate.isChecked(),view);
+                                    settings_update(id,item,view);
                                 }
                             });
 
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
-
-
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -377,24 +352,17 @@ try {
         requestQueue.add(stringRequest);
     }
 
-
-    public  void settings_update(final String id, final String netweight,final String disc,final  String userClass,final Boolean advance,final Boolean rate,final  View view){
+    public  void settings_update(final String id, final  String userClass,final  View view){
         JSONObject jsonObject = new JSONObject();
-        try {
+                try {
 
-     jsonObject.put("id", id);
-     jsonObject.put("userClass", userClass);
-     jsonObject.put("advance", advance);
-     jsonObject.put("block", null);
-     jsonObject.put("rateCut", rate);
-     jsonObject.put("minWeight", netweight);
-     jsonObject.put("discountPercentage", disc);
+             jsonObject.put("id", id);
+             jsonObject.put("userClass", userClass);
+             jsonObject.put("block", null);
+                }
+             catch (Exception e){
 
-
- }
- catch (Exception e){
-
- }
+             }
         String url = ip1+"/b2b/api/v1/relation/setting/update";
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest objectRequest = new JsonObjectRequest(Method.PUT, url, jsonObject, new Response.Listener<JSONObject>() {
@@ -403,17 +371,11 @@ try {
             public void onResponse(JSONObject response) {
 
                 try {
-
                     Snackbar.make(view, "Success ", Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
-
-
-
                 } catch (Exception e) {
-
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -423,17 +385,52 @@ try {
         }) {
             @Override
             public Map<String, String> getHeaders() {
-
-
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "bearer "+output);
                 params.put("Content-Type", "application/json");
                 return params;
             }
+        };
+        requestQueue.add(objectRequest);
+    }
 
+    public void userInformation(){
+        String url=ip1+"/b2b/api/v1/user/info";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    JSONArray jsonArray=jObj.getJSONArray("userClass");
+                    spin_calls=new ArrayList<>();
+                    spin_calls.add("");
+                    for(int i=0;i<jsonArray.length();i++){
+                        spin_calls.add(jsonArray.getString(i));
+                        Log.e("USEEER",jsonArray.getString(i));
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization","bearer "+output);
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                return params;
+            }
         };
 
-        requestQueue.add(objectRequest);
-
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
     }
 }

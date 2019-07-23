@@ -91,7 +91,7 @@ public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.List
             /*textView1=(TextView)itemView.findViewById(R.id.idtextview);*/
             textView = (TextView) itemView.findViewById(R.id.navtext);
             imageV=(ImageView)itemView.findViewById(R.id.navimage);
-            addcart_button=(Button)itemView.findViewById(R.id.cart_button) ;
+
 
 
 

@@ -93,7 +93,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
@@ -113,7 +113,7 @@ public class Varient_Activity extends AppCompatActivity {
     private String selected = "";
     Dialog myDialogue, options_dialog;
     public LinearLayout gallery, camera;
-    private  String wholseller_id;
+    private  String wholseller_id,urldata;
     String session;
     public static String output;
     Button image_upload, vedio_upload, add_stonedetails, add_spesification, submit_button;
@@ -540,11 +540,11 @@ public class Varient_Activity extends AppCompatActivity {
 
         }
 
-        URL_DATA = ip_cat + "/category/byFirstLevelCategory/b2b/" + selected + "?wholesaler=" + wholseller_id;
-        Log.e("URL",URL_DATA);
+        urldata = ip_cat + "/category/byFirstLevelCategory/b2b/" + selected + "?wholesaler=" + wholseller_id;
+        Log.e("URL",urldata);
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

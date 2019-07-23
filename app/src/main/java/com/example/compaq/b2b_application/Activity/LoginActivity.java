@@ -447,17 +447,9 @@ else {
 
 
     }
-
-
-
-
-
     public void userInformation ( ){
-
         String url=ip1+"/b2b/api/v1/user/info";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-
-
             @Override
             public void onResponse(String response) {
                 try {
@@ -471,9 +463,6 @@ else {
                     email=jObj.getString("email");
                     mobileNo=jObj.getString("mobileNumber");
                     role=jObj.getString("role");
-                    Log.e("Role",role);
-
-                    Log.e("USER    name",userfirstname);
 
                     cartInformation(userid);
 

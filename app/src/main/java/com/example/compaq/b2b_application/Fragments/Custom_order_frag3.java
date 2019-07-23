@@ -73,7 +73,7 @@ import butterknife.ButterKnife;
 import static com.example.compaq.b2b_application.Activity.Add_new_product_activity.PICK_IMAGE;
 import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Fragments.products_display_fragment.item_clicked;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
@@ -97,7 +97,7 @@ public class Custom_order_frag3 extends Fragment {
     private Button place_button,upload_reference;
     public Bundle bundle2;
     private View view;
-    public String original;
+    public String original,urldata;
     int item = 0;
     HashMap<String, String> list_id = new HashMap<String, String>();
     String all;
@@ -263,8 +263,8 @@ public class Custom_order_frag3 extends Fragment {
             requestQueue = Volley.newRequestQueue(getActivity());
         }
 
-        URL_DATA=ip_cat+"/category/byFirstLevelCategory/b2b/Jewellery,"+item_clicked+"?wholesaler="+wholseller_id;
-        String  url=URL_DATA.replaceAll("\\s", "");
+        urldata=ip_cat+"/category/byFirstLevelCategory/b2b/Jewellery,"+item_clicked+"?wholesaler="+wholseller_id;
+        String  url=urldata.replaceAll("\\s", "");
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {

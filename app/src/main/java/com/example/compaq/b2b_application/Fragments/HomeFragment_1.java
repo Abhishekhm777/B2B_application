@@ -280,10 +280,6 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
             @Override
             public
             void onResponse(String response) {
-
-
-
-
                 try {
                     progressBar.setVisibility(View.GONE);
                     JSONObject jsonObj = new JSONObject(response);
@@ -319,13 +315,6 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
                     }
                     adapter = new RecyclerAdapter1(getActivity(), productList);
                     recyclerView.setAdapter(adapter);
-
-
-
-
-
-
-
 
 
                 } catch (JSONException e) {

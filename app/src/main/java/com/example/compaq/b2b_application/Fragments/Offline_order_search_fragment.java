@@ -39,6 +39,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.compaq.b2b_application.Adapters.Custom_Order_search_Adapter;
+import com.example.compaq.b2b_application.Helper_classess.Back_alert_class;
 import com.example.compaq.b2b_application.Model.Offline_order_model;
 import com.example.compaq.b2b_application.Model.Top_model;
 import com.example.compaq.b2b_application.R;
@@ -76,7 +77,7 @@ public class Offline_order_search_fragment extends Fragment {
     private Bundle bundle;
     private String path;
     private Button done_button;
-    private Dialog options_dialog, myDialogue;
+    private Dialog  myDialogue;
     private TextView name, sku, purity, gwt, size;
     private ImageView imageView;
     private Toolbar toolbar;
@@ -86,6 +87,7 @@ public class Offline_order_search_fragment extends Fragment {
     private final HashMap<String, String> product_map = new HashMap<>();
     private String product_id;
     private Context mContext;
+
     public Offline_order_search_fragment() {
         // Required empty public constructor
     }
@@ -117,6 +119,7 @@ public class Offline_order_search_fragment extends Fragment {
             myDialogue.setCanceledOnTouchOutside(false);
             Button confirm = myDialogue.findViewById(R.id.confrim);
             Button cancel = myDialogue.findViewById(R.id.cancel);
+
             name = myDialogue.findViewById(R.id.name);
             sku = myDialogue.findViewById(R.id.sku);
             gwt = myDialogue.findViewById(R.id.weight_t);
@@ -142,16 +145,16 @@ public class Offline_order_search_fragment extends Fragment {
                     productlist.add(new Offline_order_model(name.getText().toString(), basee + imageurl, sku.getText().toString(), gwt.getText().toString(), size.getText().toString(), purity.getText().toString(), "1", product_id, "0"));
                     myDialogue.dismiss();
                     Fragment fragmentA = fragmentManager.findFragmentByTag("offline_frag1");
-                    if (fragmentA == null) {
+                    if(fragmentA == null) {
+
                         Log.e("EXISTSS", "NPOO");
                         Offline_fragment1 offline_fragment1 = new Offline_fragment1();
                         offline_fragment1.setArguments(bundle);
                         fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.offline_frame, offline_fragment1, "offline_frag1");
                         fragmentTransaction.commit();
-                    } else {
-                        //fragment exis
 
+                    } else {
                         product_map.put("name", name.getText().toString());
                         product_map.put("url", basee + imageurl);
                         product_map.put("sku", sku.getText().toString());
@@ -183,7 +186,6 @@ public class Offline_order_search_fragment extends Fragment {
                             e.printStackTrace();
                         }
                     }
-
                     return true;
                 }
             });
@@ -192,15 +194,14 @@ public class Offline_order_search_fragment extends Fragment {
             wholseller_id = sharedPref.getString("userid", null);
             output = sharedPref.getString(ACCESS_TOKEN, null);
             user_id = sharedPref.getString("userid", "");
-
             searchView.setIconified(false);
             searchView.requestFocusFromTouch();
-
         }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+
                 imageView.setImageDrawable(null);
                 purity.setText(null);
                 size.setText(null);
@@ -310,21 +311,35 @@ public class Offline_order_search_fragment extends Fragment {
             public void onResponse(String response) {
                 try {
                     myDialogue.show();
-
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject pro_object = jsonObject.getJSONObject("resourceSupport");
-
                     JSONArray jsonArray = pro_object.getJSONArray("imageGridFsID");
-
                     JSONArray spec_arra = pro_object.getJSONArray("specification");
                     for (int i = 0; i < spec_arra.length(); i++) {
                         JSONObject jsonObject1 = spec_arra.getJSONObject(i);
+                        if (jsonObject1.getString("heading").equalsIgnoreCase("Metal Details")) {
+
+                            JSONArray jsonArray2 = jsonObject1.getJSONArray("attributes");
+                            for (int j = 0; j < jsonArray2.length(); j++) {
+                                JSONObject jsonObject2 = jsonArray2.getJSONObject(j);
+                                if (jsonObject2.getString("key").equalsIgnoreCase("Purity (Kt)")) {
+                                    JSONArray jsonArray1 = jsonObject2.getJSONArray("values");
+                                    purity.setText(jsonArray1.getString(0));
+                                }
+                            }
+                        }
+
+
+
+
+
+
                         if (jsonObject1.getString("heading").equalsIgnoreCase("Product Details")) {
 
                             JSONArray jsonArray2 = jsonObject1.getJSONArray("attributes");
                             for (int j = 0; j < jsonArray2.length(); j++) {
                                 JSONObject jsonObject2 = jsonArray2.getJSONObject(j);
-                                if (jsonObject2.getString("key").equalsIgnoreCase("Gross Weight (gms)")) {
+                                if (jsonObject2.getString("key").equalsIgnoreCase("Net Weight (gms)")) {
                                     JSONArray jsonArray1 = jsonObject2.getJSONArray("values");
                                     gwt.setText(jsonArray1.getString(0));
                                 }
@@ -343,13 +358,9 @@ public class Offline_order_search_fragment extends Fragment {
                     }
                     imageurl = jsonArray.get(0).toString();
                     Glide.with(Objects.requireNonNull(getActivity())).load(basee + jsonArray.get(0).toString()).into(imageView);
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)

@@ -1,9 +1,12 @@
 package com.example.compaq.b2b_application.Adapters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +14,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -29,6 +35,7 @@ import com.example.compaq.b2b_application.R;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Adapter.MyViewHolder> {
     private ArrayList<Offline_order_model> productlist;
@@ -38,16 +45,44 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
     public FragmentManager fragmentManager;
     private HashMap<String, OrderTobe_customer_model> details;
     private Double grosswt;
+    private Dialog  myDialogue;
+    private TextView name,sku,size,purity,gwt;
+    private ImageView imageView;
 
 
 
     private View view;
     public   TextView textView;
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public Offline_order_Adapter(Context applicationContext, ArrayList<Offline_order_model> productlist, View view) {
         this.mContext=applicationContext;
         this.productlist=productlist;
         this.view=view;
          textView=view.findViewById(R.id.total);
+
+        myDialogue = new Dialog(Objects.requireNonNull(mContext));
+        myDialogue.setContentView(R.layout.offline_order_dialog_layout);
+
+        myDialogue.setCanceledOnTouchOutside(false);
+        Window window = myDialogue.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        Button confirm = myDialogue.findViewById(R.id.confrim);
+        Button cancel = myDialogue.findViewById(R.id.cancel);
+        confirm.setVisibility(View.GONE);
+        cancel.setText("Close");
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialogue.dismiss();
+            }
+        });
+
+        name = myDialogue.findViewById(R.id.name);
+        sku = myDialogue.findViewById(R.id.sku);
+        gwt = myDialogue.findViewById(R.id.weight_t);
+        purity = myDialogue.findViewById(R.id.puri_t);
+        size = myDialogue.findViewById(R.id.size_t);
+        imageView = myDialogue.findViewById(R.id.image_view);
     }
     @NonNull
     @Override
@@ -124,10 +159,13 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
         holder.product_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Back_alert_class back_alert_class=new  Back_alert_class(mContext);
-                back_alert_class.showPreview((holder.product_image.getDrawable()));
-
-
+                name.setText(listner.getName());
+          sku.setText(listner.getSku());
+          gwt.setText(listner.getWeight());
+          size.setText(listner.getSize());
+          purity.setText(listner.getPurity());
+          Glide.with(mContext).load(listner.getImg_url()).into(imageView);
+                myDialogue.show();
             }
         });
 

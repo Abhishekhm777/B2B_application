@@ -94,7 +94,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.PUT;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
@@ -143,7 +143,7 @@ public class Update_product_Activity extends AppCompatActivity {
     private JSONArray image_array;
     private ArrayList<Uri> filePaths=new ArrayList<>();
     private    StringBuilder category_path = new StringBuilder();
-    private  String realPath;
+    private  String realPath,urldata;
     private  static View window;
     private  static Context mcontext;
     private static Activity activity ;
@@ -591,11 +591,11 @@ public class Update_product_Activity extends AppCompatActivity {
 
         }
 
-        URL_DATA = ip_cat + "/category/byFirstLevelCategory/b2b/" + selected + "?wholesaler=" + wholseller_id;
-        Log.e("URL",URL_DATA);
+        urldata = ip_cat + "/category/byFirstLevelCategory/b2b/" + selected + "?wholesaler=" + wholseller_id;
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -1069,10 +1069,10 @@ public class Update_product_Activity extends AppCompatActivity {
         if (requestQueue1 == null) {
             requestQueue1 = Volley.newRequestQueue(getApplicationContext());
         }
-        URL_DATA = ip_cat + "/catalogue";
+        urldata = ip_cat + "/catalogue";
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

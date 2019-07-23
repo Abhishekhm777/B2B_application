@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
@@ -63,7 +63,7 @@ public class Add_new_Category extends Fragment {
     private View view;
     public int position = 0;
     String output;
-    String    wholseller_id;
+    String    wholseller_id,urldata;
     private  Mange_card_fragment mange_card_fragment;
     ProgressBar progressBar;
     Button sub_buton,add_specification;
@@ -268,9 +268,9 @@ public class Add_new_Category extends Fragment {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         }
-        URL_DATA = ip_cat + "/category/" + id + "?wholesaler="+ wholseller_id;
+        urldata = ip_cat + "/category/" + id + "?wholesaler="+ wholseller_id;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

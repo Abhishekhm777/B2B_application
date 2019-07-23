@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
@@ -64,7 +64,7 @@ public class Manage_category_frag1 extends Fragment {
     public String sname = "";
     private View view;
     public int position = 0;
-    String output;
+    private String output,urldata;
     String wholseller_id;
     private Mange_card_fragment mange_card_fragment;
     ProgressBar progressBar;
@@ -327,9 +327,9 @@ public class Manage_category_frag1 extends Fragment {
 
         }
 
-        URL_DATA = ip_cat + "/category/byFirstLevelCategory/b2b/Jewellery?wholesaler=" + wholseller_id;
+        urldata = ip_cat + "/category/byFirstLevelCategory/b2b/Jewellery?wholesaler=" + wholseller_id;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

@@ -268,14 +268,8 @@ public class Request_Activity extends AppCompatActivity {
 
                                     if(request_adapter.getItemCount()==0){
                                         recyclerView.setVisibility(View.GONE);
-
-
-
                                     }
-
-
                                 }
-
                                 @Override
                                 public void onChanged() {
                                     super.onChanged();

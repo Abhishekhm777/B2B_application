@@ -64,9 +64,10 @@ private String companyname;
 
     private String companyname2;
     private String imageurl2;
-    TextView bset_manu;
-    SearchView searchView;
-    Dialog dialog;
+   private TextView bset_manu;
+    private SearchView searchView;
+    private Dialog dialog;
+    private Context context;
     public AllSellers_display_fragment() {
         // Required empty public constructor
     }
@@ -78,7 +79,7 @@ private String companyname;
         // Inflate the layout for this fragment
 
         View view= inflater.inflate(R.layout.fragment_seller_portal_fragment1, container, false);
-
+        context=getActivity().getApplicationContext();
         dialog = new Dialog(getContext());
         dialog.setContentView(R.layout. progress_layout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -214,7 +215,7 @@ private String companyname;
 
 
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
 
@@ -252,15 +253,12 @@ private String companyname;
 
                     productlist.add(new SellerPortal_model(imageurl, companyname, sellerid, wholseller_no));
 
-
                     seller_portal_fragment1_adapter = new Seller_portal_fragment1Adapter(getActivity(), productlist, getFragmentManager());
                     /*recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));*/
                     sellser_recycler.setAdapter(seller_portal_fragment1_adapter);
                     /*    sellser_recycler2.setAdapter(seller_portal_fragment1_adapter);*/
 
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -280,7 +278,7 @@ private String companyname;
 
 
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
 
     }
@@ -371,7 +369,7 @@ private String companyname;
 
 
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
 
@@ -434,7 +432,7 @@ private String companyname;
 
 
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
 
     }

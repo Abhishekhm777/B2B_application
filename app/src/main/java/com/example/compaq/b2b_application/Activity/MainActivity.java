@@ -71,7 +71,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
@@ -132,6 +132,7 @@ class MainActivity extends AppCompatActivity {
     private String output;
     private String user_id;
     private  Bundle bundle;
+   private String urldata;
 
 
     @SuppressLint("WrongThread")
@@ -264,6 +265,7 @@ custom_order.setOnClickListener(new View.OnClickListener() {
         output=sharedPref.getString(ACCESS_TOKEN, null);
 
        wholseller_id= sharedPref.getString("Wholeseller_id", null);
+        user_id= sharedPref.getString("userid", null);
 
 
         /*session.checkLogin();
@@ -529,7 +531,6 @@ custom_order.setOnClickListener(new View.OnClickListener() {
                             bundle.putString("Item_Clicked", mi);
                             bundle.putString("CLASS","FRAGMENT2");
                             bundle.putString("All",listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
-
                             loadCatalogue(mi,bundle);
                         }
 
@@ -672,9 +673,9 @@ custom_order.setOnClickListener(new View.OnClickListener() {
 
             }
 
-           URL_DATA=ip_cat+"/category/byFirstLevelCategory/b2b/Jewellery?wholesaler="+wholseller_id;
+           urldata=ip_cat+"/category/byFirstLevelCategory/b2b/Jewellery?wholesaler="+wholseller_id;
 
-           StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+           StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     try{
