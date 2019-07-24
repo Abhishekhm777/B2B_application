@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -102,12 +103,14 @@ public class signup_Fragment extends Fragment {
     TextView gst_file;
     CountryCodePicker ccp;
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
-       View view= inflater.inflate(R.layout.fragment_signup_, container, false);
+         View view= inflater.inflate(R.layout.fragment_signup_, container, false);
 
         sharedPref = getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         myEditior = sharedPref.edit();
@@ -127,7 +130,7 @@ public class signup_Fragment extends Fragment {
         sign_upbutton=(Button)view.findViewById(R.id.signup_process);
         checkBox=(CheckBox)view.findViewById(R.id.seller_checkbox);
         ccp = (CountryCodePicker)view.findViewById(R.id.ccp);
-        Log.d("emial....",ccp.getDefaultCountryName()+ccp.getSelectedCountryCode());
+
 
 
         dialog = new Dialog(getContext());
@@ -144,18 +147,6 @@ public class signup_Fragment extends Fragment {
             public void onClick(View view) {
 
                 showPictureDialog(1000);
-               /* int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE);
-                if(ActivityCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                {
-                    requestPermissions(
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            2000);
-                }
-                else {
-                    startGallery();
-                }*/
 
             }
         });
@@ -229,12 +220,13 @@ public class signup_Fragment extends Fragment {
                         if(imageid==""|| imageid==null){
                             imageid="35f05e0e-56fb-4676-9819-381da000696b";
                         }
+                        id=email_t;
                         phone_t=ccp.getSelectedCountryCode()+phone_t;
                     signupModel=new SignupModel(imageid,gstid,company,gstin_t,firstname_t,email_t,phone_t,password_t);
                         signupModelArrayList.add(signupModel);
                      bundle.putSerializable("Data",(Serializable) signupModelArrayList);
                     //dialog.show();
-                        id=email_t;
+
                         check();
 
                    // send_otp(phone_t,email_t);
@@ -388,13 +380,13 @@ public class signup_Fragment extends Fragment {
             case 5020:
                 if (resultCode == RESULT_OK) {
 
-                    Uri returnUri = data.getData();
+                   // Uri returnUri = data.getData();
                     Bitmap bitmapImage ;
                     Bitmap bitimage = null;
                     try {
                       //  bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
                         //bitimage = getResizedBitmap(bitmapImage, 400);
-
+                        Uri returnUri = data.getData();
                         imagePick(requestCode, returnUri);
 
 
@@ -535,6 +527,7 @@ public class signup_Fragment extends Fragment {
 
 
         String url = ip1+"/b2b/api/v1/user/image/save";
+        Log.d("urls..",url);
         VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
@@ -546,6 +539,7 @@ public class signup_Fragment extends Fragment {
                     }
                     else if(code==5020||code==5010){
                       gstid=resultResponse;
+                        Log.i("Unexpected", resultResponse);
                     }
 
 
@@ -619,9 +613,14 @@ public class signup_Fragment extends Fragment {
 
     //////////////////////////check email or phone/////////////////////////////////////
     public  void check(){
-    if(count==2){
+        if(count==1) {
+            id = email_t;
+        }
+    else if(count==2){
         id="%2B"+phone_t;
     }
+
+
     String checkurl=ip1+"/b2b/api/v1/user/userExist?emailOrMobile="+id;
         Log.d("checkUrl",checkurl);
     RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
@@ -648,6 +647,7 @@ public class signup_Fragment extends Fragment {
                         myEditior.putString("RESEND_OTP",url);
                         myEditior.commit();
                         myEditior.apply();
+                        count=1;
 
                         getotp(url);
 
@@ -717,10 +717,6 @@ public class signup_Fragment extends Fragment {
         });
         requestQueue.add(req);
     }
-
-
-
-
 
 
 }

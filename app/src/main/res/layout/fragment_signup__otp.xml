@@ -4,19 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/relat"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Fragments.Signup_OtpFragment">
-        <!--<android.support.v7.widget.Toolbar
-            android:id="@+id/fpassword2_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="#275191"
-            android:fitsSystemWindows="true"
-            app:title="OTP"
-            android:elevation="6dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark">
-        </android.support.v7.widget.Toolbar>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/otpframe_layout"
+        android:orientation="vertical"></LinearLayout>
         <LinearLayout
             android:id="@+id/otp_layout"
             android:orientation="vertical"

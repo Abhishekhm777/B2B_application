@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class CatalogueListAdapter extends BaseAdapter {
     Context context;
     ArrayList<String>listItem;
-    private static LayoutInflater inflater=null;
+    private static LayoutInflater inflater;
 
     public  CatalogueListAdapter(Context context,ArrayList<String>listItem){
         this.context=context;

@@ -31,6 +31,7 @@ public class Sign_up_Activity extends AppCompatActivity {
     public TabLayout tabLayout;
     public static  ViewPager viewPager;
     public Toolbar toolbar;
+    Tablayout_adapter  adapter;
 public SessionManagement session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,25 +48,33 @@ public SessionManagement session;
         tabLayout=(TabLayout)findViewById(R.id.tabs);
         viewPager=(ViewPager)findViewById(R.id.viewpager);
 
+
         tabLayout.addTab(tabLayout.newTab().setText("STEP1"));
         tabLayout.addTab(tabLayout.newTab().setText("STEP2"));
         tabLayout.addTab(tabLayout.newTab().setText("STEP3"));
         //tabLayout.addTab(tabLayout.newTab().setText("OTP"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final Tablayout_adapter  adapter=new Tablayout_adapter(this,getSupportFragmentManager(),tabLayout.getTabCount());
+         adapter=new Tablayout_adapter(this,getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
 
 
+
+
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
                 if(viewPager.getCurrentItem()>tab.getPosition()) {
 
+
                     viewPager.setCurrentItem(tab.getPosition(), true);
+
+
 
                 }
                 tabLayout.getTabAt(viewPager.getCurrentItem()).select();
@@ -73,6 +82,7 @@ public SessionManagement session;
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+
 
             }
             @Override
@@ -134,6 +144,9 @@ button.setOnClickListener(new View.OnClickListener() {
 
 
     public static void set_view(int i){
+
+
         viewPager.setCurrentItem(i,true);
+
     }
 }

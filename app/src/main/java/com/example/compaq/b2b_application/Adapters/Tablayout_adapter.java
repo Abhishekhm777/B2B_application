@@ -4,6 +4,11 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.compaq.b2b_application.Fragments.Manufacturer_fragment;
 import com.example.compaq.b2b_application.Fragments.OTP_fragment;
@@ -38,9 +43,6 @@ public class Tablayout_adapter extends FragmentPagerAdapter {
             case 2:
                 signup_Fragment signup_fragment=new signup_Fragment();
                 return signup_fragment;
-           /* case 3:
-                OTP_fragment otp_fragment =new OTP_fragment();
-                return otp_fragment;*/
 
             default:
                 return null;
@@ -51,4 +53,7 @@ public class Tablayout_adapter extends FragmentPagerAdapter {
     public int getCount() {
         return totalTabs;
     }
+
+
+
 }
