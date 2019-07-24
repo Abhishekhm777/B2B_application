@@ -2,6 +2,7 @@ package com.example.compaq.b2b_application.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

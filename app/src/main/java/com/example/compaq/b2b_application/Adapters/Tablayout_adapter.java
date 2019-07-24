@@ -20,20 +20,19 @@ import com.example.compaq.b2b_application.Fragments.signup_Fragment;
 
 public class Tablayout_adapter extends FragmentPagerAdapter {
     private Context myContext;
-    int totalTabs;
+   int totalTabs;
 
     public Tablayout_adapter(Context myContext,FragmentManager fm,int totalTabs) {
         super(fm);
         this.myContext = myContext;
-        this.totalTabs = totalTabs;
+         this.totalTabs = totalTabs;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                /*Retailer_register_fragment retailerregister_fragment = new Retailer_register_fragment();
-                return retailerregister_fragment;*/
+
                 Select_CatalogueFragment select_catalogueFragment=new Select_CatalogueFragment();
                 return select_catalogueFragment;
             case 1:
@@ -45,7 +44,8 @@ public class Tablayout_adapter extends FragmentPagerAdapter {
                 return signup_fragment;
 
             default:
-                return null;
+                Select_CatalogueFragment select_catalogueFragments=new Select_CatalogueFragment();
+                return select_catalogueFragments;
         }
     }
 

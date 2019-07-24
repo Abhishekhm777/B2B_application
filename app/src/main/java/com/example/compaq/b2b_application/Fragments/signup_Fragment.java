@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -100,7 +101,7 @@ public class signup_Fragment extends Fragment {
     Bundle bundle;
     ArrayList<SignupModel>signupModelArrayList;
     private int GALLERY = 1, CAMERA = 2;
-    TextView gst_file;
+   // TextView gst_file;
     CountryCodePicker ccp;
 
 
@@ -118,13 +119,13 @@ public class signup_Fragment extends Fragment {
         signupModelArrayList= new ArrayList<>();
         company_name=(EditText)view.findViewById(R.id.edit_company_name);
         gstin_e=(EditText)view.findViewById(R.id.edit_GSTIN);
-        gstn_button=(Button)view.findViewById(R.id.upload_gst);
+        //gstn_button=(Button)view.findViewById(R.id.upload_gst);
         user_name=(EditText)view.findViewById(R.id.user_name);
         email=(EditText)view.findViewById(R.id.edit_email);
         teli_phone=(EditText)view.findViewById(R.id.edit_mobile);
         password=(EditText)view.findViewById(R.id.edit_password);
         imageView=(ImageView)view.findViewById(R.id.profile_logo);
-        gst_file=(TextView)view.findViewById(R.id.gst_file);
+       // gst_file=(TextView)view.findViewById(R.id.gst_file);
 
         upload_logo=(Button)view.findViewById(R.id.upload_logBtn);
         sign_upbutton=(Button)view.findViewById(R.id.signup_process);
@@ -152,10 +153,10 @@ public class signup_Fragment extends Fragment {
         });
 
 
-        gstn_button.setOnClickListener(new View.OnClickListener() {
+        /*gstn_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* Intent pickImageIntent = new Intent(Intent.ACTION_PICK,
+               *//* Intent pickImageIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 pickImageIntent.setType("image/*");
                 pickImageIntent.putExtra("aspectX", 1);
@@ -163,12 +164,12 @@ public class signup_Fragment extends Fragment {
                 pickImageIntent.putExtra("scale", true);
                 pickImageIntent.putExtra("outputFormat",
                         Bitmap.CompressFormat.JPEG.toString());
-                startActivityForResult(pickImageIntent, PICK_IMAGE_REQUEST);*/
+                startActivityForResult(pickImageIntent, PICK_IMAGE_REQUEST);*//*
                showPictureDialog(5000);
 
             }
         });
-
+*/
 
 
 
@@ -222,7 +223,7 @@ public class signup_Fragment extends Fragment {
                         }
                         id=email_t;
                         phone_t=ccp.getSelectedCountryCode()+phone_t;
-                    signupModel=new SignupModel(imageid,gstid,company,gstin_t,firstname_t,email_t,phone_t,password_t);
+                    signupModel=new SignupModel(imageid,company,gstin_t,firstname_t,email_t,phone_t,password_t);
                         signupModelArrayList.add(signupModel);
                      bundle.putSerializable("Data",(Serializable) signupModelArrayList);
                     //dialog.show();
@@ -249,8 +250,8 @@ public class signup_Fragment extends Fragment {
         android.app.AlertDialog.Builder pictureDialog = new android.app.AlertDialog.Builder(getActivity());
         pictureDialog.setTitle("Select Action");
         String[] pictureDialogItems = {
-                "Select photo from gallery",
-                "Capture photo from camera" };
+                " Gallery",
+                " Camera" };
         pictureDialog.setItems(pictureDialogItems,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -477,12 +478,12 @@ public class signup_Fragment extends Fragment {
 
 
             Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, true);
-            if(code==5020 ||code==5010) {
+            /*if(code==5020 ||code==5010) {
                 File f = new File(picturePath);
                 String imageName = f.getName();
                 Log.d("image name....", imageName);
                 gst_file.setText(imageName);
-            }
+            }*/
 
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -537,10 +538,10 @@ public class signup_Fragment extends Fragment {
                         imageid = resultResponse;
                         Log.i("Unexpected", resultResponse);
                     }
-                    else if(code==5020||code==5010){
+                   /* else if(code==5020||code==5010){
                       gstid=resultResponse;
                         Log.i("Unexpected", resultResponse);
-                    }
+                    }*/
 
 
                 } catch (Exception e) {
@@ -717,6 +718,9 @@ public class signup_Fragment extends Fragment {
         });
         requestQueue.add(req);
     }
+
+
+
 
 
 }

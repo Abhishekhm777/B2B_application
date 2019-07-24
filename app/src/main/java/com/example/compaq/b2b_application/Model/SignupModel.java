@@ -3,7 +3,7 @@ package com.example.compaq.b2b_application.Model;
 public class SignupModel {
     String logoId,gstId,company,gst,person,email,mobile,password;
 
-    public SignupModel(String logoId,String gstId,String company, String gst, String person, String email, String mobile, String password) {
+    public SignupModel(String logoId,String company, String gst, String person, String email, String mobile, String password) {
         this.company = company;
         this.gst = gst;
         this.person = person;
@@ -11,7 +11,7 @@ public class SignupModel {
         this.mobile = mobile;
         this.password = password;
         this.logoId=logoId;
-        this.gstId=gstId;
+        //this.gstId=gstId;
     }
 
     public String getLogoId() {
@@ -22,14 +22,14 @@ public class SignupModel {
         this.logoId = logoId;
     }
 
-    public String getGstId() {
+   /* public String getGstId() {
         return gstId;
     }
 
     public void setGstId(String gstId) {
         this.gstId = gstId;
     }
-
+*/
     public String getCompany() {
         return company;
     }

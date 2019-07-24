@@ -44,6 +44,7 @@ public class CatalogueListAdapter extends BaseAdapter {
 
             vi=  inflater.inflate(R.layout.category_listview, viewGroup,false);
         }
+
         TextView textView=(TextView) vi.findViewById(R.id.catalog_name);
         textView.setText(listItem.get(i));
         return vi;

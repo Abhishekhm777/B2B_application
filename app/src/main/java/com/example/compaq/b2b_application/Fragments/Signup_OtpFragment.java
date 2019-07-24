@@ -162,10 +162,10 @@ public class Signup_OtpFragment extends Fragment {
         final JSONObject comoanyParams = new JSONObject();
         //ArrayList<JSONObject> regiter_infolist=new ArrayList<>();
         try {
-            if(!signupModel.getGstId().equals("")){
+           /* if(!signupModel.getGstId().equals("")){
                 comoanyParams.put("gstDocumentId",signupModel.getGstId());
                 postparams.put("gstDocumentId",signupModel.getGstId());
-            }
+            }*/
             comoanyParams.put("name",signupModel.getCompany());
             comoanyParams.put("product",product);
             comoanyParams.put("gstin",signupModel.getGst());
