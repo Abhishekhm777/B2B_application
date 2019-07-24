@@ -98,7 +98,7 @@ import retrofit2.http.Part;
 
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 public class Add_new_product_activity extends AppCompatActivity {
@@ -146,7 +146,7 @@ public class Add_new_product_activity extends AppCompatActivity {
     private JSONArray cat_path = new JSONArray();
     ArrayList<Uri> filePaths=new ArrayList<>();
     private    StringBuilder category_path = new StringBuilder();
-    private  String realPath;
+    private  String realPath,urldata;
     private static final int PERMISSION_REQUEST_CAMERA = 0;
     private  static View window;
     private  static Context mcontext;
@@ -579,9 +579,9 @@ private void requestCameraPermission() {
             requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         }
-        URL_DATA = ip_cat + "/category/byFirstLevelCategory/b2b/" + selected + "?wholesaler=" + wholseller_id;
+        urldata = ip_cat + "/category/byFirstLevelCategory/b2b/" + selected + "?wholesaler=" + wholseller_id;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -864,10 +864,10 @@ else {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-        URL_DATA = ip_cat + "/category/" + item;
-        Log.e("LOGTTF",URL_DATA);
+        urldata = ip_cat + "/category/" + item;
+        Log.e("LOGTTF",urldata);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -1063,8 +1063,8 @@ else {
         if (requestQueue1 == null) {
             requestQueue1 = Volley.newRequestQueue(getApplicationContext());
         }
-        URL_DATA = ip +"uaa/b2b/api/v1/user/info";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        urldata = ip +"uaa/b2b/api/v1/user/info";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -1123,9 +1123,9 @@ else {
         if (requestQueue2 == null) {
             requestQueue2 = Volley.newRequestQueue(getApplicationContext());
         }
-        URL_DATA = ip_cat + "/category/byFirstLevelCategory/b2b/" + catalogue + "?wholesaler=" + wholseller_id;
+        urldata = ip_cat + "/category/byFirstLevelCategory/b2b/" + catalogue + "?wholesaler=" + wholseller_id;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

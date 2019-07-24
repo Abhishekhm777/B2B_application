@@ -93,8 +93,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.PUT;
+import timber.log.Timber;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
@@ -143,7 +144,7 @@ public class Update_product_Activity extends AppCompatActivity {
     private JSONArray image_array;
     private ArrayList<Uri> filePaths=new ArrayList<>();
     private    StringBuilder category_path = new StringBuilder();
-    private  String realPath;
+    private  String realPath,urldata;
     private  static View window;
     private  static Context mcontext;
     private static Activity activity ;
@@ -162,6 +163,8 @@ public class Update_product_Activity extends AppCompatActivity {
     private ArrayList<Top_model> list_data=new ArrayList<>();
     private ArrayList<String> user_assigned_list=new ArrayList<>();
     private User_class_Adapter user_class_adapter;
+    private String version;
+    private   JSONArray userclassArray=new JSONArray();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,7 +187,6 @@ public class Update_product_Activity extends AppCompatActivity {
         listView=(ListView)myDialogue.findViewById(R.id.user_layout_list);
         myd_ok=(TextView)myDialogue.findViewById(R.id.ok);
         myd_cancel=(TextView)myDialogue.findViewById(R.id.cancel);
-
 
         myd_ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -591,11 +593,11 @@ public class Update_product_Activity extends AppCompatActivity {
 
         }
 
-        URL_DATA = ip_cat + "/category/byFirstLevelCategory/b2b/" + selected + "?wholesaler=" + wholseller_id;
-        Log.e("URL",URL_DATA);
+        urldata = ip_cat + "/category/byFirstLevelCategory/b2b/" + selected + "?wholesaler=" + wholseller_id;
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -1069,10 +1071,10 @@ public class Update_product_Activity extends AppCompatActivity {
         if (requestQueue1 == null) {
             requestQueue1 = Volley.newRequestQueue(getApplicationContext());
         }
-        URL_DATA = ip_cat + "/catalogue";
+        urldata = ip_cat + "/catalogue";
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -1157,7 +1159,6 @@ public class Update_product_Activity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         window=getWindow().getCurrentFocus();
 
-
         int childcout= rootView.getChildCount();
         if(childcout>0) {
             ArrayList<String> nam = new ArrayList<>();
@@ -1211,6 +1212,7 @@ public class Update_product_Activity extends AppCompatActivity {
         }
 
         JSONObject   jsonObject = new JSONObject();
+
         try {
             jsonObject.put("id", product_id);
             jsonObject.put("name", name.getText().toString());
@@ -1226,7 +1228,7 @@ public class Update_product_Activity extends AppCompatActivity {
             jsonObject.put("newLaunch", newlounch.isChecked());
             jsonObject.put("wholesaler", wholseller_id);
             jsonObject.put("categoriesPath", cat_path);
-            jsonObject.put("categoriesPath", cat_path);
+            jsonObject.put("version", version);
             jsonObject.put("requiredDayesToDeliver", delivery_days.getText().toString());
             JSONArray jsonArray=new JSONArray();
             for(int i=0;i<listDataHeader.size();i++){
@@ -1262,6 +1264,8 @@ public class Update_product_Activity extends AppCompatActivity {
 
 
             jsonObject.put("specification",jsonArray);
+            jsonObject.put("userAccess",userclassArray);
+            Timber.d(String.valueOf(user_assigned_list.size()));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1272,41 +1276,12 @@ public class Update_product_Activity extends AppCompatActivity {
         UploadAPIs uploadAPIs = retrofit.create(UploadAPIs.class);*/
         //Create a file object using file path
         ApiService service = ApiClient.createService(ApiService.class);
-      /*  File file = new File(picturePath);
-        // Create a request body with file and image media type
-        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
-        // Create MultipartBody.Part using file request-body,file name and part name
-        MultipartBody.Part part = MultipartBody.Part.createFormData("images", file.getName(), fileReqBody);*/
-        ////////////////////////////////////////////////////////////////////
 
         List<MultipartBody.Part> parts = new ArrayList<>();
-
 
         for (int i = 0; i < filePaths.size(); i++) {
             parts.add(prepareFilePart("images", filePaths.get(i)));
         }
-
-        /////////////////////////////////////////////////////////////
-
-        /*MultipartBody.Builder builder = new MultipartBody.Builder();
-        builder.setType(MultipartBody.FORM);*/
-        /* builder.addFormDataPart("images",file.getName(),RequestBody.create(MediaType.parse("image/*"), file));*/
-
-        /*  MultipartBody.Part requestBody = MultipartBody.Part.createFormData("images","", (builder.build()));*/
-
-       /* for (int i = 0; i <filePaths.size() ; i++) {
-            File file1 = new File(filePaths.get(i));
-            RequestBody requestImage = RequestBody.create(MediaType.parse("multipart/form-data"), file1);
-              builder.addFormDataPart(file1.getName(), String.valueOf(requestImage));
-
-
-        }
-
-        MultipartBody.Part requestBody = MultipartBody.Part.createFormData("images","", (builder.build()));*/
-
-        //Create request body with text description and text media type
-
-        /*   RequestBody description2 = RequestBody.create(MediaType.parse("images"),part.toString());*/
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(jsonObject.toString()));
         Log.e("YYYYYAYAYYAYA",jsonObject.toString());
@@ -1338,7 +1313,6 @@ public class Update_product_Activity extends AppCompatActivity {
 
                         // todo deal with the issues the way you need to
                         if (response.code()==409){
-
                             Snackbar.make(window, "SKU already exist", Snackbar.LENGTH_SHORT)
                                     .setAction("Action", null).show();
                             activity.runOnUiThread(new Runnable() {
@@ -1352,7 +1326,6 @@ public class Update_product_Activity extends AppCompatActivity {
                                 public void run() {
                                     progressBar.setVisibility(View.GONE);
                                     Toast.makeText(mcontext,"Product Updated Successfully",Toast.LENGTH_LONG).show();
-
 
                                 }
                             });
@@ -1445,12 +1418,11 @@ public class Update_product_Activity extends AppCompatActivity {
 
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
-            public
-            void onResponse(String response) {
+            public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject jsonObject1=jsonObject.getJSONObject("resourceSupport");
-
+                    version=jsonObject1.getString("version");
                     name.setText(jsonObject1.getString("name"));
                     sku.setText(jsonObject1.getString("sku"));
                     description.setText(jsonObject1.getString("description"));
@@ -1459,19 +1431,16 @@ public class Update_product_Activity extends AppCompatActivity {
                     delivery_days.setText(jsonObject1.getString("requiredDayesToDeliver"));
                     manu_name.setText(jsonObject1.getString("manufactureName"));
                     manu_no.setText(jsonObject1.getString("manufactureMobile"));
-
                     JSONArray usrer_acces=jsonObject1.getJSONArray("userAccess");
                     for(int i=0;i<usrer_acces.length();i++){
                         stringBuilder.append(usrer_acces.getString(i));
                         user_assigned_list.add((usrer_acces.getString(i)));
+                        userclassArray.put(usrer_acces.getString(i));
                     }
                     user_class.setText(stringBuilder.toString());
-
                     user_class_adapter=new User_class_Adapter(getApplicationContext(),list_data,user_assigned_list);
                     listView.setAdapter(user_class_adapter);
-
                     Log.e("USER",stringBuilder.toString());
-
                     pro_spinner.setSelection(ty.getPosition(jsonObject1.getString("productType")));
                     prioriyt_spinner.setSelection(pri.getPosition(jsonObject1.getString("priority")));
                     status_spinner.setSelection(status_ada.getPosition(jsonObject1.getString("productStatus")));
@@ -1483,42 +1452,38 @@ public class Update_product_Activity extends AppCompatActivity {
                             JSONObject jsonObject2 = jsonArray1.getJSONObject(i);
                             if(jsonObject2.getString("heading").equalsIgnoreCase("Stone Details")){
                                 onAddField();
-
                                 View v = rootView.getChildAt( rootView.getChildCount()-1);
                                 EditText heading = v.findViewById(R.id.heading);
-
                                 EditText colour = v.findViewById(R.id.colour);
                                 EditText shape = v.findViewById(R.id.shape);
                                 EditText no_stone = v.findViewById(R.id.no_stone);
                                 EditText clarity = v.findViewById(R.id.clarity);
                                 EditText weight = v.findViewById(R.id.weight);
                                 EditText type = v.findViewById(R.id.typpe);
-
                                 JSONArray jsonArray11 = jsonObject2.getJSONArray("attributes");
-
                                 for (int j = 0; j < jsonArray11.length(); j++) {
                                     JSONObject jsonObject11 = jsonArray11.getJSONObject(j);
-                                    String k=jsonObject11.getString("key");
+                                    String k = jsonObject11.getString("key");
                                     JSONArray jsonArray2 = jsonObject11.getJSONArray("values");
-                                    if(k.equalsIgnoreCase("Stone Name")){
+                                    if (k.equalsIgnoreCase("Stone Name")) {
                                         heading.setText(jsonArray2.get(0).toString());
                                     }
-                                    if(k.equalsIgnoreCase("color")){
+                                    if (k.equalsIgnoreCase("color")) {
                                         colour.setText(jsonArray2.get(0).toString());
                                     }
-                                    if(k.equalsIgnoreCase("Shape")){
+                                    if (k.equalsIgnoreCase("Shape")) {
                                         shape.setText(jsonArray2.get(0).toString());
                                     }
-                                    if(k.equalsIgnoreCase("Number of Stones")){
+                                    if (k.equalsIgnoreCase("Number of Stones")) {
                                         no_stone.setText(jsonArray2.get(0).toString());
                                     }
-                                    if(k.equalsIgnoreCase("Clarity")){
+                                    if (k.equalsIgnoreCase("Clarity")) {
                                         clarity.setText(jsonArray2.get(0).toString());
                                     }
-                                    if(k.equalsIgnoreCase("Weight")){
+                                    if (k.equalsIgnoreCase("Weight")) {
                                         weight.setText(jsonArray2.get(0).toString());
                                     }
-                                    if(k.equalsIgnoreCase("Setting Type")){
+                                    if (k.equalsIgnoreCase("Setting Type")) {
                                         type.setText(jsonArray2.get(0).toString());
                                     }
                                 }
@@ -1529,12 +1494,9 @@ public class Update_product_Activity extends AppCompatActivity {
                             ArrayList<String> submenu = new ArrayList<>();
                             for (int k = 0; k < att_tr.length(); k++) {
                                 JSONObject jsonObject3 = att_tr.getJSONObject(k);
-
                                 submenu.add(jsonObject3.getString("key"));
                                 JSONArray jsonArray2 = jsonObject3.getJSONArray("values");
-
                                 val_map.put(jsonObject3.getString("key"), jsonArray2.getString(0));
-
                             }
                             listDataChild.put(listDataHeader.get(i), submenu);
                         }
@@ -1857,8 +1819,5 @@ public class Update_product_Activity extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
-
-
-
 }
 

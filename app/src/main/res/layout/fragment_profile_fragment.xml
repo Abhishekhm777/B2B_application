@@ -15,7 +15,7 @@ tools:context=".Fragments.Profile_fragment">
     app:titleTextColor="@color/Titel"
     android:textAlignment="center"
     app:titleTextAppearance="@color/Titel"
-    android:background="@color/Toolbar">
+    android:background="@color/Text">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

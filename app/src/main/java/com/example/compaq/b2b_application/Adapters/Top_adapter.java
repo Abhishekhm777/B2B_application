@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
@@ -41,7 +41,7 @@ public class Top_adapter extends BaseAdapter {
     Dialog dialog;
     TextView ok,cancel,main_text;
     public SharedPreferences sharedPref;
-    private   String output,wholseller_id;
+    private   String output,wholseller_id,urldata;
     private LayoutInflater inflater;
     View view;
     ArrayList<Boolean> check_list=new ArrayList<>();
@@ -167,8 +167,8 @@ public class Top_adapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-        URL_DATA = ip_cat + "/category/secure/update?wholesaler="+wholseller_id;
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL_DATA,jsonObject, new Response.Listener<JSONObject>() {
+        urldata = ip_cat + "/category/secure/update?wholesaler="+wholseller_id;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urldata,jsonObject, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {

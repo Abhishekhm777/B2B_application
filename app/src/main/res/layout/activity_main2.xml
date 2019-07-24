@@ -10,9 +10,6 @@
     android:background="@color/white"
     tools:context=".Activity.Displaying_complete_product_details_Activity">
 
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,7 +73,7 @@
                     android:elevation="4dp"
                     android:fontFamily="@font/catamaran"
                     android:background="@color/mrk"
-                    android:text="Order Now" />
+                    android:text="Custom Order" />
 
                <Button
                    android:id="@+id/addtocart"
@@ -86,7 +83,7 @@
                    android:elevation="4dp"
                    android:background="@color/Text"
                    android:fontFamily="@font/catamaran"
-                   android:text="Add To BAG"
+                   android:text="Shop now"
                    android:textColor="@color/white"/>
 
                     </LinearLayout>

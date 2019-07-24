@@ -150,37 +150,37 @@ public class Recycler_Adapter2 extends RecyclerView.Adapter<Recycler_Adapter2.My
 });
 
 
-        holder.addcart_button.setOnClickListener(new View.OnClickListener() {
+    /*    holder.addcart_button.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
 
-        /*fragmentManager = mCtx.getSupportFragmentManager();
+        *//*fragmentManager = mCtx.getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_card, new Dropdown_fragment());
         fragmentTransaction.addToBackStack(null).commit();
 
 
-*/
+*//*
          name= listner.getName();
 
          id= listner.getId();
 
-        /*cart_shared_preference = mCtx.getSharedPreferences("CART_ITEMS", 0);
-       cartEditor= cart_shared_preference.edit();*/
-       /* String useris=sharedPref.getString("userid","");
-*/
+        *//*cart_shared_preference = mCtx.getSharedPreferences("CART_ITEMS", 0);
+       cartEditor= cart_shared_preference.edit();*//*
+       *//* String useris=sharedPref.getString("userid","");
+*//*
 
         sharedPref =mCtx.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         myEditor = sharedPref.edit();
 
 
-      /*  sharedPref=mCtx.getSharedPreferences("User_information",0);*/
+      *//*  sharedPref=mCtx.getSharedPreferences("User_information",0);*//*
 
          user_i =sharedPref.getString("userid","");
          cartid=sharedPref.getString("cartid", "");
 
 
-       /* pref=mCtx.getSharedPreferences("USER_DETAILS",0);*/
+       *//* pref=mCtx.getSharedPreferences("USER_DETAILS",0);*//*
 
 
         Log.e("USER IDIDIDID",user_i);
@@ -194,8 +194,8 @@ public class Recycler_Adapter2 extends RecyclerView.Adapter<Recycler_Adapter2.My
 
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.nav_card, myFragment).addToBackStack(null).commit();
 
-       /* userCart_details(user_i);*/
-       /*
+       *//* userCart_details(user_i);*//*
+       *//*
         bundle=new Bundle();
         bundle.putString("item_name",name);
         bundle.putString("Item_Clicked",id);
@@ -204,10 +204,13 @@ public class Recycler_Adapter2 extends RecyclerView.Adapter<Recycler_Adapter2.My
         AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.nav_card, myFragment).addToBackStack(null).commit();
-*/
+*//*
 
     }
-});
+});*/
+
+
+
            scaleAnimation = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
         scaleAnimation.setDuration(800);
         BounceInterpolator  bounceInterpolator = new BounceInterpolator();
@@ -270,17 +273,14 @@ public class Recycler_Adapter2 extends RecyclerView.Adapter<Recycler_Adapter2.My
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageV;
-        TextView textView, textView1,textView2;
-        public Button addcart_button;
+        TextView textView;
         ToggleButton whishlist_button;
         public MyViewHolder(View itemView) {
             super(itemView);
 
-
-
             textView = (TextView) itemView.findViewById(R.id.navtext);
             imageV=(ImageView)itemView.findViewById(R.id.navimage);
-            addcart_button=(Button)itemView.findViewById(R.id.cart_button) ;
+
             whishlist_button=(ToggleButton) itemView.findViewById(R.id.button_favorite);
 
         }
@@ -293,9 +293,7 @@ public class Recycler_Adapter2 extends RecyclerView.Adapter<Recycler_Adapter2.My
                 new Response.Listener<JSONObject>() {
                     public void onResponse(JSONObject response) {
 
-
                         try {
-
 
                             JSONArray jsonArray=response.getJSONArray("items");
                             json_length= jsonArray.length();

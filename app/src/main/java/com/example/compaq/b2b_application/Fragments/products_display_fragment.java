@@ -85,7 +85,7 @@ public
 class products_display_fragment extends Fragment implements Toolbar.OnMenuItemClickListener,View.OnClickListener, Bottom_sheet_dialog.BottomSheetListner, AdapterView.OnItemClickListener {
     private Map<Object, Object> params;
     public ArrayList<Recy_model2> productlist;
-    public static String URL_DATA = "", create_urls = "";
+    public  String URL_DATA = "", create_urls = "";
     private DrawerLayout drawer;
     public RecyclerView recyclerView;
     public Recy_model2 recy_model2;
@@ -112,7 +112,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
     private String output;
     private String user_no;
     private EditText otp;
-    private String wholseller_id;
+    private String wholseller_id,userid;
     ViewpageAdapter1 viewpageAdapter1;
     Dialog dialog, sortDialog;
     private ViewPager viewPager;
@@ -125,13 +125,11 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
     ArrayAdapter sortadapter;
     public  Map<Object, Object> sortparams ,filterparams;
     //View view;
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-       View view = inflater.inflate(R.layout.fragment_fragment_2, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment_2, container, false);
         context=container.getContext();
         session = new SessionManagement(getActivity().getApplicationContext());
         progressBar = (ProgressBar) view.findViewById(R.id.progress);
@@ -149,7 +147,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
 
         relativeLayout = (RelativeLayout) view.findViewById(R.id.layout_buttom);
 
-        filterparams=new LinkedHashMap<Object, Object>();
+        filterparams=new LinkedHashMap<>();
 
         dialog = new Dialog(getContext());
         dialog.setCanceledOnTouchOutside(false);
@@ -317,6 +315,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         output = pref.getString(ACCESS_TOKEN, null);
 
         wholseller_id = pref.getString("Wholeseller_id", null);
+        userid = pref.getString("userid", null);
         user_no = pref.getString("Wholeseller_mob", null);
         textView.setText("Contact :" + user_no);
         bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottom);

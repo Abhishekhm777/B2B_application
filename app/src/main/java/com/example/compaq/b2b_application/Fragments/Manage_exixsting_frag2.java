@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
+
 import static com.example.compaq.b2b_application.Fragments.products_display_fragment.item_clicked;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
@@ -55,7 +55,7 @@ public class Manage_exixsting_frag2 extends Fragment {
     products_display_fragment productsdisplayfragment;
     public Bundle bundle2;
     private View view;
-    public String original;
+    public String original,urldata;
     int item=0;
     String all;
 
@@ -233,10 +233,10 @@ public class Manage_exixsting_frag2 extends Fragment {
 
         }
 
-        URL_DATA=ip_cat+"/category/byFirstLevelCategory/b2b/Jewellery,"+item_clicked+"?wholesaler="+wholseller_id;
-        URL_DATA=URL_DATA.replaceAll("\\s", "");
+        urldata=ip_cat+"/category/byFirstLevelCategory/b2b/Jewellery,"+item_clicked+"?wholesaler="+wholseller_id;
+        urldata=urldata.replaceAll("\\s", "");
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try{

@@ -36,7 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.URL_DATA;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
@@ -57,7 +56,7 @@ public class Mange_exixisting_fragment extends Fragment {
     private String sname = "";
     private View view;
     private int position = 0;
-    private  String output;
+    private  String output,urldata;
     private String  wholseller_id;
     private  Mange_card_fragment mange_card_fragment;
     private  SearchView searchView;
@@ -362,10 +361,10 @@ public class Mange_exixisting_fragment extends Fragment {
 
         }
 
-        URL_DATA=ip_cat+"/category/byFirstLevelCategory/b2b/Jewellery?wholesaler="+wholseller_id;
-        Log.d("URL_DATA",URL_DATA);
+        urldata=ip_cat+"/category/byFirstLevelCategory/b2b/Jewellery?wholesaler="+wholseller_id;
+        Log.d("URL_DATA",urldata);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try{
@@ -396,7 +395,7 @@ public class Mange_exixisting_fragment extends Fragment {
                     Log.d("Sidebar11", "EXCEPETION");
                 }
 
-             
+
 
             }
         }, new Response.ErrorListener() {

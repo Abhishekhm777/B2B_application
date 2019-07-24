@@ -66,7 +66,6 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 
 public
 class Displaying_complete_product_details_Activity extends AppCompatActivity {
-    private DrawerLayout drawer;
     private ViewPager viewPager;
     private ViewpageAdapter2 viewPageAdapter2;
     private Context mContext;
@@ -85,7 +84,6 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
     public Bundle bundle;
     public TextView textView,textView2,skutext;
     public RadioGroup radioGroup ;
-    private int page=0;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor myEditor;
     private String name="";
@@ -109,6 +107,7 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
     private String sku_wishlilst;
     private String output;
     /* public SharedPreferences.Editor cartEditor;*/
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected
     void onCreate(Bundle savedInstanceState) {
@@ -118,17 +117,11 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
 
         sharedPref =getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
          output=sharedPref.getString(ACCESS_TOKEN, null);
-
-        myEditor = sharedPref.edit();
+         myEditor = sharedPref.edit();
 
         Toolbar toolbar2 = (Toolbar) findViewById(R.id.new_toolbar);
 
       /*  toolbar2.inflateMenu(R.menu.actionbar_icons);*/
-
-
-
-
-
 
         setSupportActionBar(toolbar2);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -167,7 +160,6 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
                 }
                 if(!b){
                     removeFromWhish(sku_wishlilst);
-
                 }
             }
         });
@@ -185,8 +177,7 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
                /* sharedPref=getApplicationContext().getSharedPreferences("User_information",0);*/
 
                 String user_i =sharedPref.getString("userid","");
-
-               /* userCart_details(user_i);*/
+                /* userCart_details(user_i);*/
 
                 Bundle bundle=getIntent().getExtras();
                 name= Objects.requireNonNull(bundle).getString("Item_Clicked");
@@ -338,7 +329,6 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
 
                     JSONArray ja_data = jp.getJSONArray("links");
 
-
                     Log.d("OutPut", String.valueOf(ja_data.length()));
 
                     int length = ja_data.length();
@@ -354,16 +344,6 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
                             Viewpager2_model item=new Viewpager2_model(sliderImageUrl);
 
                             productlist.add(item);
-
-
-
-
-
-
-
-
-
-
 
                            /* for(int j=0;j<image_arr.length();j++)
                             {
@@ -446,24 +426,17 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
         Log.d("URL %!!!... , . ,. , . ",d_url);
 
 
-
-
-
        String Detail_URL_DATA=ip+"gate/b2b/catalog/api/v1/product/"+name;
-
 
         StringRequest stringRequest=new StringRequest(Request.Method.GET,  Detail_URL_DATA, new Response.Listener<String>() {
             @Override
             public
             void onResponse(String response) {
 
-
-
                 try {
                     JSONObject   jsonObj = new JSONObject(response);
                     JSONObject jp=jsonObj.getJSONObject("resourceSupport");
                     JSONArray ja_data = jp.getJSONArray("specification");
-
 
                     Log.d("OutPut", String.valueOf(ja_data.length()));
                    /* details_list=new ArrayList<>();*/
