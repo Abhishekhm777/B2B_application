@@ -41,6 +41,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Activity.Cart_Activity;
 import com.example.compaq.b2b_application.Activity.Seller_Dashboard_Activity;
+import com.example.compaq.b2b_application.Activity.UserProfileActivity;
 import com.example.compaq.b2b_application.Adapters.RecyclerAdapter1;
 import com.example.compaq.b2b_application.Adapters.RecyclerItemClickListener;
 import com.example.compaq.b2b_application.Adapters.ViewpageAdapter1;
@@ -194,9 +195,11 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
                     startActivity(i);
                 }
                 if(navigationItem.getPosition()==2){
-                    fragmentManager = getActivity().getSupportFragmentManager();
+                   /* fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.mainframe, new Personal_info_fragment()).addToBackStack(null).commit();
+                    fragmentTransaction.replace(R.id.mainframe, new Personal_info_fragment()).addToBackStack(null).commit();*/
+                    Intent in = new Intent(getActivity(), UserProfileActivity.class);
+                    startActivity(in);
                 }
 
                 if(navigationItem.getPosition()==3){

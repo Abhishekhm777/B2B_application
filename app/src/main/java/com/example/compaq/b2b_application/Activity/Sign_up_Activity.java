@@ -42,7 +42,7 @@ public SessionManagement session;
 
         toolbar=(Toolbar)findViewById(R.id.signUptool);
         TextView textView=(TextView)findViewById(R.id.signUptitle);
-        textView.append("Sign Up   ");
+        textView.append("Sign Up ");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
