@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BEST WHOLESALERS"
+            android:text=" WHOLESALERS"
             android:fontFamily="@font/catamaran"
             android:textColor="@color/black"
             android:layout_gravity="center"
@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BEST MANUFATURERS"
+            android:text=" MANUFATURERS"
             android:visibility="gone"
             android:id="@+id/bestmanu_textview"
             android:fontFamily="@font/catamaran"

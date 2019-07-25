@@ -194,5 +194,23 @@
         </item>
 
     </style>
+    //////////////////////////Popmenu style///////////
+   <!-- <style name="popup" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@color/skyBlue</item>
+        <item name="android:textSize">10sp</item>
+
+    </style>-->
+
+    <style name="popup" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:textColor">@color/skyBlue</item>
+        <item name="android:popupMenuStyle">@drawable/borders</item>
+        <item name="android:popupBackground">@drawable/borders</item>
+        <item name="android:popupLayout">@drawable/borders</item>
+        <item name="android:popupWindowStyle">@drawable/borders</item>
+    </style>
+
+
+
+
 
 </resources>

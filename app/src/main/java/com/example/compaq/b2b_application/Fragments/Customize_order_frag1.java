@@ -41,6 +41,7 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -50,6 +51,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.compaq.b2b_application.Activity.MainActivity;
 import com.example.compaq.b2b_application.Adapters.Customize_Oder_Adapter1;
 import com.example.compaq.b2b_application.Adapters.Manage_Adapter;
 import com.example.compaq.b2b_application.Model.Recy_model2;
@@ -295,6 +297,11 @@ public class Customize_order_frag1 extends Fragment {
 
                             Snackbar.make(getView(), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
+
+
+                        case 401:
+
+                            session.logoutUser(getActivity());
                            /* BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
                             builder2.setTitle("Sorry! No Products Available");
                             builder2.show();*/
@@ -373,6 +380,10 @@ public class Customize_order_frag1 extends Fragment {
                            /* BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
                             builder2.setTitle("Sorry! No Products Available");
                             builder2.show();*/
+
+                        case 401:
+
+                            session.logoutUser(getActivity());
                             break;
                     }
                 }

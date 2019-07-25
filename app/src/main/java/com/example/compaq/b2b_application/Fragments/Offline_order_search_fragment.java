@@ -40,6 +40,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.compaq.b2b_application.Adapters.Custom_Order_search_Adapter;
 import com.example.compaq.b2b_application.Helper_classess.Back_alert_class;
+import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 import com.example.compaq.b2b_application.Model.Offline_order_model;
 import com.example.compaq.b2b_application.Model.Top_model;
 import com.example.compaq.b2b_application.R;
@@ -87,7 +88,7 @@ public class Offline_order_search_fragment extends Fragment {
     private final HashMap<String, String> product_map = new HashMap<>();
     private String product_id;
     private Context mContext;
-
+    private   SessionManagement session;
     public Offline_order_search_fragment() {
         // Required empty public constructor
     }
@@ -108,6 +109,7 @@ public class Offline_order_search_fragment extends Fragment {
 
             listView = view.findViewById(R.id.custom_search_listview);
 
+            session = new SessionManagement(getActivity().getApplicationContext());
             toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.offline_tool);
             mContext = getActivity().getApplicationContext();
             searchView = getActivity().findViewById(R.id.custom_search);
@@ -281,6 +283,10 @@ public class Offline_order_search_fragment extends Fragment {
                            /* BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
                             builder2.setTitle("Sorry! No Products Available");
                             builder2.show();*/
+
+                        case 401:
+
+                            session.logoutUser(getActivity());
                             break;
                     }
                 }
@@ -384,6 +390,10 @@ public class Offline_order_search_fragment extends Fragment {
                             Snackbar.make(Objects.requireNonNull(getView()), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                             break;
+
+                        case 401:
+
+                            session.logoutUser(getActivity());
                     }
                 }
             }
