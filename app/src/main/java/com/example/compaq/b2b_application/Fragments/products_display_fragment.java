@@ -472,6 +472,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
 
 
                 params.put("wholesaler", wholseller_id);
+                params.put("retailer",userid);
                 params.put("productType", "REGULAR");
                 params.put("page", 0);
                 params.put("pagesize", 20);
@@ -746,7 +747,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
 
         if (text.equalsIgnoreCase("clear")) {
             productlist.clear();
-            URL_DATA = ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery," + item_clicked + "?wholesaler=" + wholseller_id + "&productType=REGULAR";
+            URL_DATA = ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery," + item_clicked + "?wholesaler=" + wholseller_id + "&productType=REGULAR"+"?retailer"+userid+"";
             loadRecycleData();
             return;
         }
@@ -807,7 +808,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
 
 
     public void sendOtp() {
-        String url = ip1 + "/b2b/api/v1/user/otp/wholesaler/" + pref.getString("userid", null) + "?wholesaler=" + wholseller_id;
+        String url = ip1 + "/b2b/api/v1/user/otp/wholesaler/" + pref.getString("userid", null) + "?wholesaler=" + wholseller_id+"?retailer"+userid+"";
         Log.e("urrrrr", url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override

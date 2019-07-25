@@ -72,7 +72,7 @@ public class expand_listview2 extends BaseExpandableListAdapter {
 
              }
              TextView txtChild = (TextView) convertView.findViewById(R.id.text_box_child);
-             txtChild.setText(childText);
+             txtChild.setText(childText.replace(","," > "));
 
          }
          else {
@@ -86,7 +86,7 @@ public class expand_listview2 extends BaseExpandableListAdapter {
              CheckedTextView txtListChild = (CheckedTextView) convertView
                      .findViewById(R.id.check_box_child);
 
-             txtListChild.setText(childText);
+             txtListChild.setText(childText.replace(","," > "));
              if(txtListChild.getText().toString().equals("Yes")&&selection.contains("true")){
                  txtListChild.setChecked(true);
              }
@@ -144,7 +144,7 @@ public class expand_listview2 extends BaseExpandableListAdapter {
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.expand_id);
         //  lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(headerTitle);
+        lblListHeader.setText(headerTitle.replace(","," > "));
         ImageView imageView = convertView.findViewById(R.id.header_indicator);
 if(isExpanded) {
 

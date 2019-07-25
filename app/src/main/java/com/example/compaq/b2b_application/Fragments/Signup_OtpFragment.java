@@ -68,9 +68,12 @@ public class Signup_OtpFragment extends Fragment {
         submit=(Button)view.findViewById(R.id.submit_res_otp);
         resend=(TextView)view.findViewById(R.id.text_resend);
         signuplist=new ArrayList<>();
-        signuplist.addAll((ArrayList<SignupModel>) bundle.getSerializable("Data"));
-        bundle.remove("Data");
-        signupModel= (SignupModel) signuplist.get(0);
+        if(!bundle.isEmpty()) {
+            signuplist.addAll((ArrayList<SignupModel>) bundle.getSerializable("Data"));
+            bundle.remove("Data");
+            signupModel= (SignupModel) signuplist.get(0);
+        }
+
 
         logo="35f05e0e-56fb-4676-9819-381da000696b";
 
@@ -90,7 +93,8 @@ public class Signup_OtpFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String otp=otpText.getText().toString();
+
+               String otp=otpText.getText().toString();
                 if (otpText.getText().toString().length() == 6) {
                     String otpurl = ip1 + "/b2b/api/v1/user/checkOTP/" + otp + "?email=" + sharedPref.getString("PASSWORD_ID", null);
                     Log.d("res...", otpurl);
@@ -100,11 +104,6 @@ public class Signup_OtpFragment extends Fragment {
                         public void onResponse(String response) {
                             if (response.equals("true")) {
                                 Log.d("otp " + "sucess..", response);
-                                /*FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                fragmentTransaction.replace(R.id.register_layout, new Reset_password());
-                                fragmentTransaction.addToBackStack(null);
-                                fragmentTransaction.commit();*/
                                 submitData();
                             } else {
                                 otpText.setError("Incorrect OTP");
@@ -163,10 +162,10 @@ public class Signup_OtpFragment extends Fragment {
         final JSONObject comoanyParams = new JSONObject();
         //ArrayList<JSONObject> regiter_infolist=new ArrayList<>();
         try {
-            if(!signupModel.getGstId().equals("")){
+           /* if(!signupModel.getGstId().equals("")){
                 comoanyParams.put("gstDocumentId",signupModel.getGstId());
                 postparams.put("gstDocumentId",signupModel.getGstId());
-            }
+            }*/
             comoanyParams.put("name",signupModel.getCompany());
             comoanyParams.put("product",product);
             comoanyParams.put("gstin",signupModel.getGst());
@@ -204,9 +203,13 @@ public class Signup_OtpFragment extends Fragment {
 
                         Log.d("responsess",response.toString());
 
-                        Toast.makeText(getActivity(),"Sucessfully Register.",Toast.LENGTH_LONG);
-                        Intent intent =new Intent(getContext(), LoginActivity.class);
-                        startActivity(intent);
+                        //Toast.makeText(getActivity(),"Sucessfully Register.",Toast.LENGTH_LONG);
+                        Fragment register_done = new Registration_done();
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        fragmentManager.popBackStack(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.add(R.id.register_layout, register_done).commit();
+
 
                     }
                 },

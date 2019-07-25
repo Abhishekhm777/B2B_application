@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -99,15 +101,17 @@ public class signup_Fragment extends Fragment {
     Bundle bundle;
     ArrayList<SignupModel>signupModelArrayList;
     private int GALLERY = 1, CAMERA = 2;
-    TextView gst_file;
+   // TextView gst_file;
     CountryCodePicker ccp;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
-       View view= inflater.inflate(R.layout.fragment_signup_, container, false);
+         View view= inflater.inflate(R.layout.fragment_signup_, container, false);
 
         sharedPref = getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         myEditior = sharedPref.edit();
@@ -115,19 +119,19 @@ public class signup_Fragment extends Fragment {
         signupModelArrayList= new ArrayList<>();
         company_name=(EditText)view.findViewById(R.id.edit_company_name);
         gstin_e=(EditText)view.findViewById(R.id.edit_GSTIN);
-        gstn_button=(Button)view.findViewById(R.id.upload_gst);
+        //gstn_button=(Button)view.findViewById(R.id.upload_gst);
         user_name=(EditText)view.findViewById(R.id.user_name);
         email=(EditText)view.findViewById(R.id.edit_email);
         teli_phone=(EditText)view.findViewById(R.id.edit_mobile);
         password=(EditText)view.findViewById(R.id.edit_password);
         imageView=(ImageView)view.findViewById(R.id.profile_logo);
-        gst_file=(TextView)view.findViewById(R.id.gst_file);
+       // gst_file=(TextView)view.findViewById(R.id.gst_file);
 
         upload_logo=(Button)view.findViewById(R.id.upload_logBtn);
         sign_upbutton=(Button)view.findViewById(R.id.signup_process);
         checkBox=(CheckBox)view.findViewById(R.id.seller_checkbox);
         ccp = (CountryCodePicker)view.findViewById(R.id.ccp);
-        Log.d("emial....",ccp.getDefaultCountryName()+ccp.getSelectedCountryCode());
+
 
 
         dialog = new Dialog(getContext());
@@ -144,27 +148,15 @@ public class signup_Fragment extends Fragment {
             public void onClick(View view) {
 
                 showPictureDialog(1000);
-               /* int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE);
-                if(ActivityCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                {
-                    requestPermissions(
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            2000);
-                }
-                else {
-                    startGallery();
-                }*/
 
             }
         });
 
 
-        gstn_button.setOnClickListener(new View.OnClickListener() {
+        /*gstn_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* Intent pickImageIntent = new Intent(Intent.ACTION_PICK,
+               *//* Intent pickImageIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 pickImageIntent.setType("image/*");
                 pickImageIntent.putExtra("aspectX", 1);
@@ -172,12 +164,12 @@ public class signup_Fragment extends Fragment {
                 pickImageIntent.putExtra("scale", true);
                 pickImageIntent.putExtra("outputFormat",
                         Bitmap.CompressFormat.JPEG.toString());
-                startActivityForResult(pickImageIntent, PICK_IMAGE_REQUEST);*/
+                startActivityForResult(pickImageIntent, PICK_IMAGE_REQUEST);*//*
                showPictureDialog(5000);
 
             }
         });
-
+*/
 
 
 
@@ -229,12 +221,13 @@ public class signup_Fragment extends Fragment {
                         if(imageid==""|| imageid==null){
                             imageid="35f05e0e-56fb-4676-9819-381da000696b";
                         }
+                        id=email_t;
                         phone_t=ccp.getSelectedCountryCode()+phone_t;
-                    signupModel=new SignupModel(imageid,gstid,company,gstin_t,firstname_t,email_t,phone_t,password_t);
+                    signupModel=new SignupModel(imageid,company,gstin_t,firstname_t,email_t,phone_t,password_t);
                         signupModelArrayList.add(signupModel);
                      bundle.putSerializable("Data",(Serializable) signupModelArrayList);
                     //dialog.show();
-                        id=email_t;
+
                         check();
 
                    // send_otp(phone_t,email_t);
@@ -257,8 +250,8 @@ public class signup_Fragment extends Fragment {
         android.app.AlertDialog.Builder pictureDialog = new android.app.AlertDialog.Builder(getActivity());
         pictureDialog.setTitle("Select Action");
         String[] pictureDialogItems = {
-                "Select photo from gallery",
-                "Capture photo from camera" };
+                " Gallery",
+                " Camera" };
         pictureDialog.setItems(pictureDialogItems,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -388,13 +381,13 @@ public class signup_Fragment extends Fragment {
             case 5020:
                 if (resultCode == RESULT_OK) {
 
-                    Uri returnUri = data.getData();
+                   // Uri returnUri = data.getData();
                     Bitmap bitmapImage ;
                     Bitmap bitimage = null;
                     try {
                       //  bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
                         //bitimage = getResizedBitmap(bitmapImage, 400);
-
+                        Uri returnUri = data.getData();
                         imagePick(requestCode, returnUri);
 
 
@@ -485,12 +478,12 @@ public class signup_Fragment extends Fragment {
 
 
             Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, true);
-            if(code==5020 ||code==5010) {
+            /*if(code==5020 ||code==5010) {
                 File f = new File(picturePath);
                 String imageName = f.getName();
                 Log.d("image name....", imageName);
                 gst_file.setText(imageName);
-            }
+            }*/
 
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -535,6 +528,7 @@ public class signup_Fragment extends Fragment {
 
 
         String url = ip1+"/b2b/api/v1/user/image/save";
+        Log.d("urls..",url);
         VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
@@ -544,9 +538,10 @@ public class signup_Fragment extends Fragment {
                         imageid = resultResponse;
                         Log.i("Unexpected", resultResponse);
                     }
-                    else if(code==5020||code==5010){
+                   /* else if(code==5020||code==5010){
                       gstid=resultResponse;
-                    }
+                        Log.i("Unexpected", resultResponse);
+                    }*/
 
 
                 } catch (Exception e) {
@@ -619,9 +614,14 @@ public class signup_Fragment extends Fragment {
 
     //////////////////////////check email or phone/////////////////////////////////////
     public  void check(){
-    if(count==2){
+        if(count==1) {
+            id = email_t;
+        }
+    else if(count==2){
         id="%2B"+phone_t;
     }
+
+
     String checkurl=ip1+"/b2b/api/v1/user/userExist?emailOrMobile="+id;
         Log.d("checkUrl",checkurl);
     RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
@@ -648,6 +648,7 @@ public class signup_Fragment extends Fragment {
                         myEditior.putString("RESEND_OTP",url);
                         myEditior.commit();
                         myEditior.apply();
+                        count=1;
 
                         getotp(url);
 
@@ -717,7 +718,6 @@ public class signup_Fragment extends Fragment {
         });
         requestQueue.add(req);
     }
-
 
 
 

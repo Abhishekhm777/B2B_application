@@ -80,7 +80,7 @@ public class FilterFragment extends Fragment {
     JSONArray filter_jsonArray;
     private  static  final String base_url=ip+"gate/b2b/catalog/api/v1/product/all/category/Jewellery,";
     private static final String search_url=ip_cat + "/searching/facets";
-    private  static  String final_url="" ,wholesaler_id="";
+    private  static  String final_url="" ,wholesaler_id="",userid="";
     String Classes=" ";
     private static View views=null;
     private static Fragment fragment_2;
@@ -127,6 +127,7 @@ public class FilterFragment extends Fragment {
             ft = getActivity().getSupportFragmentManager().beginTransaction();
 
             wholesaler_id = pref.getString("Wholeseller_id", null);
+            userid = pref.getString("userid", null);
             sortparams.putAll((LinkedHashMap<Object, Object>) bundle.getSerializable("SORT"));
             filterparams.putAll((LinkedHashMap<Object, Object>) bundle.getSerializable("FILTER_VALUE"));
             Classes = bundle.getString("CLASS");
@@ -524,6 +525,7 @@ public class FilterFragment extends Fragment {
 
 
                 params.put("wholesaler",wholesaler_id );
+                params.put("retailer",userid);
                 params.put("productType", "REGULAR");
                 params.put("page", 0);
                 params.put("pagesize", 20);

@@ -63,7 +63,7 @@
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="#e6e6e5"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp">
     <android.support.design.widget.TextInputLayout
@@ -133,7 +133,7 @@
                 android:textSize="14sp" />
         </android.support.design.widget.TextInputLayout>
     </android.support.v7.widget.CardView>
-            <TextView
+            <!--<TextView
                 android:id="@+id/gst_file"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
         android:layout_height="45dp"
         android:layout_marginTop="2dp"
         android:text="UPLOAD GSTIN"
-        />
+        />-->
             <android.support.v7.widget.CardView
                 android:id="@+id/cardview_name"
                 android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package com.example.compaq.b2b_application.Activity;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
@@ -16,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ public class Sign_up_Activity extends AppCompatActivity {
     public TabLayout tabLayout;
     public static  ViewPager viewPager;
     public Toolbar toolbar;
+    Tablayout_adapter  adapter;
 public SessionManagement session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,32 +50,43 @@ public SessionManagement session;
         tabLayout=(TabLayout)findViewById(R.id.tabs);
         viewPager=(ViewPager)findViewById(R.id.viewpager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("STEP1"));
-        tabLayout.addTab(tabLayout.newTab().setText("STEP2"));
-        tabLayout.addTab(tabLayout.newTab().setText("STEP3"));
+
+        tabLayout.addTab(tabLayout.newTab().setText("CATALOGUE"));
+        tabLayout.addTab(tabLayout.newTab().setText("ROLE"));
+        tabLayout.addTab(tabLayout.newTab().setText("USER INFO"));
         //tabLayout.addTab(tabLayout.newTab().setText("OTP"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final Tablayout_adapter  adapter=new Tablayout_adapter(this,getSupportFragmentManager(),tabLayout.getTabCount());
+         adapter=new Tablayout_adapter(this,getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(0);
+
+
 
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
                 if(viewPager.getCurrentItem()>tab.getPosition()) {
+
 
                     viewPager.setCurrentItem(tab.getPosition(), true);
 
                 }
                 tabLayout.getTabAt(viewPager.getCurrentItem()).select();
+                final InputMethodManager imm = (InputMethodManager)getSystemService(
+                        Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+
 
             }
             @Override
@@ -101,7 +115,11 @@ button.setOnClickListener(new View.OnClickListener() {
         finish();
     }
 });*/
+
     }
+
+
+
     @Override
     public
     boolean onCreateOptionsMenu(Menu menu) {
@@ -134,6 +152,9 @@ button.setOnClickListener(new View.OnClickListener() {
 
 
     public static void set_view(int i){
+
+
         viewPager.setCurrentItem(i,true);
+
     }
 }

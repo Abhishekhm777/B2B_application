@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class CatalogueListAdapter extends BaseAdapter {
     Context context;
     ArrayList<String>listItem;
-    private static LayoutInflater inflater=null;
+    private static LayoutInflater inflater;
 
     public  CatalogueListAdapter(Context context,ArrayList<String>listItem){
         this.context=context;
@@ -44,6 +44,7 @@ public class CatalogueListAdapter extends BaseAdapter {
 
             vi=  inflater.inflate(R.layout.category_listview, viewGroup,false);
         }
+
         TextView textView=(TextView) vi.findViewById(R.id.catalog_name);
         textView.setText(listItem.get(i));
         return vi;
