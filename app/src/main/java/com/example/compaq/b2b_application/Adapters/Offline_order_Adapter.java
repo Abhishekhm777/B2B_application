@@ -87,7 +87,7 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.offline_order_layout, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.swipe_to_delete_layout, parent, false);
         return new MyViewHolder(itemView);
     }
 
@@ -124,7 +124,15 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
 
 
         Glide.with(mContext).load(listner.getImg_url()).into(holder.product_image);
-        holder.itemlayout.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.delete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                productlist.remove(position);
+                notifyDataSetChanged();
+                calculateWeight();
+            }
+        });
+        /*holder.itemlayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 holder.itemlayout.setAlpha(0.3f);
@@ -154,7 +162,7 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
                 return false;
             }
 
-        });
+        });*/
 
         holder.product_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,10 +198,11 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-       ImageView product_image;
+       ImageView product_image,delete_button;
        TextView pr_name,pro_sku,pro_size,qty;
-        EditText pro_gwt;
+       EditText pro_gwt;
        RelativeLayout itemlayout;
+
 
 
         public MyViewHolder(View itemView) {
@@ -203,6 +212,7 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
             pro_size=itemView.findViewById(R.id.size_length);
             pro_gwt=itemView.findViewById(R.id.g_wt_gms_);
             product_image=itemView.findViewById(R.id.image);
+            delete_button=itemView.findViewById(R.id.right_view);
             itemlayout=itemView.findViewById(R.id.item_layout);
             qty=itemView.findViewById(R.id.qty);
 

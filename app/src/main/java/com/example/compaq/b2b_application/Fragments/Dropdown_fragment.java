@@ -1,7 +1,9 @@
 package com.example.compaq.b2b_application.Fragments;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -27,6 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.compaq.b2b_application.Activity.Check_out__Activity;
 import com.example.compaq.b2b_application.Activity.Displaying_complete_product_details_Activity;
 import com.example.compaq.b2b_application.Activity.MainActivity;
 import com.example.compaq.b2b_application.R;
@@ -67,15 +70,19 @@ public class Dropdown_fragment extends Fragment  {
     public SharedPreferences.Editor myEditor;
     public String cartid, userid, seal, qty, weig,purity_t,size_t,length_t = "";
     public String user_cartid_de="";
-  /* public SharedPreferences.Editor myEditor1;*/
     public int json_length=0;
     private static final String cartitems = "CART_ITEMS";
     private String output;
-   /* SharedPreferences cart_shared_preference;
-    SharedPreferences.Editor cartEditor;
-*/
+    private  String redirectTo="";
     String url="";
     private  String imageurl="";
+
+    private SubmitClicked mCallback;
+
+    public interface SubmitClicked {
+        void sendText();
+    }
+
     public Dropdown_fragment() {
         // Required empty public constructor
     }
@@ -92,23 +99,11 @@ public class Dropdown_fragment extends Fragment  {
         myEditor = sharedPref.edit();
         sharedPref=getActivity().getSharedPreferences("USER_DETAILS",0);
          output=sharedPref.getString(ACCESS_TOKEN, null);
-
-       /* cart_shared_preference = getActivity().getSharedPreferences(cartitems, Context.MODE_PRIVATE);
-        cartEditor = cart_shared_preference.edit();
-*/
-
-       /* descriptio= (TextView) view.findViewById(R.id.desc_text);*/
         product_textview = (TextView) view.findViewById(R.id.product_id);
         cancelbtn = (Button) view.findViewById(R.id.cancel);
         submitbtn = (Button) view.findViewById(R.id.submit);
         quantity_edittext = (TextView) view.findViewById(R.id.result);
         weight_edittext = (EditText) view.findViewById(R.id.weight);
-       /* length = (EditText) view.findViewById(R.id.length);
-        size = (EditText) view.findViewById(R.id.size);
-        purity = (EditText) view.findViewById(R.id.purity);*/
-
-      /*  total_weight=(EditText)view.findViewById(R.id.totalweight);*/
-
         cancelbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,6 +213,7 @@ catch (Exception e){
                 Log.e("Wiegt", weig);
                 Log.e("product", item_clicked);
                 Log.e("product_id", item_id);
+                Log.e("direction", redirectTo);
 
 
                 updateCart();
@@ -281,6 +277,7 @@ catch (Exception e){
         item_clicked = bundle.getString("item_name");
         product_textview.setText(item_clicked);
         item_id = bundle.getString("Item_Clicked");
+        redirectTo=bundle.getString("pushto");
         String url = ip+"gate/b2b/catalog/api/v1/product/" + item_id;
         Log.e("URL PLEAS",url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -499,27 +496,24 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
                     myEditor.putString("cartid",cartid);
                     myEditor.apply();
                     myEditor.commit();
-                    JSONArray jsonArray=response.getJSONArray("items");
-/*
-                    Log.e("No of items in cart", String.valueOf(jsonArray.length()));
-                    cart_shared_preference = getActivity().getSharedPreferences("CART_ITEMS", 0);
-                   cartEditor.putString("no_of_items", String.valueOf(jsonArray.length())).apply();
-                   cartEditor.commit();*/
+
 
                    /* cart_shared_preference = getActivity().getSharedPreferences("CART_ITEMS", 0);*/
                    json_length= Integer.parseInt(sharedPref.getString("no_of_items",""));
                     myEditor.putString("no_of_items", String.valueOf(json_length+1)).apply();
                     myEditor.commit();
-                  /*  MainActivity mActivity= new MainActivity();
-                    mActivity.setupBadge(getContext());*/
-                   /* if(getActivity().getClass().getSimpleName().equalsIgnoreCase("Displaying_complete_product_details_Activity")){
-                        Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity = new Displaying_complete_product_details_Activity();
-                        displayingcompleteproductdetailsActivity.setupBadge(getContext());
-                    }*/
-                 /*  Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
-                    displayingcompleteproductdetailsActivity.setupBadge(getContext());*/
+
+
                     Toast.makeText(getContext(), "Added to cart", Toast.LENGTH_SHORT).show();
                     getActivity().onBackPressed();
+                    if(redirectTo.equalsIgnoreCase("2")){
+                        Intent intent=new Intent(getContext(), Check_out__Activity.class);
+                        getContext().startActivity(intent);
+                    }
+                    else {
+                        mCallback.sendText();
+                    }
+
                 }
 
                 // Go to next activity
@@ -623,6 +617,24 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
 
 
     }*/
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (SubmitClicked) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement TextClicked");
+        }
+    }
+    @Override
+    public void onDetach() {
+        mCallback = null; // => avoid leaking
+        super.onDetach();
+    }
 
 }
 

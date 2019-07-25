@@ -23,15 +23,16 @@ import java.util.List;
 public
 class ViewpageAdapter2  extends PagerAdapter {
 
-    public Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity;
+    public Context context;
     public LayoutInflater layoutInflater;
     private List<Viewpager2_model> productlist;
 
 
 
     public
-    ViewpageAdapter2(Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity, ArrayList<Viewpager2_model> productlist) {
-        this.displayingcompleteproductdetailsActivity = displayingcompleteproductdetailsActivity;
+    ViewpageAdapter2(Context context, ArrayList<Viewpager2_model> productlist) {
+        this.context = context;
+        layoutInflater = LayoutInflater.from(context);
         this.productlist=productlist;
     }
     @Override
@@ -43,16 +44,17 @@ class ViewpageAdapter2  extends PagerAdapter {
     @Override
     public
     Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        layoutInflater=(LayoutInflater) displayingcompleteproductdetailsActivity.getLayoutInflater();
-        layoutInflater.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
         View item_view=layoutInflater.inflate(R.layout.viewpager2_custom_layout,container,false);
+
         ImageView imageView=(ImageView)item_view.findViewById(R.id.customeimage2);
 
 
         Viewpager2_model utils=(Viewpager2_model) productlist.get(position);
         final String url=  utils.getSliderImageUrl();
 
-        Glide.with(displayingcompleteproductdetailsActivity).load(url).into(imageView);
+        Glide.with(context).load(url).into(imageView);
 
 
         container.addView(item_view);
@@ -63,10 +65,10 @@ class ViewpageAdapter2  extends PagerAdapter {
             void onClick(View v) {
 
                 //Toast.makeText(context, "you clicked image " + (position + 1), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(displayingcompleteproductdetailsActivity, ImageOpening_activity.class);
+                Intent intent = new Intent(context, ImageOpening_activity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("URL",url);
-                displayingcompleteproductdetailsActivity.startActivity(intent);
+                context.startActivity(intent);
 
             }
         });

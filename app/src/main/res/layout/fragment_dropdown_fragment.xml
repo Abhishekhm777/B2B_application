@@ -150,32 +150,29 @@
                 >
 
 
-
                 <TextView
                     android:id="@+id/hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#e6e6e5"
-                    android:layout_marginLeft="15sp"
+                    android:layout_marginLeft="13dp"
                     android:hint="Grs. Wt :"
                     android:padding="5dp"
                     android:inputType="numberDecimal"
                     android:scrollHorizontally="true"
+                    android:textColorHint="@color/black"
                     android:singleLine="true"
-                    android:textColor="#000"
                     android:textSize="16sp" />
 
 
 
                <EditText
                     android:id="@+id/weight"
-                   android:padding="5dp"
+                    android:padding="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="2dp"
-                   android:layout_alignParentRight="true"
+                    android:layout_alignParentRight="true"
                     android:background="#e6e6e5"
-                   android:layout_marginRight="15dp"
+                    android:layout_marginRight="15dp"
                     android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:scrollHorizontally="true"

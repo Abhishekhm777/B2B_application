@@ -5,11 +5,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.compaq.b2b_application.Fragments.Custom_order_search_fragment;
 import com.example.compaq.b2b_application.Fragments.Custom_serch_by_category_frag;
+import com.example.compaq.b2b_application.Fragments.Dropdown_fragment;
+import com.example.compaq.b2b_application.Fragments.Offline_order_search_fragment;
 import com.example.compaq.b2b_application.R;
 
 public class Custom_order_search_and_category_Activity extends AppCompatActivity {
@@ -74,4 +77,6 @@ public class Custom_order_search_and_category_Activity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+
 }
