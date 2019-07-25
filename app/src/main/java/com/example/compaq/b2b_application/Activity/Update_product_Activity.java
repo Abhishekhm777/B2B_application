@@ -1250,9 +1250,6 @@ public class Update_product_Activity extends AppCompatActivity {
                         attribute_array.put(att_object);
                         continue;
                     }
-
-
-
                     value_array.put( val_map.get(att_aaray.get(j)));
 
                     att_object.put("values",value_array);
@@ -1261,12 +1258,9 @@ public class Update_product_Activity extends AppCompatActivity {
                 heading_object.put("attributes",attribute_array);
                 jsonArray.put(heading_object);
             }
-
-
             jsonObject.put("specification",jsonArray);
             jsonObject.put("userAccess",userclassArray);
             Timber.d(String.valueOf(user_assigned_list.size()));
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1282,7 +1276,6 @@ public class Update_product_Activity extends AppCompatActivity {
         for (int i = 0; i < filePaths.size(); i++) {
             parts.add(prepareFilePart("images", filePaths.get(i)));
         }
-
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(jsonObject.toString()));
         Log.e("YYYYYAYAYYAYA",jsonObject.toString());
         Call call = service.update(body,"bearer "+output);
@@ -1307,7 +1300,6 @@ public class Update_product_Activity extends AppCompatActivity {
                 .addInterceptor(new Interceptor() {
                     @Override
                     public okhttp3.Response intercept(Chain chain) throws IOException {
-
                         okhttp3.Request request = chain.request();
                         okhttp3.Response response = chain.proceed(request);
 
@@ -1340,6 +1332,8 @@ public class Update_product_Activity extends AppCompatActivity {
                         return response;
                     }
                 });
+
+
         private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(API_BASE_URL).addConverterFactory(GsonConverterFactory.create());
 
         public static ApiService createService(Class<ApiService> serviceClass)
@@ -1348,6 +1342,7 @@ public class Update_product_Activity extends AppCompatActivity {
             return retrofit.create(serviceClass);
         }
     }
+
     public Uri bitmapToUriConverter(Bitmap mBitmap) {
         Uri uri = null;
         try {
@@ -1376,8 +1371,6 @@ public class Update_product_Activity extends AppCompatActivity {
         }
         return uri;
     }
-
-
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
@@ -1400,8 +1393,7 @@ public class Update_product_Activity extends AppCompatActivity {
 
         return inSampleSize;
     }
-    ///////////////////////////////
-
+    ///////////////////////////////Doneee//////////////
     private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
 
         File file = new File(getPath(fileUri));

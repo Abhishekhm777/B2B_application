@@ -17,9 +17,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -98,7 +101,7 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
     private ToggleButton toggleButton;
      private int json_length=0;
    /* public SharedPreferences cart_shared_preference;*/
-   private TextView textCartItemCount;
+   public TextView textCartItemCount;
     private TextView wish_items;
     private Dialog dialog;
     private String cart_item_no="";
@@ -167,52 +170,69 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        Button addtocart=(Button)findViewById(R.id.addtocart);
+        final Button addtocart=(Button)findViewById(R.id.addtocart);
 
-        Button buynow=(Button)findViewById(R.id.buynow);
+        final Button buynow=(Button)findViewById(R.id.buynow);
 
         addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* sharedPref=getApplicationContext().getSharedPreferences("User_information",0);*/
 
-                String user_i =sharedPref.getString("userid","");
-                /* userCart_details(user_i);*/
+                ContextThemeWrapper wrapper = new ContextThemeWrapper(Displaying_complete_product_details_Activity.this, R.style.popup);
+                PopupMenu popup = new PopupMenu(wrapper, addtocart);
+                //Inflating the Popup using xml file
+                    popup.getMenuInflater().inflate(R.menu.shop_now_options, popup.getMenu());
+                    popup.show();
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
 
-                Bundle bundle=getIntent().getExtras();
-                name= Objects.requireNonNull(bundle).getString("Item_Clicked");
-                id=bundle.getString("id");
+                            if(item.getItemId()==R.id.add_to_bag){
+                                               Bundle bundle=getIntent().getExtras();
+                            name= Objects.requireNonNull(bundle).getString("Item_Clicked");
+                            id=bundle.getString("id");
 
-                Bundle bundle1=new Bundle();
-                bundle1.putString("item_name",name);
-                bundle1.putString("Item_Clicked",id);
-                Dropdown_fragment dropdown_fragment =new Dropdown_fragment();
-                dropdown_fragment.setArguments(bundle);
-                fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.frame, dropdown_fragment);
+                            Bundle bundle1=new Bundle();
+                            bundle1.putString("item_name",name);
+                            bundle1.putString("Item_Clicked",id);
+                            Dropdown_fragment dropdown_fragment =new Dropdown_fragment();
+                            dropdown_fragment.setArguments(bundle);
+                            fragmentManager = getSupportFragmentManager();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.frame, dropdown_fragment);
+                            fragmentTransaction.addToBackStack(null).commit();
+                            }
+                            if(item.getItemId()==R.id.order_now){
 
-                fragmentTransaction.addToBackStack(null).commit();
+
+                            }
+                          return  true;
+                        }
+                    });
+
+
             }
         });
 //////////////////////////<<<<<<<<<<<<<<<<<<<<//////////////////////////////////////////
 
-        buynow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                buynow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                String noOfitems=sharedPref.getString("no_of_items","");
-                if (noOfitems.equalsIgnoreCase("0"))
-                {
-                    Toast.makeText(getApplicationContext(),"Your cart is empty!!",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Intent i = new Intent(getApplicationContext(), Check_out__Activity.class);
-                    startActivity(i);
-                }
-            }
-        });
+
+                        String noOfitems=sharedPref.getString("no_of_items","");
+                        if (noOfitems.equalsIgnoreCase("0"))
+                        {
+                            Toast.makeText(getApplicationContext(),"Your cart is empty!!",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Intent i = new Intent(getApplicationContext(), Check_out__Activity.class);
+                            startActivity(i);
+                        }
+                    }
+                });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu){
@@ -227,7 +247,7 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
        View  actionView = MenuItemCompat.getActionView(menuItem);
        View actionView1=MenuItemCompat.getActionView(wishitem);
 
-        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+        textCartItemCount = actionView.findViewById(R.id.cart_badge);
         setupBadge(getApplicationContext());
        /* cart_shared_preference = getApplicationContext().getSharedPreferences("CART_ITEMS", 0);*/
         cart_item_no=sharedPref.getString("no_of_items","");
@@ -269,6 +289,8 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
         textCartItemCount.setAnimation(scaleAnimation);
 
     }
+
+
    public void setupwishBadge(){
 
     wish_items.setText(cart_item_no);
@@ -299,6 +321,7 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
+
         FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 0) {
             fm.popBackStack();
@@ -547,6 +570,7 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
         JsonObjectRequest jsonObjectss = new JsonObjectRequest (Request.Method.GET,url,null,
 
                 new Response.Listener<JSONObject>() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     public void onResponse(JSONObject response) {
 
 
@@ -622,6 +646,7 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
                         }
                     }
                 }, new Response.ErrorListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 Bundle bundle=getIntent().getExtras();
@@ -744,9 +769,10 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity {
         super.onResume();
 
         invalidateOptionsMenu();
-
+        Log.e("CLEAR","CLEAR");
 
     }
+
 
 }
 

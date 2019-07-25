@@ -121,7 +121,7 @@ class MainActivity extends AppCompatActivity {
     int mCartItemCount = 10;
     AlertDialogManager alert = new AlertDialogManager();
     // Session Manager Class
-    SessionManagement session;
+  private   SessionManagement session;
 
     // Button Logout
     Button btnLogout;
