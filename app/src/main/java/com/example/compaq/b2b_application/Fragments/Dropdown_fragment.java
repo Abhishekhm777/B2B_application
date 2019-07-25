@@ -68,8 +68,9 @@ public class Dropdown_fragment extends Fragment  {
     public String cartid, userid, seal, qty, weig,purity_t,size_t,length_t = "";
     public String user_cartid_de="";
   /* public SharedPreferences.Editor myEditor1;*/
-public int json_length=0;
+    public int json_length=0;
     private static final String cartitems = "CART_ITEMS";
+    private String output;
    /* SharedPreferences cart_shared_preference;
     SharedPreferences.Editor cartEditor;
 */
@@ -89,6 +90,8 @@ public int json_length=0;
 
         sharedPref =getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         myEditor = sharedPref.edit();
+        sharedPref=getActivity().getSharedPreferences("USER_DETAILS",0);
+         output=sharedPref.getString(ACCESS_TOKEN, null);
 
        /* cart_shared_preference = getActivity().getSharedPreferences(cartitems, Context.MODE_PRIVATE);
         cartEditor = cart_shared_preference.edit();
@@ -154,7 +157,7 @@ catch (Exception e){
         });
         list = new ArrayList<>();
         list.add("Available weights");
-        spinner=(Spinner)view.findViewById(R.id.avail_spinner);
+      /*  spinner=(Spinner)view.findViewById(R.id.avail_spinner);*/
 
         itemDetails();
         /*total_weight.setText(weight_edittext.getText().toString());*/
@@ -176,9 +179,8 @@ catch (Exception e){
 
 
         };
-        spinner.setAdapter(country_adaper);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+       /* spinner.setAdapter(country_adaper);
+       spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -189,16 +191,11 @@ catch (Exception e){
                     weight_edittext.setText(item.toString());
                 }
 
-
-
             }
-
-
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
-        });
+        });*/
 
         ////////////////////////submit button//////////////
         submitbtn.setOnClickListener(new View.OnClickListener() {
@@ -287,19 +284,14 @@ catch (Exception e){
         String url = ip+"gate/b2b/catalog/api/v1/product/" + item_id;
         Log.e("URL PLEAS",url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-
-
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject jp = jsonObject.getJSONObject("resourceSupport");
-
                     JSONArray jsonArray1=jp.getJSONArray("links");
                     JSONObject jsonObject1=jsonArray1.getJSONObject(1);
-
                     imageurl=jsonObject1.getString("href");
-
                     JSONArray jsonArray = jp.getJSONArray("specification");
                     try {
                     for(int i=0;i<jsonArray.length();i++){
@@ -309,12 +301,11 @@ catch (Exception e){
                                 JSONArray attribute_aar=spesi_object.getJSONArray("attributes");
                                 for(int j=0;j<attribute_aar.length();j++){
                                     JSONObject att_object=attribute_aar.getJSONObject(j);
-                                    String avail_weigts=att_object.getString("key");
-                                    if(avail_weigts.equalsIgnoreCase("Available Weights (gms)")){
+
+                                    if( att_object.getString("key").equalsIgnoreCase("Gross Weight (gms)")){
                                         JSONArray avil_arra=att_object.getJSONArray("values");
-                                        for(int k=0;k<avil_arra.length();k++){
-                                            list.add(avil_arra.getString(k));
-                                        }
+
+                                            weight_edittext.setText(avil_arra.getString(0));
                                     }
                                 }
                          }
@@ -322,9 +313,6 @@ catch (Exception e){
 
                         /*item_wieght = Double.parseDouble(((jsonArray.getString(0))));
                         weight_edittext.setText(String.valueOf(item_wieght));*/
-
-
-
 
                     }
                     catch (Exception e){
@@ -345,9 +333,7 @@ catch (Exception e){
             @Override
             public Map<String, String> getHeaders() {
 
-                sharedPref = getActivity().getSharedPreferences("USER_DETAILS", 0);
 
-                String output = sharedPref.getString(ACCESS_TOKEN, null);
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "bearer " + output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
@@ -381,8 +367,6 @@ catch (Exception e){
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
 
         String url="https://server.mrkzevar.com/gate/b2b/order/api/v1/cart/update";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -526,13 +510,13 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
                    json_length= Integer.parseInt(sharedPref.getString("no_of_items",""));
                     myEditor.putString("no_of_items", String.valueOf(json_length+1)).apply();
                     myEditor.commit();
-                    MainActivity mActivity= new MainActivity();
-                    mActivity.setupBadge(getContext());
-                    if(getActivity().getClass().getSimpleName().equalsIgnoreCase("Displaying_complete_product_details_Activity")){
+                  /*  MainActivity mActivity= new MainActivity();
+                    mActivity.setupBadge(getContext());*/
+                   /* if(getActivity().getClass().getSimpleName().equalsIgnoreCase("Displaying_complete_product_details_Activity")){
                         Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity = new Displaying_complete_product_details_Activity();
                         displayingcompleteproductdetailsActivity.setupBadge(getContext());
-                    }
-                  /* Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
+                    }*/
+                 /*  Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
                     displayingcompleteproductdetailsActivity.setupBadge(getContext());*/
                     Toast.makeText(getContext(), "Added to cart", Toast.LENGTH_SHORT).show();
                     getActivity().onBackPressed();
@@ -556,9 +540,6 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headr = new HashMap<>();
-                sharedPref=getActivity().getSharedPreferences("USER_DETAILS",0);
-
-                String output=sharedPref.getString(ACCESS_TOKEN, null);
                 headr.put("Authorization","bearer "+output);
                 headr.put("Content-Type", "application/json");
                 return headr;

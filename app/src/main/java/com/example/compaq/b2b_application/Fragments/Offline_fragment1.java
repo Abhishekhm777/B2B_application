@@ -2,20 +2,20 @@ package com.example.compaq.b2b_application.Fragments;
 
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,10 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.compaq.b2b_application.Adapters.Offline_order_Adapter;
-import com.example.compaq.b2b_application.Adapters.Order_to_bprocessed_Adapter;
 import com.example.compaq.b2b_application.Helper_classess.Back_alert_class;
 import com.example.compaq.b2b_application.Model.Offline_order_model;
-import com.example.compaq.b2b_application.Model.Seller_order_history;
 import com.example.compaq.b2b_application.R;
 
 import java.util.ArrayList;
@@ -60,15 +58,16 @@ private  View view;
         // Required empty public constructor
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_offline_fragment1, container, false);
-        ButterKnife.bind(this,view);
+        setView(inflater.inflate(R.layout.fragment_offline_fragment1, container, false));
+        ButterKnife.bind(this, getView());
         searchView=getActivity().findViewById(R.id.custom_search);
         toolbar=getActivity().findViewById(R.id.offline_tool);
-        total= view.findViewById(R.id.total);
+        total= getView().findViewById(R.id.total);
 
         context=getActivity().getApplicationContext();
 
@@ -125,10 +124,9 @@ private  View view;
         recyclerView.setHasFixedSize(true);
         bundle=this.getArguments();
         productlist= bundle.getParcelableArrayList("arraylist");
-        Log.e("Yeahhhhhh",String.valueOf(productlist.size()));
-        offlineOrderAdapter = new Offline_order_Adapter(getContext(), productlist,view);
+        offlineOrderAdapter = new Offline_order_Adapter(getContext(), productlist, getView());
         recyclerView.setAdapter(offlineOrderAdapter);
-        return view;
+        return getView();
     }
 
     @Override
@@ -144,8 +142,8 @@ private  View view;
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.offline_frame, offline_order_search_fragment, "customize_search").addToBackStack(null).commit();
             }
         });*/
-    }
 
+    }
     @Override
     public void onPause() {
         super.onPause();
@@ -156,5 +154,12 @@ private  View view;
         productlist.add(new Offline_order_model(text.get("name"), text.get("url"),text.get("sku"),text.get("gwt"),text.get("size"),text.get("purity") ,"1",text.get("pro_id"),"0"));
         offlineOrderAdapter.notifyDataSetChanged();
     }
-
+    @Nullable
+    @Override
+    public View getView() {
+        return view;
+    }
+    public void setView(View view) {
+        this.view = view;
+    }
 }

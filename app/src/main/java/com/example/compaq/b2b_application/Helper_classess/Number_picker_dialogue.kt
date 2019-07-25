@@ -25,10 +25,9 @@ class Number_picker_dialogue(private val context: Context) : NumberPicker.OnValu
         myDialogue.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.WHITE))
         np = myDialogue.findViewById(com.example.compaq.b2b_application.R.id.numberPicker1) as NumberPicker
         np.maxValue = 100 // max value 100
-        np.minValue = 0   // min value 0
+        np.minValue = 1   // min value 0
         np.wrapSelectorWheel = true
         myDialogue.show()
         set=myDialogue.findViewById(com.example.compaq.b2b_application.R.id.set)
-
     }
 }

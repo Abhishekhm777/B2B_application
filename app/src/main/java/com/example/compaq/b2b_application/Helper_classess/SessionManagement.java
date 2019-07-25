@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.compaq.b2b_application.Activity.Customize_Order;
 import com.example.compaq.b2b_application.Activity.LoginActivity;
 import com.example.compaq.b2b_application.Activity.MainActivity;
 import com.example.compaq.b2b_application.Activity.All_Sellers_Display_Activity;
+import com.example.compaq.b2b_application.Activity.Offline_order;
 import com.example.compaq.b2b_application.Activity.Seller_Dashboard_Activity;
 
 import java.util.HashMap;
@@ -188,21 +190,34 @@ if(role.equalsIgnoreCase("ROLE_WHOLESALER")) {
        editor.clear();
         editor.commit();
 
-try {
-    ((MainActivity) context).finish();
-}
-catch (Exception e){
+        try {
+            ((Customize_Order) context).finish();
+        }
+        catch (Exception e){
 
-}
-try{
-    ((All_Sellers_Display_Activity) context).finish();
+        }
+        try {
+            ((Offline_order) context).finish();
+        }
+        catch (Exception e){
+
+        }
+
+            try {
+                ((MainActivity) context).finish();
+            }
+            catch (Exception e){
+
+            }
+            try{
+                ((All_Sellers_Display_Activity) context).finish();
 
 
-}
+            }
 
-catch (Exception e){
+            catch (Exception e){
 
-}
+            }
         try{
             ((Seller_Dashboard_Activity) context).finish();
 

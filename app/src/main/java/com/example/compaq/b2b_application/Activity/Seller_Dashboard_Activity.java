@@ -207,11 +207,13 @@ linearLayout=(LinearLayout)findViewById(R.id.graphlayout);
             super.onBackPressed();
         }
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.seller__portal__screen_, menu);
+      getMenuInflater().inflate(R.menu.seller__portal__screen_, menu);
         return true;
     }
 
