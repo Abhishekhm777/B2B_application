@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -31,6 +32,12 @@ import com.example.compaq.b2b_application.Helper_classess.AlertDialogManager;
 import com.example.compaq.b2b_application.Helper_classess.ConnectivityStatus;
 import com.example.compaq.b2b_application.R;
 import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +53,7 @@ import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
     // Email, password edittext
     private FragmentTransaction fragmentTransaction;
     public FragmentManager fragmentManager;
@@ -76,11 +83,24 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.signuptext)  TextView signuptext;
     @BindView(R.id.forgot_textview)  TextView forgot_pass;
 
+    SignInButton signInButton;
+    private GoogleApiClient googleApiClient;
+    TextView textView;
+    private static final int RC_SIGN_IN = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        GoogleSignInOptions gso =  new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleApiClient=new GoogleApiClient.Builder(this)
+                .enableAutoManage(LoginActivity.this,LoginActivity.this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
+                .build();
 
 
         //check internet status for the
@@ -88,6 +108,19 @@ public class LoginActivity extends AppCompatActivity {
         dialog = new Dialog(LoginActivity.this);
         dialog.setContentView(R.layout. progress_layout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+////////////////////////Google sign up///////////////////
+        signInButton=(SignInButton)findViewById(R.id.sign_in_button);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent,RC_SIGN_IN);
+            }
+        });
+
+
+
 
 
 
@@ -638,4 +671,28 @@ else {
     }
 
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==RC_SIGN_IN){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+    private void handleSignInResult(GoogleSignInResult result){
+        if(result.isSuccess()){
+            gotoProfile();
+        }else{
+            Toast.makeText(getApplicationContext(),"Sign in cancel",Toast.LENGTH_LONG).show();
+        }
+    }
+    private void gotoProfile(){
+        Intent intent=new Intent(LoginActivity.this,ProfileActivity.class);
+        startActivity(intent);
+    }
 }

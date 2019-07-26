@@ -206,11 +206,9 @@ TextView details,shopmore;
                                 iem_objects.put("advance", "");*/
 
                                 iem_objects.put("description", desc);
-
                                 items.put(iem_objects);
 
                             }
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -234,34 +232,23 @@ TextView details,shopmore;
                 params.put("Authorization","bearer "+output);
                 return params;
             }
-
         };
         requestQueue.add(jsonArrayRequest);
-
-
     }
-
     //////////////// fetching cart details//////////////////////////
-
     public void display_cart_details(final String id,final String weght,final String qty,final int del_id,final String desc,final String purity,final  String size,final String length) {
-
-
-
         final StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                ip+"gate/b2b/catalog/api/v1/product/"+id + "",
+                ip+"gate/b2b/catalog/api/v1/product/"+id+"?wholesaler="+userid,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         button.setVisibility(View.VISIBLE);
-
                         try {
                             int k = 0;
                             JSONObject obj = new JSONObject(response);
                             JSONObject obj1 = obj.getJSONObject("resourceSupport");
                             String name = obj1.getString("name");
                             String product_id = obj1.getString("id");
-
-
 
                             JSONArray ja_data = obj1.getJSONArray("links");
                             for (int i = 0; i < ja_data.length(); i++) {
@@ -286,15 +273,11 @@ TextView details,shopmore;
                                 Log.d("price", total_price + "");*/
 
 
-
                             productlist.add(new Check_out_Recyclemodel(name, href, weght, product_id, qty,del_id,desc,purity,size,length));
-
 
                             checkout_adapter = new Checkout_adapter(getApplicationContext(), productlist);
                             /*recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));*/
                             recyclerView.setAdapter(checkout_adapter);
-
-
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -323,7 +306,6 @@ TextView details,shopmore;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
         requestQueue.add(stringRequest);
     }
 

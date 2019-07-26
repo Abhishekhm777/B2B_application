@@ -244,7 +244,7 @@ public class Manage_category_frag1 extends Fragment {
     public void loadCatalogue(final String name, final Bundle bundle, final String nnn) {
 
 
-        final String ty = ip_cat + "/category/byFirstLevelCategory/b2b/Jewellery," + name + "?wholesaler=" + wholseller_id;
+        final String ty = ip_cat + "/category/byFirstLevelCategory/b2b/Jewellery,"+name+"?wholesaler="+wholseller_id;
         String url=ty.replaceAll("\\s", "");
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -327,7 +327,7 @@ public class Manage_category_frag1 extends Fragment {
 
         }
 
-        urldata = ip_cat + "/category/byFirstLevelCategory/b2b/Jewellery?wholesaler=" + wholseller_id;
+        urldata = ip_cat + "/category/byFirstLevelCategory/b2b/Jewellery?wholesaler="+wholseller_id;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urldata, new Response.Listener<String>() {
             @Override
@@ -352,7 +352,7 @@ public class Manage_category_frag1 extends Fragment {
 
                         position = i;
 
-                        SUB_URL = ip_cat + "/category/byFirstLevelCategory/b2b/" + parent + "," + sname + "?wholesaler=" + wholseller_id;
+                        SUB_URL = ip_cat + "/category/byFirstLevelCategory/b2b/"+parent+","+sname+"?wholesaler="+wholseller_id;
                         SUB_URL=SUB_URL.replaceAll("\\s", "");
                         String su=URLEncoder.encode(SUB_URL,"UTF-8");
                         Log.e("GTGT",su);

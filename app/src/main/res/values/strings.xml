@@ -88,17 +88,17 @@
        Size/\nLength
             </string>
 
-    <string name="g_wt_gms_">Net. Wt \n(gms)</string>
+    <string name="g_wt_gms_">Gross. Wt \n(gms)</string>
 
     <string name="quantity">Qty</string>
 
     <string name="total_g_wt_">Total \nG. Wt (gms)</string>
     <string name="purity">Purity (kt):</string>
-    <string name="gross_weigh">Net Weight  (gms):</string>
+    <string name="gross_weigh">Gross Weight  (gms):</string>
     <string name="sizelen">Size/Length:</string>
 
     <string name="tool_text">OFFLINE ORDER</string>
-    <string name="total_gross">TOTAL NET WEIGHT  (gms):</string>
+    <string name="total_gross">TOTAL GROSS WEIGHT  (gms):</string>
 
     <string name="enter_custo">ENTER CUSTOMER DETAILS</string>
 

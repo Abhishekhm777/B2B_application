@@ -390,12 +390,11 @@ public class Cart_Activity extends AppCompatActivity {
 
     public void display_cart_details(final String id,final String weght,final String qty,final int del_id,final String description,final String purity,final  String size,final String length,final  String seller_name,final String expected) {
 
-        String url=ip+"gate/b2b/catalog/api/v1/product"+id;
         final ProgressDialog progressDialog=new ProgressDialog(Cart_Activity.this);
         progressDialog.setTitle("Loading....");
         progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                    ip+"gate/b2b/catalog/api/v1/product/"+id+"",
+                    ip+"gate/b2b/catalog/api/v1/product/"+id+"?wholesaler="+userid,
                     new Response.Listener<String>() {
 
                         @Override

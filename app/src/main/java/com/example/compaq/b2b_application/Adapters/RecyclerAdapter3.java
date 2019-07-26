@@ -1,5 +1,6 @@
 package com.example.compaq.b2b_application.Adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,13 +17,13 @@ import com.example.compaq.b2b_application.R;
 import java.util.ArrayList;
 
 public class RecyclerAdapter3 extends RecyclerView.Adapter<RecyclerAdapter3.ListnerViewHolder>{
-    public Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity;
+    public Context context;
     public ArrayList<Recycler_model3> detProductlist;
     private View view;
 
 
-    public RecyclerAdapter3(Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity, ArrayList<Recycler_model3> detProductlist) {
-        this.displayingcompleteproductdetailsActivity = displayingcompleteproductdetailsActivity;
+    public RecyclerAdapter3(Context context, ArrayList<Recycler_model3> detProductlist) {
+        this.context = context;
         this.detProductlist=detProductlist;
 
     }
@@ -47,10 +48,10 @@ public class RecyclerAdapter3 extends RecyclerView.Adapter<RecyclerAdapter3.List
 
         holder.textView.setText(main2_listner.getHeadings());
         ArrayList<Inner_Recy_model> arrayList=main2_listner.getArrayList();
-        Inner_RecyclerAdapter4 inner_recycler_adapter=new Inner_RecyclerAdapter4(displayingcompleteproductdetailsActivity,arrayList);
+        Inner_RecyclerAdapter4 inner_recycler_adapter=new Inner_RecyclerAdapter4(context,arrayList);
 
 
-        holder.innerRecyclerview.setLayoutManager(new LinearLayoutManager(displayingcompleteproductdetailsActivity,LinearLayoutManager.VERTICAL,false));
+        holder.innerRecyclerview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         holder.innerRecyclerview.setHasFixedSize(true);
         holder.innerRecyclerview.setAdapter(inner_recycler_adapter);
     }
