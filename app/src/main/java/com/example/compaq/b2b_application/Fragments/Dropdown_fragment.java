@@ -75,14 +75,12 @@ public class Dropdown_fragment extends Fragment  {
     private String output;
     private  String redirectTo="";
     String url="";
-    private  String imageurl="";
-
+    private  String imageurl;
+    private  String imageBaseUrl="https://server.mrkzevar.com/gate/b2b/catalog/api/v1/assets/image/";
     private SubmitClicked mCallback;
-
     public interface SubmitClicked {
         void sendText();
     }
-
     public Dropdown_fragment() {
         // Required empty public constructor
     }
@@ -98,6 +96,7 @@ public class Dropdown_fragment extends Fragment  {
         sharedPref =getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         myEditor = sharedPref.edit();
         sharedPref=getActivity().getSharedPreferences("USER_DETAILS",0);
+        userid = sharedPref.getString("userid", "");
          output=sharedPref.getString(ACCESS_TOKEN, null);
         product_textview = (TextView) view.findViewById(R.id.product_id);
         cancelbtn = (Button) view.findViewById(R.id.cancel);
@@ -205,7 +204,7 @@ catch (Exception e){
 
               /*  sharedPref = getActivity().getSharedPreferences("User_information", 0);*/
                 cartid = sharedPref.getString("cartid", "");
-                userid = sharedPref.getString("userid", "");
+
 
                 Log.e("user id", userid);
                 Log.e("cart id", cartid);
@@ -214,7 +213,6 @@ catch (Exception e){
                 Log.e("product", item_clicked);
                 Log.e("product_id", item_id);
                 Log.e("direction", redirectTo);
-
 
                 updateCart();
             }
@@ -278,7 +276,7 @@ catch (Exception e){
         product_textview.setText(item_clicked);
         item_id = bundle.getString("Item_Clicked");
         redirectTo=bundle.getString("pushto");
-        String url = ip+"gate/b2b/catalog/api/v1/product/" + item_id;
+        String url = ip+"gate/b2b/catalog/api/v1/product/"+item_id+"?wholesaler="+userid;
         Log.e("URL PLEAS",url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -298,27 +296,21 @@ catch (Exception e){
                                 JSONArray attribute_aar=spesi_object.getJSONArray("attributes");
                                 for(int j=0;j<attribute_aar.length();j++){
                                     JSONObject att_object=attribute_aar.getJSONObject(j);
-
                                     if( att_object.getString("key").equalsIgnoreCase("Gross Weight (gms)")){
                                         JSONArray avil_arra=att_object.getJSONArray("values");
-
-                                            weight_edittext.setText(avil_arra.getString(0));
+                                        weight_edittext.setText(avil_arra.getString(0));
                                     }
                                 }
                          }
                     }
 
-                        /*item_wieght = Double.parseDouble(((jsonArray.getString(0))));
-                        weight_edittext.setText(String.valueOf(item_wieght));*/
-
-                    }
+                        }
                     catch (Exception e){
                         e.printStackTrace();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
 
             }
         }, new Response.ErrorListener() {
@@ -329,16 +321,12 @@ catch (Exception e){
         }) {
             @Override
             public Map<String, String> getHeaders() {
-
-
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", "bearer " + output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
             }
         };
-
-
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
     }
@@ -411,11 +399,9 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
     }*/
 
     public void updateCart() {
-
         JSONObject mainJasan= new JSONObject();
         if(cartid.equalsIgnoreCase("0")){
             url=ip+"gate/b2b/order/api/v1/cart/add";
-
 
             JSONObject json1= new JSONObject();
             final JSONArray items_jsonArray=new JSONArray();
@@ -429,6 +415,7 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
                 json1.put("length",length_t);
                 json1.put("size",size_t);*/
                 json1.put("netWeight",weig);
+                json1.put("grossWeight",weig);
                 json1.put("productImage",imageurl);
                 json1.put("seller",sharedPref.getString("Wholeseller_id", null));
 
@@ -460,6 +447,7 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
                 json1.put("length",length_t);
                 json1.put("size",size_t);*/
                 json1.put("netWeight",weig);
+                json1.put("grossWeight",weig);
                 json1.put("productImage",imageurl);
                 json1.put("seller",sharedPref.getString("Wholeseller_id", null));
 

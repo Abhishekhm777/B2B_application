@@ -10,18 +10,24 @@
     android:animateLayoutChanges="true"
     android:layout_marginLeft="8dp"
     app:swipeDirection="left"
+    app:isFreeDragAfterOpen="true"
+    app:isFreeHorizontalDrag="true"
     app:rightItem="@id/right_view">
 
 
-    <ImageView
+    <TextView
         android:id="@+id/right_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:gravity="center"
+        android:text="Delete"
+        android:textColor="@color/white"
+        android:fontFamily="@font/lato_bold"
+        android:background="@color/red"
         android:paddingEnd="24dp"
         android:paddingStart="24dp"
-        app:srcCompat="@drawable/delete_gray"/>
+       />
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"

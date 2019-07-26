@@ -198,8 +198,8 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-       ImageView product_image,delete_button;
-       TextView pr_name,pro_sku,pro_size,qty;
+       ImageView product_image;
+       TextView pr_name,pro_sku,pro_size,qty,delete_button;
        EditText pro_gwt;
        RelativeLayout itemlayout;
 

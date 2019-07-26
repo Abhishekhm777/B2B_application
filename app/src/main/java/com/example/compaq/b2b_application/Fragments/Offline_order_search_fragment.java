@@ -248,11 +248,9 @@ public class Offline_order_search_fragment extends Fragment {
                         JSONObject content = jsonArray.getJSONObject(i);
                         names.add(new Top_model(content.getString("name"), content.getString("sku")));
                         ids.add(content.getString("id"));
-
                     }
                     top_adapter = new Custom_Order_search_Adapter(getActivity(), names, wholseller_id);
                     listView.setAdapter(top_adapter);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -267,9 +265,9 @@ public class Offline_order_search_fragment extends Fragment {
                 if (response != null && response.data != null) {
                     switch (response.statusCode) {
                         case 404:
-                            BottomSheet.Builder builder = new BottomSheet.Builder(Objects.requireNonNull(getContext()));
-                            builder.setTitle("Sorry! could't reach server");
-                            builder.show();
+
+                            Snackbar.make(Objects.requireNonNull(getView()), "Sorry! could't reach server", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                             break;
                         case 400:
 
@@ -347,7 +345,7 @@ public class Offline_order_search_fragment extends Fragment {
                             JSONArray jsonArray2 = jsonObject1.getJSONArray("attributes");
                             for (int j = 0; j < jsonArray2.length(); j++) {
                                 JSONObject jsonObject2 = jsonArray2.getJSONObject(j);
-                                if (jsonObject2.getString("key").equalsIgnoreCase("Net Weight (gms)")) {
+                                if (jsonObject2.getString("key").equalsIgnoreCase("Gross Weight (gms)")) {
                                     JSONArray jsonArray1 = jsonObject2.getJSONArray("values");
                                     gwt.setText(jsonArray1.getString(0));
                                 }

@@ -92,6 +92,7 @@ public class Custom_order_frag2 extends Fragment {
         ButterKnife.bind(this,view);
 
         sharedPref = getActivity().getSharedPreferences("USER_DETAILS", 0);
+
         product_layout=(LinearLayout)view.findViewById(R.id.product_layout);
 
         wholseller_id = sharedPref.getString("userid", null);
@@ -190,7 +191,7 @@ public class Custom_order_frag2 extends Fragment {
         {
             requestQueue = Volley.newRequestQueue(getActivity());
         }
-        String url = ip+"gate/b2b/catalog/api/v1/product/"+id;
+        String url = ip+"gate/b2b/catalog/api/v1/product/"+id+"?wholesaler"+wholseller_id;
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url   , new Response.Listener<String>() {
             @Override
             public

@@ -56,7 +56,7 @@ public class Wishlist_Activity extends AppCompatActivity {
     String href;
     RecyclerView wishlistRecycler;
     Whishlist_adapter adapter;
-    public String output;
+    public String output,user_id;
     private ImageView empty_imageview;
     Button emptybtn;
     TextView textView,empty_text_view1;
@@ -91,6 +91,7 @@ public class Wishlist_Activity extends AppCompatActivity {
 
         sharedPref =getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         output=sharedPref.getString(ACCESS_TOKEN, null);
+        user_id = sharedPref.getString("userid", "");
         wishlistRecycler=findViewById(R.id.whishlist_recycler);
         getinfo();
 
@@ -194,7 +195,7 @@ public class Wishlist_Activity extends AppCompatActivity {
     ///////////////////////////////////////////////////////////////////////////// fatch id///////////////////////////////////////////////////
     public  void fatchid(){
         String sku=skulist.get(pos);
-        String url2 = ip+"gate/b2b/catalog/api/v1/product/productBySKU/"+sku+"";
+        String url2 = ip+"gate/b2b/catalog/api/v1/product/productBySKU/"+sku;
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url2, null, new Response.Listener<JSONObject>() {
 
@@ -283,7 +284,7 @@ public class Wishlist_Activity extends AppCompatActivity {
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     public  void productInfo(){
         final String ids=idlist.get(pos2);
-        String url3 = ip+"gate/b2b/catalog/api/v1/product/"+ids+"";
+        String url3 = ip+"gate/b2b/catalog/api/v1/product/"+ids+"?wholesaler="+user_id;
         Log.e("Product",url3);
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url3, null, new Response.Listener<JSONObject>() {
 
