@@ -248,11 +248,9 @@ public class Offline_order_search_fragment extends Fragment {
                         JSONObject content = jsonArray.getJSONObject(i);
                         names.add(new Top_model(content.getString("name"), content.getString("sku")));
                         ids.add(content.getString("id"));
-
                     }
                     top_adapter = new Custom_Order_search_Adapter(getActivity(), names, wholseller_id);
                     listView.setAdapter(top_adapter);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -267,19 +265,20 @@ public class Offline_order_search_fragment extends Fragment {
                 if (response != null && response.data != null) {
                     switch (response.statusCode) {
                         case 404:
-                            BottomSheet.Builder builder = new BottomSheet.Builder(Objects.requireNonNull(getContext()));
-                            builder.setTitle("Sorry! could't reach server");
-                            builder.show();
+
+                            Snackbar.make(Objects.requireNonNull(getView()), "Sorry! could't reach server", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                             break;
                         case 400:
-                            BottomSheet.Builder builder1 = new BottomSheet.Builder(Objects.requireNonNull(getContext()));
-                            builder1.setTitle("Sorry! No Products Available");
-                            builder1.show();
+
+                            Snackbar.make(Objects.requireNonNull(getView()), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                             break;
                         case 417:
 
                             Snackbar.make(Objects.requireNonNull(getView()), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
+                            break;
                            /* BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
                             builder2.setTitle("Sorry! No Products Available");
                             builder2.show();*/
@@ -310,7 +309,8 @@ public class Offline_order_search_fragment extends Fragment {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(mContext);
         }
-        String url = ip + "gate/b2b/catalog/api/v1/product/" + id;
+        String url = ip + "gate/b2b/catalog/api/v1/product/"+id+"?wholesaler="+wholseller_id;
+        Log.e("URLL",url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -345,7 +345,7 @@ public class Offline_order_search_fragment extends Fragment {
                             JSONArray jsonArray2 = jsonObject1.getJSONArray("attributes");
                             for (int j = 0; j < jsonArray2.length(); j++) {
                                 JSONObject jsonObject2 = jsonArray2.getJSONObject(j);
-                                if (jsonObject2.getString("key").equalsIgnoreCase("Net Weight (gms)")) {
+                                if (jsonObject2.getString("key").equalsIgnoreCase("Gross Weight (gms)")) {
                                     JSONArray jsonArray1 = jsonObject2.getJSONArray("values");
                                     gwt.setText(jsonArray1.getString(0));
                                 }
@@ -363,7 +363,7 @@ public class Offline_order_search_fragment extends Fragment {
                         }
                     }
                     imageurl = jsonArray.get(0).toString();
-                    Glide.with(Objects.requireNonNull(getActivity())).load(basee + jsonArray.get(0).toString()).into(imageView);
+                    Glide.with(Objects.requireNonNull(getActivity())).load(basee + imageurl).into(imageView);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -392,8 +392,8 @@ public class Offline_order_search_fragment extends Fragment {
                             break;
 
                         case 401:
-
                             session.logoutUser(getActivity());
+                            break;
                     }
                 }
             }

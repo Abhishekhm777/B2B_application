@@ -1405,7 +1405,7 @@ public class Update_product_Activity extends AppCompatActivity {
     public void loadRecycleData(final String id){
        final StringBuilder stringBuilder=new StringBuilder();
               image_array=new JSONArray();
-        String url=ip_cat+"/product/"+id;
+        String url=ip_cat+"/product/"+id+"?wholesaler="+wholseller_id;
         Log.e("UUURRRRL",url);
 
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {

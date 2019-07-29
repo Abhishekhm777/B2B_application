@@ -69,7 +69,7 @@ public class Update_product_fragment extends Fragment {
     private ArrayList<Update_product_model> productlist;
     private Update_product_recy_Adaptetr update_product_recy_adaptetr;
     private Button update,varient;
-    private String pro_id;
+    private String pro_id,user_id;
     private ViewGroup rootView;
 
     public Update_product_fragment() {
@@ -114,6 +114,7 @@ View view;
 
         sharedPref=getActivity().getSharedPreferences("USER_DETAILS",0);
         output=sharedPref.getString(ACCESS_TOKEN, null);
+        user_id = sharedPref.getString("userid", "");
 
         recyclerView = (RecyclerView) view.findViewById(R.id.image_recycler);
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 1, GridLayoutManager.HORIZONTAL, false);
@@ -161,7 +162,7 @@ View view;
     //////////////////////////////////////////////main data////////////////////////////////////
     public void loadRecycleData(final  String id){
 
-        String url=ip_cat+"/product/"+id;
+        String url=ip_cat+"/product/"+id+"?wholesaler="+user_id;
 
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override

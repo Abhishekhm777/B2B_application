@@ -1,5 +1,6 @@
 package com.example.compaq.b2b_application.Adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,12 +15,12 @@ import com.example.compaq.b2b_application.R;
 import java.util.ArrayList;
 
 public class Inner_RecyclerAdapter4 extends RecyclerView.Adapter<Inner_RecyclerAdapter4.ListnerViewHolder>{
-    public Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity;
+    public Context context;
     public ArrayList<Inner_Recy_model> details_list;
     private View view;
     public
-    Inner_RecyclerAdapter4(Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity, ArrayList<Inner_Recy_model> details_list) {
-        this.displayingcompleteproductdetailsActivity = displayingcompleteproductdetailsActivity;
+    Inner_RecyclerAdapter4(Context context, ArrayList<Inner_Recy_model> details_list) {
+        this.context = context;
         this.details_list=details_list;
     }
     @NonNull

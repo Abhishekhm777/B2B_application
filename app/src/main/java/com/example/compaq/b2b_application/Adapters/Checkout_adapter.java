@@ -60,7 +60,8 @@ public class Checkout_adapter  extends RecyclerView.Adapter<Checkout_adapter.MyV
 
         holder.d_qty.setText(listner.getQty());
         try {
-
+            String url = listner.getImg_url();
+            Glide.with(mContext).load(url).into(holder.imageV);
             Double total_weight = Double.parseDouble(listner.getQty()) * Double.parseDouble(listner.getWeight());
             String set_total=new DecimalFormat("#0.000").format(total_weight);
             holder.total_weight.setText(set_total);
@@ -70,16 +71,15 @@ public class Checkout_adapter  extends RecyclerView.Adapter<Checkout_adapter.MyV
         }
         catch (Exception e){
             e.printStackTrace();
-                    }
+        }
             try {
                 String gross = new DecimalFormat("#0.000").format(Double.parseDouble(listner.getWeight()));
                 holder.d_gweight.setText(gross);
                 holder.d_product.setText(listner.getName());
 
-                String url = listner.getImg_url();
-                Glide.with(mContext).load(url).into(holder.imageV);
+
             }
-            catch (NullPointerException e){
+            catch (NumberFormatException e){
                 e.printStackTrace();
             }
                 }
