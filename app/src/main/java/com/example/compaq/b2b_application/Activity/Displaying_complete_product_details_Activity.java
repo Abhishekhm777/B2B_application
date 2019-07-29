@@ -119,7 +119,6 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity imp
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-
          sharedPref =getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
          output=sharedPref.getString(ACCESS_TOKEN, null);
          myEditor = sharedPref.edit();
@@ -135,8 +134,6 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity imp
         fragmentTransaction.commit();
 
     }
-
-
     @Override
     public boolean onCreateOptionsMenu (Menu menu){
        /* MenuInflater menuInflater = getMenuInflater();
@@ -165,7 +162,6 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity imp
         actionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 onOptionsItemSelected(menuItem);
             }
         });

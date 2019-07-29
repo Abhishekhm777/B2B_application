@@ -28,7 +28,6 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,20 +43,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.example.compaq.b2b_application.Adapters.Customize_Oder_Adapter1;
 import com.example.compaq.b2b_application.Helper_classess.AppHelper;
+import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 import com.example.compaq.b2b_application.Helper_classess.VolleyMultipartRequest;
 import com.example.compaq.b2b_application.Helper_classess.VolleySingleton;
 import com.example.compaq.b2b_application.R;
-import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.michaelbel.bottomsheet.BottomSheet;
 
-import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,13 +66,13 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 import static com.example.compaq.b2b_application.Activity.Add_new_product_activity.PICK_IMAGE;
 import static com.example.compaq.b2b_application.Activity.Customize_Order.pager;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
-
-import static com.example.compaq.b2b_application.Fragments.products_display_fragment.item_clicked;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
+import static com.example.compaq.b2b_application.Fragments.products_display_fragment.item_clicked;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 /**
@@ -83,41 +80,66 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
  */
 public class Custom_order_frag3 extends Fragment {
 
-    Bundle bundle;
-    public SharedPreferences sharedPref;
-    public SharedPreferences.Editor myEditor;
-    public List<String> listDataHeader = new ArrayList<String>();
-    HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
-    Customize_Oder_Adapter1 listAdapter;
-    public String output, wholseller_id;
-    public int position = 0;
-    public String SUB_URL = "";
-    public String sname = "";
-    SessionManagement session;
-    private Button place_button,upload_reference;
+    private Bundle bundle;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor myEditor;
+    private final List<String> listDataHeader = new ArrayList<String>();
+    private final HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
+    private Customize_Oder_Adapter1 listAdapter;
+    private String output;
+    private String wholseller_id;
+    private int position = 0;
+    private String SUB_URL = "";
+    private String sname = "";
+    private SessionManagement session;
+    private Button upload_reference;
     public Bundle bundle2;
     private View view;
-    public String original,urldata;
-    int item = 0;
-    HashMap<String, String> list_id = new HashMap<String, String>();
-    String all;
-    private  final int PERMISSION_REQUEST_CAMERA = 0;
-    final int CAMERA_PIC_REQUEST = 1337;
-    private Dialog  options_dialog,myDialogue;
+    private String original;
+    private String urldata;
+    private int item = 0;
+    private final HashMap<String, String> list_id = new HashMap<String, String>();
+    private String all;
+    private final int PERMISSION_REQUEST_CAMERA = 0;
+    private final int CAMERA_PIC_REQUEST = 1337;
+    private Dialog options_dialog, myDialogue;
     private LinearLayout gallery, camera;
-    private TextView yes,cancel,msg;
-   private String reference_image_id;
-   @Nullable @BindView(R.id.product_name)EditText p_name;
-    @Nullable @BindView(R.id.date)EditText date;
-    @Nullable @BindView(R.id.size)EditText size;
-    @Nullable @BindView(R.id.qty)EditText qty;
-    @Nullable @BindView(R.id.g_weight)EditText qwt;
-    @Nullable @BindView(R.id.melting)EditText melting;
-    @Nullable @BindView(R.id.sea)EditText seal;
-    @Nullable @BindView(R.id.descr)EditText descri;
-    @Nullable @BindView(R.id.gwt_text)TextView qty_textview;
-    @Nullable @BindView(R.id.dynamic_spec)TextView dynamic_spec;
-    @Nullable @BindView(R.id.reference_image)ImageView reference_image;
+    private TextView yes;
+    private TextView cancel;
+    private String reference_image_id;
+    @Nullable
+    @BindView(R.id.product_name)
+    EditText p_name;
+    @Nullable
+    @BindView(R.id.date)
+    EditText date;
+    @Nullable
+    @BindView(R.id.size)
+    EditText size;
+    @Nullable
+    @BindView(R.id.qty)
+    EditText qty;
+    @Nullable
+    @BindView(R.id.g_weight)
+    EditText qwt;
+    @Nullable
+    @BindView(R.id.melting)
+    EditText melting;
+    @Nullable
+    @BindView(R.id.sea)
+    EditText seal;
+    @Nullable
+    @BindView(R.id.descr)
+    EditText descri;
+    @Nullable
+    @BindView(R.id.gwt_text)
+    TextView qty_textview;
+    @Nullable
+    @BindView(R.id.dynamic_spec)
+    TextView dynamic_spec;
+    @Nullable
+    @BindView(R.id.reference_image)
+    ImageView reference_image;
 
 
     public Custom_order_frag3() {
@@ -129,12 +151,12 @@ public class Custom_order_frag3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(view==null) {
+        if (view == null) {
             view = inflater.inflate(R.layout.fragment_customize_order_frag2, container, false);
-            ButterKnife.bind(this,view);
+            ButterKnife.bind(this, view);
 
-            place_button=(Button)view.findViewById(R.id.place_button);
-            upload_reference=(Button)view.findViewById(R.id.reference_image_btn);
+            Button place_button = view.findViewById(R.id.place_button);
+            upload_reference = view.findViewById(R.id.reference_image_btn);
             sharedPref = getContext().getSharedPreferences("USER_DETAILS", 0);
             myEditor = sharedPref.edit();
             output = sharedPref.getString(ACCESS_TOKEN, null);
@@ -142,9 +164,9 @@ public class Custom_order_frag3 extends Fragment {
             myDialogue = new Dialog(getContext());
             myDialogue.setContentView(R.layout.back_alert_dialog_layout);
             myDialogue.setCanceledOnTouchOutside(false);
-            yes=myDialogue.findViewById(R.id.yes);
-            cancel=myDialogue.findViewById(R.id.cancel);
-            msg=(TextView) myDialogue.findViewById(R.id.popup_textview);
+            yes = myDialogue.findViewById(R.id.yes);
+            cancel = myDialogue.findViewById(R.id.cancel);
+            TextView msg = myDialogue.findViewById(R.id.popup_textview);
             msg.setText("           Do you wish to place this order?              ");
             myDialogue.getWindow()
                     .getAttributes().windowAnimations = R.style.DialogAnimation;
@@ -153,8 +175,8 @@ public class Custom_order_frag3 extends Fragment {
 
             options_dialog = new Dialog(getActivity());
             options_dialog.setContentView(R.layout.photo_options_layout);
-            gallery = (LinearLayout) options_dialog.findViewById(R.id.gallery);
-            camera = (LinearLayout) options_dialog.findViewById(R.id.camera);
+            gallery = options_dialog.findViewById(R.id.gallery);
+            camera = options_dialog.findViewById(R.id.camera);
             options_dialog.getWindow()
                     .getAttributes().windowAnimations = R.style.DialogAnimation;
 
@@ -169,10 +191,9 @@ public class Custom_order_frag3 extends Fragment {
                         qty_textview.requestFocus();
                         qty_textview.startAnimation(shakeError());
 
-                    }
-                    else {
+                    } else {
                         myDialogue.show();
-                       /* pager.setCurrentItem(4);*/
+                        /* pager.setCurrentItem(4);*/
                         cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -184,7 +205,7 @@ public class Custom_order_frag3 extends Fragment {
                             @Override
                             public void onClick(View view) {
 
-                               /* place_order();*/
+                                /* place_order();*/
 
                                 placeOrder();
                                 myDialogue.dismiss();
@@ -194,7 +215,6 @@ public class Custom_order_frag3 extends Fragment {
 
                 }
             });
-
 
 
             upload_reference.setOnClickListener(new View.OnClickListener() {
@@ -227,7 +247,7 @@ public class Custom_order_frag3 extends Fragment {
                             });
                         }
                     }
-                    if(upload_reference.getText().toString().equalsIgnoreCase("DISCARD")){
+                    if (upload_reference.getText().toString().equalsIgnoreCase("DISCARD")) {
                         reference_image.setVisibility(View.GONE);
                         upload_reference.setText("UPLOAD REFERENCE IMAGE");
                     }
@@ -242,9 +262,9 @@ public class Custom_order_frag3 extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        String id=sharedPref.getString("cust_id", null);
+        String id = sharedPref.getString("cust_id", null);
 
-        if(id!=null){
+        if (id != null) {
 
             getProduct(id);
         }
@@ -252,25 +272,25 @@ public class Custom_order_frag3 extends Fragment {
     }
 
     private RequestQueue requestQueue;
-    private void prepareListData () {
-        bundle=this.getArguments();
-        item_clicked=bundle.getString("Item_Clicked");
-        all=bundle.getString("All");
-        original=item_clicked;
 
-        if(requestQueue==null)
-        {
+    private void prepareListData() {
+        bundle = this.getArguments();
+        item_clicked = bundle.getString("Item_Clicked");
+        all = bundle.getString("All");
+        original = item_clicked;
+
+        if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(getActivity());
         }
 
-        urldata=ip_cat+"/category/byFirstLevelCategory/b2b/Jewellery,"+item_clicked+"?wholesaler="+wholseller_id;
-        String  url=urldata.replaceAll("\\s", "");
+        urldata = ip_cat + "/category/byFirstLevelCategory/b2b/Jewellery," + item_clicked + "?wholesaler=" + wholseller_id;
+        String url = urldata.replaceAll("\\s", "");
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try{
+                try {
 
                     JSONArray ja_data = new JSONArray(response);
                     int length = ja_data.length();
@@ -281,8 +301,8 @@ public class Custom_order_frag3 extends Fragment {
 
                         JSONObject jObj = ja_data.getJSONObject(i);
 
-                        JSONArray parent_array=jObj.getJSONArray("parent");
-                        String parent=parent_array.getString(0);
+                        JSONArray parent_array = jObj.getJSONArray("parent");
+                        String parent = parent_array.getString(0);
 
 
                         sname = (jObj.getString("name").replaceAll("\\s", ""));
@@ -291,8 +311,8 @@ public class Custom_order_frag3 extends Fragment {
 
                         position = i;
 
-                        SUB_URL = ip_cat+"/category/byFirstLevelCategory/b2b/"+parent+","+sname+"?wholesaler="+wholseller_id;
-                        SUB_URL=SUB_URL.replaceAll("\\s", "");
+                        SUB_URL = ip_cat + "/category/byFirstLevelCategory/b2b/" + parent + "," + sname + "?wholesaler=" + wholseller_id;
+                        SUB_URL = SUB_URL.replaceAll("\\s", "");
 
                         prepareSubListData(i, sname);
 
@@ -319,8 +339,8 @@ public class Custom_order_frag3 extends Fragment {
 
                 NetworkResponse response = error.networkResponse;
 
-                if(response != null && response.data != null){
-                    switch(response.statusCode){
+                if (response != null && response.data != null) {
+                    switch (response.statusCode) {
                         case 404:
                             BottomSheet.Builder builder = new BottomSheet.Builder(getActivity());
                             builder.setTitle("Sorry! could't reach server");
@@ -329,19 +349,19 @@ public class Custom_order_frag3 extends Fragment {
 
                         case 401:
 
-                            Toast.makeText(getActivity(),"Session Expired!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Session Expired!", Toast.LENGTH_SHORT).show();
                             /* new Reffressh_token().getToken(MainActivity.this);*/
                             session.logoutUser(getActivity());
 
                     }
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() {
 
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization","bearer "+output);
+                params.put("Authorization", "bearer " + output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
             }
@@ -351,7 +371,7 @@ public class Custom_order_frag3 extends Fragment {
     }
 
 
-    private void prepareSubListData ( final int i, final String sname1){
+    private void prepareSubListData(final int i, final String sname1) {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, SUB_URL, new Response.Listener<String>() {
 
             @Override
@@ -384,7 +404,6 @@ public class Custom_order_frag3 extends Fragment {
                     // Header, Child data
 
 
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -396,82 +415,74 @@ public class Custom_order_frag3 extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() {
 
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization","bearer "+output);
+                params.put("Authorization", "bearer " + output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
             }
         };
 
 
-
-
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
     }
 
-    public void getProduct( String id){
+    private void getProduct(String id) {
 
-        String url = ip+"gate/b2b/catalog/api/v1/product/"+id;
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, url   , new Response.Listener<String>() {
+        String url = ip + "gate/b2b/catalog/api/v1/product/" + id + "?wholesaler=" + wholseller_id;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
-            public
-            void onResponse(String response) {
+            public void onResponse(String response) {
                 try {
 
-                    JSONObject jsonObject=new JSONObject(response);
-                    JSONObject pro_object=jsonObject.getJSONObject("resourceSupport");
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject pro_object = jsonObject.getJSONObject("resourceSupport");
                     p_name.setText(pro_object.getString("name"));
 
                     Calendar cal = GregorianCalendar.getInstance();
-                  try {
-                      cal.add(Calendar.DAY_OF_YEAR, +pro_object.getInt("requiredDayesToDeliver"));
-                      Date seven_days = cal.getTime();
+                    try {
+                        cal.add(Calendar.DAY_OF_YEAR, +pro_object.getInt("requiredDayesToDeliver"));
+                        Date seven_days = cal.getTime();
 
-                      SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                      String formattedDate = df.format(seven_days);
+                        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                        String formattedDate = df.format(seven_days);
 
-                      date.setText(formattedDate);
-                  }
-                  catch (Exception e){
-                      e.printStackTrace();
-                      date.setText("");
-                  }
-
+                        date.setText(formattedDate);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        date.setText("");
+                    }
 
 
+                    JSONArray spec_arra = pro_object.getJSONArray("specification");
+                    for (int i = 0; i < spec_arra.length(); i++) {
+                        JSONObject jsonObject1 = spec_arra.getJSONObject(i);
+                        if (jsonObject1.getString("heading").equalsIgnoreCase("Product Details")) {
 
-                   JSONArray spec_arra=pro_object.getJSONArray("specification");
-                   for(int i=0;i<spec_arra.length();i++){
-                       JSONObject jsonObject1=spec_arra.getJSONObject(i);
-                       if(jsonObject1.getString("heading").equalsIgnoreCase("Product Details")){
-
-                           JSONArray jsonArray=jsonObject1.getJSONArray("attributes");
-                           for(int j=0;j<jsonArray.length();j++){
-                               JSONObject jsonObject2=jsonArray.getJSONObject(j);
-                               if(jsonObject2.getString("key").equalsIgnoreCase("Gross Weight (gms)")){
-                                   JSONArray jsonArray1=jsonObject2.getJSONArray("values");
-                                   qwt.setText(jsonArray1.getString(0));
-                               }
-                               if(jsonObject2.getString("key").equalsIgnoreCase("Size"))
-                               {
-                                   JSONArray jsonArray1=jsonObject2.getJSONArray("values");
-                                   dynamic_spec.setText("Size");
-                                   size.setText(jsonArray1.getString(0));
-                               }
-                               if(jsonObject2.getString("key").equalsIgnoreCase("Length"))
-                               {
-                                   JSONArray jsonArray1=jsonObject2.getJSONArray("values");
-                                   dynamic_spec.setText("Length");
-                                   size.setText(jsonArray1.getString(0));
-                               }
-                           }
-                       }
-                   }
+                            JSONArray jsonArray = jsonObject1.getJSONArray("attributes");
+                            for (int j = 0; j < jsonArray.length(); j++) {
+                                JSONObject jsonObject2 = jsonArray.getJSONObject(j);
+                                if (jsonObject2.getString("key").equalsIgnoreCase("Gross Weight (gms)")) {
+                                    JSONArray jsonArray1 = jsonObject2.getJSONArray("values");
+                                    qwt.setText(jsonArray1.getString(0));
+                                }
+                                if (jsonObject2.getString("key").equalsIgnoreCase("Size")) {
+                                    JSONArray jsonArray1 = jsonObject2.getJSONArray("values");
+                                    dynamic_spec.setText("Size");
+                                    size.setText(jsonArray1.getString(0));
+                                }
+                                if (jsonObject2.getString("key").equalsIgnoreCase("Length")) {
+                                    JSONArray jsonArray1 = jsonObject2.getJSONArray("values");
+                                    dynamic_spec.setText("Length");
+                                    size.setText(jsonArray1.getString(0));
+                                }
+                            }
+                        }
+                    }
                     qty.setText("1");
 
 
@@ -480,17 +491,15 @@ public class Custom_order_frag3 extends Fragment {
                 }
 
 
-
             }
-        },new Response.ErrorListener() {
+        }, new Response.ErrorListener() {
             @Override
-            public
-            void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError error) {
                 NetworkResponse response = error.networkResponse;
 
 
-                if(response != null && response.data != null){
-                    switch(response.statusCode){
+                if (response != null && response.data != null) {
+                    switch (response.statusCode) {
                         case 404:
                             BottomSheet.Builder builder = new BottomSheet.Builder(getContext());
                             builder.setTitle("Sorry! could't reach server");
@@ -512,18 +521,19 @@ public class Custom_order_frag3 extends Fragment {
                     }
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization","bearer "+output);
+                params.put("Authorization", "bearer " + output);
                 params.put("Content-Type", "application/x-www-form-urlencoded");
                 return params;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
     }
+
     ////////////////////////permission //////////////////////////
     private void requestCameraPermission() {
 
@@ -535,8 +545,8 @@ public class Custom_order_frag3 extends Fragment {
                 PERMISSION_REQUEST_CAMERA);
 
     }
-    private void permission() {
 
+    private void permission() {
 
 
         ActivityCompat.requestPermissions(getActivity(),
@@ -544,7 +554,8 @@ public class Custom_order_frag3 extends Fragment {
                 PERMISSION_REQUEST_CAMERA);
 
     }
-    public void cameraOpen() {
+
+    private void cameraOpen() {
 
         try {
 /*
@@ -566,7 +577,6 @@ public class Custom_order_frag3 extends Fragment {
             Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
 
-
             startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
         } catch (SecurityException ex) {
             ex.printStackTrace();
@@ -575,7 +585,7 @@ public class Custom_order_frag3 extends Fragment {
 
 
     ///////////////////
-    public void gaallery_open() {
+    private void gaallery_open() {
         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // ******** code for crop image
         i.putExtra("crop", false);
@@ -597,7 +607,7 @@ public class Custom_order_frag3 extends Fragment {
 
     }
 
-    public TranslateAnimation shakeError() {
+    private TranslateAnimation shakeError() {
         TranslateAnimation shake = new TranslateAnimation(0, 10, 0, 0);
         shake.setDuration(600);
         shake.setInterpolator(new CycleInterpolator(7));
@@ -607,7 +617,7 @@ public class Custom_order_frag3 extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
 
-        if(data!=null) {
+        if (data != null) {
             if (requestCode == CAMERA_PIC_REQUEST) {
                 try {
                     Bitmap image = (Bitmap) data.getExtras().get("data");
@@ -615,15 +625,15 @@ public class Custom_order_frag3 extends Fragment {
                     reference_image.setVisibility(View.VISIBLE);
                     upload_reference.setText("DISCARD");
                     reference_image.setImageBitmap(bitmap);
-                       uploadReferenceImage();
+                    uploadReferenceImage();
 
+
+                } catch (NullPointerException ignored) {
 
                 }
-                catch (NullPointerException e){
 
-                }
-
-            } if(requestCode==PICK_IMAGE) {
+            }
+            if (requestCode == PICK_IMAGE) {
                 try {
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
@@ -636,8 +646,7 @@ public class Custom_order_frag3 extends Fragment {
                     reference_image.setVisibility(View.VISIBLE);
                     upload_reference.setText("DISCARD");
                     reference_image.setImageBitmap(bitmap);
-                    Log.e("DVDVDV","bitmap");
-
+                    Timber.e("bitmap");
 
 
                     uploadReferenceImage();
@@ -662,10 +671,9 @@ public class Custom_order_frag3 extends Fragment {
 
 
                     /*cursor.close();*/
-                }
-                catch (NullPointerException e){
-                    Log.e("DVDVDV","ILLLE");
-                        e.printStackTrace();
+                } catch (NullPointerException e) {
+                    Log.e("DVDVDV", "ILLLE");
+                    e.printStackTrace();
                 }
 
             } /*else {
@@ -676,43 +684,43 @@ public class Custom_order_frag3 extends Fragment {
     }
 
 
-    public void placeOrder() {
+    private void placeOrder() {
 
-        String image_id=sharedPref.getString("cust_image_id", null);
-       String  customer_id = sharedPref.getString("userid", null);
+        String image_id = sharedPref.getString("cust_image_id", null);
+        String customer_id = sharedPref.getString("userid", null);
 
-        JSONObject mainJasan= new JSONObject();
-        String  url=ip+"gate/b2b/order/api/v1/order/add";
-        JSONObject json1= new JSONObject();
-        final JSONArray items_jsonArray=new JSONArray();
+        JSONObject mainJasan = new JSONObject();
+        String url = ip + "gate/b2b/order/api/v1/order/add";
+        JSONObject json1 = new JSONObject();
+        final JSONArray items_jsonArray = new JSONArray();
         try {
-            json1.put("name",p_name.getText().toString());
-            json1.put("quantity",qty.getText().toString());
-            json1.put("paymentStatus","PENDING");
-            json1.put("seller",wholseller_id);
-            json1.put("seal",seal.getText().toString());
-            json1.put("expectedDeliveryDate",date.getText().toString());
-            json1.put("grossWeight",qwt.getText().toString());
-            json1.put("melting",melting.getText().toString());
-            json1.put("productImage","https://server.mrkzevar.com/gate/b2b/catalog/api/v1/assets/image/"+image_id);
-               json1.put("netWeight",qwt.getText().toString());
-           /* json1.put("totweight",weight.getText().toString());*/
+            json1.put("name", p_name.getText().toString());
+            json1.put("quantity", qty.getText().toString());
+            json1.put("paymentStatus", "PENDING");
+            json1.put("seller", wholseller_id);
+            json1.put("seal", seal.getText().toString());
+            json1.put("expectedDeliveryDate", date.getText().toString());
+            json1.put("grossWeight", qwt.getText().toString());
+            json1.put("melting", melting.getText().toString());
+            json1.put("productImage", "https://server.mrkzevar.com/gate/b2b/catalog/api/v1/assets/image/" + image_id);
+            json1.put("netWeight", qwt.getText().toString());
+            /* json1.put("totweight",weight.getText().toString());*/
 
 
             items_jsonArray.put(json1);
-            mainJasan.put("items",items_jsonArray);
-            mainJasan.put("customer",customer_id);
-            mainJasan.put("paymentStatus","PENDING");
-            mainJasan.put("orderType","ONLINECUSTOM_ORDER");
+            mainJasan.put("items", items_jsonArray);
+            mainJasan.put("customer", customer_id);
+            mainJasan.put("paymentStatus", "PENDING");
+            mainJasan.put("orderType", "ONLINECUSTOM_ORDER");
 
 
             Log.e("OBJECT Status", mainJasan.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-            Map<String, String> params = new HashMap<>();
-            params.put("customer", customer_id);
-            params.put("items", String.valueOf(items_jsonArray));
+        Map<String, String> params = new HashMap<>();
+        params.put("customer", customer_id);
+        params.put("items", String.valueOf(items_jsonArray));
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, mainJasan, new Response.Listener<JSONObject>() {
 
@@ -721,15 +729,13 @@ public class Custom_order_frag3 extends Fragment {
 
                 try {
 
-                     pager.setCurrentItem(4);
+                    pager.setCurrentItem(4);
 
 
                  /*   Snackbar.make(getView(), "Your Custom Order Placed Successfully !", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();*/
 
-                }
-
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -740,8 +746,8 @@ public class Custom_order_frag3 extends Fragment {
                 NetworkResponse response = error.networkResponse;
 
 
-                if(response != null && response.data != null){
-                    switch(response.statusCode) {
+                if (response != null && response.data != null) {
+                    switch (response.statusCode) {
                         case 404:
 
                             Snackbar.make(getView(), "Sorry! could't reach server", Snackbar.LENGTH_LONG)
@@ -764,7 +770,7 @@ public class Custom_order_frag3 extends Fragment {
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headr = new HashMap<>();
-                headr.put("Authorization","bearer "+output);
+                headr.put("Authorization", "bearer " + output);
                 headr.put("Content-Type", "application/json");
                 return headr;
             }
@@ -773,17 +779,17 @@ public class Custom_order_frag3 extends Fragment {
         queue.add(request);
     }
 
-    public void uploadReferenceImage() {
+    private void uploadReferenceImage() {
         // loading or check internet connection or something...
         // ... then
-        String url = ip+"image/save";
+        String url = ip + "image/save";
         VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
                 String resultResponse = new String(response.data);
                 try {
 
-                    reference_image_id=resultResponse;
+                    reference_image_id = resultResponse;
                     Log.e("Unexpected", resultResponse);
 
                     Log.e("RESULTT", response.toString());
@@ -833,7 +839,7 @@ public class Custom_order_frag3 extends Fragment {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();
-                params.put("Authorization", "bearer "+output);
+                params.put("Authorization", "bearer " + output);
                 params.put("Content-Type", "image/png");
                 return params;
             }
@@ -844,7 +850,7 @@ public class Custom_order_frag3 extends Fragment {
                 // file name could found file base or direct access from real path
                 // for now just get bitmap data from ImageView
 
-                params.put("file", new VolleyMultipartRequest.DataPart("id", AppHelper.getFileDataFromDrawable(getActivity(),reference_image.getDrawable()), "image/jpeg"));
+                params.put("file", new VolleyMultipartRequest.DataPart("id", AppHelper.getFileDataFromDrawable(getActivity(), reference_image.getDrawable()), "image/jpeg"));
 
                 return params;
             }

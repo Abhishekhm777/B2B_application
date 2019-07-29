@@ -71,14 +71,10 @@ public class Custom_order_frag2 extends Fragment {
     @BindView(R.id.byCategory) RadioButton byCategory;
     @BindView(R.id.add_new_product_btn) Button add_new;
     @BindView(R.id.confirm_butn) Button confirm_buttpn;
-
     @BindView(R.id.p_name)  TextView p_name;
     @BindView(R.id.category) TextView category;
     @BindView(R.id.sku) TextView sku;
     @BindView(R.id.selected_product) ImageView p_image_view;
-
-
-
     public Custom_order_frag2() {
         // Required empty public constructor
     }
@@ -191,7 +187,7 @@ public class Custom_order_frag2 extends Fragment {
         {
             requestQueue = Volley.newRequestQueue(getActivity());
         }
-        String url = ip+"gate/b2b/catalog/api/v1/product/"+id+"?wholesaler"+wholseller_id;
+        String url = ip+"gate/b2b/catalog/api/v1/product/"+id+"?wholesaler="+wholseller_id;
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url   , new Response.Listener<String>() {
             @Override
             public
