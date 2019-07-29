@@ -69,7 +69,6 @@ Dialog dialog;
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_personal_info_fragment, container, false);
 
-
         toolbar=(Toolbar)view.findViewById(R.id.profile_toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         dialog = new Dialog(getContext());

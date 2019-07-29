@@ -79,7 +79,7 @@ public SessionManagement session;
 
                 }
                 tabLayout.getTabAt(viewPager.getCurrentItem()).select();
-                final InputMethodManager imm = (InputMethodManager)getSystemService(
+                 InputMethodManager imm = (InputMethodManager)getSystemService(
                         Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }

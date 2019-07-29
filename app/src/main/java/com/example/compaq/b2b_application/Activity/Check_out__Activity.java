@@ -69,6 +69,7 @@ public class Check_out__Activity extends AppCompatActivity {
     private SessionManagement session;
     private String manufacturename,manufacture_mob;
     public String cartid="";
+    private  String output;
     private ProgressBar progressBar;
     private Dialog myDialog;
     private Dialog dialog;
@@ -91,6 +92,8 @@ public class Check_out__Activity extends AppCompatActivity {
         shopmore=(TextView)dialog.findViewById(R.id.continue_shopping) ;
         /* sharedPref =getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);*/
         sharedPref = getApplicationContext().getSharedPreferences("USER_DETAILS", 0);
+        sharedPref=getSharedPreferences("USER_DETAILS",0);
+         output=sharedPref.getString(ACCESS_TOKEN, null);
         myEditor = sharedPref.edit();
         myDialog = new Dialog(this);
         myDialog.setContentView(R.layout.popup_layout);
@@ -187,7 +190,6 @@ public class Check_out__Activity extends AppCompatActivity {
                                 iem_objects.put("productID", pid);
                                 iem_objects.put("quantity", qty);
                                 iem_objects.put("productImage", image_url);
-
                                 iem_objects.put("paymentStatus", "PENDING");
                                 iem_objects.put("expectedDeliveryDate", "");
                                 iem_objects.put("seller", sharedPref.getString("Wholeseller_id", null));
@@ -216,9 +218,7 @@ public class Check_out__Activity extends AppCompatActivity {
         }){
             @Override
             public Map<String, String> getHeaders() {
-                sharedPref=getSharedPreferences("USER_DETAILS",0);
 
-                String output=sharedPref.getString(ACCESS_TOKEN, null);
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization","bearer "+output);
                 return params;

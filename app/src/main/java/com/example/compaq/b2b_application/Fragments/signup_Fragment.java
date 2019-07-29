@@ -78,8 +78,8 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 
 
 public class signup_Fragment extends Fragment {
-    public EditText user_name,email,teli_phone,password,gstin_e,company_name;
-    public  String firstname_t,email_t,phone_t,password_t,gstin_t,company;
+    public EditText user_name,email,teli_phone,password,gstin_e,company_name,confirm_password;
+    public  String firstname_t,email_t,phone_t,password_t,gstin_t,company,confirm_password_t;
     CheckBox checkBox;
     public Button sign_upbutton,upload_logo,gstn_button;
     ImageView imageView;
@@ -124,6 +124,7 @@ public class signup_Fragment extends Fragment {
         email=(EditText)view.findViewById(R.id.edit_email);
         teli_phone=(EditText)view.findViewById(R.id.edit_mobile);
         password=(EditText)view.findViewById(R.id.edit_password);
+        confirm_password=(EditText)view.findViewById(R.id.confir_password) ;
         imageView=(ImageView)view.findViewById(R.id.profile_logo);
        // gst_file=(TextView)view.findViewById(R.id.gst_file);
 
@@ -184,6 +185,7 @@ public class signup_Fragment extends Fragment {
                 email_t = email.getText().toString();
                 phone_t = teli_phone.getText().toString();
                 password_t = password.getText().toString();
+                confirm_password_t=confirm_password.getText().toString();
                 gstin_t=gstin_e.getText().toString();
 
                 Log.d("emial....",ccp.getSelectedCountryCode());
@@ -193,22 +195,27 @@ public class signup_Fragment extends Fragment {
                     return;
                 }
 
-                if (TextUtils.isEmpty(firstname_t.trim())) {
+               else if (TextUtils.isEmpty(firstname_t.trim())) {
                     user_name.setError("User name is required");
                     return;
                 }
 
-                if (TextUtils.isEmpty(email_t.trim())) {
+               else if (TextUtils.isEmpty(email_t.trim())) {
                     email.setError("Enter valid email");
                     return;
                 }
 
-                if (TextUtils.isEmpty(phone_t.trim())) {
+               else if (TextUtils.isEmpty(phone_t.trim())) {
                     teli_phone.setError("Enter the 10digit Mobile No.");
                     return;
                 }
-                if (TextUtils.isEmpty(password_t.trim())) {
+               else if ( password_t.length()<5 ||TextUtils.isEmpty(password_t.trim())) {
+
                     password.setError("Invalid password.Password must be at least 6 characters long and contain a number");
+                    return;
+                }
+               else if ( !password_t.equals(confirm_password_t)) {
+                   confirm_password.setError("Password mismatched");
                     return;
                 }
                /* if(!checkBox.isChecked()){
@@ -223,11 +230,9 @@ public class signup_Fragment extends Fragment {
                         }
                         id=email_t;
                         phone_t=ccp.getSelectedCountryCode()+phone_t;
-                    signupModel=new SignupModel(imageid,company,gstin_t,firstname_t,email_t,phone_t,password_t);
+                       signupModel=new SignupModel(imageid,company,gstin_t,firstname_t,email_t,phone_t,password_t);
                         signupModelArrayList.add(signupModel);
                      bundle.putSerializable("Data",(Serializable) signupModelArrayList);
-                    //dialog.show();
-
                         check();
 
                    // send_otp(phone_t,email_t);
