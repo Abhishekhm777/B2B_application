@@ -18,13 +18,14 @@ import com.example.compaq.b2b_application.R;
 
 public class UserProfileActivity extends AppCompatActivity {
     public Toolbar toolbar;
+    public  static TextView titleView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         toolbar=(Toolbar)findViewById(R.id.profile_tool);
-        TextView textView=(TextView)findViewById(R.id.profile_title);
-        textView.append("USER PROFILE ");
+        titleView=(TextView)findViewById(R.id.profile_title);
+        titleView.append("USER PROFILE ");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
