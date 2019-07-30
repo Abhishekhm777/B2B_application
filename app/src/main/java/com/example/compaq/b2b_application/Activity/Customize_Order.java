@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 public class Customize_Order extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     public FragmentManager fragmentManager;
-   Toolbar toolbar;
+    private  Toolbar toolbar;
     StepperIndicator indicator;
     public static ViewPager pager;
     private SharedPreferences sharedPref;
@@ -43,23 +43,16 @@ public class Customize_Order extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityCustomizeOrderBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_customize__order);
-
           binding.toolBar.setTitle("Customize Order");
           pager=binding.pager;
         indicator=binding.stepperIndicator;
-
         sharedPref = this.getSharedPreferences("USER_DETAILS", 0);
         editor = sharedPref.edit();
         editor.putString("cust_id",null).apply();
         editor.commit();
-
         setSupportActionBar(binding.toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         final Stepper_Adapter adapter=new Stepper_Adapter(this,getSupportFragmentManager(),5);
-
-
         assert pager != null;
        pager .setAdapter(adapter);
         pager.setOnTouchListener(new View.OnTouchListener()
@@ -73,10 +66,8 @@ public class Customize_Order extends AppCompatActivity {
 
         /*   pager.setAdapter(new PagerAdapter(getSupportFragmentManager(),pager.getChildCount()));
          */
-
         // We keep last page for a "finishing" page
       indicator.setViewPager(binding.pager, true);
-
         indicator.addOnStepClickListener(new StepperIndicator.OnStepClickListener() {
             @Override
             public void onStepClicked(int step) {
@@ -85,11 +76,9 @@ public class Customize_Order extends AppCompatActivity {
                 Log.e("Log",String.valueOf(step));
                 if(step<pager.getCurrentItem()&&pager.getCurrentItem()!=4){
                     pager.setCurrentItem(step, true);
-
                 }
             }
         });
-
 
       /*
         fragmentManager = getSupportFragmentManager();

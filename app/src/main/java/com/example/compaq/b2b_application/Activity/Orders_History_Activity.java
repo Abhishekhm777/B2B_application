@@ -46,14 +46,10 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 
 public class Orders_History_Activity extends AppCompatActivity {
     private ExpandableListView expandableListView;
-    private String dates, tommrowdate;
     public SharedPreferences sharedPref;
-    SharedPreferences.Editor myEditior;
-
     private static String USER_ID, ACCESS_TOKEN, sku, mob, email;
     private ArrayList<String> sku_list;
     private ArrayList<String> seller_id;
-
     private ArrayList<Orderhistory_model> orderNumList;
     private Map<String, List<Order_history_inner_model>> orderChildMap;
     private Map<String, List<OrderImageChild>> imageChildMap;
@@ -68,7 +64,6 @@ public class Orders_History_Activity extends AppCompatActivity {
     int inn2 = 0;
     String oder_type;
     public String output,user_id;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

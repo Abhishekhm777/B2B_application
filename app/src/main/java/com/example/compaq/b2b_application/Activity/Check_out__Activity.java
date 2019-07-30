@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentManager;
@@ -35,6 +36,7 @@ import com.example.compaq.b2b_application.Model.Check_out_Recyclemodel;
 import com.example.compaq.b2b_application.Helper_classess.OrderPlaceAlert_DialogueManager;
 import com.example.compaq.b2b_application.R;
 import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
+import com.example.compaq.b2b_application.databinding.ActivityCheckOutBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +55,6 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 public class Check_out__Activity extends AppCompatActivity {
-   /* public SharedPreferences pref;*/
     public SharedPreferences sharedPref;
     public   SharedPreferences.Editor myEditor;
     public String userid="";
@@ -64,33 +65,31 @@ public class Check_out__Activity extends AppCompatActivity {
     public ArrayList<Check_out_Recyclemodel> productlist;
     public RecyclerView recyclerView;
     public OrderPlaceAlert_DialogueManager alert = new OrderPlaceAlert_DialogueManager();
-    Toolbar toolbar;
+    private Toolbar toolbar;
     public Button button;
     private SessionManagement session;
-    private String manufacturename,manufacture_mob;
     public String cartid="";
     private  String output;
     private ProgressBar progressBar;
     private Dialog myDialog;
     private Dialog dialog;
-    TextView details,shopmore;
+    private TextView details,shopmore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_out__);
-        toolbar=(Toolbar)findViewById(R.id.check_out_toolbar);
+        ActivityCheckOutBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_check_out__);
+        toolbar=binding.checkOutToolbar;
         toolbar.setTitle("Place Order");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         session = new SessionManagement(getApplicationContext());
-        progressBar=(ProgressBar)findViewById(R.id.progress);
+        progressBar=binding.progress;
         ////////////////////////////////////////////////////
         dialog = new Dialog(this);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.congrats_layout);
-        details=(TextView)dialog.findViewById(R.id.viewdetails) ;
-        shopmore=(TextView)dialog.findViewById(R.id.continue_shopping) ;
-        /* sharedPref =getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);*/
+        details=(TextView)dialog.findViewById(R.id.viewdetails);
+        shopmore=(TextView)dialog.findViewById(R.id.continue_shopping);
         sharedPref = getApplicationContext().getSharedPreferences("USER_DETAILS", 0);
         sharedPref=getSharedPreferences("USER_DETAILS",0);
          output=sharedPref.getString(ACCESS_TOKEN, null);
@@ -98,13 +97,13 @@ public class Check_out__Activity extends AppCompatActivity {
         myDialog = new Dialog(this);
         myDialog.setContentView(R.layout.popup_layout);
 
-        recyclerView = (RecyclerView)findViewById(R.id.checkout_recycler);
+        recyclerView = binding.checkoutRecycler;
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
         recyclerView.setHasFixedSize(true);
         productlist=new ArrayList<>();
         getItem_ids();
 
-        button=(Button)findViewById(R.id.place_orderbttn);
+        button=binding.placeOrderbttn;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

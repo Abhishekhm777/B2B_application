@@ -113,6 +113,7 @@ public class Offline_order_search_fragment extends Fragment {
             toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.offline_tool);
             mContext = getActivity().getApplicationContext();
             searchView = getActivity().findViewById(R.id.custom_search);
+            searchView.setIconifiedByDefault(false);
             productlist = new ArrayList<>();
 
             myDialogue = new Dialog(Objects.requireNonNull(getContext()));

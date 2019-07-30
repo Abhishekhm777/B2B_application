@@ -86,6 +86,7 @@ private Button done_button;
             searchView =  getActivity().findViewById(R.id.custom_search);
 
 
+
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {

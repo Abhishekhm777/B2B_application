@@ -148,11 +148,9 @@ public class Order_toB_processed_fragmenrt1 extends Fragment {
                 ip+"gate/b2b/order/api/v1/task/orders/shipping?userId="+user_id,
 
                 new Response.Listener<String>() {
-
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onResponse(String response) {
-
                         try {
                             Log.e("REFRESHED","REFRESHED");
                           JSONArray jsonArray=new JSONArray(response);
@@ -269,7 +267,6 @@ public class Order_toB_processed_fragmenrt1 extends Fragment {
                                LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                                  recyclerView.setLayoutManager(linearLayoutManager);
                                 recyclerView.setAdapter(order_to_bprocessed_adapter);
-
 
                                 recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener( linearLayoutManager) {
 

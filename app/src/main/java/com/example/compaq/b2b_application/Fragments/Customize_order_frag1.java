@@ -192,7 +192,7 @@ public class Customize_order_frag1 extends Fragment {
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     next.setEnabled(true);
                     next.setText("NEXT");
-                    next.setBackgroundColor(getResources().getColor(R.color.skyBlue));
+                    next.setBackgroundColor(getResources().getColor(R.color.Text));
                     getUserDetail(autoCompleteTextView.getText().toString());
 
                 }
@@ -207,7 +207,7 @@ public class Customize_order_frag1 extends Fragment {
 
                         next.setText("SAVE & NEXT");
                         next.setEnabled(true);
-                        next.setBackgroundColor(getResources().getColor(R.color.skyBlue));
+                        next.setBackgroundColor(getResources().getColor(R.color.Text));
                     } else {
                         getUserDetail(autoCompleteTextView.getText().toString());
                     }
@@ -346,7 +346,7 @@ public class Customize_order_frag1 extends Fragment {
                     gstn.setText(jsonObject.getString("gstNumber"));
                     address.setText(jsonObject.getString("address"));
                     next.setEnabled(true);
-                    next.setBackgroundColor(getResources().getColor(R.color.skyBlue));
+                    next.setBackgroundColor(getResources().getColor(R.color.Text));
 
                 }
                 catch (Exception e) {
