@@ -1,5 +1,6 @@
 package com.example.compaq.b2b_application.Activity;
 
+import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.example.compaq.b2b_application.Fragments.Offline_order_search_fragmen
 import com.example.compaq.b2b_application.Helper_classess.Back_alert_class;
 import com.example.compaq.b2b_application.Model.Offline_order_model;
 import com.example.compaq.b2b_application.R;
+import com.example.compaq.b2b_application.databinding.ActivityOfflineOrderBinding;
 
 import java.text.BreakIterator;
 import java.util.ArrayList;
@@ -26,13 +28,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Offline_order extends AppCompatActivity implements Offline_order_search_fragment.SubmitClicked{
-    @Nullable @BindView(R.id.offline_tool) Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_offline_order);
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+        ActivityOfflineOrderBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_offline_order);
+
+        setSupportActionBar(binding.offlineTool);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Offline_order_search_fragment offline_order_search_fragment=new Offline_order_search_fragment();

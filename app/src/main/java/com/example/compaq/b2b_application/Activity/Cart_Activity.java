@@ -434,7 +434,7 @@ public class Cart_Activity extends AppCompatActivity {
 
 
 
-                                productlist.add(new Cart_recy_model(name, href, weght, product_id, qty,del_id,description,purity,size,length,seller_name,expected));
+                                productlist.add(new Cart_recy_model(name, href, weght, product_id, qty,del_id,description,purity,size,length,seller_name,expected,""));
 
 
                                 cart_recycler_adapter = new Cart_recycler_Adapter(Cart_Activity.this, productlist,getSupportFragmentManager());

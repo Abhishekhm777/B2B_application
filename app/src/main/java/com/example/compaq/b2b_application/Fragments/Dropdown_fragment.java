@@ -399,10 +399,10 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
     }*/
 
     public void updateCart() {
+
         JSONObject mainJasan= new JSONObject();
         if(cartid.equalsIgnoreCase("0")){
             url=ip+"gate/b2b/order/api/v1/cart/add";
-
             JSONObject json1= new JSONObject();
             final JSONArray items_jsonArray=new JSONArray();
             try {
@@ -434,7 +434,6 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
         else {
             url = ip+"gate/b2b/order/api/v1/cart/update";
 
-
             JSONObject json1= new JSONObject();
             final JSONArray items_jsonArray=new JSONArray();
             try {
@@ -465,10 +464,6 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
             params.put("items", String.valueOf(items_jsonArray));
             params.put("id", cartid);
         }
-
-
-
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, mainJasan, new Response.Listener<JSONObject>() {
 
             @Override
@@ -477,16 +472,10 @@ Log.e("UPDATE CATR,,,,,,,", String.valueOf(jsonObject));
                 try {
 
                     String cartid=response.getString("id");
-
-
-
-
                     myEditor.putString("cartid",cartid);
                     myEditor.apply();
                     myEditor.commit();
-
-
-                   /* cart_shared_preference = getActivity().getSharedPreferences("CART_ITEMS", 0);*/
+                    /* cart_shared_preference = getActivity().getSharedPreferences("CART_ITEMS", 0);*/
                    json_length= Integer.parseInt(sharedPref.getString("no_of_items",""));
                     myEditor.putString("no_of_items", String.valueOf(json_length+1)).apply();
                     myEditor.commit();

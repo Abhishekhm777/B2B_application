@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.example.compaq.b2b_application.Fragments.Custom_order_finish_frag;
 import com.example.compaq.b2b_application.Fragments.Custom_order_frag2;
 import com.example.compaq.b2b_application.Fragments.Custom_order_placed_frag;
-import com.example.compaq.b2b_application.Fragments.Custom_order_search_fragment;
 import com.example.compaq.b2b_application.Fragments.Customize_order_frag1;
 import com.example.compaq.b2b_application.Fragments.Custom_order_frag3;
 
@@ -33,7 +32,7 @@ public class Stepper_Adapter extends FragmentPagerAdapter {
                 return frag2;
 
             case 2:
-                Custom_order_frag3 frag3 = new Custom_order_frag3();
+                Fragment frag3 = new Custom_order_frag3();
                 return frag3;
 
             case 3:

@@ -28,13 +28,13 @@ import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
 public class Sign_up_Activity extends AppCompatActivity {
     public Button button;
     public String username="";
-   public String password="";
+    public String password="";
     public  String email="";
     public TabLayout tabLayout;
     public static  ViewPager viewPager;
     public Toolbar toolbar;
-    Tablayout_adapter  adapter;
-public SessionManagement session;
+    private Tablayout_adapter  adapter;
+    private SessionManagement session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
