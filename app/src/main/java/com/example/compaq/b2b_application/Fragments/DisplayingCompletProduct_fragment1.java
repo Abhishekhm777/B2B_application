@@ -42,6 +42,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.compaq.b2b_application.Activity.Buyer_Custome_Order;
 import com.example.compaq.b2b_application.Activity.Check_out__Activity;
 import com.example.compaq.b2b_application.Activity.Displaying_complete_product_details_Activity;
 import com.example.compaq.b2b_application.Adapters.Inner_RecyclerAdapter4;
@@ -64,6 +65,7 @@ import java.util.Objects;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
 import static com.example.compaq.b2b_application.Activity.MainActivity.wishlist2;
+import static com.example.compaq.b2b_application.Fragments.products_display_fragment.item_clicked;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
@@ -238,16 +240,10 @@ private View view;
             @Override
             public void onClick(View v) {
 
-
-                String noOfitems=sharedPref.getString("no_of_items","");
-                if (noOfitems.equalsIgnoreCase("0"))
-                {
-                    Toast.makeText(getActivity().getApplicationContext(),"Your cart is empty!!",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Intent i = new Intent(getActivity().getApplicationContext(), Check_out__Activity.class);
+                Bundle bundle1=new Bundle();
+                bundle1.putString("product_id",name);
+                    Intent i = new Intent(getActivity().getApplicationContext(), Buyer_Custome_Order.class).putExtras(bundle1);
                     startActivity(i);
-                }
             }
         });
         return  view;
@@ -361,12 +357,8 @@ private View view;
 
         main_recyclerView=(RecyclerView)view.findViewById(R.id.main2recycler) ;
         main_recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-
         main_recyclerView.setHasFixedSize(true);
-
-
         Log.d("URL %!!!... , . ,. , . ",d_url);
-
 
         String Detail_URL_DATA=ip+"gate/b2b/catalog/api/v1/product/"+name+"?wholesaler="+user_id;
 

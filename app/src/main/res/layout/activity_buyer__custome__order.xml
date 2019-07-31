@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Buyer_Custome_Order">
+
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/customtool"
+        android:layout_height="45dp"
+        app:titleTextColor="@color/white"
+        android:background="@color/Text"
+        android:theme="@style/Toolbar_Arrow"
+        android:textAlignment="center">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.SearchView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/custom_search"
+                app:showAsAction="never"
+                app:searchHintIcon="@null"
+                app:searchIcon="@null"
+                app:actionViewClass="android.support.v7.widget.SearchView"
+                android:layout_alignParentRight="true"
+                app:defaultQueryHint="ENTER NAME OR SKU"
+                >
+            </android.support.v7.widget.SearchView>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/customtool"
+            android:layout_above="@+id/button"
+            android:id="@+id/offline_frame">
+        </FrameLayout>
+
+
+
+</RelativeLayout>
+</layout>

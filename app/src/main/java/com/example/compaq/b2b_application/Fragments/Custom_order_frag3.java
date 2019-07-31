@@ -594,12 +594,9 @@ public class Custom_order_frag3 extends Fragment {
         i.putExtra("outputX", 800);
         i.putExtra("outputY", 800);
 
-
         try {
-
             i.putExtra("return-data", true);
-            startActivityForResult(
-                    Intent.createChooser(i, "Select Picture"), PICK_IMAGE);
+            startActivityForResult(Intent.createChooser(i, "Select Picture"), PICK_IMAGE);
         } catch (ActivityNotFoundException ex) {
             ex.printStackTrace();
         }
@@ -689,6 +686,10 @@ public class Custom_order_frag3 extends Fragment {
         String image_id = sharedPref.getString("cust_image_id", null);
         String customer_id = sharedPref.getString("userid", null);
 
+        String consign_name = sharedPref.getString("cust_name", null);
+        String conignemail = sharedPref.getString("cust_email", null);
+        String consignmob = sharedPref.getString("cust_mobile", null);
+
         JSONObject mainJasan = new JSONObject();
         String url = ip + "gate/b2b/order/api/v1/order/add";
         JSONObject json1 = new JSONObject();
@@ -709,10 +710,12 @@ public class Custom_order_frag3 extends Fragment {
 
             items_jsonArray.put(json1);
             mainJasan.put("items", items_jsonArray);
-            mainJasan.put("customer", customer_id);
+
             mainJasan.put("paymentStatus", "PENDING");
             mainJasan.put("orderType", "ONLINECUSTOM_ORDER");
-
+            mainJasan.put("consigneeName", consign_name);
+            mainJasan.put("consigneeEmail", conignemail);
+            mainJasan.put("consigneeNumber", consignmob);
 
             Log.e("OBJECT Status", mainJasan.toString());
         } catch (JSONException e) {
@@ -730,7 +733,6 @@ public class Custom_order_frag3 extends Fragment {
                 try {
 
                     pager.setCurrentItem(4);
-
 
                  /*   Snackbar.make(getView(), "Your Custom Order Placed Successfully !", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();*/
