@@ -360,7 +360,7 @@
                 android:layout_margin="32dp"
                 android:text="UPLOAD REFERENCE IMAGE"
                 android:textAppearance="@style/customer_nu"
-                android:textColor="@color/skyBlue"
+                android:textColor="@color/Text"
                 android:background="@drawable/pricebreak_background"/>
         </LinearLayout>
 
@@ -371,7 +371,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:textSize="15dp"
-        android:background="@color/skyBlue"
+        android:background="@color/Text"
         android:hint="PLACE ORDER"
         android:textColorHint="@color/white" />
 

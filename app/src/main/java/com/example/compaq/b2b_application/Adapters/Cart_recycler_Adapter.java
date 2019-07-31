@@ -68,18 +68,12 @@ public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Ad
     public SharedPreferences sharedPref;
     public   SharedPreferences.Editor myEditor;
     DatePickerFragment datePickerFragment=new DatePickerFragment();
-
-  /* public SharedPreferences cart_shared_preference;
-   public SharedPreferences.Editor cartEditor;*/
     private Menu menu;
-
-
     public Cart_recycler_Adapter(Context mContext, ArrayList<Cart_recy_model> productlist ,FragmentManager fragmentManager) {
         this.productlist=productlist;
         this.mContext=mContext;
         this.fragmentManager=fragmentManager;
-}
-
+       }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -88,15 +82,15 @@ public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Ad
 
         view=inflater.inflate(R.layout.cart_card_layout,null);*/
 
-if(productlist.size()==0) {
-    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_cart_, parent, false);
-    ImageView imageView=view.findViewById(R.id.cart_emppty);
-    imageView.setImageResource(R.drawable.emptycart);
+        if(productlist.size()==0) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_cart_, parent, false);
+            ImageView imageView=view.findViewById(R.id.cart_emppty);
+            imageView.setImageResource(R.drawable.emptycart);
 
-    return new MyViewHolder(view);
-}
-        return new MyViewHolder(itemView);
-    }
+            return new MyViewHolder(view);
+        }
+                return new MyViewHolder(itemView);
+            }
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder,  int position) {
@@ -184,14 +178,11 @@ if(productlist.size()==0) {
 
 
                 notifyItemRemoved(holder.getAdapterPosition());
-
                 notifyItemRangeChanged(holder.getAdapterPosition(), productlist.size());
                 delet_fromcart(listner.getDel_id());
                 calculateWeight();
                 sharedPref =mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
                 myEditor = sharedPref.edit();
-
-
                /* cart_shared_preference = mContext.getSharedPreferences("CART_ITEMS", 0);*/
                String no= String.valueOf((productlist.size()));
                myEditor.putString("no_of_items",no).apply();
@@ -202,11 +193,8 @@ if(productlist.size()==0) {
 
                /* Displaying_complete_product_details_Activity displayingcompleteproductdetailsActivity= new Displaying_complete_product_details_Activity();
                 displayingcompleteproductdetailsActivity.setupBadge(mContext);*/
-
-
             }
         });
-
         holder.imageV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
