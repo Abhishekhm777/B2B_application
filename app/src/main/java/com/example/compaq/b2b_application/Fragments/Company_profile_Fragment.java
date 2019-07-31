@@ -34,6 +34,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -41,6 +42,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -58,10 +60,12 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
+import static com.android.volley.VolleyLog.TAG;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
@@ -290,9 +294,12 @@ public class Company_profile_Fragment extends Fragment {
     private void showPictureDialog(final int code){
         android.app.AlertDialog.Builder pictureDialog = new android.app.AlertDialog.Builder(getActivity());
         pictureDialog.setTitle("Select Action");
+
+
         String[] pictureDialogItems = {
                 " Gallery",
-                " Camera" };
+                " Camera",
+                " Document"};
         pictureDialog.setItems(pictureDialogItems,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -313,6 +320,13 @@ public class Company_profile_Fragment extends Fragment {
                                 else if(code==5000){
                                     takePhotoFromCamera(5010);
                                 }
+                            case 3:
+                                if(code==1000) {
+                                  showFileChooser(1030);
+                                }
+                                else if(code==1000){
+                                    showFileChooser(5030);
+                                }
 
                                 break;
                         }
@@ -320,6 +334,22 @@ public class Company_profile_Fragment extends Fragment {
                 });
         pictureDialog.show();
     }
+
+    private void showFileChooser(int resCode) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        try {
+            startActivityForResult(
+                    Intent.createChooser(intent, "Select a File to Upload"), resCode);
+        } catch (android.content.ActivityNotFoundException ex) {
+            // Potentially direct the user to the Market with a Dialog
+            Toast.makeText(getActivity(), "Please install a File Manager.",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void choosePhotoFromGallary(int code) {
 
         int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),
@@ -478,6 +508,19 @@ public class Company_profile_Fragment extends Fragment {
                     }
                 }
                 break;
+            case 5030:
+                if (resultCode == RESULT_OK) {
+
+                    Uri uri = data.getData();
+                    File myFile = new File(uri.toString());
+                    String path = myFile.getAbsolutePath();
+
+
+                    }
+
+
+                break;
+
 
            /* else if(requestCode == 1200){
                 Uri returnUri = data.getData();
@@ -499,6 +542,7 @@ public class Company_profile_Fragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -506,6 +550,9 @@ public class Company_profile_Fragment extends Fragment {
                 inImage, "Title", null);
         return Uri.parse(path);
     }
+
+
+
 
     //////////////////////////////////////////image pick///////////////////////////////
     public  void imagePick(int code,Uri returnUri){
@@ -578,10 +625,12 @@ public class Company_profile_Fragment extends Fragment {
                     if(code==1020 ||code==1010) {
                         gstDocumentId = resultResponse;
                         Log.i("Unexpected", resultResponse);
+                        gst_button.setText("view gstin");
                     }
                     else if(code==5020||code==5010){
                        cinDocumentId=resultResponse;
                         Log.i("Unexpected", resultResponse);
+                        cin_button.setText("view cin");
                     }
 
 
@@ -688,7 +737,7 @@ public class Company_profile_Fragment extends Fragment {
             mainJasan.put("wishList",wishList);
 
             json1.put("cin",cin_text.getText().toString());
-            json1.put("cinDocumentId",cinDocumentId);
+            json1.put("cinDocumentId","");
             json1.put("brands",brands);
             json1.put("createdOn",createdOn);
             json1.put("description",description.getText().toString());

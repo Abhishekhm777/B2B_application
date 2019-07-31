@@ -36,6 +36,7 @@ public class UserProfileFragment extends Fragment {
         TextView personal_test=view.findViewById(R.id.personal);
         TextView company_text=view.findViewById(R.id.company);
         TextView user_text=view.findViewById(R.id.user_setting);
+        TextView view_text=view.findViewById(R.id.view_setting);
         personal_test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +55,16 @@ public class UserProfileFragment extends Fragment {
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.profile_activity_layout, company_fragment).addToBackStack(null).commit();
                 UserProfileActivity.titleView.setText("COMPANY INFORMATION");
+            }
+        });
+        view_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment viewSettings_fragment=new ViewSettingsFragment();
+                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.profile_activity_layout, viewSettings_fragment).addToBackStack(null).commit();
+                UserProfileActivity.titleView.setText("view settings");
             }
         });
 
