@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/linear_card"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="165dp"
+            >
+            <!--160-->
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="2dp"
+                android:padding="2dp"
+                android:scaleType="fitCenter">
+            </android.support.v7.widget.AppCompatImageView>
+            <Button
+                android:id="@+id/button_wish"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="end"
+                android:background="@drawable/clear_btn"
+                android:layout_margin="6dp"
+                />
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>
