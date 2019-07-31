@@ -134,7 +134,7 @@ public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Ad
 
         String url=  listner.getImg_url();
         Glide.with(mContext).load(url).into(holder.imageV);
-      /*  holder.update.setOnClickListener(new View.OnClickListener(){
+        holder.update.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
@@ -158,7 +158,7 @@ public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Ad
 
                 fragmentTransaction.addToBackStack(null).commit();
     }
-});*/
+});
                holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

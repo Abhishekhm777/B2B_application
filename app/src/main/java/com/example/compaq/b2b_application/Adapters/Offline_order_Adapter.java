@@ -104,7 +104,6 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
             @Override
             public void onClick(View view) {
                 final Number_picker_dialogue number_picker_dialogue = new Number_picker_dialogue(mContext);
-
                 number_picker_dialogue.showPicker();
                 number_picker_dialogue.np.setValue(Integer.valueOf(listner.getQuantity()));
                 number_picker_dialogue.set.setOnClickListener(new View.OnClickListener() {
@@ -115,10 +114,8 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
                         holder.qty.setText(String.valueOf(number_picker_dialogue.np.getValue()));
                         notifyDataSetChanged();
                         calculateWeight();
-
                     }
                 });
-
             }
         });
 
@@ -132,6 +129,7 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
                 calculateWeight();
             }
         });
+
         /*holder.itemlayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -154,8 +152,6 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
                         productlist.remove(position);
                         notifyDataSetChanged();
                         calculateWeight();
-
-
                     }
                 });
 
@@ -203,9 +199,7 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
        EditText pro_gwt;
        RelativeLayout itemlayout;
 
-
-
-        public MyViewHolder(View itemView) {
+       public MyViewHolder(View itemView) {
             super(itemView);
             pr_name=itemView.findViewById(R.id.name);
             pro_sku=itemView.findViewById(R.id.sku);
@@ -219,21 +213,17 @@ public class Offline_order_Adapter extends RecyclerView.Adapter<Offline_order_Ad
         }
     }
 
-      private void calculateWeight() {
+    private void calculateWeight() {
           Double total_double = 0.0;
           for (int i = 0; i < productlist.size(); i++) {
               final com.example.compaq.b2b_application.Model.Offline_order_model listner = productlist.get(i);
               try {
-
                   total_double = total_double + Double.parseDouble(listner.getTotal_weight());
-
               } catch (NumberFormatException e) {
                   e.printStackTrace();
               }
           }
-
           String total = new DecimalFormat("#0.000").format(Double.parseDouble(total_double.toString()));
           textView.setText(total);
       }
-
 }
