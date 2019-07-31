@@ -106,31 +106,27 @@ if(productlist.size()==0) {
         holder.d_product.setText(listner.getName());
 
         try {
-
-             total_weight = Double.parseDouble(listner.getQty()) * Double.parseDouble(listner.getWeight());
-
-
-        String set_total=new DecimalFormat("#0.000").format(total_weight);
+            total_weight = Double.parseDouble(listner.getQty()) * Double.parseDouble(listner.getWeight());
+             String set_total=new DecimalFormat("#0.000").format(total_weight);
+             listner.setTotal_weight(set_total);
+            calculateWeight();
+            holder.d_gweight.setText(set_total);
             if(!listner.getExpected().equalsIgnoreCase("null")){
                 holder.excpected_date.setText(listner.getExpected());
             }
             else {
                 holder.excpected_date.setText(datePickerFragment.getDate());
             }
+            holder.seller_name.setText(listner.getSeller_name());
 
 
-        holder.seller_name.setText(listner.getSeller_name());
 
 
-            String gross=new DecimalFormat("#0.000").format(Double.parseDouble(listner.getWeight()));
-            holder.d_gweight.setText(gross);
 
-           total_double=total_double+total_weight;
+         /*  total_double=total_double+total_weight;
 
-            total=new DecimalFormat("#0.000").format(total_double);
+            total=new DecimalFormat("#0.000").format(total_double);*/
 
-
-            ((Cart_Activity)mContext).totoal_weight(String.valueOf(total));
         }
         catch (Exception e){
             e.printStackTrace();
@@ -144,7 +140,7 @@ if(productlist.size()==0) {
 
         String url=  listner.getImg_url();
         Glide.with(mContext).load(url).into(holder.imageV);
-        holder.add_to_whishlist.setOnClickListener(new View.OnClickListener(){
+      /*  holder.update.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
@@ -168,29 +164,30 @@ if(productlist.size()==0) {
 
                 fragmentTransaction.addToBackStack(null).commit();
     }
-});
+});*/
                holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
                 productlist.remove(holder.getAdapterPosition());
 
-              try {
+
+            /*  try {
                   total_double = total_double -( Double.parseDouble(listner.getWeight()) * Double.parseDouble(listner.getQty()));
 
                   total = new DecimalFormat("#0.000").format(total_double);
+                  calculateWeight();
               }
               catch (NumberFormatException e){
                   e.printStackTrace();
-              }
+              }*/
 
 
-                ((Cart_Activity)mContext).totoal_weight(String.valueOf(total));
                 notifyItemRemoved(holder.getAdapterPosition());
 
                 notifyItemRangeChanged(holder.getAdapterPosition(), productlist.size());
                 delet_fromcart(listner.getDel_id());
+                calculateWeight();
                 sharedPref =mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
                 myEditor = sharedPref.edit();
 
@@ -238,7 +235,7 @@ if(productlist.size()==0) {
         ImageView C_imageview;
         Spinner spinner;
         TextView d_qty, purity,d_product,d_gweight,excpected_date,description,size,length,seller_name;
-        public Button add_to_whishlist,remove;
+        public Button update,remove;
         public MyViewHolder(View view) {
             super(view);
           /*  purity=(TextView)itemView.findViewById(R.id.purity);
@@ -252,7 +249,7 @@ if(productlist.size()==0) {
             d_product=(TextView)itemView.findViewById(R.id.d_produc_name);
             d_qty = (TextView) itemView.findViewById(R.id.d_quantity);
             imageV=(ImageView)itemView.findViewById(R.id.cart_image);
-            add_to_whishlist=(Button)itemView.findViewById(R.id.wishlist) ;
+            update=(Button)itemView.findViewById(R.id.wishlist) ;
             remove=(Button)itemView.findViewById(R.id.remove);
             C_imageview=itemView.findViewById(R.id.cart_emppty);
            /* spinner=itemView.findViewById(R.id.item_spinner);
@@ -321,7 +318,19 @@ if(productlist.size()==0) {
         requestQueue.add(jsonObjectss);
 
     }
-
+    private void calculateWeight() {
+        Double total_double = 0.0;
+        for (int i = 0; i < productlist.size(); i++) {
+            final com.example.compaq.b2b_application.Model.Cart_recy_model listner=  productlist.get(i);
+            try {
+                total_double = total_double + Double.parseDouble(listner.getTotal_weight());
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        String total = new DecimalFormat("#0.000").format(Double.parseDouble(total_double.toString()));
+        ((Cart_Activity)mContext).totoal_weight(total);
     }
+}
 
 

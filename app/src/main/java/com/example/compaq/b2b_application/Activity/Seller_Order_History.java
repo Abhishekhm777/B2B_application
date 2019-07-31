@@ -31,11 +31,11 @@ public class Seller_Order_History extends AppCompatActivity {
         dialog = new Dialog(this);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.order_his_filter_layout);
-
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.frame_layout, new Seller_Order_HIst_Frag1());
         fragmentTransaction.commit();
+
 
     }
 

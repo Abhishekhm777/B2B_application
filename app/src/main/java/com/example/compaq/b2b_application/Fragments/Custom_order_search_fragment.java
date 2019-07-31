@@ -86,6 +86,7 @@ private Button done_button;
             searchView =  getActivity().findViewById(R.id.custom_search);
 
 
+
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
@@ -122,7 +123,7 @@ private Button done_button;
                     searchView.setVisibility(View.GONE);
                     path = bundle.getString("path");
 
-                    String url = ip + "gate/b2b/catalog/api/v1/product/all/category/" + path;
+                    String url = ip + "gate/b2b/catalog/api/v1/product/all/category/"+path;
                     String uri = null;
                     uri = Uri.parse(url)
                             .buildUpon()
@@ -166,9 +167,6 @@ public  void getSuggestions(String text){
     Log.e("JJIB",uri);
         getProduct(uri);
 }
-
-
-
 
     public void getProduct( String text){
 

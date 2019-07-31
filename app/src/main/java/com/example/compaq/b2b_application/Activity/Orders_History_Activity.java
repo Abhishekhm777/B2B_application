@@ -46,14 +46,10 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 
 public class Orders_History_Activity extends AppCompatActivity {
     private ExpandableListView expandableListView;
-    private String dates, tommrowdate;
     public SharedPreferences sharedPref;
-    SharedPreferences.Editor myEditior;
-
     private static String USER_ID, ACCESS_TOKEN, sku, mob, email;
     private ArrayList<String> sku_list;
     private ArrayList<String> seller_id;
-
     private ArrayList<Orderhistory_model> orderNumList;
     private Map<String, List<Order_history_inner_model>> orderChildMap;
     private Map<String, List<OrderImageChild>> imageChildMap;
@@ -67,8 +63,7 @@ public class Orders_History_Activity extends AppCompatActivity {
     Dialog dialog;
     int inn2 = 0;
     String oder_type;
-    public String output = "";
-
+    public String output,user_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +79,7 @@ public class Orders_History_Activity extends AppCompatActivity {
 
         sharedPref.getString(ACCESS_TOKEN, null);
         output = sharedPref.getString("acc_token", null);
+        user_id=sharedPref.getString("userid", null);
 
 
         dialog = new Dialog(Orders_History_Activity.this);
@@ -128,7 +124,7 @@ public class Orders_History_Activity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                ip + "gate/b2b/order/api/v1/order/user/" + sharedPref.getString("userid", null) + "?fromDate=" + lastdate + "&toDate=" + strDate + "",
+                ip + "gate/b2b/order/api/v1/order/user/"+user_id+ "?fromDate=" + lastdate + "&toDate=" + strDate + "",
 
                 new Response.Listener<String>() {
                     public void onResponse(String response) {
@@ -174,7 +170,7 @@ public class Orders_History_Activity extends AppCompatActivity {
 
                                     if(oder_type.equalsIgnoreCase("CUSTOM ORDER")){
                                         imagechildlist = new ArrayList<OrderImageChild>();
-                                        imagechildlist.add(new OrderImageChild(custom_name, "https://server.mrkzevar.com/gate/b2b/order/api/v1/image/get/"+item_object.getString("customOrderImageID")));
+                                        imagechildlist.add(new OrderImageChild(custom_name, item_object.getString("productImage")));
                                         imageChildMap.put(custom_name, imagechildlist);
 
                                         String qty = item_object.getString("quantity");
@@ -253,7 +249,7 @@ public class Orders_History_Activity extends AppCompatActivity {
         if (inn < sku_list.size()) {
             sku = sku_list.get(inn);
             Log.d("size11...", sku_list.size() + "   " + sku);
-            imgUrl = ip + "gate/b2b/order/api/v1/getProduct/" + sku;
+            imgUrl = ip + "gate/b2b/order/api/v1/getProduct/"+sku+"?wholesaler="+user_id;
             StringRequest stringRequest = new StringRequest(Request.Method.GET, imgUrl
                     ,
                     new Response.Listener<String>() {

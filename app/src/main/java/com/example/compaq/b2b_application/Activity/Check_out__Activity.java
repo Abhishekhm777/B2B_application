@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentManager;
@@ -35,6 +36,7 @@ import com.example.compaq.b2b_application.Model.Check_out_Recyclemodel;
 import com.example.compaq.b2b_application.Helper_classess.OrderPlaceAlert_DialogueManager;
 import com.example.compaq.b2b_application.R;
 import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
+import com.example.compaq.b2b_application.databinding.ActivityCheckOutBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +55,6 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 public class Check_out__Activity extends AppCompatActivity {
-   /* public SharedPreferences pref;*/
     public SharedPreferences sharedPref;
     public   SharedPreferences.Editor myEditor;
     public String userid="";
@@ -64,50 +65,45 @@ public class Check_out__Activity extends AppCompatActivity {
     public ArrayList<Check_out_Recyclemodel> productlist;
     public RecyclerView recyclerView;
     public OrderPlaceAlert_DialogueManager alert = new OrderPlaceAlert_DialogueManager();
-    Toolbar toolbar;
+    private Toolbar toolbar;
     public Button button;
-    SessionManagement session;
+    private SessionManagement session;
     public String cartid="";
+    private  String output;
     private ProgressBar progressBar;
-    Dialog myDialog;
-    Dialog dialog;
-
-TextView details,shopmore;
+    private Dialog myDialog;
+    private Dialog dialog;
+    private TextView details,shopmore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_out__);
-
-        toolbar=(Toolbar)findViewById(R.id.check_out_toolbar);
+        ActivityCheckOutBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_check_out__);
+        toolbar=binding.checkOutToolbar;
         toolbar.setTitle("Place Order");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         session = new SessionManagement(getApplicationContext());
-        progressBar=(ProgressBar)findViewById(R.id.progress);
-
+        progressBar=binding.progress;
         ////////////////////////////////////////////////////
-
         dialog = new Dialog(this);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.congrats_layout);
-
-        details=(TextView)dialog.findViewById(R.id.viewdetails) ;
-
-        shopmore=(TextView)dialog.findViewById(R.id.continue_shopping) ;
-
-       /* sharedPref =getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);*/
+        details=(TextView)dialog.findViewById(R.id.viewdetails);
+        shopmore=(TextView)dialog.findViewById(R.id.continue_shopping);
         sharedPref = getApplicationContext().getSharedPreferences("USER_DETAILS", 0);
+        sharedPref=getSharedPreferences("USER_DETAILS",0);
+         output=sharedPref.getString(ACCESS_TOKEN, null);
         myEditor = sharedPref.edit();
         myDialog = new Dialog(this);
         myDialog.setContentView(R.layout.popup_layout);
 
-        recyclerView = (RecyclerView)findViewById(R.id.checkout_recycler);
+        recyclerView = binding.checkoutRecycler;
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
         recyclerView.setHasFixedSize(true);
         productlist=new ArrayList<>();
         getItem_ids();
 
-        button=(Button)findViewById(R.id.place_orderbttn);
+        button=binding.placeOrderbttn;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,13 +124,9 @@ TextView details,shopmore;
                         placeorder();
                     }
                 }).show();
-
-
             }
         });
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -142,12 +134,10 @@ TextView details,shopmore;
                 // click on 'up' button in the action bar, handle it here
                 onBackPressed();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
     @Override
     public void onBackPressed()
     {
@@ -159,19 +149,15 @@ TextView details,shopmore;
             super.onBackPressed();
         }
     }
-    public  void getItem_ids() {
-
-      /*  sharedPref = getSharedPreferences("User_information", 0);*/
+    public void getItem_ids() {
+        /*  sharedPref = getSharedPreferences("User_information", 0);*/
         userid = sharedPref.getString("userid", "");
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-
         StringRequest jsonArrayRequest = new StringRequest(
                 ip+"gate/b2b/order/api/v1/cart/customer/"+userid+"",
                 new Response.Listener<String>() {
                     public void onResponse(String response) {
                         items=new JSONArray();
-
-
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             cartid=jsonObject.getString("id");
@@ -183,31 +169,37 @@ TextView details,shopmore;
                                 String we = jsonObject1.getString("netWeight");
                                 String pid = jsonObject1.getString("productID");
                                 String produ = jsonObject1.getString("product");
+                                String  manufacturename=jsonObject1.getString("manufactureName");
+                                String  manufacture_mob=jsonObject1.getString("manufactureMobile");
                                 String qty = jsonObject1.getString("quantity");
                                 String purity=jsonObject1.getString("purity");
                                 String size=jsonObject1.getString("size");
                                 String length=jsonObject1.getString("length");
+                                String image_url=jsonObject1.getString("productImage");
+                                String name = jsonObject1.getString("name");
                                 int delete_ids = Integer.parseInt(jsonObject1.getString("id"));
 
                                 display_cart_details(pid, we, qty, delete_ids,desc,purity,size,length);
                                 Thread.sleep(200);
 
-
                                 JSONObject iem_objects = new JSONObject();
                                 iem_objects.put("netWeight", we);
                                 iem_objects.put("product", produ);
+                                iem_objects.put("name", name);
                                 iem_objects.put("productID", pid);
                                 iem_objects.put("quantity", qty);
+                                iem_objects.put("productImage", image_url);
                                 iem_objects.put("paymentStatus", "PENDING");
+                                iem_objects.put("expectedDeliveryDate", "");
                                 iem_objects.put("seller", sharedPref.getString("Wholeseller_id", null));
                             /*   iem_objects.put("melting", "");
                                 iem_objects.put("seal", "");
                                 iem_objects.put("rate", "");
                                 iem_objects.put("advance", "");*/
-
+                                iem_objects.put("manufactureName", manufacturename);
+                                iem_objects.put("manufactureMobile", manufacture_mob);
                                 iem_objects.put("description", desc);
                                 items.put(iem_objects);
-
                             }
 
                         } catch (JSONException e) {
@@ -225,9 +217,7 @@ TextView details,shopmore;
         }){
             @Override
             public Map<String, String> getHeaders() {
-                sharedPref=getSharedPreferences("USER_DETAILS",0);
 
-                String output=sharedPref.getString(ACCESS_TOKEN, null);
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization","bearer "+output);
                 return params;
@@ -249,6 +239,7 @@ TextView details,shopmore;
                             JSONObject obj1 = obj.getJSONObject("resourceSupport");
                             String name = obj1.getString("name");
                             String product_id = obj1.getString("id");
+
 
                             JSONArray ja_data = obj1.getJSONArray("links");
                             for (int i = 0; i < ja_data.length(); i++) {
@@ -319,6 +310,9 @@ TextView details,shopmore;
                 place_object.put("customer",userid);
                 place_object.put("paymentStatus","PENDING");
                 place_object.put("orderType","ONLINE_SALES_ORDER");
+                place_object.put("consigneeName","");
+                place_object.put("consigneeEmail","");
+                place_object.put("consigneeNumber","");
 
 
             } catch (JSONException e) {
@@ -327,7 +321,7 @@ TextView details,shopmore;
            /* Map<String, String> params = new HashMap<>();
             params.put("items", String.valueOf(items));
             params.put("customer", userid);
-        params.put("paymentStatus", "PENDING");*/
+            params.put("paymentStatus", "PENDING");*/
                Log.e("placeeeee", String.valueOf(place_object));
             String url=ip+"gate/b2b/order/api/v1/order/add";
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, place_object, new Response.Listener<JSONObject>() {
@@ -336,7 +330,7 @@ TextView details,shopmore;
                 public void onResponse(JSONObject response) {
                             progressBar.setVisibility(View.GONE);
                     try {
-                        String status=response.getString("orderStatus");
+                        response.getString("orderStatus");
 
 
                         clearCart(cartid);

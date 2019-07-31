@@ -3,6 +3,8 @@ package com.example.compaq.b2b_application.Activity;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -24,6 +26,7 @@ import com.example.compaq.b2b_application.Fragments.Customize_order_frag1;
 import com.example.compaq.b2b_application.Fragments.Manage_category_frag1;
 import com.example.compaq.b2b_application.Helper_classess.Back_alert_class;
 import com.example.compaq.b2b_application.R;
+import com.example.compaq.b2b_application.databinding.ActivityCustomizeOrderBinding;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,34 +34,27 @@ import butterknife.ButterKnife;
 public class Customize_Order extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     public FragmentManager fragmentManager;
-    @BindView(R.id.tool_bar)Toolbar toolbar;
-   @BindView(R.id.stepper_indicator) StepperIndicator indicator;
+    private  Toolbar toolbar;
+    StepperIndicator indicator;
     public static ViewPager pager;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customize__order);
-        ButterKnife.bind(this);
-
-        toolbar.setTitle("Customize Order");
-
-
+        ActivityCustomizeOrderBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_customize__order);
+          binding.toolBar.setTitle("Customize Order");
+          pager=binding.pager;
+        indicator=binding.stepperIndicator;
         sharedPref = this.getSharedPreferences("USER_DETAILS", 0);
         editor = sharedPref.edit();
         editor.putString("cust_id",null).apply();
         editor.commit();
-
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         final Stepper_Adapter adapter=new Stepper_Adapter(this,getSupportFragmentManager(),5);
-
-        pager = findViewById(R.id.pager);
         assert pager != null;
-        pager.setAdapter(adapter);
+       pager .setAdapter(adapter);
         pager.setOnTouchListener(new View.OnTouchListener()
         {
             @Override
@@ -70,10 +66,8 @@ public class Customize_Order extends AppCompatActivity {
 
         /*   pager.setAdapter(new PagerAdapter(getSupportFragmentManager(),pager.getChildCount()));
          */
-
         // We keep last page for a "finishing" page
-        indicator.setViewPager(pager, true);
-
+      indicator.setViewPager(binding.pager, true);
         indicator.addOnStepClickListener(new StepperIndicator.OnStepClickListener() {
             @Override
             public void onStepClicked(int step) {
@@ -82,11 +76,9 @@ public class Customize_Order extends AppCompatActivity {
                 Log.e("Log",String.valueOf(step));
                 if(step<pager.getCurrentItem()&&pager.getCurrentItem()!=4){
                     pager.setCurrentItem(step, true);
-
                 }
             }
         });
-
 
       /*
         fragmentManager = getSupportFragmentManager();
