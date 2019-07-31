@@ -697,7 +697,7 @@ public class Company_profile_Fragment extends Fragment {
             json1.put("fcrnDocumentId",fcrnDocumentId);
             json1.put("fllpin",fllpin);
             json1.put("fllpinDocumentId",fllpinDocumentId);
-            json1.put("gstDocumentId","");
+            json1.put("gstDocumentId",gstDocumentId);
             json1.put("gstin",gstin);
             json1.put("id",id);
             json1.put("llpin",llpin);
