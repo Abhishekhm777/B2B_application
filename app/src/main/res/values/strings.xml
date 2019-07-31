@@ -103,5 +103,10 @@
     <string name="enter_custo">ENTER CUSTOMER DETAILS</string>
 
     <string name="add_cart">ADD TO BAG</string>
+    //////////////////Menu Itemss//////////////////////
+    <string name="requests">REQUESTS
+    </string>
+    <string name="manage_categories">MANAGE CATEGORIES</string>
+    <string name="manage_products">MANAGE PRODUCTS</string>
 
 </resources>

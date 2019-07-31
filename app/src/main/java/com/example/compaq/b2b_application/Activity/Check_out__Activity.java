@@ -74,6 +74,7 @@ public class Check_out__Activity extends AppCompatActivity {
     private Dialog myDialog;
     private Dialog dialog;
     private TextView details,shopmore;
+    private String consign_name,consign_email,consign_number;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,25 +85,29 @@ public class Check_out__Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         session = new SessionManagement(getApplicationContext());
         progressBar=binding.progress;
-        ////////////////////////////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////////////////
         dialog = new Dialog(this);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.congrats_layout);
         details=(TextView)dialog.findViewById(R.id.viewdetails);
         shopmore=(TextView)dialog.findViewById(R.id.continue_shopping);
-        sharedPref = getApplicationContext().getSharedPreferences("USER_DETAILS", 0);
         sharedPref=getSharedPreferences("USER_DETAILS",0);
-         output=sharedPref.getString(ACCESS_TOKEN, null);
+        output=sharedPref.getString(ACCESS_TOKEN, null);
+        userid = sharedPref.getString("userid", "");
+
+        consign_name = sharedPref.getString("firstname", "");
+        consign_email = sharedPref.getString("email", "");
+        consign_number = sharedPref.getString("mobile", "");
+
+
         myEditor = sharedPref.edit();
         myDialog = new Dialog(this);
         myDialog.setContentView(R.layout.popup_layout);
-
         recyclerView = binding.checkoutRecycler;
         recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
         recyclerView.setHasFixedSize(true);
         productlist=new ArrayList<>();
         getItem_ids();
-
         button=binding.placeOrderbttn;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +143,7 @@ public class Check_out__Activity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
     public void onBackPressed()
     {
@@ -151,7 +157,7 @@ public class Check_out__Activity extends AppCompatActivity {
     }
     public void getItem_ids() {
         /*  sharedPref = getSharedPreferences("User_information", 0);*/
-        userid = sharedPref.getString("userid", "");
+
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest jsonArrayRequest = new StringRequest(
                 ip+"gate/b2b/order/api/v1/cart/customer/"+userid+"",
@@ -301,18 +307,15 @@ public class Check_out__Activity extends AppCompatActivity {
     }
 
     public  void placeorder(){
-
             JSONObject place_object= new JSONObject();
-
             try {
-
                 place_object.put("items",items);
                 place_object.put("customer",userid);
                 place_object.put("paymentStatus","PENDING");
                 place_object.put("orderType","ONLINE_SALES_ORDER");
-                place_object.put("consigneeName","");
-                place_object.put("consigneeEmail","");
-                place_object.put("consigneeNumber","");
+                place_object.put("consigneeName",consign_name);
+                place_object.put("consigneeEmail",consign_email);
+                place_object.put("consigneeNumber",consign_number);
 
 
             } catch (JSONException e) {
@@ -365,7 +368,6 @@ public class Check_out__Activity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Session Expired!", Toast.LENGTH_SHORT).show();
                                 session.logoutUser(Check_out__Activity.this);
                         }
-
                     }
                 }
             }) {

@@ -50,4 +50,20 @@ class Back_alert_class(private val context: Context) {
         cancel.setOnClickListener { myDialogue.dismiss() }
         myDialogue.show()
     }
+
+    fun confirmAlert() {
+        myDialogue = Dialog(context)
+        myDialogue.setContentView(R.layout.back_alert_dialog_layout)
+        myDialogue.setCanceledOnTouchOutside(false)
+
+        val msg = myDialogue.findViewById<TextView>(R.id.popup_textview)
+        msg.setText(" Do you wish to place this order?  ")
+
+        yes = myDialogue.findViewById(R.id.yes)
+        cancel = myDialogue.findViewById(R.id.cancel)
+        myDialogue.window!!.attributes.windowAnimations = R.style.DialogAnimation
+        myDialogue.show()
+        cancel.setOnClickListener { myDialogue.dismiss() }
+    }
+
 }

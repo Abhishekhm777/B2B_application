@@ -76,6 +76,7 @@ import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.editor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -116,7 +117,7 @@ public class Customize_order_frag1 extends Fragment {
     private Button  submit, add_product;
     private RadioButton byname, byCat;
     private LinearLayout cat_view, recy_view, second_search;
-
+    private SharedPreferences.Editor myEditor;
     public List<String> contact_array=new ArrayList<>();
     @BindView (R.id.cust_no)AutoCompleteTextView autoCompleteTextView;
     private ImageView add_contact;
@@ -148,12 +149,10 @@ public class Customize_order_frag1 extends Fragment {
 
 
             sharedPref = getActivity().getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+            myEditor = sharedPref.edit();
             output = sharedPref.getString(ACCESS_TOKEN, null);
             user_id = sharedPref.getString("userid", null);
-
             getContacts();
-
-
             next.setEnabled(false);
             next.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -163,6 +162,11 @@ public class Customize_order_frag1 extends Fragment {
                         if (contact_array.contains(autoCompleteTextView.getText().toString())) {
                             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                            editor.putString("cust_name",cust_name.getText().toString());
+                            editor.putString("cust_email",email.getText().toString());
+                            editor.putString("cust_mobile",autoCompleteTextView.getText().toString()).apply();
+                            editor.commit();
+
                             pager.setCurrentItem(1);
                         } else {
                             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -254,9 +258,8 @@ public class Customize_order_frag1 extends Fragment {
     }
     /////////////////////get___Contacts////////////////
     public void getContacts( ){
-
         String url=ip+"uaa/b2b/contact-book/mobile-numbers/"+user_id;
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+        StringRequest stringRequest=new StringRequest(Request.Method.GET,url, new Response.Listener<String>() {
             @Override
             public
             void onResponse(String response) {
@@ -272,7 +275,6 @@ public class Customize_order_frag1 extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         },new Response.ErrorListener() {
             @Override
@@ -294,13 +296,9 @@ public class Customize_order_frag1 extends Fragment {
                             builder1.show();
                             break;
                         case 417:
-
                             Snackbar.make(getView(), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
-
-
                         case 401:
-
                             session.logoutUser(getActivity());
                            /* BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
                             builder2.setTitle("Sorry! No Products Available");

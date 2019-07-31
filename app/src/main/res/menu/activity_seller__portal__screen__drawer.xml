@@ -6,55 +6,61 @@
     <group >
             <item
                 android:id="@+id/request"
-                android:title="Requests"/>
-
-        <item
-            android:id="@+id/customize"
-            android:title="Customize Order"/>
-
+                android:title="@string/requests"/>
     </group>
 
-    <item android:title="CATALOG"  >
+    <item
+        android:title="CATALOGUE"
+
+      >
         <menu>
             <item
                 android:id="@+id/manage"
-                android:title="Manage existing product" />
+                android:title="@string/manage_products" />
             <item
                 android:id="@+id/add_new"
-                android:title="Add new product" />
+                android:title="ADD NEW PRODUCTS" />
 
             <item
                 android:id="@+id/manage_categories"
-                android:title="Manage Categories" />
+                android:title="@string/manage_categories" />
         </menu>
     </item>
 
 
     <item android:title="ORDER">
         <menu>
-            <item
-                android:id="@+id/proccess"
-                android:title="Order to be processed" />
-            <item
-                android:id="@+id/history"
 
-                android:title="Order History" />
+            <item
+                android:id="@+id/customize"
+                android:title="CUSTOM ORDER"/>
+
 
             <item
                 android:id="@+id/offline"
 
-                android:title="Offline Order" />
+                android:title="OFFLINE ORDER" />
+
+            <item
+                android:id="@+id/proccess"
+                android:title="ORDER TO BE PROCESSED" />
+            <item
+                android:id="@+id/history"
+
+                android:title="ORDER HISTORY" />
+
+
 
         </menu>
     </item>
-    <item android:title="My Account">
+    <item android:title="MY ACCOUNT">
         <menu>
             <item
                 android:id="@+id/address"
-                android:title="My Address" />
+                android:title="MY ADDRESS" />
 
             <item android:id="@+id/logout"
-                android:title="Logout"/>
+                android:title="LOGOUT"/>
 
         </menu>
     </item>
