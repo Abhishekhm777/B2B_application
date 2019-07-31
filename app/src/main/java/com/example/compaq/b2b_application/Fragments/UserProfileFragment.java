@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.compaq.b2b_application.Activity.UserProfileActivity;
 import com.example.compaq.b2b_application.R;
 
 import java.util.ArrayList;
@@ -33,8 +34,8 @@ public class UserProfileFragment extends Fragment {
         // Inflate the layout for this fragment
          view= inflater.inflate(R.layout.fragment_user_profile, container, false);
         TextView personal_test=view.findViewById(R.id.personal);
-        TextView company_text=view.findViewWithTag(R.id.company);
-        TextView user_text=view.findViewWithTag(R.id.user_setting);
+        TextView company_text=view.findViewById(R.id.company);
+        TextView user_text=view.findViewById(R.id.user_setting);
         personal_test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,6 +43,17 @@ public class UserProfileFragment extends Fragment {
                 FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.profile_activity_layout, personal_fragment).addToBackStack(null).commit();
+                UserProfileActivity.titleView.setText("PERSONAL INFORMATION");
+            }
+        });
+        company_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment company_fragment=new Company_profile_Fragment();
+                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.profile_activity_layout, company_fragment).addToBackStack(null).commit();
+                UserProfileActivity.titleView.setText("COMPANY INFORMATION");
             }
         });
 
