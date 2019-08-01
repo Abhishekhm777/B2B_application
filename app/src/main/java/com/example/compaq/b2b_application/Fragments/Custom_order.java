@@ -135,7 +135,9 @@ public class Custom_order extends Fragment {
     private SharedPreferences.Editor myEditor;
     public List<String> contact_array=new ArrayList<>();
     @BindView(R.id.cust_no)AutoCompleteTextView autoCompleteTextView;
-    @BindView(R.id.customer_nu)TextView custname;
+    @BindView(R.id.customer_nu)TextView cust_no_text;
+    @BindView(R.id.cust_name_textview)TextView cust_name_text;
+    @BindView(R.id.gwt_text)TextView gross_text;
     @BindView(R.id.name) EditText name;
     @BindView(R.id.grosswt) EditText qrosswt;
     @BindView(R.id.address) EditText address;
@@ -176,7 +178,7 @@ public class Custom_order extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (isValidPhoneNumber(autoCompleteTextView.getText().toString())&&! TextUtils.isEmpty(name.getText().toString().trim())) {
+                if (isValidPhoneNumber(autoCompleteTextView.getText().toString())&&! TextUtils.isEmpty(name.getText().toString().trim())&&! TextUtils.isEmpty(qrosswt.getText().toString().trim())) {
                     if (contact_array.contains(autoCompleteTextView.getText().toString())) {
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -195,21 +197,23 @@ public class Custom_order extends Fragment {
                             }
                         });
 
-
                     } else {
                         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                         updateCustomer_Details();
-
                     }
                 }
                 else{
+                    if(TextUtils.isEmpty(autoCompleteTextView.getText().toString().trim())){
+                        cust_no_text.startAnimation(shakeError());
+                    }
                     if(TextUtils.isEmpty(name.getText().toString().trim())){
-                        custname.startAnimation(shakeError());
+                        cust_name_text.startAnimation(shakeError());
                     }
-                    else{
-                        custname.startAnimation(shakeError());
+                    if(TextUtils.isEmpty(qrosswt.getText().toString().trim())){
+                        gross_text.startAnimation(shakeError());
                     }
+
                 }
             }
 
@@ -245,7 +249,7 @@ public class Custom_order extends Fragment {
                     }
                 }
                 else {
-                    custname.startAnimation(shakeError());
+                    cust_no_text.startAnimation(shakeError());
                 }
             }
         });
@@ -315,9 +319,7 @@ public class Custom_order extends Fragment {
 
                             Snackbar.make(getView(), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
-
-
-                        case 401:
+                       case 401:
 
                             session.logoutUser(getActivity());
                            /* BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
@@ -625,8 +627,10 @@ public class Custom_order extends Fragment {
 
 
 
-                    Snackbar.make(getView(), "Your Custom Order Placed Successfully !", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                  /*  Snackbar.make(getView(), "Your Custom Order Placed Successfully", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();*/
+
+                    Toast.makeText(activity,"Your Custom Order Placed Successfully",Toast.LENGTH_SHORT).show();
                     activity.finish();
 
                 } catch (Exception e) {
@@ -638,8 +642,6 @@ public class Custom_order extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 NetworkResponse response = error.networkResponse;
-
-
                 if (response != null && response.data != null) {
                     switch (response.statusCode) {
                         case 404:

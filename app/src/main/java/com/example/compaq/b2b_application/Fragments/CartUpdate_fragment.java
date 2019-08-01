@@ -184,13 +184,11 @@ try {
     private void display(int number) {
         displayInteger.setText("" + number);
     }
-    public void updateCart() {
 
+    public void updateCart() {
         JSONObject mainJasan= new JSONObject();
         if(cartid.equalsIgnoreCase("0")){
             url=ip+"gate/b2b/order/api/v1/cart/update";
-
-
             JSONObject json1= new JSONObject();
             final JSONArray items_jsonArray=new JSONArray();
             try {
