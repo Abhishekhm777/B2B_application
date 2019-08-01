@@ -67,10 +67,10 @@ public class Cart_Activity extends AppCompatActivity {
     public String userid="";
     public SharedPreferences sharedPref;
     public   SharedPreferences.Editor myEditor;
-    public    ArrayList<String>product_id;
-    public    ArrayList<String>seal_list;
-    public    ArrayList<String>weigh_list;
-    public    ArrayList<String>qty_list;
+    public   ArrayList<String>product_id;
+    public   ArrayList<String>seal_list;
+    public   ArrayList<String>weigh_list;
+    public   ArrayList<String>qty_list;
     public String prod_id="";
     public String href="";
     public String description="";
@@ -245,8 +245,6 @@ public class Cart_Activity extends AppCompatActivity {
 
     public  void getItem_ids() {
 
-       /* sharedPref = getSharedPreferences("User_information", 0);*/
-
         userid = sharedPref.getString("userid", "");
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         progressBar.setVisibility(View.VISIBLE);
@@ -256,7 +254,6 @@ public class Cart_Activity extends AppCompatActivity {
                     public void onResponse(String response) {
                         progressBar.setVisibility(View.GONE);
                         product_id=new ArrayList<>();
-
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -277,7 +274,7 @@ public class Cart_Activity extends AppCompatActivity {
                                 JSONObject jsonObject1 = ja_data.getJSONObject(i);
 
                                 String qty=jsonObject1.getString("quantity");
-                                String we=jsonObject1.getString("netWeight");
+                                String we=jsonObject1.getString("grossWeight");
                                 String pid=jsonObject1.getString("productID");
                                 String description=jsonObject1.getString("description");
                                 String purity=jsonObject1.getString("purity");
@@ -289,9 +286,7 @@ public class Cart_Activity extends AppCompatActivity {
 
                                int delete_ids= Integer.parseInt(jsonObject1.getString("id"));
 
-
-
-                                   /* display_cart_details(seller,pid,we,qty,delete_ids,description,purity,size,length);*/
+                               /* display_cart_details(seller,pid,we,qty,delete_ids,description,purity,size,length);*/
                                 seller_name(seller,pid,we,qty,delete_ids,description,purity,size,length,expected);
                             }
 

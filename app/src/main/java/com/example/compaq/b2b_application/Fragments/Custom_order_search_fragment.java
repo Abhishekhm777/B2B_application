@@ -71,6 +71,7 @@ private  Bundle bundle;
 private String path;
 private Button done_button;
 
+
     public Custom_order_search_fragment() {
         // Required empty public constructor
     }
@@ -214,7 +215,7 @@ public  void getSuggestions(String text){
                             break;
                         case 417:
 
-                            Snackbar.make(getView(), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
+                            Snackbar.make(view, "Sorry! No Products Available", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
                            /* BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
                             builder2.setTitle("Sorry! No Products Available");

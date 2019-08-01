@@ -25,6 +25,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -107,7 +108,8 @@ public class Add_new_product_activity extends AppCompatActivity {
     public List<String> status;
     public List<String> type;
     public List<String> priority;
-    private Spinner spinner, pro_spinner, status_spinner, prioriyt_spinner, spinner2;
+    private List<String> inventry;
+    private Spinner spinner, pro_spinner, status_spinner, prioriyt_spinner, spinner2,inventry_spinner;
     private LinearLayout parentLinearLayout;
     private LinearLayout newLayout;
     public SharedPreferences sharedPref;
@@ -151,7 +153,7 @@ public class Add_new_product_activity extends AppCompatActivity {
     private  static View window;
     private  static Context mcontext;
     private static  Activity activity ;
-    private static String parent_name ;
+    private static String parent_name="" ;
     public    HashMap<String ,String> val_map;
     public    HashMap<String ,ArrayList<String>> stone_map=new HashMap<>();
     private  static  ProgressBar progressBar;
@@ -246,7 +248,6 @@ public class Add_new_product_activity extends AppCompatActivity {
                      StringBuilder string = new StringBuilder();
                      string.append(arrayList.get(0).toString());
 
-
                      for (int i = 1; i < arrayList.size(); i++) {
                          string.append(" , " + arrayList.get(i).toString());
                      }
@@ -258,7 +259,6 @@ public class Add_new_product_activity extends AppCompatActivity {
              }
          });
         listView=myDialogue.findViewById(R.id.user_layout_list);
-
         user_class_adapter=new User_class_Adapter(this,list_data);
         listView.setAdapter(user_class_adapter);
         options_dialog = new Dialog(this);
@@ -276,18 +276,18 @@ public class Add_new_product_activity extends AppCompatActivity {
 
               /*  Upload_image();*/
                if(!name.getText().toString().equalsIgnoreCase("")&&!sku.getText().toString().equalsIgnoreCase("")) {
-
-                       cat_path.put(category_path.deleteCharAt(category_path.length() - 1).toString());
-                       val_map = expandable_spcification_adapter.getValuemap();
-                       uploadImagesToServer();
-
+                        if(category_path.length()!=0) {
+                            cat_path.put(category_path.deleteCharAt(category_path.length() - 1).toString());
+                            val_map = expandable_spcification_adapter.getValuemap();
+                            uploadImagesToServer();
+                        }
 
                }
                else {
-                   if(name.getText().toString().equalsIgnoreCase("")){
+                   if(TextUtils.isEmpty(name.getText().toString().trim())){
                        name.setError("Please provide Product name");
                    }
-                   if(sku.getText().toString().equalsIgnoreCase("")){
+                   if(TextUtils.isEmpty(sku.getText().toString().trim())){
                        sku.setError("Please provide Product SKU");
                    }
 
@@ -373,7 +373,20 @@ public class Add_new_product_activity extends AppCompatActivity {
         pro_spinner = (Spinner) findViewById(R.id.product_type);
         status_spinner = (Spinner) findViewById(R.id.product_status);
         prioriyt_spinner = (Spinner) findViewById(R.id.priyority);
+        inventry_spinner = (Spinner) findViewById(R.id.inventry_spinn);
         catalog();
+        inventry=new ArrayList<>();
+        inventry.add("STATIC");
+        inventry.add("DYNAMIC");
+
+        final ArrayAdapter<String> inve = new ArrayAdapter<String>(Add_new_product_activity.this, R.layout.support_simple_spinner_dropdown_item, inventry) {
+            @Override
+            public boolean isEnabled(int position) {
+                return true;
+            }
+        };
+        inventry_spinner.setAdapter(inve);
+
         priority = new ArrayList<>();
         priority.add("MODERATE");
         priority.add("LOW");
@@ -1397,7 +1410,8 @@ else {
     }
 */
     private void uploadImagesToServer() {
-
+        progressBar.setVisibility(View.VISIBLE);
+        window=getWindow().getCurrentFocus();
 
         JSONArray user_access=new JSONArray();
         if(user_class_adapter.getValuemap().size()>0) {
@@ -1406,45 +1420,8 @@ else {
             }
         }
 
-        progressBar.setVisibility(View.VISIBLE);
-        window=getWindow().getCurrentFocus();
 
-
-       /* Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.43.166/~snow/UploadImage/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        // create list of file parts (photo, video, ...)
-        List<MultipartBody.Part> parts = new ArrayList<>();
-        // create upload service client
-        ApiService service = retrofit.create(ApiService.class);
-        if (arrayList != null) {
-            // create part for file (photo, video, ...)
-            for (int i = 0; i < arrayList.size(); i++) {
-                parts.add(prepareFilePart("image" + i, arrayList.get(i)));
-            }
-        }
-        // create a map of data to pass along
-        RequestBody description = createPartFromString("www.androidlearning.com");
-        RequestBody size = createPartFromString("" + parts.size());
-        // finally, execute the request
-        Call<ResponseBody> call = service.uploadMultiple(description, size, parts);
-        call.enqueue(new Callback<ResponseBody>() {
-
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-
-            }
-        });
-*/
-
-      int childcout= rootView.getChildCount();
+        int childcout= rootView.getChildCount();
       if(childcout>0) {
           ArrayList<String> nam = new ArrayList<>();
           ArrayList<String> color = new ArrayList<>();
@@ -1504,8 +1481,10 @@ else {
             jsonObject.put("brand", "");
             jsonObject.put("gender", "");
             jsonObject.put("productType", pro_spinner.getSelectedItem().toString());
-            jsonObject.put("priority", prioriyt_spinner.getSelectedItem().toString());
+            jsonObject.put("priority", 1);
             jsonObject.put("productStatus", status_spinner.getSelectedItem().toString());
+            jsonObject.put("inventoryType", inventry_spinner.getSelectedItem().toString());
+            jsonObject.put("availableCount", 1);
             jsonObject.put("showable", showable.isChecked());
             jsonObject.put("newLaunch", newlounch.isChecked());
             jsonObject.put("catalogue", spinner.getSelectedItem().toString());
@@ -1601,7 +1580,7 @@ else {
             @Override
             public void onResponse(Call call, retrofit2.Response response) {
 
-
+              Log.e("RESPONSE","SUXCCCECEE");
             }
 
             @Override
@@ -1682,14 +1661,10 @@ else {
                 .addInterceptor(new Interceptor() {
                     @Override
                     public okhttp3.Response intercept(Chain chain) throws IOException {
-
-
                         okhttp3.Request request = chain.request();
-                        okhttp3.Response response = chain.proceed(request);
-
+                        final okhttp3.Response response = chain.proceed(request);
                         if (response.code()==409){
-
-                             activity.runOnUiThread(new Runnable() {
+                            activity.runOnUiThread(new Runnable() {
                                  @Override
                                  public void run() {
                                      Snackbar.make(window, "SKU already exist", Snackbar.LENGTH_SHORT)
@@ -1718,6 +1693,7 @@ else {
                                         ((AppCompatActivity) mcontext).getSupportFragmentManager().popBackStackImmediate();
                                           Log.e("YAHOOOOOO","VDVDVDV");
                                           ((AppCompatActivity) mcontext).finish();
+
                                     }
 
                                 }
@@ -1726,20 +1702,26 @@ else {
                                 Intent login = new Intent(mcontext, Add_new_product_activity.class);
                                 mcontext.startActivity(login);
                                 activity.finish();
+
+
                             }
                         }
 
-                        try {
-                            JSONObject jsonObject = new JSONObject(response.body().string());
+                         if(response.code()==200) {
+                             try {
+                                 JSONObject jsonObject = new JSONObject(response.body().string());
 
-                            editor.putString("cust_id",jsonObject.getString("id")).apply();
-                            editor.commit();
-                            Log.e("ERROR MESSAGE", jsonObject.toString());
+                                 editor.putString("cust_id", jsonObject.getString("id")).apply();
+                                 editor.commit();
+                                 Log.e("ERROR MESSAGE", jsonObject.toString());
 
-                        }
-                        catch (Exception e){
-                           e.printStackTrace();
-                        }
+                                 Log.e("rESPNSE", String.valueOf(response.code()));
+
+                             } catch (Exception e) {
+                                 e.printStackTrace();
+                             }
+
+                         }
                         return response;
                     }
                 });
@@ -1777,7 +1759,7 @@ else {
             Log.e("Your Error Message", uri.toString());
 
         } catch (Exception e) {
-            Log.e("Your Error Message", e.getMessage());
+            Log.e("Your Excption Message", e.getMessage());
         }
         return uri;
     }
