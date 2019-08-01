@@ -67,10 +67,10 @@ public class Cart_Activity extends AppCompatActivity {
     public String userid="";
     public SharedPreferences sharedPref;
     public   SharedPreferences.Editor myEditor;
-    public    ArrayList<String>product_id;
-    public    ArrayList<String>seal_list;
-    public    ArrayList<String>weigh_list;
-    public    ArrayList<String>qty_list;
+    public   ArrayList<String>product_id;
+    public   ArrayList<String>seal_list;
+    public   ArrayList<String>weigh_list;
+    public   ArrayList<String>qty_list;
     public String prod_id="";
     public String href="";
     public String description="";
