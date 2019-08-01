@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -33,11 +34,15 @@ import com.example.compaq.b2b_application.Activity.Cart_Activity;
 import com.example.compaq.b2b_application.Fragments.CartUpdate_fragment;
 import com.example.compaq.b2b_application.Activity.Displaying_complete_product_details_Activity;
 import com.example.compaq.b2b_application.Helper_classess.DatePickerFragment;
+import com.example.compaq.b2b_application.Helper_classess.Number_picker_dialogue;
 import com.example.compaq.b2b_application.Model.Cart_recy_model;
 import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.michaelbel.bottomsheet.BottomSheet;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -49,6 +54,7 @@ import static com.example.compaq.b2b_application.Fragments.products_display_frag
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
+import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.pref;
 
 public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Adapter.MyViewHolder>{
     public FragmentActivity mCtx;
@@ -67,12 +73,18 @@ public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Ad
     private  Double total_double=0.0;
     public SharedPreferences sharedPref;
     public   SharedPreferences.Editor myEditor;
+    private String output,userid,wholesaler_id ;
     DatePickerFragment datePickerFragment=new DatePickerFragment();
     private Menu menu;
     public Cart_recycler_Adapter(Context mContext, ArrayList<Cart_recy_model> productlist ,FragmentManager fragmentManager) {
         this.productlist=productlist;
         this.mContext=mContext;
         this.fragmentManager=fragmentManager;
+
+        sharedPref=mContext.getSharedPreferences("USER_DETAILS",0);
+        output=sharedPref.getString(ACCESS_TOKEN, null);
+        userid = sharedPref.getString("userid", "");
+        wholesaler_id = sharedPref.getString("Wholeseller_id", null);
        }
     @NonNull
     @Override
@@ -103,28 +115,24 @@ public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Ad
             total_weight = Double.parseDouble(listner.getQty()) * Double.parseDouble(listner.getWeight());
              String set_total=new DecimalFormat("#0.000").format(total_weight);
              listner.setTotal_weight(set_total);
-            calculateWeight();
             holder.d_gweight.setText(set_total);
-            if(!listner.getExpected().equalsIgnoreCase("null")){
-                holder.excpected_date.setText(listner.getExpected());
-            }
-            else {
-                holder.excpected_date.setText(datePickerFragment.getDate());
-            }
-            holder.seller_name.setText(listner.getSeller_name());
+            calculateWeight();
 
 
-
-
-
-         /*  total_double=total_double+total_weight;
-
-            total=new DecimalFormat("#0.000").format(total_double);*/
 
         }
         catch (Exception e){
             e.printStackTrace();
         }
+
+
+        if(!listner.getExpected().equalsIgnoreCase("null")){
+            holder.excpected_date.setText(listner.getExpected());
+        }
+        else {
+            holder.excpected_date.setText(datePickerFragment.getDate());
+        }
+        holder.seller_name.setText(listner.getSeller_name());
 
         /*holder.purity.setText(listner.getPurity());
         holder.size.setText(listner.getSize());
@@ -134,47 +142,34 @@ public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Ad
 
         String url=  listner.getImg_url();
         Glide.with(mContext).load(url).into(holder.imageV);
-      /*  holder.update.setOnClickListener(new View.OnClickListener(){
+        holder.update.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
-                bundle=new Bundle();
-                bundle.putString("item_name",listner.getName());
-                bundle.putString("Item_Clicked",listner.getId());
-                bundle.putString("qty",listner.getQty());
-                bundle.putString("netweight",listner.getWeight());
-                bundle.putString("desc",listner.getDescript());
-                bundle.putString("delete",String.valueOf(listner.getDel_id()));
-                bundle.putString("purity",listner.getPurity());
-                bundle.putString("size",listner.getSize());
-                bundle.putString("length",listner.getLength());
+                final Number_picker_dialogue number_picker_dialogue = new Number_picker_dialogue(mContext);
+                number_picker_dialogue.showPicker();
+                number_picker_dialogue.np.setValue(Integer.valueOf(listner.getQty()));
+                number_picker_dialogue.set.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        number_picker_dialogue.myDialogue.dismiss();
+                        listner.setQty(String.valueOf(number_picker_dialogue.np.getValue()));
+                        holder.d_qty.setText(String.valueOf(number_picker_dialogue.np.getValue()));
+                        listner.setWeight(holder.d_gweight.getText().toString());
+                        notifyDataSetChanged();
+                        calculateWeight();
 
 
-
-                CartUpdate_fragment myFragment = new CartUpdate_fragment();
-                myFragment.setArguments(bundle);
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.cart_layout_frame, myFragment);
-
-                fragmentTransaction.addToBackStack(null).commit();
+                        updateCart(listner.getId(),listner.getImg_url(),listner.getQty(),listner.getWeight(),listner.getDel_id());
+                    }
+                });
     }
-});*/
+});
                holder.remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 productlist.remove(holder.getAdapterPosition());
-
-
-            /*  try {
-                  total_double = total_double -( Double.parseDouble(listner.getWeight()) * Double.parseDouble(listner.getQty()));
-
-                  total = new DecimalFormat("#0.000").format(total_double);
-                  calculateWeight();
-              }
-              catch (NumberFormatException e){
-                  e.printStackTrace();
-              }*/
 
 
                 notifyItemRemoved(holder.getAdapterPosition());
@@ -292,9 +287,7 @@ public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Ad
         }){
             @Override
             public Map<String, String> getHeaders() {
-                sharedPref=mContext.getSharedPreferences("USER_DETAILS",0);
 
-                String output=sharedPref.getString(ACCESS_TOKEN, null);
 
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization","bearer "+output);
@@ -318,6 +311,73 @@ public class Cart_recycler_Adapter extends RecyclerView.Adapter<Cart_recycler_Ad
         }
         String total = new DecimalFormat("#0.000").format(Double.parseDouble(total_double.toString()));
         ((Cart_Activity)mContext).totoal_weight(total);
+    }
+
+    ///////////////////////////////////////////////update cart//////////////////////////////////////
+    public void updateCart(String id, String img_url, String qty, String weight, int del_id) {
+
+       String cartid = sharedPref.getString("cartid", "");
+        JSONObject mainJasan= new JSONObject();
+        JSONObject json1= new JSONObject();
+            final JSONArray items_jsonArray=new JSONArray();
+            try {
+                json1.put("product",item_clicked);
+                json1.put("productID",id);
+                json1.put("quantity",qty);
+                json1.put("advance","");
+               /* json1.put("description",descriptio.getText());
+                json1.put("purity",purity_t);
+                json1.put("length",length_t);
+                json1.put("size",size_t);*/
+                json1.put("id", del_id);
+                json1.put("grossWeight",weight);
+                json1.put("productImage",img_url);
+                json1.put("seller",wholesaler_id);
+
+                items_jsonArray.put(json1);
+                mainJasan.put("customer",userid);
+                mainJasan.put("items",items_jsonArray);
+                mainJasan.put("id",cartid);
+
+                Log.e("format",mainJasan.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+         String url = ip+"gate/b2b/order/api/v1/cart/update";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, mainJasan, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                try {
+
+                    Toast.makeText(mContext,"Updated Successfully",Toast.LENGTH_SHORT).show();
+                }
+
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headr = new HashMap<>();
+
+                headr.put("Authorization","bearer "+output);
+                headr.put("Content-Type", "application/json");
+                return headr;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(mContext);
+        queue.add(request);
     }
 }
 

@@ -59,12 +59,13 @@ public class Checkout_adapter  extends RecyclerView.Adapter<Checkout_adapter.MyV
         final com.example.compaq.b2b_application.Model.Check_out_Recyclemodel listner=  productlist.get(position);
 
         holder.d_qty.setText(listner.getQty());
+        holder.d_product.setText(listner.getName());
         try {
             String url = listner.getImg_url();
             Glide.with(mContext).load(url).into(holder.imageV);
-            Double total_weight = Double.parseDouble(listner.getQty()) * Double.parseDouble(listner.getWeight());
+           /* Double total_weight = Double.parseDouble(listner.getQty()) * Double.parseDouble(listner.getWeight());
             String set_total=new DecimalFormat("#0.000").format(total_weight);
-            holder.total_weight.setText(set_total);
+            holder.total_weight.setText(set_total);*/
 
               holder.date.setText(datePickerFragment.getDate());
 
@@ -75,7 +76,7 @@ public class Checkout_adapter  extends RecyclerView.Adapter<Checkout_adapter.MyV
             try {
                 String gross = new DecimalFormat("#0.000").format(Double.parseDouble(listner.getWeight()));
                 holder.d_gweight.setText(gross);
-                holder.d_product.setText(listner.getName());
+
 
 
             }

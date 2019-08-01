@@ -79,6 +79,7 @@ tools:context=".Fragments.Custom_order">
                     android:gravity="center|start"
                     android:paddingLeft="5dp"
                     android:maxLines="1"
+                    android:inputType="number"
                     android:singleLine="true"
                     android:scrollHorizontally="true"
                     android:textColor="#000"
@@ -140,6 +141,7 @@ tools:context=".Fragments.Custom_order">
                         android:gravity="center|start"
                         android:paddingLeft="5dp"
                         android:maxLines="1"
+                        android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:scrollHorizontally="true"
                         android:textColor="#000"
@@ -212,6 +214,7 @@ tools:context=".Fragments.Custom_order">
                     android:layout_height="32dp"
                     android:gravity="center|start"
                     android:paddingLeft="5dp"
+                    android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:scrollHorizontally="true"
@@ -355,12 +358,12 @@ tools:context=".Fragments.Custom_order">
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="italic"
+                    android:id="@+id/cust_name_textview"
                     android:layout_marginBottom="4dp"
+                    android:gravity="top"
                     android:text="@string/customer_na"
                     android:textAppearance="@style/customer_nu"
-                    android:gravity="top"
-                    />
+                    android:textStyle="italic" />
 
 
                 <EditText
@@ -444,8 +447,6 @@ tools:context=".Fragments.Custom_order">
                     android:scrollHorizontally="true"
                     android:textColor="#000"
                     android:textSize="16sp" />
-
-
             </LinearLayout>
 
             <LinearLayout

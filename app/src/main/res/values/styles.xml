@@ -209,7 +209,19 @@
         <item name="android:popupWindowStyle">@drawable/borders</item>
     </style>
 
+////////////////////////
 
+    <style name="Total_weight">
+
+        <item name="android:textSize">
+            14sp
+        </item>
+
+        <item name="android:textColor">
+          @color/red
+        </item>
+
+    </style>
 
 
 
