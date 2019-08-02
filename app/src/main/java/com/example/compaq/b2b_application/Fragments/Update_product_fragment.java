@@ -126,7 +126,7 @@ View view;
         expandableListView.setChildDivider(null);
         bundle=this.getArguments();
          pro_id=bundle.getString("image_id");
-        loadRecycleData(pro_id);
+      /*  loadRecycleData(pro_id);*/
         updateFragment_expandablelistview = new UpdateFragment_expandablelistview(getActivity(), listDataHeader, listDataChild,value_map);
 
         return view;
@@ -160,7 +160,7 @@ View view;
 
 
     //////////////////////////////////////////////main data////////////////////////////////////
-    public void loadRecycleData(final  String id){
+   /* public void loadRecycleData(final  String id){
 
         String url=ip_cat+"/product/"+id+"?wholesaler="+user_id;
 
@@ -324,9 +324,9 @@ View view;
 
                             Snackbar.make(getView(), "Sorry! No Products Available", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
-                           /* BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
+                           *//* BottomSheet.Builder builder2 = new BottomSheet.Builder(getContext());
                             builder2.setTitle("Sorry! No Products Available");
-                            builder2.show();*/
+                            builder2.show();*//*
                             break;
 
 
@@ -360,7 +360,7 @@ View view;
             totalHeight += groupItem.getMeasuredHeight();
 
             if (((listView.isGroupExpanded(i)) && (i != group))
-                /* || ((!listView.isGroupExpanded(i)) && (i == group))*/) {
+                *//* || ((!listView.isGroupExpanded(i)) && (i == group))*//*) {
                 for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
                     View listItem = listAdapter.getChildView(i, j, false, null,
                             listView);
@@ -423,5 +423,5 @@ View view;
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
-
+*/
 }

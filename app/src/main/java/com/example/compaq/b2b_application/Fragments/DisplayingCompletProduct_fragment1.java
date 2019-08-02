@@ -432,7 +432,7 @@ private View view;
 
                     /*  main2_listner.setArrayList(details_list);*/
                     dialog.dismiss();
-                    main2_recycler_adapter = new RecyclerAdapter3(getActivity(), detProductlist);
+                    main2_recycler_adapter = new RecyclerAdapter3(getActivity(), detProductlist,0);
                     main_recyclerView.setAdapter(main2_recycler_adapter);
                     main_recyclerView.setNestedScrollingEnabled(false);
 
