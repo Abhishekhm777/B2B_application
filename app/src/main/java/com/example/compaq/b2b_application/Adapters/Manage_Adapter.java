@@ -21,6 +21,7 @@ import com.example.compaq.b2b_application.Activity.Customize_Order;
 import com.example.compaq.b2b_application.Fragments.Custom_order;
 import com.example.compaq.b2b_application.Fragments.Update_product_fragment;
 import com.example.compaq.b2b_application.Activity.Manage_Exixsting_category_Activity;
+import com.example.compaq.b2b_application.Fragments.Update_product_newFragment;
 import com.example.compaq.b2b_application.Model.Recy_model2;
 import com.example.compaq.b2b_application.R;
 
@@ -64,7 +65,7 @@ public class Manage_Adapter extends RecyclerView.Adapter<Manage_Adapter.MyViewHo
             @Override
             public void onClick(View view) {
                 if (mCtx instanceof Manage_Exixsting_category_Activity) {
-                    Update_product_fragment update_product_fragment = new Update_product_fragment();
+                    Update_product_newFragment update_product_fragment = new Update_product_newFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("image_id", listner.getId());
                     update_product_fragment.setArguments(bundle);

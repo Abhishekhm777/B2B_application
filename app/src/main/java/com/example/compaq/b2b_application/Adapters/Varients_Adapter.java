@@ -11,33 +11,34 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.compaq.b2b_application.Model.Update_product_model;
 import com.example.compaq.b2b_application.R;
 
 import java.util.ArrayList;
 
-public class Update_product_recy_Adaptetr  extends RecyclerView.Adapter<Update_product_recy_Adaptetr.MyViewHolder> {
+public class Varients_Adapter extends RecyclerView.Adapter<Varients_Adapter.MyViewHolder> {
     private ArrayList<String> productlist;
     public Context mContext;
     private String imageUrl="https://server.mrkzevar.com/gate/b2b/catalog/api/v1/assets/image/";
 
-    public Update_product_recy_Adaptetr(Context mContext, ArrayList<String> productlist) {
+    public Varients_Adapter(Context mContext, ArrayList<String> productlist) {
         this.productlist=productlist;
         this.mContext=mContext;
 
     }
     @NonNull
     @Override
-    public Update_product_recy_Adaptetr.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.update_pro_main_image_card, parent, false);
+    public Varients_Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.varient_card_layout, viewGroup , false);
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Update_product_recy_Adaptetr.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Varients_Adapter.MyViewHolder holder, int i) {
 
-          String url=imageUrl+productlist.get(position);
+
+        String url=imageUrl+productlist.get(i);
         Glide.with(mContext).load(url).into(holder.imageView);
+
 
     }
 
@@ -49,15 +50,15 @@ public class Update_product_recy_Adaptetr  extends RecyclerView.Adapter<Update_p
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         CardView card;
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView=(ImageView)itemView.findViewById(R.id.slider_image);
-            DisplayMetrics dm = mContext.getResources().getDisplayMetrics();  //set width of the card
-            int width = (int) (dm.widthPixels/1.5);
-
+          /*  DisplayMetrics dm = mContext.getResources().getDisplayMetrics();  //set width of the card
+            int width = dm.widthPixels/2;
             card=(CardView)itemView.findViewById(R.id.card_view);
             card.getLayoutParams().width=width;
-            card.requestLayout();
+            card.requestLayout();*/
+
         }
     }
 }
