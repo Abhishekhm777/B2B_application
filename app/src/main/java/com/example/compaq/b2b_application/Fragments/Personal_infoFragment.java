@@ -47,8 +47,9 @@ public class Personal_infoFragment extends Fragment {
     private SharedPreferences sharedPref;
     private String Acess_Token,adharNo="",pan="",role="",password="",adharDocumentId="",panDocumentId="";
     private JSONObject company_details,websiteSetting;
-    private JSONArray meltingSealing,userClass;
+    private JSONArray meltingSealing,userClass,wishList,address;
     private int defaultAddressID=0,id=0;
+    Boolean verified,verifyRequest;
      private CountryCodePicker ccp2;
     Button button;
 
@@ -73,7 +74,24 @@ public class Personal_infoFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             updateUsers();
+                if(user_fname.getText().toString().equals(null) ||user_fname.getText().toString().equals("")) {
+                    user_fname.setError("User name required !");
+
+                }
+                else if(user_lname.getText().toString().equals(null) ||user_lname.getText().toString().equals("")) {
+                       user_lname.setError("!User name required");
+
+                }
+                else if(email.getText().toString().equals(null) ||email.getText().toString().equals("")) {
+                    email.setError("!Email required");
+
+                } else if(teli_phone.getText().toString().equals(null) ||teli_phone.getText().toString().equals("")) {
+                   teli_phone.setError("!Email required");
+
+                }
+                else {
+                    updateUsers();
+                }
             }
         });
 
@@ -90,22 +108,27 @@ public class Personal_infoFragment extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject jObj = new JSONObject(response);
+                    adharDocumentId=jObj.getString("adharDocumentId");
+                    adharNo=jObj.getString("adharNo");
+                    address=jObj.getJSONArray("address");
+                    company_details=jObj.getJSONObject("company");
+                    defaultAddressID=jObj.getInt("defaultAddressID");
+                    email.setText(jObj.getString("email"));
                     user_fname.setText(jObj.getString("firstName"));
                     user_lname.setText(jObj.getString("lastName"));
-                    email.setText(jObj.getString("email"));
-                    teli_phone.setText(jObj.getString("mobileNumber").replace("+91",""));
                     id=jObj.getInt("id");
-                    adharNo=jObj.getString("adharNo");
-                    pan=jObj.getString("pan");
-                    role=jObj.getString("role");
-                    password=jObj.getString("password");
-                    adharDocumentId=jObj.getString("adharDocumentId");
-                    panDocumentId=jObj.getString("panDocumentId");
-                    defaultAddressID=jObj.getInt("defaultAddressID");
-                    company_details=jObj.getJSONObject("company");
-                    websiteSetting=jObj.getJSONObject("websiteSetting");
                     meltingSealing=jObj.getJSONArray("meltingSealing");
+                    teli_phone.setText(jObj.getString("mobileNumber").replace("+91",""));
+                    pan=jObj.getString("pan");
+                    panDocumentId=jObj.getString("panDocumentId");
+                    password=jObj.getString("password");
+                    role=jObj.getString("role");
                     userClass=jObj.getJSONArray("userClass");
+                    verified=jObj.getBoolean("verified");
+                    verifyRequest=jObj.getBoolean("verifyRequest");
+                    websiteSetting=jObj.getJSONObject("websiteSetting");
+                    wishList=jObj.getJSONArray("wishList");
+
                     Log.d("company.....",company_details.toString());
                     Log.d("userClass.....",userClass.toString());
 
@@ -152,10 +175,9 @@ public void updateUsers() {
 
 
     try {
-
-
+        mainJasan.put("address",address);
         mainJasan.put("id",id);
-        mainJasan.put("firstName",user_fname.getText().toString());
+        mainJasan.put("firstName", user_fname.getText().toString());
         mainJasan.put("lastName",user_lname.getText().toString());
         mainJasan.put("email",email.getText().toString());
         mainJasan.put("mobileNumber","+"+ccp2.getSelectedCountryCode()+teli_phone.getText().toString());
@@ -170,6 +192,9 @@ public void updateUsers() {
         mainJasan.put("userClass",userClass);
         mainJasan.put("websiteSetting",websiteSetting);
         mainJasan.put("company",company_details);
+        mainJasan.put("wishList",wishList);
+        mainJasan.put("verified",verified);
+        mainJasan.put("verifyRequest",verifyRequest);
         Toast toast= Toast.makeText(getActivity(), "Profile Updated Sucessfully", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();

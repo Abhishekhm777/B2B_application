@@ -67,6 +67,7 @@ public class Slider_adapterView extends RecyclerView.Adapter<Slider_adapterView.
             @Override
             public void onClick(View v) {
              delete(slider_id_array.get(holder.getAdapterPosition()),file_id,holder.getAdapterPosition(),v);
+
             }
         });
     }

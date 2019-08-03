@@ -162,10 +162,14 @@ public class OTP_fragment extends Fragment {
 
     }
     public  void transaction(){
+        Bundle bundle=new Bundle();
+        bundle.putString("CALL","OTP_fragment");
+        Fragment fragment=new Password_reset();
+        fragment.setArguments(bundle);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         // fragmentTransaction.replace(R.id.forgpass_layout, new Password_reset());
-        fragmentTransaction.replace(R.id.fpassword, new Password_reset());
+        fragmentTransaction.replace(R.id.fpassword, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

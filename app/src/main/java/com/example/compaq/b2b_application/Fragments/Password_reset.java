@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Activity.LoginActivity;
+import com.example.compaq.b2b_application.Activity.UserProfileActivity;
 import com.example.compaq.b2b_application.R;
 
 import org.json.JSONException;
@@ -39,6 +42,7 @@ public class Password_reset extends Fragment {
     SharedPreferences sharedPref;
     SharedPreferences.Editor myEditior;
     android.support.v7.widget.Toolbar toolbar;
+    Bundle bundle;
 
     public Password_reset() {
         // Required empty public constructor
@@ -50,6 +54,7 @@ public class Password_reset extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_password_reset, container, false);
+         bundle=this.getArguments();
 
         sharedPref = getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         myEditior = sharedPref.edit();
@@ -117,13 +122,14 @@ public class Password_reset extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        if (response.length() != 0) {
+                        if (response.length() !=0) {
                             Toast.makeText(getContext(), "Password reset successfully",
                                     Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getActivity(), LoginActivity.class);
-                            intent.putExtra("val", 2);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
+
+                                returnbackLogin();
+
+
+
 
                         } else {
                            Toast toast= Toast.makeText(getContext(), "Please check password or reenter it",
@@ -141,6 +147,20 @@ public class Password_reset extends Fragment {
                     }
                 });
         requestQueue.add(jsonObjectRequest);
+    }
+
+    public void returnbackLogin(){
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.putExtra("val", 2);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+    public  void returnProfile(){
+        Fragment userProfileFragment=new UserProfileFragment();
+        FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.profile_activity_layout, userProfileFragment).commit();
+        UserProfileActivity.titleView.setText("UPDATE PASSWORD");
     }
 }
 

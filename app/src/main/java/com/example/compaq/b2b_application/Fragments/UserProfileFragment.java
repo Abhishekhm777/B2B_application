@@ -37,6 +37,7 @@ public class UserProfileFragment extends Fragment {
         TextView company_text=view.findViewById(R.id.company);
         TextView user_text=view.findViewById(R.id.user_setting);
         TextView view_text=view.findViewById(R.id.view_setting);
+        TextView pasword_text=view.findViewById(R.id.password_setting);
         UserProfileActivity.titleView.setText("USER PROFILE");
         personal_test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +77,16 @@ public class UserProfileFragment extends Fragment {
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.profile_activity_layout, userSettings_fragment).addToBackStack(null).commit();
                 UserProfileActivity.titleView.setText("USER SETTINGS");
+            }
+        });
+        pasword_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment changePassword_fragment=new ChangePasswordFragment();
+                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.profile_activity_layout, changePassword_fragment).addToBackStack(null).commit();
+                UserProfileActivity.titleView.setText("UPDATE PASSWORD");
             }
         });
 

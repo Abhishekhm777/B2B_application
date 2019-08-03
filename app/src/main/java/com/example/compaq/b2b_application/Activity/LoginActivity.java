@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -57,6 +58,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     // Email, password edittext
     private FragmentTransaction fragmentTransaction;
     public FragmentManager fragmentManager;
+    public SharedPreferences sharedPref;
+    public   SharedPreferences.Editor myEditor;
     // login button
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
@@ -102,6 +105,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
 
+        sharedPref=getSharedPreferences("USER_DETAILS",0);
+        myEditor = sharedPref.edit();
 
         //check internet status for the
         getApplicationContext().registerReceiver(receiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
@@ -496,6 +501,10 @@ else {
                     email=jObj.getString("email");
                     mobileNo=jObj.getString("mobileNumber");
                     role=jObj.getString("role");
+                    myEditor.putString("PASSWORD_ID",email);
+                    myEditor.putString("MOBILE",mobileNo);
+                    myEditor.commit();
+                    myEditor.apply();
 
                     cartInformation(userid);
 
