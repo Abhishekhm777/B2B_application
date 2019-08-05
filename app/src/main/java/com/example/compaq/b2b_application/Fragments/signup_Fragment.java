@@ -482,7 +482,7 @@ public class signup_Fragment extends Fragment {
             String picturePath = cursor.getString(columnIndex);
 
 
-            Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, true);
+            Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 150, 150, true);
             /*if(code==5020 ||code==5010) {
                 File f = new File(picturePath);
                 String imageName = f.getName();

@@ -79,6 +79,9 @@ public class Company_profile_Fragment extends Fragment {
     private JSONObject company_details,websiteSetting;
     private JSONArray meltingSealing,userClass,wishList,brands,address;
     private int defaultAddressID=0,id=0,com_id=0,storeCount=0;
+    TextView  logo_text;
+
+
 
     private String Acess_Token,adharNo="",pan="",role="",password="",adharDocumentId="",panDocumentId="",user_fname="",user_lname=""
             ,email="",teli_phone="",cin="",cinDocumentId="",createdOn=null,com_description="",fax=null,fcrn=null,fcrnDocumentId=null,fllpin=null,
@@ -86,7 +89,7 @@ public class Company_profile_Fragment extends Fragment {
             ,termsFileId="",updatedOn=null,gst_image_type="IMAGE",cin_image_type="IMAGE";
 
     Dialog img_dialog;
-    ImageView imageView;
+    ImageView imageView,logo_img;
     private SharedPreferences sharedPref;
     private Boolean verified=false,verifyRequest=false;
     @Override
@@ -98,11 +101,39 @@ public class Company_profile_Fragment extends Fragment {
         Acess_Token=sharedPref.getString(ACCESS_TOKEN, null);
         company_name=(EditText)view.findViewById(R.id.company_nam);
         gst_text=(EditText)view.findViewById(R.id.gst_text);
-
         cin_text=(EditText)view.findViewById(R.id.edit_cin);
         description=(EditText)view.findViewById(R.id.edit_Description);
         gst_button=(Button)view.findViewById(R.id.upload_gst_btn);
         cin_button=(Button)view.findViewById(R.id.upload_cin_btn);
+        logo_img=(ImageView)view.findViewById(R.id.company_logo);
+        logo_text=(TextView)view.findViewById(R.id.logo_text);
+        logo_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPictureDialog(3000);
+            }
+        });
+
+        logo_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //imageid="35f05e0e-56fb-4676-9819-381da000696b";
+                Log.d("drawable..",logo_img.getDrawable().toString());
+                if(!logoImageId.equals(null) && !logoImageId.equals("")){
+                    img_dialog = new Dialog(getContext());
+                    img_dialog.setContentView(R.layout.doc_inage);
+                    imageView = (ImageView) img_dialog.findViewById(R.id.doc_image);
+                    String getHref = ip1 + "/b2b/api/v1/user/image/get/" + logoImageId + "";
+                    Log.d("href...", getHref);
+                    Glide.with(getActivity().getApplicationContext()).load(getHref).into(imageView);
+                    img_dialog.show();
+                }
+                else {
+                    showPictureDialog(3000);
+                }
+
+            }
+        });
         gst_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -248,7 +279,11 @@ public class Company_profile_Fragment extends Fragment {
                     cin_text.setText(cin);
                     description.setText(com_description);
 
-
+                    if(!logoImageId.equals("") && !logoImageId.equals(null)){
+                        String getHref = ip1 + "/b2b/api/v1/user/image/get/" + logoImageId + "";
+                        Log.d("href...", getHref);
+                        Glide.with(getActivity().getApplicationContext()).load(getHref).into(logo_img);
+                    }
                     if(!gstDocumentId.equals("")&&!gstDocumentId.equals(null)){
                         imageData("GST",gstDocumentId);
                         gst_button.setText("view gstin");
@@ -257,6 +292,7 @@ public class Company_profile_Fragment extends Fragment {
                         imageData("CIN",cinDocumentId);
                         cin_button.setText("view cin");
                     }
+
 
 
 
@@ -293,7 +329,7 @@ public class Company_profile_Fragment extends Fragment {
     ///////////////////////////////////////////////////////////////////////////////////
     private void showPictureDialog(final int code){
         android.app.AlertDialog.Builder pictureDialog = new android.app.AlertDialog.Builder(getActivity());
-        pictureDialog.setTitle("Select Action");
+        pictureDialog.setTitle("Select Option");
 
 
         String[] pictureDialogItems = {
@@ -311,6 +347,10 @@ public class Company_profile_Fragment extends Fragment {
                                 }
                                 else if(code==5000){
                                     choosePhotoFromGallary(5020);
+
+                                }
+                                else if(code==3000){
+                                    choosePhotoFromGallary(3020);
                                 }
                                 break;
                             case 1:
@@ -319,6 +359,9 @@ public class Company_profile_Fragment extends Fragment {
                                 }
                                 else if(code==5000){
                                     takePhotoFromCamera(5010);
+                                }
+                                else if(code==3000){
+                                    takePhotoFromCamera(3010);
                                 }
                             case 3:
                                 if(code==1000) {
@@ -413,6 +456,9 @@ public class Company_profile_Fragment extends Fragment {
             else if(code==5020){
                 startActivityForResult(cameraIntent, code);
             }
+            else if(code==3020){
+                startActivityForResult(cameraIntent, code);
+            }
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////
@@ -467,6 +513,27 @@ public class Company_profile_Fragment extends Fragment {
                     }
                 }
                 break;
+
+            case 3020:
+                if (resultCode == RESULT_OK) {
+
+                    Uri returnUri = data.getData();
+                    Bitmap bitmapImage ;
+                    Bitmap bitimage = null;
+                    try {
+                        bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
+                        bitimage = getResizedBitmap(bitmapImage, 400);
+
+                        logo_img.setImageBitmap(bitimage);
+                        imagePick( requestCode,returnUri);
+
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                break;
             case 1010:
                 if (resultCode == RESULT_OK) {
 
@@ -507,6 +574,29 @@ public class Company_profile_Fragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
+                break;
+            case 3010:
+                if (resultCode == RESULT_OK) {
+
+
+                    Bitmap bitmapImage ;
+                     Bitmap bitimage = null;
+                    try {
+                        bitmapImage =(Bitmap) data.getExtras().get("data");
+                        bitimage = getResizedBitmap(bitmapImage, 400);
+
+                        Upload_image(requestCode,bitimage);
+                        logo_img.setImageBitmap(bitimage);
+                       // Uri returnUri = getImageUri(getContext(),bitimage);
+                        //imagePick( requestCode,returnUri);
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 break;
             case 5030:
                 if (resultCode == RESULT_OK) {
@@ -565,7 +655,7 @@ public class Company_profile_Fragment extends Fragment {
             String picturePath = cursor.getString(columnIndex);
 
 
-            Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, true);
+            Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 150, 150, true);
             /*if(code==5020 ||code==5010) {
                 File f = new File(picturePath);
                 String imageName = f.getName();
@@ -575,7 +665,7 @@ public class Company_profile_Fragment extends Fragment {
 
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
 
             byte[] imageInByte = byteArrayOutputStream.toByteArray();
             long lengthbmp = imageInByte.length;
@@ -631,6 +721,10 @@ public class Company_profile_Fragment extends Fragment {
                        cinDocumentId=resultResponse;
                         Log.i("Unexpected", resultResponse);
                         cin_button.setText("view cin");
+                    }
+                    else if(code==3020 || code==3010){
+                        logoImageId=resultResponse;
+                        Log.i("Unexpected", resultResponse);
                     }
 
 
