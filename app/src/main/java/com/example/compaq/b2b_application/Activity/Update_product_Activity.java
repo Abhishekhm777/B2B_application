@@ -165,7 +165,6 @@ public class Update_product_Activity extends AppCompatActivity {
     private User_class_Adapter user_class_adapter;
     private String version;
     private   JSONArray userclassArray=new JSONArray();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,7 +180,6 @@ public class Update_product_Activity extends AppCompatActivity {
         delivery_days = (EditText) findViewById(R.id.delevery_days);
         manu_name = (EditText) findViewById(R.id.manufact_name);
         manu_no = (EditText) findViewById(R.id.manuf_mob);
-
         myDialogue=new Dialog(this);
         myDialogue.setContentView(R.layout.user_classes_layout);
         listView=(ListView)myDialogue.findViewById(R.id.user_layout_list);

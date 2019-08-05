@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,13 @@ public class RecyclerAdapter3 extends RecyclerView.Adapter<RecyclerAdapter3.List
     public Context context;
     public ArrayList<Recycler_model3> detProductlist;
     private View view;
+    private int value;
 
 
-    public RecyclerAdapter3(Context context, ArrayList<Recycler_model3> detProductlist) {
+    public RecyclerAdapter3(Context context, ArrayList<Recycler_model3> detProductlist, int value) {
         this.context = context;
         this.detProductlist=detProductlist;
+        this.value=value;
 
     }
 
@@ -33,11 +36,15 @@ public class RecyclerAdapter3 extends RecyclerView.Adapter<RecyclerAdapter3.List
     @Override
     public RecyclerAdapter3.ListnerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        view=inflater.inflate(R.layout.main2cardlayout,parent,false);
+        if(value==0) {
+            view = inflater.inflate(R.layout.main2cardlayout, parent, false);
+            Log.e("Value","0");
+        }
+        else {
+            view = inflater.inflate(R.layout.update_product_main_layout, parent, false);
+            Log.e("Value","1");
+        }
         RecyclerAdapter3.ListnerViewHolder holder=new RecyclerAdapter3.ListnerViewHolder(view);
-
-
-
 
         return holder;
     }
@@ -48,7 +55,7 @@ public class RecyclerAdapter3 extends RecyclerView.Adapter<RecyclerAdapter3.List
 
         holder.textView.setText(main2_listner.getHeadings());
         ArrayList<Inner_Recy_model> arrayList=main2_listner.getArrayList();
-        Inner_RecyclerAdapter4 inner_recycler_adapter=new Inner_RecyclerAdapter4(context,arrayList);
+        Inner_RecyclerAdapter4 inner_recycler_adapter=new Inner_RecyclerAdapter4(context,arrayList,value);
 
 
         holder.innerRecyclerview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));

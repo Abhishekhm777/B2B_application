@@ -18,16 +18,21 @@ public class Inner_RecyclerAdapter4 extends RecyclerView.Adapter<Inner_RecyclerA
     public Context context;
     public ArrayList<Inner_Recy_model> details_list;
     private View view;
+    private int value;
     public
-    Inner_RecyclerAdapter4(Context context, ArrayList<Inner_Recy_model> details_list) {
+    Inner_RecyclerAdapter4(Context context, ArrayList<Inner_Recy_model> details_list,int value) {
         this.context = context;
         this.details_list=details_list;
+        this.value=value;
     }
     @NonNull
     @Override
     public Inner_RecyclerAdapter4.ListnerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        view=inflater.inflate(R.layout.inner_recycler_card,parent,false);
+
+            view = inflater.inflate(R.layout.inner_recycler_card, parent, false);
+
+
         Inner_RecyclerAdapter4.ListnerViewHolder holder=new Inner_RecyclerAdapter4.ListnerViewHolder(view);
 
         return holder;
