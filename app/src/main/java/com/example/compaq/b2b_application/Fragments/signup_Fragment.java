@@ -49,6 +49,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.compaq.b2b_application.Activity.Sign_up_Activity;
 import com.example.compaq.b2b_application.Helper_classess.AppHelper;
 import com.example.compaq.b2b_application.Helper_classess.VolleyMultipartRequest;
@@ -103,6 +104,7 @@ public class signup_Fragment extends Fragment {
     private int GALLERY = 1, CAMERA = 2;
    // TextView gst_file;
     CountryCodePicker ccp;
+    ArrayList<String>logolist;
 
 
 
@@ -126,7 +128,11 @@ public class signup_Fragment extends Fragment {
         password=(EditText)view.findViewById(R.id.edit_password);
         confirm_password=(EditText)view.findViewById(R.id.confir_password) ;
         imageView=(ImageView)view.findViewById(R.id.profile_logo);
+        Bitmap icon = BitmapFactory.decodeResource(getActivity().getResources(),
+                R.drawable.yourlogo);
+        Upload_image(0000,icon);
        // gst_file=(TextView)view.findViewById(R.id.gst_file);
+        logolist=new ArrayList<>();
 
         upload_logo=(Button)view.findViewById(R.id.upload_logBtn);
         sign_upbutton=(Button)view.findViewById(R.id.signup_process);
@@ -226,7 +232,7 @@ public class signup_Fragment extends Fragment {
                 }*/else{
                     try {
                         if(imageid==""|| imageid==null){
-                            imageid="35f05e0e-56fb-4676-9819-381da000696b";
+                            imageid="";
                         }
                         id=email_t;
                         phone_t=ccp.getSelectedCountryCode()+phone_t;
@@ -376,6 +382,7 @@ public class signup_Fragment extends Fragment {
 
                     imageView.setImageBitmap(bitimage);
                     imagePick( requestCode,returnUri);
+                    
 
 
                 } catch (IOException e) {
@@ -527,7 +534,7 @@ public class signup_Fragment extends Fragment {
     }
 
 
-///////////////////////get image id to load//////////////////////////////////////////////////////////
+/////////////////////////////get image id to load//////////////////////////////////////////////////////////
 
     public void Upload_image(final int code, final Bitmap bitmap) {
 
@@ -542,6 +549,13 @@ public class signup_Fragment extends Fragment {
                     if(code==1020 ||code==1010) {
                         imageid = resultResponse;
                         Log.i("Unexpected", resultResponse);
+                    }
+                    if(code==0000){
+                        imageid=resultResponse;
+                       // logo_list.add(resultResponse);
+                        String getHref = ip1 + "/b2b/api/v1/user/image/get/" + imageid + "";
+                        Log.d("href...", getHref);
+                        Glide.with(getActivity().getApplicationContext()).load(getHref).into(imageView);
                     }
                    /* else if(code==5020||code==5010){
                       gstid=resultResponse;

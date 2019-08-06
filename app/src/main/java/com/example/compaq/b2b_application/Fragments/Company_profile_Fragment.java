@@ -61,7 +61,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
@@ -80,6 +82,9 @@ public class Company_profile_Fragment extends Fragment {
     private JSONArray meltingSealing,userClass,wishList,brands,address;
     private int defaultAddressID=0,id=0,com_id=0,storeCount=0;
     TextView  logo_text;
+    ArrayList<String>logo_list;
+
+
 
 
 
@@ -98,6 +103,7 @@ public class Company_profile_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_company_profile_, container, false);
         sharedPref =getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        logo_list=new ArrayList<>();
         Acess_Token=sharedPref.getString(ACCESS_TOKEN, null);
         company_name=(EditText)view.findViewById(R.id.company_nam);
         gst_text=(EditText)view.findViewById(R.id.gst_text);
@@ -171,7 +177,6 @@ public class Company_profile_Fragment extends Fragment {
                 if(!cinDocumentId.equals(null) && !cinDocumentId.equals("")) {
                     try {
 
-
                         if (cin_image_type.equals("PDF")) {
                             String getHref2 = ip1 + "/b2b/api/v1/user/image/getfile/" + cinDocumentId + "";
                             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getHref2));
@@ -206,7 +211,20 @@ public class Company_profile_Fragment extends Fragment {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updatecompany();
+                if(logo_list.size()>1) {
+                    for (int i = 0; i < logo_list.size() - 1; i++) {
+                        if(!logo_list.get(i).equals("")&& !logo_list.get(i).equals(null)) {
+                            deletelogo(logo_list.get(i));
+                        }
+                        if (i + 1 == logo_list.size() - 1) {
+                            updatecompany();
+                        }
+                    }
+                }
+                else {
+                    updatecompany();
+                }
+
             }
         });
 
@@ -283,6 +301,11 @@ public class Company_profile_Fragment extends Fragment {
                         String getHref = ip1 + "/b2b/api/v1/user/image/get/" + logoImageId + "";
                         Log.d("href...", getHref);
                         Glide.with(getActivity().getApplicationContext()).load(getHref).into(logo_img);
+                        logo_list.add(logoImageId);
+                    }else {
+                        Bitmap icon = BitmapFactory.decodeResource(getActivity().getResources(),
+                                R.drawable.yourlogo);
+                        Upload_image(0000,icon);
                     }
                     if(!gstDocumentId.equals("")&&!gstDocumentId.equals(null)){
                         imageData("GST",gstDocumentId);
@@ -498,13 +521,13 @@ public class Company_profile_Fragment extends Fragment {
             case 5020:
                 if (resultCode == RESULT_OK) {
 
-                    // Uri returnUri = data.getData();
+                     Uri returnUri = data.getData();
                     Bitmap bitmapImage ;
                     Bitmap bitimage = null;
                     try {
-                        //  bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
-                        //bitimage = getResizedBitmap(bitmapImage, 400);
-                        Uri returnUri = data.getData();
+                          bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
+                          bitimage = getResizedBitmap(bitmapImage, 400);
+
                         imagePick(requestCode, returnUri);
 
 
@@ -547,6 +570,7 @@ public class Company_profile_Fragment extends Fragment {
                         //imageView.setImageBitmap(bitimage);
                         Upload_image(requestCode,bitimage);
                         // imagePick( requestCode,returnUri);
+
 
 
                     } catch (Exception e) {
@@ -725,6 +749,16 @@ public class Company_profile_Fragment extends Fragment {
                     else if(code==3020 || code==3010){
                         logoImageId=resultResponse;
                         Log.i("Unexpected", resultResponse);
+                        logo_list.add(resultResponse);
+
+                    }
+                    else if(code==0000){
+
+                        logoImageId=resultResponse;
+                        logo_list.add(resultResponse);
+                        String getHref = ip1 + "/b2b/api/v1/user/image/get/" + logoImageId + "";
+                        Log.d("href...", getHref);
+                        Glide.with(getActivity().getApplicationContext()).load(getHref).into(logo_img);
                     }
 
 
@@ -792,7 +826,49 @@ public class Company_profile_Fragment extends Fragment {
 
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(multipartRequest);
     }
+///////////////////////////////////////////////////////delete unwanted logo////////////////////////////////
+public void deletelogo(final String img_id){
+    String url=ip1+"/b2b/api/v1/user/image/delete/"+img_id+"";
+    StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
 
+
+        @Override
+        public void onResponse(String response) {
+            try {
+                logo_list.remove(img_id);
+
+                Log.d("response..",response.toString());
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+
+        }
+    }){
+        @Override
+        public Map<String, String> getHeaders() {
+
+
+
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("Authorization","bearer "+Acess_Token);
+            params.put("Content-Type", "application/json");
+            return params;
+        }
+    };
+
+    RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+    requestQueue.add(stringRequest);
+
+
+}
 
 
 
@@ -831,7 +907,7 @@ public class Company_profile_Fragment extends Fragment {
             mainJasan.put("wishList",wishList);
 
             json1.put("cin",cin_text.getText().toString());
-            json1.put("cinDocumentId","");
+            json1.put("cinDocumentId",cinDocumentId);
             json1.put("brands",brands);
             json1.put("createdOn",createdOn);
             json1.put("description",description.getText().toString());
