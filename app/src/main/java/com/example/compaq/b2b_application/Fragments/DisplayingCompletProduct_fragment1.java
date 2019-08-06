@@ -127,11 +127,10 @@ private View view;
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_displaying_complet_product_fragment1, container, false);
 
-
-        sharedPref =getActivity().getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        sharedPref=getActivity().getSharedPreferences("USER_DETAILS",0);
+        wholesaler= sharedPref.getString("Wholeseller_id", null);
         output=sharedPref.getString(ACCESS_TOKEN, null);
         user_id = sharedPref.getString("userid", null);
-
         myEditor = sharedPref.edit();
 
         dialog = new Dialog(getContext());
@@ -257,7 +256,7 @@ private View view;
         id=bundle.getString("item_name");
         sku_wishlilst=bundle.getString("sku");
         item_name=bundle.getString("item_name");
-        URL_DATA=ip+"gate/b2b/catalog/api/v1/product/"+name+"?wholesaler="+user_id;
+        URL_DATA=ip+"gate/b2b/catalog/api/v1/product/"+name+"?wholesaler="+wholesaler;
 
         dialog.show();
         StringRequest stringRequest=new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
@@ -360,7 +359,7 @@ private View view;
         main_recyclerView.setHasFixedSize(true);
         Log.d("URL %!!!... , . ,. , . ",d_url);
 
-        String Detail_URL_DATA=ip+"gate/b2b/catalog/api/v1/product/"+name+"?wholesaler="+user_id;
+        String Detail_URL_DATA=ip+"gate/b2b/catalog/api/v1/product/"+name+"?wholesaler="+wholesaler;
 
         StringRequest stringRequest=new StringRequest(Request.Method.GET,  Detail_URL_DATA, new Response.Listener<String>() {
             @Override
@@ -407,22 +406,12 @@ private View view;
                             if (heading.equalsIgnoreCase("PRODUCT DETAILS") && j == 0) {
                                 inner_recy_listner = new Inner_Recy_model("SKU", sku);
                                 details_list.add(inner_recy_listner);
-
-
                                 inner_recy_listner = new Inner_Recy_model("Product Name", item_name);
                                 details_list.add(inner_recy_listner);
-
-
                             }
-
-
-
 
                             inner_recy_listner=new Inner_Recy_model(key,values);
                             details_list.add(inner_recy_listner);
-
-
-
 
                         }
 
@@ -589,7 +578,7 @@ private View view;
     }
     private void addToWhishlist(final String sku){
 
-        String url = ip1+"/b2b/api/v1/user/wish-list/"+sharedPref.getString("userid","")+"/AD?wishList="+sku;
+        String url = ip1+"/b2b/api/v1/user/wish-list/"+user_id+"/AD?wishList="+sku;
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url, null, new Response.Listener<JSONObject>() {
 
@@ -631,7 +620,7 @@ private View view;
     }
     private void removeFromWhish(final String sku){
 
-        String url = ip1+"/b2b/api/v1/user/wish-list/"+sharedPref.getString("userid","")+"/DL?wishList="+sku;
+        String url = ip1+"/b2b/api/v1/user/wish-list/"+user_id+"/DL?wishList="+sku;
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url, null, new Response.Listener<JSONObject>() {
 

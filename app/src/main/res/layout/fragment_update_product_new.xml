@@ -34,28 +34,6 @@
           android:layout_height="wrap_content">
       </android.support.v7.widget.RecyclerView>
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_margin="8dp"
-          android:orientation="vertical">
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="5dp"
-              android:textAppearance="@style/product_name"
-              android:fontFamily="@font/catamaran"
-              android:text="Varients"/>
-          <android.support.v7.widget.RecyclerView
-              android:layout_width="match_parent"
-              android:id="@+id/varient_recycler"
-              android:scrollbars="horizontal"
-              android:fadeScrollbars="false"
-              android:layout_height="wrap_content">
-          </android.support.v7.widget.RecyclerView>
-      </LinearLayout>
-
-
 
       <android.support.v7.widget.RecyclerView
           android:layout_width="match_parent"
@@ -97,7 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:elevation="4dp"
-            android:background="@color/Toolbar"
+            android:enabled="false"
+            android:background="@color/whish"
             android:fontFamily="@font/catamaran"
             android:text="ADD VARIANT"
             android:textColor="@color/white"/>

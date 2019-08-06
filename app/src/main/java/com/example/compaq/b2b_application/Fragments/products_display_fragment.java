@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -339,7 +340,6 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                         args.putSerializable("FILTER_VALUE",(Serializable)filterparams);
                    // }
 
-
                    // Bottom_sheet_dialog bottom_sheet_dialog = new Bottom_sheet_dialog(mlistner);
                    // bottom_sheet_dialog.setArguments(args);
                     Fragment filterFragment=new FilterFragment();
@@ -355,10 +355,25 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                     return true;
                 }
                 if (item.getItemId() == R.id.premium) {
-                    sendOtp();
-
-
-                    dialog.show();
+                    if(wholseller_id.equalsIgnoreCase(userid)){
+                        String url=ip + "gate/b2b/catalog/api/v1/product/all/category/Jewellery,"+item_clicked;
+                      String  uri = Uri.parse(url)
+                                .buildUpon()
+                                .appendQueryParameter("wholesaler", wholseller_id)
+                                .appendQueryParameter("retailer",userid)
+                               .appendQueryParameter("productType","PREMIUM")
+                              .appendQueryParameter("page","0")
+                              .appendQueryParameter("pagesize","0")
+                                 .build().toString();
+                      productlist.clear();
+                      recycler_adapter2.notifyDataSetChanged();
+                      URL_DATA=uri;
+                      loadRecycleData();
+                    }
+                    else {
+                        sendOtp();
+                        dialog.show();
+                    }
 
 
                     return true;
@@ -456,20 +471,13 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 else if(class2.equals("sort") &&sortparams.isEmpty() == false) {
 
                     params.putAll(sortparams);
-
-
                 }
                 else if(class2.equals("FILTER")&&sortparams!=null) {
-
-
                         params.putAll(sortparams);
-
                 }
                 if (filterparams.isEmpty()==false) {
                     params.putAll(filterparams);
                 }
-
-
 
                 params.put("wholesaler", wholseller_id);
                 params.put("retailer",userid);
@@ -604,6 +612,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         progressDialog.setTitle("Loading....");
         progressDialog.show();*/
         progressBar.setVisibility(View.VISIBLE);
+        Log.e("URRRL",URL_DATA);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -805,9 +814,8 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         requestQueue.add(stringRequest);
     }
 
-
     public void sendOtp() {
-        String url = ip1 + "/b2b/api/v1/user/otp/wholesaler/" + pref.getString("userid", null) + "?wholesaler=" + wholseller_id+"?retailer"+userid+"";
+        String url = ip1 + "/b2b/api/v1/user/otp/wholesaler/"+userid+"?wholesaler="+wholseller_id;
         Log.e("urrrrr", url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
