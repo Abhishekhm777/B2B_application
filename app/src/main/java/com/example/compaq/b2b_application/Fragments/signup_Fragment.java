@@ -231,15 +231,28 @@ public class signup_Fragment extends Fragment {
                     return;
                 }*/else{
                     try {
+                        if(logolist.size()>1){
+                            for(int i=0;i<logolist.size()-1;i++){
+                              deletelogo(logolist.get(i));
+                              if(i==logolist.size()-2){
+                                  check();
+                              }
+                            }
+                        }
+                        else{
+                            check();
+                        }
                         if(imageid==""|| imageid==null){
-                            imageid="";
+                            Bitmap icon = BitmapFactory.decodeResource(getActivity().getResources(),
+                                    R.drawable.yourlogo);
+                            Upload_image(0000,icon);
                         }
                         id=email_t;
                         phone_t=ccp.getSelectedCountryCode()+phone_t;
                        signupModel=new SignupModel(imageid,company,gstin_t,firstname_t,email_t,phone_t,password_t);
-                        signupModelArrayList.add(signupModel);
-                     bundle.putSerializable("Data",(Serializable) signupModelArrayList);
-                        check();
+                       signupModelArrayList.add(signupModel);
+                       bundle.putSerializable("Data",(Serializable) signupModelArrayList);
+
 
                    // send_otp(phone_t,email_t);
                     }catch (Exception e){
@@ -253,6 +266,49 @@ public class signup_Fragment extends Fragment {
 
         });
         return  view;
+
+    }
+    ///////////////////////////////////////////////////////////////////////////////////
+    public void deletelogo(final String img_id){
+        String url=ip1+"/b2b/api/v1/user/image/delete/"+img_id+"";
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url, new Response.Listener<String>() {
+
+
+            @Override
+            public void onResponse(String response) {
+                try {
+                    logolist.remove(img_id);
+
+                    Log.d("response..",response.toString());
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() {
+
+
+
+                Map<String, String> params = new HashMap<String, String>();
+               // params.put("Authorization","bearer "+Acess_Token);
+               // params.put("Content-Type", "application/json");
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
 
     }
 
@@ -382,7 +438,7 @@ public class signup_Fragment extends Fragment {
 
                     imageView.setImageBitmap(bitimage);
                     imagePick( requestCode,returnUri);
-                    
+
 
 
                 } catch (IOException e) {
@@ -549,6 +605,7 @@ public class signup_Fragment extends Fragment {
                     if(code==1020 ||code==1010) {
                         imageid = resultResponse;
                         Log.i("Unexpected", resultResponse);
+                        logolist.add(imageid);
                     }
                     if(code==0000){
                         imageid=resultResponse;
@@ -556,6 +613,7 @@ public class signup_Fragment extends Fragment {
                         String getHref = ip1 + "/b2b/api/v1/user/image/get/" + imageid + "";
                         Log.d("href...", getHref);
                         Glide.with(getActivity().getApplicationContext()).load(getHref).into(imageView);
+                        logolist.add(imageid);
                     }
                    /* else if(code==5020||code==5010){
                       gstid=resultResponse;
@@ -655,6 +713,8 @@ public class signup_Fragment extends Fragment {
                     }
                     else if(response.equals("true")&&count==2){
                         Toast.makeText(getActivity(),"Mobile number already exist. change the number!",Toast.LENGTH_SHORT).show();
+                        id="%2B"+phone_t;
+                        count=1;
                     }
                     else if (response.equals("false")&&count==1){
                         count=2;

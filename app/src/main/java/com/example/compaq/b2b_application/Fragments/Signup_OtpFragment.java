@@ -71,7 +71,7 @@ public class Signup_OtpFragment extends Fragment {
         if(!bundle.isEmpty()) {
             signuplist.addAll((ArrayList<SignupModel>) bundle.getSerializable("Data"));
             bundle.remove("Data");
-            signupModel= (SignupModel) signuplist.get(0);
+            signupModel= (SignupModel) signuplist.get(signuplist.size()-1);
         }
 
 
