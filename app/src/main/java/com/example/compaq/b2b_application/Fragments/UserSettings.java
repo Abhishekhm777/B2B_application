@@ -83,6 +83,7 @@ public class UserSettings extends Fragment  {
     RecipientEditTextView chipsInput;
     private List<ChipItem> suggestions = new ArrayList<>();
     private final List<String> chips = new ArrayList<>();
+    private  SuggestionsAdapter suggestionsAdapter;
     private View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,21 +96,14 @@ public class UserSettings extends Fragment  {
         sharedPref =getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         Acess_Token=sharedPref.getString(ACCESS_TOKEN, null);
         seal_recycler=(RecyclerView)view.findViewById(R.id.seal_recyclerview);
+
         final GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 1);
         seal_recycler.setLayoutManager(mGridLayoutManager);
         zoombox=(CheckBox)view.findViewById(R.id.zoom_checkbox);
 
 
-        SuggestionsAdapter suggestionsAdapter
-                = new SuggestionsAdapter(getContext(), suggestions);
+         suggestionsAdapter = new SuggestionsAdapter(getContext(), suggestions);
 
-        chips.add("sjdvsd");
-        chips.add("sjdvsd");
-        chips.add("sjdvsd");
-
-        chipsInput.setThreshold(2);
-        chipsInput.setAdapter(suggestionsAdapter);
-        chipsInput.setChipsList(chips);
 
 
 
@@ -170,6 +164,8 @@ public class UserSettings extends Fragment  {
         String   url=ip+"uaa/b2b/api/v1/user/update";
         JSONArray sealArray=new JSONArray();
         JSONObject webObject=new JSONObject();
+
+        userClass.put(chipsInput.getAllChipsValue());
 
 
 
@@ -297,6 +293,16 @@ public class UserSettings extends Fragment  {
                     verifyRequest=jObj.getBoolean("verifyRequest");
                     websiteSetting=jObj.getJSONObject("websiteSetting");
                     wishlist=jObj.getJSONArray("wishList");
+
+                    for(int i=0;i<userClass.length();i++){
+                        chips.add(userClass.getString(i));
+                    }
+                    /*chips.add("sjdvsd");
+                    chips.add("25");
+                    chips.add("478");*/
+
+                    chipsInput.setAdapter(suggestionsAdapter);
+                    chipsInput.setChipsList(chips);
 
                     Log.d("userClass.....",userClass.toString());
                     if(websiteSetting.getBoolean("zoomEnable")==true){

@@ -789,11 +789,11 @@ public class RecipientEditTextView extends AppCompatMultiAutoCompleteTextView
       return;
     }
     String token = editable.toString().substring(tokenStart, tokenEnd);
-    final String trimmedToken = token.trim();
+   /* final String trimmedToken = token.trim();
     final int commitCharIndex = trimmedToken.lastIndexOf(COMMIT_CHAR_COMMA);
     if (commitCharIndex != -1 && commitCharIndex == trimmedToken.length() - 1) {
       token = trimmedToken.substring(0, trimmedToken.length() - 1);
-    }
+    }*/
     final ChipItem entry = createTokenizedEntry(token);
     if (entry != null) {
       DrawableRecipientChip chip = null;

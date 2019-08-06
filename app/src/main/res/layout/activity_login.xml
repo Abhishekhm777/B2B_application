@@ -80,7 +80,7 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/txtInLayoutUsername"
             android:layout_width="0dp"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
@@ -109,7 +109,7 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/txtInLayoutPassword"
             android:layout_width="0dp"
-            android:layout_height="53dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/catamaran"
