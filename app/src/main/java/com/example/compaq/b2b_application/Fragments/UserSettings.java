@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -53,7 +54,7 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 
-public class UserSettings extends Fragment {
+public class UserSettings extends Fragment  {
 
     private SharedPreferences sharedPref;
     private String Acess_Token,adharNo="",pan="",role="",password="",adharDocumentId="",panDocumentId="",email="",user_fname="",user_lname="", teli_phone="";
@@ -101,7 +102,6 @@ public class UserSettings extends Fragment {
                         seallist.add("");
                         meltlist.add("");
                         sealAdapter.notifyDataSetChanged();
-
                     }
                 }
                 else {
@@ -332,9 +332,6 @@ public class UserSettings extends Fragment {
                 e.printStackTrace();
             }
 
-
-
-
         sealAdapter=new SealAdapter(getActivity(),sealModelArrayList,seallist,meltlist);
         seal_recycler.setAdapter(sealAdapter);
 
@@ -379,5 +376,6 @@ public class UserSettings extends Fragment {
         }
         return  false;
     }
+
 
 }

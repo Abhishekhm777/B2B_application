@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -16,9 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -27,11 +25,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.example.compaq.b2b_application.Activity.Update_product_Activity;
 import com.example.compaq.b2b_application.Activity.Varient_Activity;
 import com.example.compaq.b2b_application.Adapters.RecyclerAdapter3;
-import com.example.compaq.b2b_application.Adapters.UpdateFragment_expandablelistview;
 import com.example.compaq.b2b_application.Adapters.Update_product_recy_Adaptetr;
 import com.example.compaq.b2b_application.Adapters.Varients_Adapter;
 import com.example.compaq.b2b_application.Helper_classess.SessionManagement;
@@ -52,7 +48,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip_cat;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
@@ -62,12 +57,12 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class Update_product_newFragment extends Fragment {
+public class Update_product_newFragment extends Fragment implements Update_product_recy_Adaptetr.IProcessFilter {
 private View view;
 private SharedPreferences sharedPref;
 
 private String userid,output,pro_id;
-private ArrayList<String> image_ids;
+private ArrayList<Update_product_model> image_ids;
 private ArrayList<String> varents_list;
 private Update_product_recy_Adaptetr update_product_recy_adaptetr;
 private Varients_Adapter varients_adapter;
@@ -77,24 +72,27 @@ private Activity activity;
 private Recycler_model3 main2_listner;
 private ArrayList<Recycler_model3> detProductlist;
 private ArrayList<Inner_Recy_model> details_list;
+private ArrayList<String> duplicate;
 private Inner_Recy_model inner_recy_listner;
 private  RecyclerAdapter3 main2_recycler_adapter;
 private String sku,name,manufacture_name,manufacture_mob,days;
 @BindView(R.id.image_recycler)RecyclerView imageRecycler;
-@BindView(R.id.varient_recycler)RecyclerView varient_recycler;
 @BindView(R.id.detail_recycler)RecyclerView detail_recycler;
 @BindView(R.id.update_btn) Button update_btn;
 @BindView(R.id.addVarient_btn) Button add_varient_btn;
 
+
+
     public Update_product_newFragment() {
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view= inflater.inflate(R.layout.fragment_update_product_new, container, false);
         ButterKnife.bind(this,view);
         activity=getActivity();
+
+
 
         sharedPref =getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         userid = sharedPref.getString("userid", "");
@@ -103,10 +101,6 @@ private String sku,name,manufacture_name,manufacture_mob,days;
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(), 1, GridLayoutManager.HORIZONTAL, false);
         imageRecycler.setLayoutManager(mGridLayoutManager);
         imageRecycler.setItemAnimator(new DefaultItemAnimator());
-
-        GridLayoutManager manager = new GridLayoutManager(getActivity().getApplicationContext(), 1, GridLayoutManager.HORIZONTAL, false);
-        varient_recycler.setLayoutManager(manager);
-        varient_recycler.setItemAnimator(new DefaultItemAnimator());
 
         detail_recycler.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         detail_recycler.setHasFixedSize(true);
@@ -117,7 +111,12 @@ private String sku,name,manufacture_name,manufacture_mob,days;
 
         detProductlist=new ArrayList<>();
 
-        loadProductsData(pro_id);
+
+
+        loadProductsData(pro_id,this);
+/*
+        update_product_recy_adaptetr = new Update_product_recy_Adaptetr(getActivity().getApplicationContext(), image_ids,this);
+*/
 
         update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,17 +153,16 @@ private String sku,name,manufacture_name,manufacture_mob,days;
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-
-
 ///////////////////Load images int recycler////////////////////////
-    public void loadProductsData(final  String id){
+    public void loadProductsData(final String id,final Update_product_newFragment update_product_newFragment){
 
         detail_recycler.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
 
         detail_recycler.setHasFixedSize(true);
-
+        duplicate=new ArrayList<>();
         image_ids=new ArrayList<>();
         String url=ip_cat+"/product/"+id+"?wholesaler="+userid;
+        Log.e("URL",url);
         StringRequest stringRequest=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public
@@ -172,6 +170,12 @@ private String sku,name,manufacture_name,manufacture_mob,days;
                 try {
                     JSONObject jsonObj = new JSONObject(response);
                     JSONObject jp=jsonObj.getJSONObject("resourceSupport");
+                    String id=jp.getString("id");
+                    String custum_of=jp.getString("customOf");
+                    if(id.equalsIgnoreCase(custum_of)){
+                        add_varient_btn.setEnabled(true);
+                        add_varient_btn.setBackgroundColor(getResources().getColor(R.color.Blue_colour));
+                    }
                     sku=jp.getString("sku");
                     name=jp.getString("name");
                     manufacture_name=jp.getString("manufactureName");
@@ -179,11 +183,16 @@ private String sku,name,manufacture_name,manufacture_mob,days;
                     days=jp.getString("requiredDayesToDeliver");
                     JSONArray image_arr=jp.getJSONArray("imageGridFsID");
                     JSONArray links_array=jp.getJSONArray("links");
-                    for(int k=0;k<image_arr.length();k++){
+                   /* for(int k=0;k<image_arr.length();k++){
                         image_ids.add((image_arr.getString(k)));
-                    }
-                    update_product_recy_adaptetr = new Update_product_recy_Adaptetr(getActivity().getApplicationContext(), image_ids);
-                    imageRecycler.setAdapter(update_product_recy_adaptetr);
+                    }*/
+                  /* image_ids.add(image_arr.getString(0),id);*/
+                    duplicate.add((image_arr.getString(0)));
+                   image_ids.add(new Update_product_model(image_arr.getString(0),id));
+                    update_product_recy_adaptetr = new Update_product_recy_Adaptetr(getActivity().getApplicationContext(), image_ids,update_product_newFragment);
+
+                   /* update_product_recy_adaptetr = new Update_product_recy_Adaptetr(getActivity().getApplicationContext(), image_ids);
+                    imageRecycler.setAdapter(update_product_recy_adaptetr);*/
                     for(int i=0;i<links_array.length();i++){
                         JSONObject jsonObject=links_array.getJSONObject(i);
                        if(jsonObject.getString("rel").equalsIgnoreCase("customOF")){
@@ -197,7 +206,6 @@ private String sku,name,manufacture_name,manufacture_mob,days;
                         main2_listner=new Recycler_model3("Primary Details");
                         detProductlist.add(main2_listner);
                         details_list=new ArrayList<>();
-
                         inner_recy_listner = new Inner_Recy_model("Product Name", name);
                         details_list.add(inner_recy_listner);
                         inner_recy_listner = new Inner_Recy_model("SKU", sku);
@@ -208,7 +216,6 @@ private String sku,name,manufacture_name,manufacture_mob,days;
                         details_list.add(inner_recy_listner);
                         inner_recy_listner = new Inner_Recy_model("Req. Days to Deliver", days);
                         details_list.add(inner_recy_listner);
-
                         main2_listner.setArrayList(details_list);
                         for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -222,13 +229,10 @@ private String sku,name,manufacture_name,manufacture_mob,days;
                             for(int j=0;j<attribute.length();j++) {
                                 try {
                                     JSONObject attributeobjects = attribute.getJSONObject(j);
-
                                     key = (attributeobjects.getString("key"));
                                     JSONArray attribute_values = attributeobjects.getJSONArray("values");
-
                                     values = attribute_values.getString(0);
                                     if (values.equalsIgnoreCase("")) {
-
                                         continue;
                                     }
                                     inner_recy_listner = new Inner_Recy_model(key, values);
@@ -236,7 +240,6 @@ private String sku,name,manufacture_name,manufacture_mob,days;
                                 catch (Exception e){
                                     continue;
                                 }
-
                                /* if (heading.equalsIgnoreCase("PRODUCT DETAILS") && j == 0) {
                                     inner_recy_listner = new Inner_Recy_model("Product Name", name);
                                     details_list.add(inner_recy_listner);
@@ -248,7 +251,6 @@ private String sku,name,manufacture_name,manufacture_mob,days;
                             }
                             main2_listner.setArrayList(details_list);
                         }
-
                         Log.d("URL %!!!... , . ,. , . ","Banthuuuuu");
                         main2_recycler_adapter = new RecyclerAdapter3(activity, detProductlist,1);
                         detail_recycler .setAdapter(main2_recycler_adapter);
@@ -300,23 +302,36 @@ private String sku,name,manufacture_name,manufacture_mob,days;
 
     ////////////////get Varients images///////////////////////
 
-    public void fetchVarients(String url ){
-        varents_list=new ArrayList<>();
+    public void fetchVarients(String url){
+
         StringRequest stringRequest=new StringRequest(Request.Method.GET,url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
                 try {
                     JSONArray jsonArray=new JSONArray(response);
                            for(int i=0;i<jsonArray.length();i++){
                              JSONObject jsonObject=jsonArray.getJSONObject(i);
                              JSONArray jsonArray1=jsonObject.getJSONArray("imageGridFsID");
-                             for(int j=0;j<jsonArray1.length();j++){
-                                 varents_list.add(jsonArray1.getString(j));
-                             }
+                              String id=jsonObject.getString("id");
+
+                                   /*  image_ids.add(jsonArray1.getString(0));*/
+                               if(duplicate.contains(jsonArray1.getString(0))){
+                                   continue;
+                               }
+                               else {
+                                   image_ids.add(new Update_product_model(jsonArray1.getString(0),id));
+                               }
+
+
                            }
-                    varients_adapter=new Varients_Adapter(getActivity().getApplicationContext(),varents_list);
-                    varient_recycler.setAdapter(varients_adapter);
+/*
+                       update_product_recy_adaptetr = new Update_product_recy_Adaptetr(getActivity().getApplicationContext(), image_ids,this);
+*/
+
+
+                    imageRecycler.setAdapter(update_product_recy_adaptetr);
+                  /*  varients_adapter=new Varients_Adapter(getActivity().getApplicationContext(),varents_list);
+                    varient_recycler.setAdapter(varients_adapter);*/
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -363,5 +378,20 @@ private String sku,name,manufacture_name,manufacture_mob,days;
         };
         RequestQueue requestQueue= Volley.newRequestQueue(activity);
         requestQueue.add(stringRequest);
+    }
+
+
+
+    @Override
+    public void onProcessFilter(String id) {
+         Log.e("Result",id);
+         image_ids.clear();
+         update_product_recy_adaptetr.notifyDataSetChanged();
+     details_list.clear();
+     detProductlist.clear();
+     main2_recycler_adapter.notifyDataSetChanged();
+
+     loadProductsData(id, this);
+
     }
 }
