@@ -92,8 +92,8 @@ public class Profile_fragment extends Fragment implements Toolbar.OnMenuItemClic
                     fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.mainframe, new Oder_History()).addToBackStack(null).commit();*/
 
-
                     Intent i = new Intent(getContext(), Orders_History_Activity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(i);
                 }
 
@@ -109,6 +109,7 @@ public class Profile_fragment extends Fragment implements Toolbar.OnMenuItemClic
                     fragmentTransaction.replace(R.id.mainframe, new Whish_list_fragment()).addToBackStack(null).commit();
 */
                     Intent i = new Intent(getContext(), Wishlist_Activity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(i);
                 }
                 if(items.equalsIgnoreCase("MY ADDRESS")){
@@ -117,11 +118,13 @@ public class Profile_fragment extends Fragment implements Toolbar.OnMenuItemClic
                     fragmentTransaction.replace(R.id.mainframe, new Order_toB_processed_fragmenrt1()).addToBackStack(null).commit();
 */
                     Intent i = new Intent(getContext(), Address_Activivty.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(i);
                 }
                 if(items.equalsIgnoreCase("SELLER")){
                     getActivity().finish();
                     Intent i = new Intent(getContext(), All_Sellers_Display_Activity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(i);
                 }
                 if(items.equalsIgnoreCase("CUSTOM ORDER")){

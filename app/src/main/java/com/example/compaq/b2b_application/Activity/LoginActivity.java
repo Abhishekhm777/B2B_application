@@ -183,22 +183,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                 if(user_enterd.contains("@")){
                     username=user_enterd;
-
                 }else {
                     username="+91"+user_enterd;
-
                 }
-
 
                 // Check if username, password is filled
                 if(username.trim().length() > 0 && password.trim().length() > 0){
                     // For testing puspose username, password is checked with sample data
                     // username = test
                     // password = test
-
                   /*  new SendPostRequest().execute();*/
-
-
                     getToken();
                   /*  if(accesstoken!="invalid_grant"){
 
@@ -223,7 +217,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     // Show alert asking him to enter the details
                     alert.showAlertDialog(LoginActivity.this, "Login failed..", "Please enter username and password...", "fail");
                 }
-
             }
         });
 
