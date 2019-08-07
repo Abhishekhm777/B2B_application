@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,6 +38,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.SealAdapter;
 import com.example.compaq.b2b_application.Model.SealModel;
 import com.example.compaq.b2b_application.R;
+import com.example.compaq.b2b_application.chips_package.ChipItem;
+import com.example.compaq.b2b_application.chips_package.RecipientEditTextView;
+import com.example.compaq.b2b_application.chips_package.SuggestionsAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +49,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
@@ -53,7 +61,7 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.PREF_NAME;
 
 
-public class UserSettings extends Fragment {
+public class UserSettings extends Fragment  {
 
     private SharedPreferences sharedPref;
     private String Acess_Token,adharNo="",pan="",role="",password="",adharDocumentId="",panDocumentId="",email="",user_fname="",user_lname="", teli_phone="";
@@ -71,19 +79,33 @@ public class UserSettings extends Fragment {
     Button save_user;
     CheckBox zoombox;
     LinearLayout mainLayout;
-
+    @BindView(R.id.tag_input)
+    RecipientEditTextView chipsInput;
+    private List<ChipItem> suggestions = new ArrayList<>();
+    private final List<String> chips = new ArrayList<>();
+    private  SuggestionsAdapter suggestionsAdapter;
+    private View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_user_settings, container, false);
-       mainLayout = (LinearLayout)view.findViewById(R.id.relative);
+         view= inflater.inflate(R.layout.fragment_user_settings, container, false);
+        ButterKnife.bind(this,view);
+
+        mainLayout = (LinearLayout)view.findViewById(R.id.relative);
         sharedPref =getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         Acess_Token=sharedPref.getString(ACCESS_TOKEN, null);
         seal_recycler=(RecyclerView)view.findViewById(R.id.seal_recyclerview);
+
         final GridLayoutManager mGridLayoutManager = new GridLayoutManager(getActivity(), 1);
         seal_recycler.setLayoutManager(mGridLayoutManager);
         zoombox=(CheckBox)view.findViewById(R.id.zoom_checkbox);
+
+
+         suggestionsAdapter = new SuggestionsAdapter(getContext(), suggestions);
+
+
+
 
         seallist=new ArrayList<>();
         meltlist=new ArrayList<>();
@@ -101,7 +123,6 @@ public class UserSettings extends Fragment {
                         seallist.add("");
                         meltlist.add("");
                         sealAdapter.notifyDataSetChanged();
-
                     }
                 }
                 else {
@@ -143,6 +164,8 @@ public class UserSettings extends Fragment {
         String   url=ip+"uaa/b2b/api/v1/user/update";
         JSONArray sealArray=new JSONArray();
         JSONObject webObject=new JSONObject();
+
+        userClass.put(chipsInput.getAllChipsValue());
 
 
 
@@ -271,6 +294,16 @@ public class UserSettings extends Fragment {
                     websiteSetting=jObj.getJSONObject("websiteSetting");
                     wishlist=jObj.getJSONArray("wishList");
 
+                    for(int i=0;i<userClass.length();i++){
+                        chips.add(userClass.getString(i));
+                    }
+                    /*chips.add("sjdvsd");
+                    chips.add("25");
+                    chips.add("478");*/
+
+                    chipsInput.setAdapter(suggestionsAdapter);
+                    chipsInput.setChipsList(chips);
+
                     Log.d("userClass.....",userClass.toString());
                     if(websiteSetting.getBoolean("zoomEnable")==true){
                         zoombox.setChecked(true);
@@ -332,9 +365,6 @@ public class UserSettings extends Fragment {
                 e.printStackTrace();
             }
 
-
-
-
         sealAdapter=new SealAdapter(getActivity(),sealModelArrayList,seallist,meltlist);
         seal_recycler.setAdapter(sealAdapter);
 
@@ -379,5 +409,6 @@ public class UserSettings extends Fragment {
         }
         return  false;
     }
+
 
 }

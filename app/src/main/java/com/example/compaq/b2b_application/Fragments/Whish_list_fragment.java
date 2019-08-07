@@ -109,7 +109,7 @@ emptybtn.setOnClickListener(new View.OnClickListener() {
         });
 
 
-        sharedPref =getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        sharedPref = getActivity().getSharedPreferences("USER_DETAILS", 0);
         output=sharedPref.getString(ACCESS_TOKEN, null);
         wishlistRecycler=view.findViewById(R.id.whishlist_recycler);
         getinfo();

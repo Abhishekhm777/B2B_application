@@ -17,13 +17,21 @@ import com.example.compaq.b2b_application.R;
 import java.util.ArrayList;
 
 public class Update_product_recy_Adaptetr  extends RecyclerView.Adapter<Update_product_recy_Adaptetr.MyViewHolder> {
-    private ArrayList<String> productlist;
+    ArrayList<Update_product_model> productlist;
     public Context mContext;
     private String imageUrl="https://server.mrkzevar.com/gate/b2b/catalog/api/v1/assets/image/";
 
-    public Update_product_recy_Adaptetr(Context mContext, ArrayList<String> productlist) {
+    public interface IProcessFilter {
+        void onProcessFilter(String string1);
+    }
+
+    private IProcessFilter mCallback;
+
+
+    public Update_product_recy_Adaptetr(Context mContext, ArrayList<Update_product_model> productlist, IProcessFilter callback) {
         this.productlist=productlist;
         this.mContext=mContext;
+        mCallback=  callback;
 
     }
     @NonNull
@@ -34,10 +42,19 @@ public class Update_product_recy_Adaptetr  extends RecyclerView.Adapter<Update_p
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Update_product_recy_Adaptetr.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final Update_product_recy_Adaptetr.MyViewHolder holder, final int position) {
 
-          String url=imageUrl+productlist.get(position);
+        final com.example.compaq.b2b_application.Model.Update_product_model listner=  productlist.get(position);
+          String url=imageUrl+listner.getId();
         Glide.with(mContext).load(url).into(holder.imageView);
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            if(position>0) {
+                mCallback.onProcessFilter(listner.getMain_id());
+            }
+            }
+        });
 
     }
 
@@ -60,4 +77,6 @@ public class Update_product_recy_Adaptetr  extends RecyclerView.Adapter<Update_p
             card.requestLayout();
         }
     }
+
+
 }

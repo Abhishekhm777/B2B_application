@@ -71,6 +71,8 @@ import org.michaelbel.bottomsheet.BottomSheet;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLConnection;
@@ -281,7 +283,6 @@ public class Add_new_product_activity extends AppCompatActivity {
                             val_map = expandable_spcification_adapter.getValuemap();
                             uploadImagesToServer();
                         }
-
                }
                else {
                    if(TextUtils.isEmpty(name.getText().toString().trim())){
@@ -294,7 +295,6 @@ public class Add_new_product_activity extends AppCompatActivity {
                    Snackbar.make(view, "Please Fill Mandatory Fields", Snackbar.LENGTH_SHORT)
                            .setAction("Action", null).show();
                }
-
             }
         });
 
@@ -676,21 +676,18 @@ private void requestCameraPermission() {
 
             filePaths.add(outputFileUri);*/
 
+
             Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
-
-
             startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
         } catch (SecurityException ex) {
             ex.printStackTrace();
         }
     }
 
-
     public void gaallery_open() {
         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // ******** code for crop image
-        i.putExtra("crop", false);
+        i.putExtra("crop", true);
         i.putExtra("aspectX", 800);
         i.putExtra("aspectY", 800);
         i.putExtra("outputX", 800);
@@ -752,11 +749,8 @@ private void requestCameraPermission() {
                     productlist.add(new Image_Add_model(bitmap));
                     image_add_adapter = new Image_Add_Adapter(Add_new_product_activity.this, productlist);
                     recyclerView.setAdapter(image_add_adapter);
-
                     Uri uri=bitmapToUriConverter(bitmap);
                     filePaths.add(uri);
-
-
 
                 } catch (NullPointerException e) {
                     e.printStackTrace();
@@ -778,8 +772,9 @@ private void requestCameraPermission() {
             if (requestCode == PICK_IMAGE) {
                 try {
                     Uri selectedImage = data.getData();
+
                     Log.e("Your Error Message", selectedImage.toString());
-                    filePaths.add(selectedImage);
+                  /*  filePaths.add(selectedImage);*/
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
                     Cursor cursor = getApplicationContext().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 
@@ -790,25 +785,27 @@ private void requestCameraPermission() {
 */
 
                     Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, false);
-
                     String fileNameSegments[] = picturePath.split("/");
                     fileName = fileNameSegments[fileNameSegments.length - 1];
                     Log.e("FILE", fileName);
+                    Bitmap bitmap1= getResizedBitmap(bitmap,120);
+                    Uri uri=bitmapToUriConverter(bitmap);
+                    filePaths.add(uri);
 
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+                  /*  ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream);
 
                     byte[] imageInByte = byteArrayOutputStream.toByteArray();
                     long lengthbmp = imageInByte.length;
-                    Log.d("Image Size", String.valueOf(lengthbmp));
+                    Log.e("Image Size", String.valueOf(lengthbmp));*/
 
 
                     /* imageView.setImageBitmap(bitmap);*/
 
-                    fi = AppHelper.getFileDataFromDrawable(getApplicationContext(), bitmap);
+                    fi = AppHelper.getFileDataFromDrawable(getApplicationContext(), bitmap1);
 
 
-                    productlist.add(new Image_Add_model(bitmap));
+                    productlist.add(new Image_Add_model(bitmap1));
                     image_add_adapter = new Image_Add_Adapter(Add_new_product_activity.this, productlist);
                     image_add_adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
                         @Override
@@ -820,7 +817,6 @@ private void requestCameraPermission() {
                         }
                     });
                     recyclerView.setAdapter(image_add_adapter);
-
 
                 } catch (NullPointerException e) {
 
@@ -1749,7 +1745,7 @@ else {
             File file = new File(Add_new_product_activity.this.getFilesDir(), "Image"
                     +".jpeg");
             FileOutputStream out = Add_new_product_activity.this.openFileOutput(file.getName(),Context.MODE_PRIVATE);
-            newBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            newBitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);
             out.flush();
             out.close();
             //get absolute path
@@ -1771,20 +1767,18 @@ else {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
-
         if (height > reqHeight || width > reqWidth) {
-
             final int halfHeight = height / 2;
             final int halfWidth = width / 2;
 
             // Calculate the largest inSampleSize value that is a power of 2 and keeps both
             // height and width larger than the requested height and width.
+
             while ((halfHeight / inSampleSize) >= reqHeight
                     && (halfWidth / inSampleSize) >= reqWidth) {
                 inSampleSize *= 2;
             }
         }
-
         return inSampleSize;
     }
 
@@ -1797,5 +1791,45 @@ else {
 
             return MultipartBody.Part.createFormData(partName, file.getName(), requestBody);
         }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float)width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
+    private Bitmap decodeFile(File f) {
+        try {
+            // Decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(new FileInputStream(f), null, o);
+
+            // The new size we want to scale to
+            final int REQUIRED_SIZE=70;
+
+            // Find the correct scale value. It should be the power of 2.
+            int scale = 1;
+            while(o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+                    o.outHeight / scale / 2 >= REQUIRED_SIZE) {
+                scale *= 2;
+            }
+
+            // Decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+        } catch (FileNotFoundException e) {}
+        return null;
+    }
 
 }

@@ -6,6 +6,7 @@ public class Update_product_model {
     String id;
     String main_id;
     Bitmap bitmap;
+    String image_id,pname;
     public Update_product_model(String id,String main_id){
         this.id=id;
         this.main_id=main_id;
@@ -15,6 +16,8 @@ public class Update_product_model {
         this.main_id=main_id;
         this.bitmap=bitmap;
     }
+
+
 
     public String getId() {
         return id;
