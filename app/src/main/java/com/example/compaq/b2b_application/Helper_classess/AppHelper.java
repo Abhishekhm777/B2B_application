@@ -13,7 +13,7 @@ public class AppHelper {
        /* Drawable drawable = ContextCompat.getDrawable(context, id);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();*/
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
 
@@ -21,12 +21,12 @@ public class AppHelper {
      * Turn drawable into byte array.
      *
      * @param drawable data
-     * @return byte array
+     * @return byte array75
      */
     public static byte[] getFileDataFromDrawable(Context context, Drawable drawable) {
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
 }

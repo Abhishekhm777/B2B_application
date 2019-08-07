@@ -83,6 +83,7 @@ public class Company_profile_Fragment extends Fragment {
     private int defaultAddressID=0,id=0,com_id=0,storeCount=0;
     TextView  logo_text;
     ArrayList<String>logo_list;
+    ImageView cancle_imgbtn;
 
 
 
@@ -112,6 +113,7 @@ public class Company_profile_Fragment extends Fragment {
         gst_button=(Button)view.findViewById(R.id.upload_gst_btn);
         cin_button=(Button)view.findViewById(R.id.upload_cin_btn);
         logo_img=(ImageView)view.findViewById(R.id.company_logo);
+
         logo_text=(TextView)view.findViewById(R.id.logo_text);
         logo_text.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,6 +135,16 @@ public class Company_profile_Fragment extends Fragment {
                     Log.d("href...", getHref);
                     Glide.with(getActivity().getApplicationContext()).load(getHref).into(imageView);
                     img_dialog.show();
+                    cancle_imgbtn=(ImageView)img_dialog.findViewById(R.id.cancle_img) ;
+                    cancle_imgbtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(img_dialog.isShowing()==true){
+                                img_dialog.dismiss();
+                            }
+
+                        }
+                    });
                 }
                 else {
                     showPictureDialog(3000);
@@ -160,6 +172,16 @@ public class Company_profile_Fragment extends Fragment {
                             Log.d("href...", getHref);
                             Glide.with(getActivity().getApplicationContext()).load(getHref).into(imageView);
                             img_dialog.show();
+                            cancle_imgbtn=(ImageView)img_dialog.findViewById(R.id.cancle_img) ;
+                            cancle_imgbtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if(img_dialog.isShowing()==true){
+                                        img_dialog.dismiss();
+                                    }
+
+                                }
+                            });
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -189,6 +211,16 @@ public class Company_profile_Fragment extends Fragment {
                             Log.d("href...", getHref1);
                             Glide.with(getActivity().getApplicationContext()).load(getHref1).into(imageView);
                             img_dialog.show();
+                            cancle_imgbtn=(ImageView)img_dialog.findViewById(R.id.cancle_img) ;
+                            cancle_imgbtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if(img_dialog.isShowing()==true){
+                                        img_dialog.dismiss();
+                                    }
+
+                                }
+                            });
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -386,6 +418,7 @@ public class Company_profile_Fragment extends Fragment {
                                 else if(code==3000){
                                     takePhotoFromCamera(3010);
                                 }
+                                break;
                             case 3:
                                 if(code==1000) {
                                   showFileChooser(1030);
@@ -466,13 +499,29 @@ public class Company_profile_Fragment extends Fragment {
     //////////////////Opening Gallery On Clicking imageview On Drawer///////////////
     private void startGallery(int code) {
         Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        cameraIntent.setType("image/*");
+        cameraIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            if(code==1020) {
+                startActivityForResult(Intent.createChooser( cameraIntent, "Select File"),code);
+            }
+            else if(code==5020){
+                startActivityForResult(Intent.createChooser( cameraIntent, "Select File"),code);
+            }
+            else if(code==3020){
+                startActivityForResult(Intent.createChooser( cameraIntent, "Select File"),code);
+            }
+        }
+        /*Intent cameraIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         cameraIntent.putExtra("crop", "true");
         cameraIntent.putExtra("aspectX", 100);
         cameraIntent.putExtra("aspectY", 100);
         cameraIntent.putExtra("outputX", 256);
         cameraIntent.putExtra("outputY", 356);
-        cameraIntent.setType("image/*");
-        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+        cameraIntent.setType("image/*");*/
+       /* if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             if(code==1020) {
                 startActivityForResult(cameraIntent, code);
             }
@@ -482,7 +531,7 @@ public class Company_profile_Fragment extends Fragment {
             else if(code==3020){
                 startActivityForResult(cameraIntent, code);
             }
-        }
+        }*/
     }
     ////////////////////////////////////////////////////////////////////////////////////
     private void startCamera(int code){
@@ -501,8 +550,20 @@ public class Company_profile_Fragment extends Fragment {
         switch (requestCode) {
             case 1020:
                 if (resultCode == RESULT_OK) {
+                    Bitmap bm=null;
+                    Bitmap bitimage = null;
+                    if (data != null) {
+                        try {
+                            bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                            bitimage = getResizedBitmap(bm, 1024);
+                            //logo_img.setImageBitmap(bitimage);
+                            Upload_image(requestCode,bitimage);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-                    Uri returnUri = data.getData();
+                  /*  Uri returnUri = data.getData();
                     Bitmap bitmapImage ;
                     Bitmap bitimage = null;
                     try {
@@ -515,32 +576,58 @@ public class Company_profile_Fragment extends Fragment {
 
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }
                 break;
             case 5020:
                 if (resultCode == RESULT_OK) {
+                    Bitmap bm=null;
+                    Bitmap bitimage = null;
+                    if (data != null) {
+                        try {
+                            bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                            bitimage = getResizedBitmap(bm, 1024);
+                            //logo_img.setImageBitmap(bitimage);
+                            Upload_image(requestCode,bitimage);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-                     Uri returnUri = data.getData();
+                    /* Uri returnUri = data.getData();
                     Bitmap bitmapImage ;
                     Bitmap bitimage = null;
                     try {
-                          bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
-                          bitimage = getResizedBitmap(bitmapImage, 400);
+                        bitmapImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), returnUri);
+                        bitimage = getResizedBitmap(bitmapImage, 400);
 
                         imagePick(requestCode, returnUri);
 
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }
                 break;
 
             case 3020:
                 if (resultCode == RESULT_OK) {
+                    Bitmap bm=null;
+                    Bitmap bitimage = null;
+                    if (data != null) {
+                        try {
+                            bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                            bitimage = getResizedBitmap(bm, 150);
+                            logo_img.setImageBitmap(bitimage);
+                            Upload_image(requestCode,bitimage);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-                    Uri returnUri = data.getData();
+
+
+                   /* Uri returnUri = data.getData();
                     Bitmap bitmapImage ;
                     Bitmap bitimage = null;
                     try {
@@ -554,6 +641,7 @@ public class Company_profile_Fragment extends Fragment {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                }*/
                 }
 
                 break;
@@ -562,14 +650,16 @@ public class Company_profile_Fragment extends Fragment {
 
 
                     Bitmap bitmapImage ;
-                    Bitmap bitimage = null;
+
                     try {
                         bitmapImage =(Bitmap) data.getExtras().get("data");
-                        bitimage = getResizedBitmap(bitmapImage, 400);
+                        Bitmap bitimage = getResizedBitmap(bitmapImage, 1024);
 
                         //imageView.setImageBitmap(bitimage);
-                        Upload_image(requestCode,bitimage);
+                       // Upload_image(requestCode,bitimage);
                         // imagePick( requestCode,returnUri);
+                        Uri returnUri = getImageUri(getContext(),bitimage);
+                        imagePick( requestCode,returnUri);
 
 
 
@@ -586,7 +676,7 @@ public class Company_profile_Fragment extends Fragment {
                     // Bitmap bitimage = null;
                     try {
                         bitmapImage =(Bitmap) data.getExtras().get("data");
-                        Bitmap bitimage = getResizedBitmap(bitmapImage, 400);
+                        Bitmap bitimage = getResizedBitmap(bitmapImage, 1024);
 
                         //Upload_image(requestCode,bitimage);
                         Uri returnUri = getImageUri(getContext(),bitimage);
@@ -607,7 +697,7 @@ public class Company_profile_Fragment extends Fragment {
                      Bitmap bitimage = null;
                     try {
                         bitmapImage =(Bitmap) data.getExtras().get("data");
-                        bitimage = getResizedBitmap(bitmapImage, 400);
+                        bitimage = getResizedBitmap(bitmapImage, 150);
 
                         Upload_image(requestCode,bitimage);
                         logo_img.setImageBitmap(bitimage);
@@ -659,7 +749,7 @@ public class Company_profile_Fragment extends Fragment {
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        inImage.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(),
                 inImage, "Title", null);
         return Uri.parse(path);
@@ -679,7 +769,7 @@ public class Company_profile_Fragment extends Fragment {
             String picturePath = cursor.getString(columnIndex);
 
 
-            Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 150, 150, true);
+            Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 1024, 1024, true);
             /*if(code==5020 ||code==5010) {
                 File f = new File(picturePath);
                 String imageName = f.getName();
@@ -687,13 +777,13 @@ public class Company_profile_Fragment extends Fragment {
                 gst_file.setText(imageName);
             }*/
 
-
+/*
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
 
             byte[] imageInByte = byteArrayOutputStream.toByteArray();
             long lengthbmp = imageInByte.length;
-            Log.d("Image Size", String.valueOf(lengthbmp));
+            Log.d("Image Size", String.valueOf(lengthbmp));*/
 
 
             Upload_image(code,bitmap);
@@ -750,6 +840,8 @@ public class Company_profile_Fragment extends Fragment {
                         logoImageId=resultResponse;
                         Log.i("Unexpected", resultResponse);
                         logo_list.add(resultResponse);
+                        Toast.makeText(getActivity(), "photo uploaded.."+resultResponse,
+                                Toast.LENGTH_SHORT).show();
 
                     }
                     else if(code==0000){
@@ -802,6 +894,8 @@ public class Company_profile_Fragment extends Fragment {
                 }
                 Log.i("Error", errorMessage);
                 error.printStackTrace();
+                Toast.makeText(getActivity(), "photo uploaded.."+errorMessage,
+                        Toast.LENGTH_LONG).show();
             }
         }) {
             @Override

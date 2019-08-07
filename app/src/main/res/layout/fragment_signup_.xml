@@ -43,6 +43,7 @@
             android:src="@drawable/logo_image"
             android:layout_centerInParent="true"
             android:layout_height="72dp"
+            android:scaleType="fitXY"
             />
 
         <TextView
@@ -63,7 +64,6 @@
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="#e6e6e5"
         android:layout_marginTop="20dp"
-
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp">
     <android.support.design.widget.TextInputLayout
@@ -354,7 +354,7 @@
 
 
 
-           <!-- <LinearLayout
+           <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -362,15 +362,17 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:text="I accept"/>
                 <TextView
+                    android:id="@+id/terms_"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:text=" Ordofy terms and policy"
                     android:clickable="true"
                     android:textColor="#2196f3"/>
-            </LinearLayout>-->
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
@@ -384,7 +386,7 @@
         android:id="@+id/signup_process"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="I ACCEPT Ordofy terms and policy"
+        android:text="submit"
         android:textColor="@color/white"
         android:background="@color/Text"
         android:layout_gravity="bottom|end"

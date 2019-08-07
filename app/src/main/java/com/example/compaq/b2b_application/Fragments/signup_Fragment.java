@@ -84,25 +84,21 @@ public class signup_Fragment extends Fragment {
     CheckBox checkBox;
     public Button sign_upbutton,upload_logo,gstn_button;
     ImageView imageView;
-    private static String imageid="",gstid="";
     Toolbar toolbar;
+    EditText mobile_otp,email_otp;
+    Button mobile_btn,email_btn;
+    TextView upload_txt;
+    private static String imageid="",gstid="";
+
     private static  int count=1;
     private static String id="";
     SignupModel signupModel;
-    private int PICK_IMAGE_REQUEST = 1;
-    private EditText otp;
-    private AlertDialog alertDialoga;
-    private Object logo_image;
     Dialog dialog;
-    EditText mobile_otp,email_otp;
-    Button mobile_btn,email_btn;
-    // Inflate the layout for this fragment
     SharedPreferences sharedPref;
     SharedPreferences.Editor myEditior;
     Bundle bundle;
     ArrayList<SignupModel>signupModelArrayList;
-    private int GALLERY = 1, CAMERA = 2;
-   // TextView gst_file;
+
     CountryCodePicker ccp;
     ArrayList<String>logolist;
 
@@ -135,6 +131,7 @@ public class signup_Fragment extends Fragment {
         logolist=new ArrayList<>();
 
         upload_logo=(Button)view.findViewById(R.id.upload_logBtn);
+        upload_txt=(TextView)view.findViewById(R.id.tx_username) ;
         sign_upbutton=(Button)view.findViewById(R.id.signup_process);
         checkBox=(CheckBox)view.findViewById(R.id.seller_checkbox);
         ccp = (CountryCodePicker)view.findViewById(R.id.ccp);
@@ -150,12 +147,18 @@ public class signup_Fragment extends Fragment {
         mobile_btn=(Button)dialog.findViewById(R.id.mobile_button);
         email_btn=(Button)dialog.findViewById(R.id.email_btn) ;
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        /*imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 showPictureDialog(1000);
 
+            }
+        });*/
+        upload_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPictureDialog(1000);
             }
         });
 
