@@ -43,7 +43,7 @@
             android:src="@drawable/logo_image"
             android:layout_centerInParent="true"
             android:layout_height="72dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             />
 
         <TextView
@@ -360,12 +360,13 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp">
                 <CheckBox
+                    android:id="@+id/accept_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="I accept"/>
                 <TextView
-                    android:id="@+id/terms_"
+                    android:id="@+id/terms_condition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"

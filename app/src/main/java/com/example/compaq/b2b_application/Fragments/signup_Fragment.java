@@ -50,6 +50,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.compaq.b2b_application.Activity.Policy_activity;
 import com.example.compaq.b2b_application.Activity.Sign_up_Activity;
 import com.example.compaq.b2b_application.Helper_classess.AppHelper;
 import com.example.compaq.b2b_application.Helper_classess.VolleyMultipartRequest;
@@ -84,10 +85,10 @@ public class signup_Fragment extends Fragment {
     CheckBox checkBox;
     public Button sign_upbutton,upload_logo,gstn_button;
     ImageView imageView;
-    Toolbar toolbar;
+
     EditText mobile_otp,email_otp;
     Button mobile_btn,email_btn;
-    TextView upload_txt;
+    TextView upload_txt,terms_text;
     private static String imageid="",gstid="";
 
     private static  int count=1;
@@ -123,6 +124,7 @@ public class signup_Fragment extends Fragment {
         teli_phone=(EditText)view.findViewById(R.id.edit_mobile);
         password=(EditText)view.findViewById(R.id.edit_password);
         confirm_password=(EditText)view.findViewById(R.id.confir_password) ;
+        terms_text=(TextView)view.findViewById(R.id.terms_condition);
         imageView=(ImageView)view.findViewById(R.id.profile_logo);
         Bitmap icon = BitmapFactory.decodeResource(getActivity().getResources(),
                 R.drawable.yourlogo);
@@ -133,7 +135,7 @@ public class signup_Fragment extends Fragment {
         upload_logo=(Button)view.findViewById(R.id.upload_logBtn);
         upload_txt=(TextView)view.findViewById(R.id.tx_username) ;
         sign_upbutton=(Button)view.findViewById(R.id.signup_process);
-        checkBox=(CheckBox)view.findViewById(R.id.seller_checkbox);
+        checkBox=(CheckBox)view.findViewById(R.id.accept_box);
         ccp = (CountryCodePicker)view.findViewById(R.id.ccp);
 
 
@@ -146,6 +148,18 @@ public class signup_Fragment extends Fragment {
 
         mobile_btn=(Button)dialog.findViewById(R.id.mobile_button);
         email_btn=(Button)dialog.findViewById(R.id.email_btn) ;
+        terms_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://www.ordofy.com/policy")
+                );
+
+                startActivity(i);
+            }
+        });
 
         /*imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,6 +239,14 @@ public class signup_Fragment extends Fragment {
                 }
                else if ( !password_t.equals(confirm_password_t)) {
                    confirm_password.setError("Password mismatched");
+                    return;
+                }
+                else if ( checkBox.isChecked()==false) {
+                    /*Toast.makeText(getActivity(),"Please accept Terms and conditions",
+                            Toast.LENGTH_LONG).show();*/
+                    BottomSheet.Builder builder1 = new BottomSheet.Builder(getContext());
+                    builder1.setTitle("Please accept Terms and conditions");
+                    builder1.show();
                     return;
                 }
                /* if(!checkBox.isChecked()){

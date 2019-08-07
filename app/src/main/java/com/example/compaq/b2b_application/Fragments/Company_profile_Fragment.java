@@ -113,7 +113,7 @@ public class Company_profile_Fragment extends Fragment {
         gst_button=(Button)view.findViewById(R.id.upload_gst_btn);
         cin_button=(Button)view.findViewById(R.id.upload_cin_btn);
         logo_img=(ImageView)view.findViewById(R.id.company_logo);
-
+        update=(Button)view.findViewById(R.id.company_save_process);
         logo_text=(TextView)view.findViewById(R.id.logo_text);
         logo_text.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -239,7 +239,7 @@ public class Company_profile_Fragment extends Fragment {
 
 
 
-        update=(Button)view.findViewById(R.id.company_save_process);
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1158,8 +1158,10 @@ public void deletelogo(final String img_id){
                     cin_text.setEnabled(true);
                     cin_text.setClickable(true);
                     cin_text.setFocusableInTouchMode(true);
-                }
 
+                }
+                gst_button.setVisibility(View.VISIBLE);
+                update.setVisibility(View.VISIBLE);
                 description.setEnabled(true);
                 description.setClickable(true);
                 description.setFocusableInTouchMode(true);
