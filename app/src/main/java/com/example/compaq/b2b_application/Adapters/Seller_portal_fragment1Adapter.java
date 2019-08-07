@@ -146,6 +146,7 @@ public class Seller_portal_fragment1Adapter extends RecyclerView.Adapter<Seller_
                     myEditior.commit();
                     Intent intent=new Intent(mCtx, MainActivity.class);
                     ((All_Sellers_Display_Activity)mCtx).finish();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     mCtx.startActivity(intent);
                                  return;
                 }

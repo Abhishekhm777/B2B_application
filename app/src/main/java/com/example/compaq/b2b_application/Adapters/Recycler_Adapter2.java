@@ -145,6 +145,7 @@ public class Recycler_Adapter2 extends RecyclerView.Adapter<Recycler_Adapter2.My
         bundle.putString("lurl",item_clicked);
         bundle.putString("sku",sku);
         Intent intent=new Intent(mCtx, Displaying_complete_product_details_Activity.class).putExtras(bundle);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         mCtx.startActivity(intent);
     }
 });
@@ -247,19 +248,14 @@ public class Recycler_Adapter2 extends RecyclerView.Adapter<Recycler_Adapter2.My
                     holder.whishlist_button.startAnimation(scaleAnimation);
                     if(holder.whishlist_button.isChecked()) {
                         Log.e("SKU",listner.getSku());
-
                         Vibrator v = (Vibrator)mCtx.getSystemService(Context.VIBRATOR_SERVICE);
                         v.vibrate(50);
                         addToWhishlist(listner.getSku());
-
-
 
                     }
                     if(!holder.whishlist_button.isChecked()){
                         removeFromWhish(listner.getSku());
                         Log.e("UNCHECKED",listner.getSku());
-
-
                     }
                 }
             });
@@ -282,7 +278,6 @@ public class Recycler_Adapter2 extends RecyclerView.Adapter<Recycler_Adapter2.My
             imageV=(ImageView)itemView.findViewById(R.id.navimage);
 
             whishlist_button=(ToggleButton) itemView.findViewById(R.id.button_favorite);
-
         }
     }
     public void userCart_details(String us_id) {

@@ -48,6 +48,7 @@ import com.example.compaq.b2b_application.Activity.Displaying_complete_product_d
 import com.example.compaq.b2b_application.Adapters.Inner_RecyclerAdapter4;
 import com.example.compaq.b2b_application.Adapters.RecyclerAdapter3;
 import com.example.compaq.b2b_application.Adapters.ViewpageAdapter2;
+import com.example.compaq.b2b_application.Helper_classess.UserInfoHelperClass;
 import com.example.compaq.b2b_application.Model.Inner_Recy_model;
 import com.example.compaq.b2b_application.Model.Recycler_model3;
 import com.example.compaq.b2b_application.Model.Viewpager2_model;
@@ -112,6 +113,7 @@ private View view;
     private ScaleAnimation scaleAnimation2;
     private String sku_wishlilst;
     private String output,wholesaler,user_id;
+    private  Context context;
     /* public SharedPreferences.Editor cartEditor;*/
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 
@@ -132,6 +134,8 @@ private View view;
         output=sharedPref.getString(ACCESS_TOKEN, null);
         user_id = sharedPref.getString("userid", null);
         myEditor = sharedPref.edit();
+
+       context=getActivity();
 
         dialog = new Dialog(getContext());
         dialog.setContentView(R.layout. progress_layout);
@@ -185,7 +189,10 @@ private View view;
             @Override
             public void onClick(View v) {
 
-                ContextThemeWrapper wrapper = new ContextThemeWrapper(getActivity(), R.style.popup);
+
+                UserInfoHelperClass userInfoHelperClass=new UserInfoHelperClass(getActivity(),output,user_id);
+                userInfoHelperClass.cartInfomation();
+                ContextThemeWrapper wrapper = new ContextThemeWrapper(context, R.style.popup);
                 PopupMenu popup = new PopupMenu(wrapper, addtocart);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.shop_now_options, popup.getMenu());
