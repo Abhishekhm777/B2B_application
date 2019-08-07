@@ -16,11 +16,9 @@
             android:layout_centerVertical="true"
             android:fontFamily="@font/catamaran"
             android:textColor="@color/black"
-          android:textStyle="bold"
+           android:textStyle="bold"
             android:layout_gravity="center_vertical"
-            android:text="Title"
             android:id="@+id/heading_textview"
-
             android:textSize="15sp"/>
 
     </RelativeLayout>
