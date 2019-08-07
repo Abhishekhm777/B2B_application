@@ -226,6 +226,8 @@ public void updateUsers() {
                 teli_phone.setEnabled(false);
                 teli_phone.setClickable(false);
                 teli_phone.setFocusableInTouchMode(false);
+                button.setVisibility(View.GONE);
+
                 setHasOptionsMenu(true);
 
 
@@ -288,6 +290,7 @@ public void updateUsers() {
                 teli_phone.setEnabled(true);
                 teli_phone.setClickable(true);
                 teli_phone.setFocusableInTouchMode(true);
+                button.setVisibility(View.VISIBLE);
                 setHasOptionsMenu(false);
 
                 return true;

@@ -198,6 +198,7 @@
             android:textColor="@color/white"
             android:background="@color/Text"
             android:layout_gravity="bottom|end"
+            android:visibility="gone"
             />
     </LinearLayout>
 </RelativeLayout>
