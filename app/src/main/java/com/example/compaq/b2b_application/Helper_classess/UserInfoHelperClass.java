@@ -50,7 +50,6 @@ public UserInfoHelperClass(Context context,String token,String user_id){
             @Override
             public void onResponse(String response) {
                 try {
-
                     JSONObject jObj = new JSONObject(response);
                     JSONArray jsonArray=jObj.getJSONArray("items");
                     bag_items= String.valueOf(jsonArray.length());

@@ -135,14 +135,14 @@ public class Company_profile_Fragment extends Fragment {
                     Log.d("href...", getHref);
                     Glide.with(getActivity().getApplicationContext()).load(getHref).into(imageView);
                     img_dialog.show();
-                    cancle_imgbtn=(ImageView)img_dialog.findViewById(R.id.cancle_img) ;
+                    cancle_imgbtn=(ImageView)img_dialog.findViewById(R.id.cancle_img);
+
                     cancle_imgbtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if(img_dialog.isShowing()==true){
                                 img_dialog.dismiss();
                             }
-
                         }
                     });
                 }
