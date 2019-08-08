@@ -63,6 +63,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip;
 import static com.example.compaq.b2b_application.Activity.MainActivity.ip1;
 import static com.example.compaq.b2b_application.Activity.MainActivity.wishlist2;
@@ -74,7 +77,7 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
  * A simple {@link Fragment} subclass.
  */
 public class DisplayingCompletProduct_fragment1 extends Fragment {
-private View view;
+    private View view;
     private ViewPager viewPager;
     private ViewpageAdapter2 viewPageAdapter2;
     private Context mContext;
@@ -104,9 +107,6 @@ private View view;
     private FragmentManager fragmentManager;
     private ToggleButton toggleButton;
     private int json_length=0;
-
-    public TextView textCartItemCount;
-    private TextView wish_items;
     private Dialog dialog;
     private String cart_item_no="";
     private View actionView;
@@ -114,144 +114,153 @@ private View view;
     private String sku_wishlilst;
     private String output,wholesaler,user_id;
     private  Context context;
-    /* public SharedPreferences.Editor cartEditor;*/
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-
+    @BindView(R.id.p_name)TextView product_name;
+    @BindView(R.id.sku)TextView product_sku;
+    @BindView(R.id.varients_button)Button varients_button;
     public DisplayingCompletProduct_fragment1() {
         // Required empty public constructor
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view= inflater.inflate(R.layout.fragment_displaying_complet_product_fragment1, container, false);
+        if(view==null) {
+            view = inflater.inflate(R.layout.fragment_displaying_complet_product_fragment1, container, false);
+            ButterKnife.bind(this, view);
 
-        sharedPref=getActivity().getSharedPreferences("USER_DETAILS",0);
-        wholesaler= sharedPref.getString("Wholeseller_id", null);
-        output=sharedPref.getString(ACCESS_TOKEN, null);
-        user_id = sharedPref.getString("userid", null);
-        myEditor = sharedPref.edit();
+            sharedPref = getActivity().getSharedPreferences("USER_DETAILS", 0);
+            wholesaler = sharedPref.getString("Wholeseller_id", null);
+            output = sharedPref.getString(ACCESS_TOKEN, null);
+            user_id = sharedPref.getString("userid", null);
+            myEditor = sharedPref.edit();
+            context = getActivity();
+            dialog = new Dialog(getContext());
+            dialog.setContentView(R.layout.progress_layout);
+            Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            productlist = new ArrayList<>();
+            detProductlist = new ArrayList<>();
+            viewPager = view.findViewById(R.id.viewpager2);
+            TabLayout tabLayout = view.findViewById(R.id.dot_tablayout);
+            ////////////////////////////////////////////////////////////////
 
-       context=getActivity();
+            varients_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Varient_display_fragment varient_display_fragment = new Varient_display_fragment();
 
-        dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout. progress_layout);
-        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.product_display_frame, varient_display_fragment);
+                    fragmentTransaction.addToBackStack(null).commit();
+                }
+            });
 
-        productlist=new ArrayList<>();
-        detProductlist=new ArrayList<>();
-
-        viewPager = view.findViewById(R.id.viewpager2);
-        TabLayout tabLayout=view.findViewById(R.id.dot_tablayout);
-
-
-
-
-        tabLayout.setupWithViewPager(viewPager, true);
-        loadRecycleData();
+            tabLayout.setupWithViewPager(viewPager, true);
+            loadRecycleData();
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-        scaleAnimation2 = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
-        scaleAnimation2.setDuration(1000);
-        BounceInterpolator bounceInterpolator = new BounceInterpolator();
-        scaleAnimation2.setInterpolator(bounceInterpolator);
+            scaleAnimation2 = new ScaleAnimation(0.7f, 1.0f, 0.7f, 1.0f, Animation.RELATIVE_TO_SELF, 0.7f, Animation.RELATIVE_TO_SELF, 0.7f);
+            scaleAnimation2.setDuration(1000);
+            BounceInterpolator bounceInterpolator = new BounceInterpolator();
+            scaleAnimation2.setInterpolator(bounceInterpolator);
 
-        toggleButton=(ToggleButton)view.findViewById(R.id.button_favorite) ;
+            toggleButton = (ToggleButton) view.findViewById(R.id.button_favorite);
 
-        if(wishlist2.contains(sku_wishlilst)){
-            toggleButton.setChecked(true);
-        }
-        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                compoundButton.startAnimation(scaleAnimation2);
-                if(b){
-
-                    addToWhishlist(sku_wishlilst);
-                }
-                if(!b){
-                    removeFromWhish(sku_wishlilst);
-                }
+            if (wishlist2.contains(sku_wishlilst)) {
+                toggleButton.setChecked(true);
             }
-        });
+            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    compoundButton.startAnimation(scaleAnimation2);
+                    if (b) {
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        final Button addtocart=(Button)view.findViewById(R.id.addtocart);
-
-        final Button buynow=(Button)view.findViewById(R.id.buynow);
-
-        addtocart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                UserInfoHelperClass userInfoHelperClass=new UserInfoHelperClass(getActivity(),output,user_id);
-                userInfoHelperClass.cartInfomation();
-                ContextThemeWrapper wrapper = new ContextThemeWrapper(context, R.style.popup);
-                PopupMenu popup = new PopupMenu(wrapper, addtocart);
-                //Inflating the Popup using xml file
-                popup.getMenuInflater().inflate(R.menu.shop_now_options, popup.getMenu());
-                popup.show();
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-
-                        if(item.getItemId()==R.id.add_to_bag){
-                            Bundle bundle=getActivity().getIntent().getExtras();
-                            name= Objects.requireNonNull(bundle).getString("Item_Clicked");
-                            id=bundle.getString("id");
-                            Bundle bundle1=new Bundle();
-                            bundle1.putString("item_name",name);
-                            bundle1.putString("Item_Clicked",id);
-                            bundle.putString("pushto","1");
-                            Dropdown_fragment dropdown_fragment =new Dropdown_fragment();
-                            dropdown_fragment.setArguments(bundle);
-                            fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.frame, dropdown_fragment);
-                            fragmentTransaction.addToBackStack(null).commit();
-                        }
-                        if(item.getItemId()==R.id.order_now){
-                            Bundle bundle=getActivity().getIntent().getExtras();
-                            name= Objects.requireNonNull(bundle).getString("Item_Clicked");
-                            id=bundle.getString("id");
-                            Bundle bundle1=new Bundle();
-                            bundle1.putString("item_name",name);
-                            bundle1.putString("Item_Clicked",id);
-                            bundle.putString("pushto","2");
-                            Dropdown_fragment dropdown_fragment =new Dropdown_fragment();
-                            dropdown_fragment.setArguments(bundle);
-                            fragmentManager = getActivity().getSupportFragmentManager();
-                            fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.frame, dropdown_fragment);
-                            fragmentTransaction.addToBackStack(null).commit();
-
-                        }
-                        return  true;
+                        addToWhishlist(sku_wishlilst);
                     }
-                });
+                    if (!b) {
+                        removeFromWhish(sku_wishlilst);
+                    }
+                }
+            });
 
 
-            }
-        });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            final Button addtocart = (Button) view.findViewById(R.id.addtocart);
+
+            final Button buynow = (Button) view.findViewById(R.id.buynow);
+
+            addtocart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    UserInfoHelperClass userInfoHelperClass = new UserInfoHelperClass(getActivity(), output, user_id);
+                    userInfoHelperClass.cartInfomation();
+                    ContextThemeWrapper wrapper = new ContextThemeWrapper(context, R.style.popup);
+                    PopupMenu popup = new PopupMenu(wrapper, addtocart);
+                    //Inflating the Popup using xml file
+                    popup.getMenuInflater().inflate(R.menu.shop_now_options, popup.getMenu());
+                    popup.show();
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+
+                            if (item.getItemId() == R.id.add_to_bag) {
+                                Bundle bundle = getActivity().getIntent().getExtras();
+                                name = Objects.requireNonNull(bundle).getString("Item_Clicked");
+                                id = bundle.getString("id");
+                                Bundle bundle1 = new Bundle();
+                                bundle1.putString("item_name", name);
+                                bundle1.putString("Item_Clicked", id);
+                                bundle.putString("pushto", "1");
+                                Dropdown_fragment dropdown_fragment = new Dropdown_fragment();
+                                dropdown_fragment.setArguments(bundle);
+                                fragmentManager = getActivity().getSupportFragmentManager();
+                                fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frame, dropdown_fragment);
+                                fragmentTransaction.addToBackStack(null).commit();
+                            }
+                            if (item.getItemId() == R.id.order_now) {
+                                Bundle bundle = getActivity().getIntent().getExtras();
+                                name = Objects.requireNonNull(bundle).getString("Item_Clicked");
+                                id = bundle.getString("id");
+                                Bundle bundle1 = new Bundle();
+                                bundle1.putString("item_name", name);
+                                bundle1.putString("Item_Clicked", id);
+                                bundle.putString("pushto", "2");
+                                Dropdown_fragment dropdown_fragment = new Dropdown_fragment();
+                                dropdown_fragment.setArguments(bundle);
+                                fragmentManager = getActivity().getSupportFragmentManager();
+                                fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.frame, dropdown_fragment);
+                                fragmentTransaction.addToBackStack(null).commit();
+
+                            }
+                            return true;
+                        }
+                    });
+
+
+                }
+            });
 //////////////////////////<<<<<<<<<<<<<<<<<<<<//////////////////////////////////////////
 
-        buynow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            buynow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                Bundle bundle1=new Bundle();
-                bundle1.putString("product_id",name);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("product_id", name);
                     Intent i = new Intent(getActivity().getApplicationContext(), Buyer_Custome_Order.class).putExtras(bundle1);
                     startActivity(i);
-            }
-        });
+                }
+            });
+        }
         return  view;
     }
 
@@ -365,13 +374,10 @@ private View view;
         main_recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         main_recyclerView.setHasFixedSize(true);
         Log.d("URL %!!!... , . ,. , . ",d_url);
-
         String Detail_URL_DATA=ip+"gate/b2b/catalog/api/v1/product/"+name+"?wholesaler="+wholesaler;
-
         StringRequest stringRequest=new StringRequest(Request.Method.GET,  Detail_URL_DATA, new Response.Listener<String>() {
             @Override
-            public
-            void onResponse(String response) {
+            public void onResponse(String response) {
 
                 try {
                     JSONObject   jsonObj = new JSONObject(response);
@@ -415,6 +421,9 @@ private View view;
                                 details_list.add(inner_recy_listner);
                                 inner_recy_listner = new Inner_Recy_model("Product Name", item_name);
                                 details_list.add(inner_recy_listner);
+
+                                product_name.setText(item_name);
+                                product_sku.setText(sku);
                             }
 
                             inner_recy_listner=new Inner_Recy_model(key,values);

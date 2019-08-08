@@ -2,6 +2,7 @@ package com.example.compaq.b2b_application.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -36,14 +37,15 @@ public class RecyclerAdapter3 extends RecyclerView.Adapter<RecyclerAdapter3.List
     @Override
     public RecyclerAdapter3.ListnerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        if(value==0) {
+       /* if(value==0) {
             view = inflater.inflate(R.layout.main2cardlayout, parent, false);
             Log.e("Value","0");
         }
         else {
             view = inflater.inflate(R.layout.update_product_main_layout, parent, false);
             Log.e("Value","1");
-        }
+        }*/
+        view = inflater.inflate(R.layout.update_product_main_layout, parent, false);
         RecyclerAdapter3.ListnerViewHolder holder=new RecyclerAdapter3.ListnerViewHolder(view);
 
         return holder;
@@ -56,9 +58,10 @@ public class RecyclerAdapter3 extends RecyclerView.Adapter<RecyclerAdapter3.List
         holder.textView.setText(main2_listner.getHeadings());
         ArrayList<Inner_Recy_model> arrayList=main2_listner.getArrayList();
         Inner_RecyclerAdapter4 inner_recycler_adapter=new Inner_RecyclerAdapter4(context,arrayList,value);
-
-
+/*
         holder.innerRecyclerview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+*/
+        holder.innerRecyclerview.setLayoutManager(new GridLayoutManager(context.getApplicationContext(), 1, GridLayoutManager.VERTICAL, false));
         holder.innerRecyclerview.setHasFixedSize(true);
         holder.innerRecyclerview.setAdapter(inner_recycler_adapter);
     }

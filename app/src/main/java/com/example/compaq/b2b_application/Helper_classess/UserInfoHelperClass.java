@@ -50,7 +50,6 @@ public UserInfoHelperClass(Context context,String token,String user_id){
             @Override
             public void onResponse(String response) {
                 try {
-
                     JSONObject jObj = new JSONObject(response);
                     JSONArray jsonArray=jObj.getJSONArray("items");
                     bag_items= String.valueOf(jsonArray.length());
@@ -61,6 +60,8 @@ public UserInfoHelperClass(Context context,String token,String user_id){
                     myEditior.putString("no_of_items", bag_items);
 
                     myEditior.putString("cartid",cartid);
+                    myEditior.commit();
+                    myEditior.apply();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -71,12 +72,13 @@ public UserInfoHelperClass(Context context,String token,String user_id){
             public void onErrorResponse(VolleyError error) {
 
                 NetworkResponse response = error.networkResponse;
-
-
                 if(response != null && response.data != null){
                     switch(response.statusCode){
                         case 404:
                             myEditior.putString("cartid","0");
+                            myEditior.commit();
+                            myEditior.apply();
+                            break;
                         case 401:
                             session.logoutUser(context);
 
