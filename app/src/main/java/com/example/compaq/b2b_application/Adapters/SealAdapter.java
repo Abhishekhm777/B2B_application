@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static android.view.View.FOCUSABLES_TOUCH_MODE;
-import static android.view.View.FOCUS_DOWN;
 import static com.example.compaq.b2b_application.Helper_classess.SessionManagement.ACCESS_TOKEN;
 
 public class SealAdapter extends RecyclerView.Adapter<SealAdapter.MyViewHolder> {
@@ -55,7 +53,6 @@ public class SealAdapter extends RecyclerView.Adapter<SealAdapter.MyViewHolder> 
     public SealAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.seal_melting, viewGroup, false);
-
         sharedPreferences=context.getSharedPreferences("USER_DETAILS",0);
         access_token=sharedPreferences.getString(ACCESS_TOKEN, null);
         return new SealAdapter.MyViewHolder(itemView);
@@ -68,7 +65,6 @@ public class SealAdapter extends RecyclerView.Adapter<SealAdapter.MyViewHolder> 
         String meltiing= (((SealModel)sealModelArrayList.get(myViewHolder.getAdapterPosition())).getMelting());
 
         myViewHolder.melting_edit.setText(meltiing);
-
 
         myViewHolder.delete_seal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +141,5 @@ public class SealAdapter extends RecyclerView.Adapter<SealAdapter.MyViewHolder> 
             melting_edit=(EditText)itemView.findViewById(R.id.melting_edit) ;
             delete_seal=(ImageButton)itemView.findViewById(R.id.delete_seal_btn) ;
         }
-
     }
-
 }
