@@ -120,8 +120,6 @@ public class HomeFragment_1 extends Fragment implements Toolbar.OnMenuItemClickL
         getSlider( );
         loadRecycleData();
 
-
-
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -384,7 +382,6 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
 
         String url = ip+"gate/b2b/catalog/api/v1/slide/get/"+user_id;
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
             @Override
             public void onResponse(JSONObject response) {
                 swipeContainer.setRefreshing(false);

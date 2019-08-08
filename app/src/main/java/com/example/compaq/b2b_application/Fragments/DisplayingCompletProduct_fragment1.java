@@ -118,6 +118,7 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
     @BindView(R.id.p_name)TextView product_name;
     @BindView(R.id.sku)TextView product_sku;
     @BindView(R.id.varients_button)Button varients_button;
+    private JSONObject varients_object;
     public DisplayingCompletProduct_fragment1() {
         // Required empty public constructor
     }
@@ -150,6 +151,11 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Varient_display_fragment varient_display_fragment = new Varient_display_fragment();
+
+                    Bundle args=new Bundle();
+                    String userProfileString=varients_object.toString();
+                    args.putString("varients", userProfileString);
+                    varient_display_fragment.setArguments(args);
 
                     fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentTransaction = fragmentManager.beginTransaction();
@@ -366,10 +372,7 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-
-
     private void detailsRecycleData(){
-
         main_recyclerView=(RecyclerView)view.findViewById(R.id.main2recycler) ;
         main_recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         main_recyclerView.setHasFixedSize(true);
@@ -381,13 +384,19 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
 
                 try {
                     JSONObject   jsonObj = new JSONObject(response);
+                    varients_object=jsonObj.getJSONObject("variants");
+                    JSONArray jsonArray=varients_object.getJSONArray("variants");
+
+                    Log.e("ARRRRRRRAy",String.valueOf(jsonArray.length()));
+                    if(jsonArray.length()<0){
+                        varients_button.setVisibility(View.INVISIBLE);
+                    }
                     JSONObject jp=jsonObj.getJSONObject("resourceSupport");
                     JSONArray ja_data = jp.getJSONArray("specification");
 
                     Log.d("OutPut", String.valueOf(ja_data.length()));
                     /* details_list=new ArrayList<>();*/
                     int length = ja_data.length();
-
                     for(int i=0; i<length; i++) {
                         JSONObject jObj = ja_data.getJSONObject(i);
                         String heading=(jObj.getString("heading"));
@@ -407,7 +416,6 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
 
                                 values = attribute_values.getString(0);
                                 if (values.equalsIgnoreCase("")) {
-
                                     continue;
                                 }
                                 inner_recy_listner = new Inner_Recy_model(key, values);
@@ -415,20 +423,16 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
                             catch (Exception e){
                                 continue;
                             }
-
                             if (heading.equalsIgnoreCase("PRODUCT DETAILS") && j == 0) {
                                 inner_recy_listner = new Inner_Recy_model("SKU", sku);
                                 details_list.add(inner_recy_listner);
                                 inner_recy_listner = new Inner_Recy_model("Product Name", item_name);
                                 details_list.add(inner_recy_listner);
-
                                 product_name.setText(item_name);
                                 product_sku.setText(sku);
                             }
-
                             inner_recy_listner=new Inner_Recy_model(key,values);
                             details_list.add(inner_recy_listner);
-
                         }
 
                         main2_listner.setArrayList(details_list);
@@ -573,7 +577,6 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
                 fragmentManager =getActivity(). getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.main2, dropdown_fragment);
-
                 fragmentTransaction.addToBackStack(null).commit();
                 // ADD_CUSTOMER_CART();
 
@@ -604,7 +607,6 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
                 try {
                     //JsonObject jsonObject=new JsonObject(response);
                     String id=response.getString("id");
-
                     /*wishlist.add(sku);*/
                     Toast.makeText(getActivity().getApplicationContext(), "Added to wishlist", Toast.LENGTH_SHORT).show();
                     wishlist2.add(sku);

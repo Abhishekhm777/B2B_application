@@ -138,7 +138,6 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
         mlistner = this;
         class2 = "";
         Log.d("class...", class2);
-
         item_clicked = bundle.getString("Item_Clicked").replace(" ","%20");
         if(!item_clicked.equals("")&&!item_clicked.equals(FilterFragment.path)){
             FilterFragment.path="";
@@ -479,13 +478,25 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                     params.putAll(filterparams);
                 }
 
-                params.put("wholesaler", wholseller_id);
-                params.put("retailer",userid);
-                params.put("productType", "REGULAR");
-                params.put("page", 0);
-                params.put("pagesize", 20);
-                create_urls = addQueryStringToUrlString(val, params);
-                Log.d("params", params.toString());
+                if(wholseller_id.equalsIgnoreCase(userid)){
+
+                    params.put("wholesaler", wholseller_id);
+                    params.put("retailer", userid);
+                    params.put("productType", "REGULAR");
+                    params.put("showAll", "true");
+                    params.put("page", 0);
+                    params.put("pagesize", 20);
+                    create_urls = addQueryStringToUrlString(val, params);
+                }
+             else {
+                    params.put("wholesaler", wholseller_id);
+                    params.put("retailer", userid);
+                    params.put("productType", "REGULAR");
+                    params.put("page", 0);
+                    params.put("pagesize", 20);
+                    create_urls = addQueryStringToUrlString(val, params);
+                    Log.d("params", params.toString());
+                }
             }
 
         } catch (UnsupportedEncodingException e) {
