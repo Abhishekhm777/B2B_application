@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.compaq.b2b_application.Adapters.Inner_RecyclerAdapter4;
 import com.example.compaq.b2b_application.Adapters.RecyclerAdapter3;
+import com.example.compaq.b2b_application.Adapters.Varients_buyer_adapter;
 import com.example.compaq.b2b_application.Model.Inner_Recy_model;
 import com.example.compaq.b2b_application.Model.Recycler_model3;
 import com.example.compaq.b2b_application.R;
@@ -48,13 +50,14 @@ private View view;
     private ArrayList<Recycler_model3> detProductlist;
 
     private Recycler_model3 main2_listner;
-    private RecyclerAdapter3 main2_recycler_adapter;
+    private Varients_buyer_adapter varients_buyer_adapter;
     private Inner_Recy_model inner_recy_listner;
     public Inner_RecyclerAdapter4 inner_recycler_adapter;
     private ArrayList<Inner_Recy_model> details_list;
     private SharedPreferences sharedPref;
     private String sku_wishlilst;
     private String output,wholesaler,user_id,name;
+    private JSONObject varients_object;
     @BindView(R.id.main2recycler) RecyclerView main_recyclerView;
 
     public Varient_display_fragment() {
@@ -76,16 +79,25 @@ private View view;
         Bundle bundle=getActivity().getIntent().getExtras();
         name= Objects.requireNonNull(bundle).getString("Item_Clicked");
 
+        String userProfileString=getArguments().getString("varients");
+        try {
+           varients_object=new JSONObject(userProfileString);
+            Log.e("VARIENTS",varients_object.toString());
+
+            varientsDisplay(varients_object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         GridLayoutManager mGridLayoutManager = new GridLayoutManager(getContext().getApplicationContext(), 1, GridLayoutManager.VERTICAL, false);
         main_recyclerView.setLayoutManager(mGridLayoutManager);
-        detailsRecycleData();
+      /*  detailsRecycleData();*/
         return  view;
     }
 
     private void detailsRecycleData(){
 
         String Detail_URL_DATA=ip+"gate/b2b/catalog/api/v1/product/"+name+"?wholesaler="+wholesaler;
-
         StringRequest stringRequest=new StringRequest(Request.Method.GET,  Detail_URL_DATA, new Response.Listener<String>() {
             @Override
             public
@@ -141,8 +153,8 @@ private View view;
 
                     /*  main2_listner.setArrayList(details_list);*/
 
-                    main2_recycler_adapter = new RecyclerAdapter3(getActivity(), detProductlist,0);
-                    main_recyclerView.setAdapter(main2_recycler_adapter);
+                    varients_buyer_adapter = new Varients_buyer_adapter(getActivity(), detProductlist,0);
+                    main_recyclerView.setAdapter(varients_buyer_adapter);
                     main_recyclerView.setNestedScrollingEnabled(false);
 
 
@@ -169,5 +181,34 @@ private View view;
         };
         RequestQueue requestQueue= Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
+    }
+
+
+    public  void varientsDisplay(JSONObject jsonObject) throws JSONException {
+
+        JSONArray jsonArray=jsonObject.getJSONArray("variants");
+        for(int i=0;i<jsonArray.length();i++){
+            JSONArray jsonArray1=jsonArray.getJSONArray(i);
+            main2_listner=new Recycler_model3("");
+            detProductlist.add(main2_listner);
+
+            details_list=new ArrayList<>();
+            for(int k=0;k<jsonArray1.length();k++){
+                JSONObject jsonObject1=jsonArray1.getJSONObject(k);
+
+                if(!TextUtils.isEmpty(jsonObject1.getString("key").trim())&&!TextUtils.isEmpty(jsonObject1.getString("value").trim())){
+                    inner_recy_listner = new Inner_Recy_model(jsonObject1.getString("key"), jsonObject1.getString("value"));
+                    details_list.add(inner_recy_listner);
+                }
+
+            }
+               Log.e("Length",String.valueOf(details_list.size()));
+             main2_listner.setArrayList(details_list);
+        }
+        varients_buyer_adapter = new Varients_buyer_adapter(getActivity(), detProductlist,0);
+        main_recyclerView.setAdapter(varients_buyer_adapter);
+        main_recyclerView.setNestedScrollingEnabled(false);
+
+
     }
 }

@@ -223,6 +223,17 @@
 
     </style>
 
+//////////////////varients///////////////
+    <style name="value">
 
+        <item name="android:textSize">
+            10sp
+        </item>
+
+        <item name="android:textColor">
+            #371308
+        </item>
+
+    </style>
 
 </resources>
