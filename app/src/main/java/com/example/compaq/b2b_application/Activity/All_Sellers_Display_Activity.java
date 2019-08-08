@@ -156,6 +156,7 @@ public RecyclerView sellser_recycler;
                 return true;
             case R.id.onlycart:
                 Intent i = new Intent(this, Cart_Activity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(i);
                 return true;
 

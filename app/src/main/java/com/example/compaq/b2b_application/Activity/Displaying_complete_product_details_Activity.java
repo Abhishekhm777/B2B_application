@@ -49,6 +49,7 @@ import com.example.compaq.b2b_application.Adapters.ViewpageAdapter2;
 import com.example.compaq.b2b_application.Fragments.Custom_serch_by_category_frag;
 import com.example.compaq.b2b_application.Fragments.DisplayingCompletProduct_fragment1;
 import com.example.compaq.b2b_application.Fragments.Dropdown_fragment;
+import com.example.compaq.b2b_application.Helper_classess.UserInfoHelperClass;
 import com.example.compaq.b2b_application.Model.Inner_Recy_model;
 import com.example.compaq.b2b_application.Model.Recycler_model3;
 import com.example.compaq.b2b_application.Model.Viewpager2_model;
@@ -127,6 +128,9 @@ class Displaying_complete_product_details_Activity extends AppCompatActivity imp
 
         setSupportActionBar(toolbar2);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+
+
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();

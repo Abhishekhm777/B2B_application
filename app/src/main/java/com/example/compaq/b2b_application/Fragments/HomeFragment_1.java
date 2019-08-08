@@ -71,17 +71,17 @@ import static com.example.compaq.b2b_application.Helper_classess.SessionManageme
 public class HomeFragment_1 extends Fragment implements Toolbar.OnMenuItemClickListener{
     private ViewPager viewPager;
     private ViewpageAdapter1 viewPageAdapter1;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     public  Home_recy_model home_recy_model;
-    RecyclerAdapter1 adapter;
-    ArrayList<Home_recy_model> productList;
+    private RecyclerAdapter1 adapter;
+    private ArrayList<Home_recy_model> productList;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private CardView cardView;
     private Context context;
-    ProgressBar progressBar;
-    Fragment fragment_2;
-    SharedPreferences pref;
+    private ProgressBar progressBar;
+    private Fragment fragment_2;
+    private SharedPreferences pref;
     private Toolbar toolbar;
     private String output;
     BottomNavigationView bottomNavigationView;
@@ -108,11 +108,9 @@ public class HomeFragment_1 extends Fragment implements Toolbar.OnMenuItemClickL
 
       /*  bottomNavigationView=(BottomNavigationView)view.findViewById(R.id.bottom) ;*/
         TabLayout tabLayout=(TabLayout)view.findViewById(R.id.dot_tablayout);
-
         tabLayout.setupWithViewPager(viewPager, true);
         pref=getActivity().getSharedPreferences("USER_DETAILS",0);
-
-         output=pref.getString(ACCESS_TOKEN, null);
+        output=pref.getString(ACCESS_TOKEN, null);
         user_id= pref.getString("Wholeseller_id", null);
         productList = new ArrayList<>();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
@@ -187,11 +185,13 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
 
                         getActivity().finish();
                         Intent i = new Intent(getActivity(), All_Sellers_Display_Activity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(i);
                 }
                 if(navigationItem.getPosition()==1){
                     getActivity().finish();
                     Intent i = new Intent(getActivity(), Seller_Dashboard_Activity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(i);
                 }
                 if(navigationItem.getPosition()==2){
@@ -199,6 +199,7 @@ bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationVie
                     fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.mainframe, new Personal_info_fragment()).addToBackStack(null).commit();*/
                     Intent in = new Intent(getActivity(), UserProfileActivity.class);
+                    in.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(in);
                 }
 
