@@ -122,7 +122,10 @@ public class UserSettings extends Fragment  {
                         sealModelArrayList.add(new SealModel("", ""));
                         seallist.add("");
                         meltlist.add("");
+
                         sealAdapter.notifyDataSetChanged();
+                        seal_recycler.scrollToPosition(sealModelArrayList.size()-1);
+
                     }
                 }
                 else {
@@ -131,6 +134,7 @@ public class UserSettings extends Fragment  {
                     meltlist.add("");
                     sealAdapter=new SealAdapter(getActivity(),sealModelArrayList,seallist,meltlist);
                     seal_recycler.setAdapter(sealAdapter);
+
 
                 }
 

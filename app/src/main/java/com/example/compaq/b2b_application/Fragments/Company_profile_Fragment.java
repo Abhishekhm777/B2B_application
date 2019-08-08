@@ -256,6 +256,19 @@ public class Company_profile_Fragment extends Fragment {
                 else {
                     updatecompany();
                 }
+                company_name.setEnabled(false);
+                company_name.setClickable(false);
+                company_name.setFocusableInTouchMode(false);
+
+                    cin_text.setEnabled(false);
+                    cin_text.setClickable(false);
+                    cin_text.setFocusableInTouchMode(false);
+                gst_button.setEnabled(false);
+                cin_button.setEnabled(false);
+                update.setVisibility(View.GONE);
+                description.setEnabled(false);
+                description.setClickable(false);
+                description.setFocusableInTouchMode(false);
 
             }
         });
@@ -327,7 +340,9 @@ public class Company_profile_Fragment extends Fragment {
                     company_name.setText(com_name);
                     gst_text.setText(gstin);
                     cin_text.setText(cin);
-                    description.setText(com_description);
+                    if(!com_description.equals(null)&& !com_description.equals("")) {
+                        description.setText(com_description);
+                    }
 
                     if(!logoImageId.equals("") && !logoImageId.equals(null)){
                         String getHref = ip1 + "/b2b/api/v1/user/image/get/" + logoImageId + "";
@@ -1160,8 +1175,10 @@ public void deletelogo(final String img_id){
                     cin_text.setFocusableInTouchMode(true);
 
                 }
-                gst_button.setVisibility(View.VISIBLE);
+                gst_button.setEnabled(true);
+                cin_button.setEnabled(true);
                 update.setVisibility(View.VISIBLE);
+
                 description.setEnabled(true);
                 description.setClickable(true);
                 description.setFocusableInTouchMode(true);

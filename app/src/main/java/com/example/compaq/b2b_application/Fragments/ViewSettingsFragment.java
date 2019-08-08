@@ -1,9 +1,11 @@
 package com.example.compaq.b2b_application.Fragments;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,7 +14,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -62,7 +66,7 @@ public class ViewSettingsFragment extends Fragment {
     ArrayList<String>slider_list,slider_id_array;
     ImageButton addButton;
     JSONArray idArray;
-
+    public  final int PICK_IMAGES = 1;
     private int id=0;
     Slider_adapterView slider_adapterView;
 
@@ -83,7 +87,20 @@ public class ViewSettingsFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             gaallery_open();
+                int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),
+
+                        Manifest.permission.READ_EXTERNAL_STORAGE);
+                if(ActivityCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                {
+                    requestPermissions(
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            2000);
+                }
+                else {
+                    gaallery_open();
+                }
+
             }
         });
 
@@ -96,19 +113,21 @@ public class ViewSettingsFragment extends Fragment {
 
     ////////////////////////////////////image add into slider//////////////////////////
     public void gaallery_open() {
+
         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // ******** code for crop image
-        i.putExtra("crop", "true");
+       /* i.putExtra("crop", "true");
         i.putExtra("aspectX", 800);
         i.putExtra("aspectY", 800);
         i.putExtra("outputX", 800);
-        i.putExtra("outputY", 800);
+        i.putExtra("outputY", 800);*/
+        i.setType("*/*");
 
         try {
 
             i.putExtra("return-data", true);
             startActivityForResult(
-                    Intent.createChooser(i, "Select Picture"), PICK_IMAGE);
+                    Intent.createChooser(i, "Select Picture"), PICK_IMAGES);
         } catch (ActivityNotFoundException ex) {
             ex.printStackTrace();
         }
@@ -117,40 +136,30 @@ public class ViewSettingsFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        if(requestCode==PICK_IMAGES) {
+            try {
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 
-        try {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-
-
-            Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, false);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String picturePath = cursor.getString(columnIndex);
 
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream);
-
-            byte[] imageInByte = byteArrayOutputStream.toByteArray();
-            long lengthbmp = imageInByte.length;
-            Log.d("Image Size", String.valueOf(lengthbmp));
+                Bitmap bitmap = Bitmap.createScaledBitmap((BitmapFactory.decodeFile(picturePath)), 800, 800, true);
 
 
-
-            String fileNameSegments[] = picturePath.split("/");
-            String fileName = fileNameSegments[fileNameSegments.length - 1];
-            Log.e("FILE", fileName);
-            Upload_image(bitmap,fileName);
-
+                String fileNameSegments[] = picturePath.split("/");
+                String fileName = fileNameSegments[fileNameSegments.length - 1];
+                Log.e("FILE", fileName);
+                Upload_image(bitmap, fileName);
 
 
-        } catch (NullPointerException e) {
+            } catch (NullPointerException e) {
 
+            }
         }
-
              /*else {
             Toast.makeText(getActivity(), "Try Again!!", Toast.LENGTH_SHORT).show();
         }*/
@@ -365,7 +374,7 @@ public class ViewSettingsFragment extends Fragment {
                     JSONObject sliderObj = new JSONObject(response);
                     slider_id=sliderObj.getString("id");
 
-                     idArray=sliderObj.getJSONArray("imageGridFsID");
+                    idArray=sliderObj.getJSONArray("imageGridFsID");
                     if(idArray.length()>0){
                         JSONObject linkObj=sliderObj.getJSONObject("_links");
                         if (linkObj.has("imageURl")) {

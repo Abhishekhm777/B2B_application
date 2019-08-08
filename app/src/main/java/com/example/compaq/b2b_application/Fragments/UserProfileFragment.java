@@ -53,10 +53,22 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment company_fragment=new Company_profile_Fragment();
+
                 FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.profile_activity_layout, company_fragment).addToBackStack(null).commit();
                 UserProfileActivity.titleView.setText("COMPANY INFORMATION");
+            }
+        });
+
+        user_text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment userSettings_fragment=new UserSettings();
+                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.profile_activity_layout, userSettings_fragment).addToBackStack(null).commit();
+                UserProfileActivity.titleView.setText("USER SETTINGS");
             }
         });
         view_text.setOnClickListener(new View.OnClickListener() {
@@ -67,16 +79,6 @@ public class UserProfileFragment extends Fragment {
                 FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.profile_activity_layout, viewSettings_fragment).addToBackStack(null).commit();
                 UserProfileActivity.titleView.setText("VIEW SETTINGS");
-            }
-        });
-        user_text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment userSettings_fragment=new UserSettings();
-                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.profile_activity_layout, userSettings_fragment).addToBackStack(null).commit();
-                UserProfileActivity.titleView.setText("USER SETTINGS");
             }
         });
         pasword_text.setOnClickListener(new View.OnClickListener() {
