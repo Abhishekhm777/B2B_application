@@ -466,9 +466,7 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                         params.putAll(sortparams);
                     }
                 }
-
                 else if(class2.equals("sort") &&sortparams.isEmpty() == false) {
-
                     params.putAll(sortparams);
                 }
                 else if(class2.equals("FILTER")&&sortparams!=null) {
@@ -479,7 +477,6 @@ class products_display_fragment extends Fragment implements Toolbar.OnMenuItemCl
                 }
 
                 if(wholseller_id.equalsIgnoreCase(userid)){
-
                     params.put("wholesaler", wholseller_id);
                     params.put("retailer", userid);
                     params.put("productType", "REGULAR");

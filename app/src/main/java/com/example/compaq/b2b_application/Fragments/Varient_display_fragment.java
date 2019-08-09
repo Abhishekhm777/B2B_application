@@ -4,6 +4,7 @@ package com.example.compaq.b2b_application.Fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -58,6 +59,7 @@ private View view;
     private String sku_wishlilst;
     private String output,wholesaler,user_id,name;
     private JSONObject varients_object;
+    private FragmentManager fragmentManager;
     @BindView(R.id.main2recycler) RecyclerView main_recyclerView;
 
     public Varient_display_fragment() {
@@ -71,6 +73,8 @@ private View view;
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_varient_display_fragment, container, false);
         ButterKnife.bind(this, view);
+        fragmentManager=getActivity().getSupportFragmentManager();
+
         sharedPref = getActivity().getSharedPreferences("USER_DETAILS", 0);
         wholesaler = sharedPref.getString("Wholeseller_id", null);
         output = sharedPref.getString(ACCESS_TOKEN, null);
@@ -102,7 +106,6 @@ private View view;
             @Override
             public
             void onResponse(String response) {
-
                 try {
                     JSONObject jsonObj = new JSONObject(response);
                     JSONObject jp=jsonObj.getJSONObject("resourceSupport");
@@ -111,17 +114,14 @@ private View view;
                     Log.d("OutPut", String.valueOf(ja_data.length()));
                     /* details_list=new ArrayList<>();*/
                     int length = ja_data.length();
-
                     for(int i=0; i<length; i++) {
                         JSONObject jObj = ja_data.getJSONObject(i);
                         String heading=(jObj.getString("heading"));
                         main2_listner=new Recycler_model3(heading);
                         detProductlist.add(main2_listner);
-
                         JSONArray attribute = jObj.getJSONArray ("attributes");
                         details_list=new ArrayList<>();
                         String key,values;
-
                         for(int j=0;j<attribute.length();j++) {
                             try {
                                 JSONObject attributeobjects = attribute.getJSONObject(j);
@@ -139,29 +139,21 @@ private View view;
                             catch (Exception e){
                                 continue;
                             }
-
-
-
                             inner_recy_listner=new Inner_Recy_model(key,values);
                             details_list.add(inner_recy_listner);
 
                         }
-
                         main2_listner.setArrayList(details_list);
                     }
 
-
                     /*  main2_listner.setArrayList(details_list);*/
-
-                    varients_buyer_adapter = new Varients_buyer_adapter(getActivity(), detProductlist,0);
+                    varients_buyer_adapter = new Varients_buyer_adapter(getActivity(), detProductlist,0,fragmentManager);
                     main_recyclerView.setAdapter(varients_buyer_adapter);
                     main_recyclerView.setNestedScrollingEnabled(false);
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -183,32 +175,26 @@ private View view;
         requestQueue.add(stringRequest);
     }
 
-
     public  void varientsDisplay(JSONObject jsonObject) throws JSONException {
-
         JSONArray jsonArray=jsonObject.getJSONArray("variants");
         for(int i=0;i<jsonArray.length();i++){
             JSONArray jsonArray1=jsonArray.getJSONArray(i);
             main2_listner=new Recycler_model3("");
             detProductlist.add(main2_listner);
-
             details_list=new ArrayList<>();
             for(int k=0;k<jsonArray1.length();k++){
                 JSONObject jsonObject1=jsonArray1.getJSONObject(k);
-
                 if(!TextUtils.isEmpty(jsonObject1.getString("key").trim())&&!TextUtils.isEmpty(jsonObject1.getString("value").trim())){
                     inner_recy_listner = new Inner_Recy_model(jsonObject1.getString("key"), jsonObject1.getString("value"));
                     details_list.add(inner_recy_listner);
                 }
-
             }
                Log.e("Length",String.valueOf(details_list.size()));
              main2_listner.setArrayList(details_list);
         }
-        varients_buyer_adapter = new Varients_buyer_adapter(getActivity(), detProductlist,0);
+        varients_buyer_adapter = new Varients_buyer_adapter(getActivity(), detProductlist,0,fragmentManager);
         main_recyclerView.setAdapter(varients_buyer_adapter);
         main_recyclerView.setNestedScrollingEnabled(false);
-
 
     }
 }

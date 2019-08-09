@@ -291,13 +291,10 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
                     sku=(jp.getString("sku"));
 
                     JSONArray ja_data = jp.getJSONArray("links");
-
                     Log.d("OutPut", String.valueOf(ja_data.length()));
-
                     int length = ja_data.length();
                     for(int i=0; i<length; i++) {
                         JSONObject jObj = ja_data.getJSONObject(i);
-
                         String sname=(jObj.getString("rel"));
 
                         if(sname.equals("imageURl"))
@@ -315,17 +312,13 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
                                 if(relid.equals("imageURl")){
                                     String sliderImageUrl=img_jObj.getString("href");
                                     d_url=(jObj.getString("id"));
-
-
                                     Viewpager2_model item=new Viewpager2_model(sliderImageUrl);
 
                                     productlist.add(item);
 
                                 }
                             }*/
-
                         }
-
 
                        /* TextView pricetextView=(TextView)findViewById(R.id.priceTextviewdetail) ;
                         pricetextView.setText("₹ "+FinalProductPrice);
@@ -340,8 +333,6 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
                     }
                     detailsRecycleData();
                     viewPageAdapter2=new ViewpageAdapter2(getActivity(),productlist);
-
-
 
                     viewPager.setAdapter(viewPageAdapter2);
 
@@ -381,7 +372,6 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
         StringRequest stringRequest=new StringRequest(Request.Method.GET,  Detail_URL_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
                 try {
                     JSONObject   jsonObj = new JSONObject(response);
                     varients_object=jsonObj.getJSONObject("variants");
@@ -406,7 +396,6 @@ public class DisplayingCompletProduct_fragment1 extends Fragment {
                         JSONArray attribute = jObj.getJSONArray ("attributes");
                         details_list=new ArrayList<>();
                         String key,values;
-
                         for(int j=0;j<attribute.length();j++) {
                             try {
                                 JSONObject attributeobjects = attribute.getJSONObject(j);

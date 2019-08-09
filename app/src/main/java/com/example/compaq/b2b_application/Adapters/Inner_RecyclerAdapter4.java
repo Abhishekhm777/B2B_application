@@ -33,9 +33,7 @@ public class Inner_RecyclerAdapter4 extends RecyclerView.Adapter<Inner_RecyclerA
     public Inner_RecyclerAdapter4.ListnerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
 
-        if(value==0) {
-            view = inflater.inflate(R.layout.buyer_varients_inner_layout, parent, false);
-        }
+
         if (value==1){
             view = inflater.inflate(R.layout.inner_recycler_card, parent, false);
         }
@@ -49,21 +47,13 @@ public class Inner_RecyclerAdapter4 extends RecyclerView.Adapter<Inner_RecyclerA
         Inner_Recy_model inner_recy_listner=(Inner_Recy_model)details_list.get(position);
         holder.textView1.setText(inner_recy_listner.getKey());
         holder.textView2.setText(inner_recy_listner.getValues());
-        if(value==0) {
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cardView.setBackgroundResource(R.drawable.background_design);
-                }
-            });
-        }
+
     }
 
     @Override
     public int getItemCount() {
         return details_list.size();
     }
-
     public class ListnerViewHolder extends RecyclerView.ViewHolder {
         TextView textView1,textView2;
         LinearLayout linearLayout;
@@ -71,9 +61,6 @@ public class Inner_RecyclerAdapter4 extends RecyclerView.Adapter<Inner_RecyclerA
             super(itemView);
             textView1=(TextView)itemView.findViewById(R.id.keytextview);
             textView2=(TextView)itemView.findViewById(R.id.valuetextview);
-            if(value==0) {
-                linearLayout = itemView.findViewById(R.id.inner);
-            }
 
         }
     }

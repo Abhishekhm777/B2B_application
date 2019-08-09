@@ -3,6 +3,7 @@ package com.example.compaq.b2b_application.Adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,11 +25,13 @@ public class Varients_buyer_adapter extends RecyclerView.Adapter<Varients_buyer_
     public ArrayList<Recycler_model3> detProductlist;
     private View view;
     private int value;
+    private FragmentManager fragmentManager;
 
-    public Varients_buyer_adapter(Context context, ArrayList<Recycler_model3> detProductlist, int value) {
+    public Varients_buyer_adapter(Context context, ArrayList<Recycler_model3> detProductlist, int value,FragmentManager fragmentManager) {
         this.context = context;
         this.detProductlist=detProductlist;
         this.value=value;
+        this.fragmentManager=fragmentManager;
 
     }
     @NonNull
@@ -54,14 +57,13 @@ public class Varients_buyer_adapter extends RecyclerView.Adapter<Varients_buyer_
         Recycler_model3 main2_listner=(Recycler_model3)detProductlist.get(i);
 
         ArrayList<Inner_Recy_model> arrayList=main2_listner.getArrayList();
-        Inner_RecyclerAdapter4 inner_recycler_adapter=new Inner_RecyclerAdapter4(context,arrayList,value,holder.cardView);
+        Varients_inner_Adapter inner_recycler_adapter=new Varients_inner_Adapter(context,arrayList,holder.cardView,fragmentManager);
 /*
         holder.innerRecyclerview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
 */
         holder.innerRecyclerview.setLayoutManager(new GridLayoutManager(context.getApplicationContext(), 2, GridLayoutManager.VERTICAL, false));
         holder.innerRecyclerview.setHasFixedSize(true);
         holder.innerRecyclerview.setAdapter(inner_recycler_adapter);
-
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
